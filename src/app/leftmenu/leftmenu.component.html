@@ -1,0 +1,36 @@
+<div class="nav-side-menu col-lg-3 col-md-3 col-sm-3">
+  <div class="brand">Brand Logo</div>
+  <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+  <div class="menu-list">
+    
+    <ul id="menu-content" class="menu-content collapse out">
+      <li>
+        <a href="" routerLink="/home" routerLinkActive="active">
+          <i class="fa fa-dashboard fa-lg"></i> Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="" routerLink="/charts" routerLinkActive="active">
+          <i class="fa fa-bar-chart fa-lg"></i> Chart
+        </a>
+      </li>
+      <li  data-toggle="collapse" data-target="#profile" class="collapsed active">
+        <a ><i class="fa fa-user fa-lg"></i> Profile <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="profile">
+        <li>
+          <a href="" routerLink="/changepassowrd" routerLinkActive="active">
+            <i class="fa fa-edit fa-lg"></i> Change Password
+          </a>
+        </li>
+        <li>
+          <a href="" routerLink="/logout" routerLinkActive="active">
+            <i class="fa fa-sign-out fa-lg"></i> Logout
+          </a>
+        </li>
+      </ul>
+      
+    </ul>
+  </div>
+</div>
