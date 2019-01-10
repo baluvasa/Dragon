@@ -5,27 +5,37 @@
   <div class="menu-list">
     
     <ul id="menu-content" class="menu-content collapse out">
-      <li>
-        <a href="" routerLink="/home" routerLinkActive="active">
+      <li routerLinkActive="active">
+        <a href="" routerLink="/home">
           <i class="fa fa-dashboard fa-lg"></i> Dashboard
         </a>
       </li>
-      <li>
-        <a href="" routerLink="/charts" routerLinkActive="active">
+      <li routerLinkActive="active">
+        <a href="" routerLink="/createproject">
+          <i class="fa fa-book fa-lg"></i> Create Project
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a href="" routerLink="/projectinfo">
+          <i class="fa fa-list fa-lg"></i> Projects Information
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a href="" routerLink="/charts">
           <i class="fa fa-bar-chart fa-lg"></i> Chart
         </a>
       </li>
-      <li  data-toggle="collapse" data-target="#profile" class="collapsed active">
+      <li  data-toggle="collapse" data-target="#profile" class="collapsed">
         <a ><i class="fa fa-user fa-lg"></i> Profile <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="profile">
-        <li>
-          <a href="" routerLink="/changepassowrd" routerLinkActive="active">
+        <li routerLinkActive="active">
+          <a href="" routerLink="/changepassowrd">
             <i class="fa fa-edit fa-lg"></i> Change Password
           </a>
         </li>
-        <li>
-          <a href="" routerLink="/logout" routerLinkActive="active">
+        <li routerLinkActive="active">
+          <a href="" routerLink="/logout">
             <i class="fa fa-sign-out fa-lg"></i> Logout
           </a>
         </li>

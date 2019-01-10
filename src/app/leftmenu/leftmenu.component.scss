@@ -26,6 +26,10 @@
     margin: 0px;
     line-height: 35px;
     cursor: pointer;
+    &.active {
+      border-left: 3px solid #d19b3d;
+      background-color: #4f5b69;
+    }
   }
   & li {
     padding-left: 0px;
@@ -83,7 +87,7 @@
       display: block;
     }
   }
-}
+} 
 .nav-side-menu ul .sub-menu li,
 .nav-side-menu li .sub-menu li {
   background-color: #181c20;

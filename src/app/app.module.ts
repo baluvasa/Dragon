@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import * as $ from 'jquery';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LeftmenuComponent } from './leftmenu/leftmenu.component';
@@ -10,6 +10,8 @@ import { ChartsComponent } from './charts/charts.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { CreateprojectComponent } from './createproject/createproject.component';
+import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
     ChartsComponent,
     LogoutComponent,
     LoginComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
+    CreateprojectComponent,
+    ProjectinfoComponent
   ],
   imports: [
     BrowserModule,
