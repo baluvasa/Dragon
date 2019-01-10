@@ -3,6 +3,7 @@
     text-align: center;
     position: relative;
     margin-top: 30px;
+    font-family: montserrat;
 }
 
 #msform fieldset {
@@ -25,7 +26,7 @@
 }
 
 /*inputs*/
-#msform input, #msform textarea {
+#msform input, #msform textarea, #msform select option {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 0px;
@@ -36,8 +37,12 @@
     color: #2C3E50;
     font-size: 13px;
 }
-
-#msform input:focus, #msform textarea:focus {
+#msformbutton:disabled,#msform button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+#msform input:focus, #msform textarea:focus, #msform select option:focus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
@@ -61,14 +66,16 @@
     padding: 10px 5px;
     margin: 10px 5px;
 }
-
+#msform .action-button[disabled]:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #999999;
+}
 #msform .action-button:hover, #msform .action-button:focus {
     box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
 }
 
 #msform .action-button-previous {
     width: 100px;
-    background: #C5C5F1;
+    background: #555;
     font-weight: bold;
     color: white;
     border: 0 none;
@@ -79,7 +86,7 @@
 }
 
 #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #555;
 }
 
 /*headings*/

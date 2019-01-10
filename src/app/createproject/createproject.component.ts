@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 
 @Component({
   selector: 'app-createproject',
@@ -6,15 +7,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./createproject.component.scss']
 })
 export class CreateprojectComponent implements OnInit {
-
-  constructor() { }
+  angForm: FormGroup;
+  submitted = false;
+  clients = [
+    {name: 'Arizona', abbrev: 'AZ'},
+    {name: 'California', abbrev: 'CA'},
+    {name: 'Colorado', abbrev: 'CO'},
+    {name: 'New York', abbrev: 'NY'},
+    {name: 'Pennsylvania', abbrev: 'PA'},
+  ];
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.angForm = new FormGroup({
+      projectName:new FormControl('',{
+        validators: [Validators.required,<any>Validators.minLength(4)],
+        updateOn:'blur'
+      }),
+      ProjectClient:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      associates:new FormControl('',{
+        validators: [Validators.required],
+        updateOn:'blur'
+      })
+    }    
+  );
 //jQuery time
 let current_fs:any, next_fs:any, previous_fs:any; //fieldsets
 let left, opacity, scale; //fieldset properties which we will animate
 let animating; //flag to prevent quick multi-click glitches
 $(".next").click(function(){
+
 	// if(this.animating) return false;
 	// this.animating = true;
 	this.current_fs = $(this).parent();

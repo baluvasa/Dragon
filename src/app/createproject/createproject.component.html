@@ -1,42 +1,66 @@
 <!-- MultiStep Form -->
 <div class="row">
-    <div class="col-md-12">
-        <form id="msform">
-            <!-- progressbar -->
-            <ul id="progressbar">
-                <li class="active">Personal Details</li>
-                <li>Social Profiles</li>
-                <li>Account Setup</li>
-            </ul>
-            <!-- fieldsets -->
-            <fieldset>
-                <h2 class="fs-title">Personal Details</h2>
-                <h3 class="fs-subtitle">Tell us something more about you</h3>
-                <input type="text" name="fname" placeholder="First Name"/>
-                <input type="text" name="lname" placeholder="Last Name"/>
-                <input type="text" name="phone" placeholder="Phone"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
-            </fieldset>
-            <fieldset>
-                <h2 class="fs-title">Social Profiles</h2>
-                <h3 class="fs-subtitle">Your presence on the social network</h3>
-                <input type="text" name="twitter" placeholder="Twitter"/>
-                <input type="text" name="facebook" placeholder="Facebook"/>
-                <input type="text" name="gplus" placeholder="Google Plus"/>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
-            </fieldset>
-            <fieldset>
-                <h2 class="fs-title">Create your account</h2>
-                <h3 class="fs-subtitle">Fill in your credentials</h3>
-                <input type="text" name="email" placeholder="Email"/>
-                <input type="password" name="pass" placeholder="Password"/>
-                <input type="password" name="cpass" placeholder="Confirm Password"/>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
-            </fieldset>
-        </form>
-
-    </div>
+  <div class="col-md-12">
+    <form id="msform">
+      <!-- progressbar -->
+      <ul id="progressbar">
+        <li class="active">Project initial Details</li>
+        <li>Days for Each Month</li>
+        <li>Associate Details</li>
+      </ul>
+      <!-- fieldsets -->
+      <fieldset>
+        <h2 class="fs-title">Project initial Details</h2>
+        <form [formGroup]="angForm">
+          <div>    
+            <input type="text" placeholder="Project Name" [formControl]="angForm.controls['projectName']" required>
+            <br>
+            <small  *ngIf="angForm.controls.projectName.errors && (angForm.controls.projectName.dirty || angForm.controls.projectName.touched) && !angForm.controls.projectName.valid">
+              <span *ngIf="angForm.controls.projectName.errors.required">Project Name is required</span>
+              <span *ngIf="angForm.controls.projectName.errors.minlength">Project Name must be 4 characters long</span>
+            </small>  
+          </div>
+          <div>
+            <select class="form-control" required [formControl]="angForm.controls['ProjectClient']" >                            
+              <option value="" >Please Select</option>
+              <option *ngFor="let client of clients" [ngValue]="client">
+                {{ client.name }}
+              </option>
+            </select>            
+            <br><small *ngIf="angForm.controls.ProjectClient.errors && (angForm.controls.ProjectClient.dirty || angForm.controls.ProjectClient.touched) && !angForm.controls.ProjectClient.valid">
+              <span *ngIf="angForm.controls.ProjectClient.errors.required">Clinet is required</span>
+            </small>
+          </div>
+          <div>    
+              <input type="number" placeholder="Number of Associates" [formControl]="angForm.controls['associates']" required>
+              <br>
+              <small  *ngIf="angForm.controls.associates.errors && (angForm.controls.associates.dirty || angForm.controls.associates.touched) && !angForm.controls.associates.valid">
+                <span *ngIf="angForm.controls.associates.errors.required">Number of Associates required</span>
+              </small>  
+            </div>
+          <!-- <button type="submit" class="next action-button"[disabled]="angForm.invalid">Save</button> -->
+          
+        </form>               
+        <button type="button" name="next" class="next action-button" [disabled]="angForm.invalid">Next</button>
+      </fieldset>
+      <fieldset>
+        <h2 class="fs-title">Days for Each Month</h2>                
+        <input type="text" name="twitter" placeholder="Twitter"/>
+        <input type="text" name="facebook" placeholder="Facebook"/>
+        <input type="text" name="gplus" placeholder="Google Plus"/>
+        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+        <input type="button" name="next" class="next action-button" value="Next"/>
+      </fieldset>
+      <fieldset>
+        <h2 class="fs-title">Associate Details</h2>
+        <input type="text" name="email" placeholder="Email"/>
+        <input type="password" name="pass" placeholder="Password"/>
+        <input type="password" name="cpass" placeholder="Confirm Password"/>
+        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+        <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+      </fieldset>
+    </form>
+    
+  </div>
 </div>
 <!-- /.MultiStep Form -->
