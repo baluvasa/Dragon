@@ -50,7 +50,8 @@ export class CreateprojectComponent implements OnInit {
       this.fromDate = date;
     } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
       this.toDate = date;
-    } else {
+    } else {      
+    this.datefields=false;
       this.toDate = null;
       this.fromDate = date;
     }
