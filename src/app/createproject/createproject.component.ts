@@ -27,6 +27,7 @@ import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 })
 export class CreateprojectComponent implements OnInit {
   angForm: FormGroup;
+  angFormdays: FormGroup;
   submitted = false;
   clients = [
     {name: 'Arizona', abbrev: 'AZ'},
@@ -84,6 +85,11 @@ export class CreateprojectComponent implements OnInit {
         validators: [Validators.required],
         updateOn:'blur'
       })
+    }) 
+    this.angFormdays = new FormGroup({
+      daysformonth:new FormControl('',{
+        validators: [Validators.required]
+      })
     }    
   );
  
@@ -118,5 +124,8 @@ $(".submit").click(function(){
     this.projectintialdata['fromdate']=this.fromDate;
     this.projectintialdata['todate']=this.toDate;    
     console.log(this.projectintialdata);
+  }
+  savedata1(v1){
+    console.log(v1);
   }
 }
