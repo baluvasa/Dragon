@@ -38,10 +38,25 @@
                 <span *ngIf="angForm.controls.associates.errors.required">Number of Associates required</span>
               </small>  
             </div>
+            <div class="text-left">              
+            <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+              </ngb-datepicker>
+              
+              <ng-template #t let-date let-focused="focused">
+                <span class="custom-day"
+                      [class.focused]="focused"
+                      [class.range]="isRange(date)"
+                      [class.faded]="isHovered(date) || isInside(date)"
+                      (mouseenter)="hoveredDate = date"
+                      (mouseleave)="hoveredDate = null">
+                  {{ date.day }}
+                </span>
+              </ng-template>  
+            </div>
           <!-- <button type="submit" class="next action-button"[disabled]="angForm.invalid">Save</button> -->
+        </form>
+          <button type="button" name="save" class="next action-button" (click)="savedata(angForm.value)" [disabled]="angForm.invalid || !datefields">Next</button>
           
-        </form>               
-        <button type="button" name="next" class="next action-button" [disabled]="angForm.invalid">Next</button>
       </fieldset>
       <fieldset>
         <h2 class="fs-title">Days for Each Month</h2>                
