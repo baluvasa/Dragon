@@ -1,4 +1,7 @@
 /*form styles*/
+body{
+    font-size:16px;
+}
 #msform {
     text-align: center;
     position: relative;
@@ -36,6 +39,9 @@
     font-family: montserrat;
     color: #2C3E50;
     font-size: 13px;
+}
+#msform input[type="radio"]{
+    width: auto;
 }
 #msformbutton:disabled,#msform button[disabled]{
   border: 1px solid #999999;
