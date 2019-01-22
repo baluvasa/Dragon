@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import 'datatables.net'
+import 'datatables.net-dt'
+import 'datatables.net-bs'
+
 @Component({
   selector: 'app-projectinfo',
   templateUrl: './projectinfo.component.html',
@@ -12,7 +15,7 @@ export class ProjectinfoComponent implements OnInit {
   ngOnInit() {
 
       (<any> $('#example')).DataTable({
-        dom: 'Bfrtip',
+              dom: 'Bfrtip',
               'paging'      : true,
               'lengthChange': false,
               'searching'   : true,
