@@ -10,7 +10,7 @@ import { CreateprojectComponent } from './createproject/createproject.component'
 import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'charts', component: ChartsComponent },

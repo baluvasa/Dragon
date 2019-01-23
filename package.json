@@ -20,6 +20,13 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
+<<<<<<< HEAD
+    "@types/datatables.net": "^1.10.14",
+    "@types/jquery": "^2.0.47",
+    "bootstrap": "^4.2.1",
+    "core-js": "^2.5.4",
+    "datatables.net": "^1.10.19",
+=======
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
     "datatables.net": "^1.10.19",
@@ -29,6 +36,7 @@
     "datatables.net-select": "^1.2.7",
     "datatables.net-select-bs": "^1.2.7",
     "jquery": "^3.3.1",
+>>>>>>> 2b62e551bd316e436fdc403c4cb39461bb964bf3
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

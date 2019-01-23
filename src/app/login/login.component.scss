@@ -1,0 +1,52 @@
+.p-top
+{
+padding-top: 16%;
+}
+.panel-default
+{
+    // box-shadow: 0 0 20px 0 #5f595a;
+    position: absolute;
+    /* top: 75%; */
+    margin-top: 38%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 350px;
+    min-height: 200px;
+   
+    
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
+    transition: 0.5s;
+   
+    .panel-heading
+    {
+        background-color: #e31836;
+        color: #fff;
+        
+    }
+    .panel-body
+    { padding: 20px;
+        background-color: #f7f3f3;
+    }
+}
+.card {
+    position: absolute;
+    /* top: 75%; */
+    margin-top: 28%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 350px;
+    min-height: 400px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: 0.5s;
+}
+.abc {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}

@@ -13,7 +13,8 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 import { CreateprojectComponent } from './createproject/createproject.component';
 import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
 import { FormGroup, FormArray, FormBuilder,Validators,ReactiveFormsModule,FormsModule  } from '@angular/forms';
-import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap'; 
+import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { LeavedetailsComponent } from './leavedetails/leavedetails.component'; 
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bo
     LoginComponent,
     ChangepasswordComponent,
     CreateprojectComponent,
-    ProjectinfoComponent
+    ProjectinfoComponent,
+    LeavedetailsComponent
   ],
   imports: [
     BrowserModule,
