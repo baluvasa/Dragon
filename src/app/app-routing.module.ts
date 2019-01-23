@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { CreateprojectComponent } from './createproject/createproject.component';
 import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
+import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'changepassowrd', component: ChangepasswordComponent },
   { path: 'createproject', component: CreateprojectComponent },    
-  { path: 'projectinfo', component: ProjectinfoComponent }  
+  { path: 'projectinfo', component: ProjectinfoComponent }, 
+  { path: 'leavedetails', component: LeavedetailsComponent }  
 ];
 
 @NgModule({
