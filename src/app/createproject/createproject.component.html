@@ -32,64 +32,69 @@
             </small>
           </div>
           <div>    
-              <input type="number" placeholder="Number of Associates" [formControl]="angForm.controls['associates']" required>
-              <br>
-              <small  *ngIf="angForm.controls.associates.errors && (angForm.controls.associates.dirty || angForm.controls.associates.touched) && !angForm.controls.associates.valid">
-                <span *ngIf="angForm.controls.associates.errors.required">Number of Associates required</span>
-              </small>  
-            </div>
-            <div class="text-left">              
-            <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
-              </ngb-datepicker>
-              
-              <ng-template #t let-date let-focused="focused">
-                <span class="custom-day"
-                      [class.focused]="focused"
-                      [class.range]="isRange(date)"
-                      [class.faded]="isHovered(date) || isInside(date)"
-                      (mouseenter)="hoveredDate = date"
-                      (mouseleave)="hoveredDate = null">
-                  {{ date.day }}
-                </span>
-              </ng-template>  
-            </div>
-          <!-- <button type="submit" class="next action-button"[disabled]="angForm.invalid">Save</button> -->
-        </form>
-          <button type="button" name="save" class="next action-button" (click)="savedata(angForm.value)" [disabled]="angForm.invalid || !datefields">Next</button>
-          
-      </fieldset>
-      <fieldset>
-        <h2 class="fs-title">Days for Each Month</h2>  
-        <form [formGroup]="angFormdays">
-          <div class="text-left">  
-            <div class="custom-control custom-radio">                
-              <input type="radio" value="8" class="custom-control-input"  [formControl]="angFormdays.controls['daysformonth']" id="defaultUnchecked8">
-              <label class="custom-control-label" for="defaultUnchecked8">8 Hours/Day</label>
-            </div>
-            <div class="custom-control custom-radio">             
-              <input type="radio" value="9" class="custom-control-input" [formControl]="angFormdays.controls['daysformonth']" id="defaultChecked9">
-              <label class="custom-control-label" for="defaultChecked9">9 Hours/Day</label>
-            </div> 
+            <input type="number" placeholder="Number of Associates" [formControl]="angForm.controls['associates']" required>
             <br>
-            <small  *ngIf="angFormdays.controls.daysformonth.errors && (angFormdays.controls.daysformonth.dirty || angFormdays.controls.daysformonth.touched) && !angFormdays.controls.daysformonth.valid">
-              <span *ngIf="angFormdays.controls.daysformonth.errors.required">Project Name is required</span>
+            <small  *ngIf="angForm.controls.associates.errors && (angForm.controls.associates.dirty || angForm.controls.associates.touched) && !angForm.controls.associates.valid">
+              <span *ngIf="angForm.controls.associates.errors.required">Number of Associates required</span>
             </small>  
           </div>
-        </form>      
+          <div class="text-left">              
+            <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+            </ngb-datepicker>
+            
+            <ng-template #t let-date let-focused="focused">
+              <span class="custom-day"
+              [class.focused]="focused"
+              [class.range]="isRange(date)"
+              [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>  
+        </div>
+        <!-- <button type="submit" class="next action-button"[disabled]="angForm.invalid">Save</button> -->
+      </form>
+      <button type="button" id="firstnext" name="save" class="next action-button" (click)="savedata(angForm.value)" [disabled]="angForm.invalid || !datefields">Next</button>
+      
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Days for Each Month</h2>  
+      <form [formGroup]="angFormdays">
+        <div class="text-left">  
+          <div class="custom-control custom-radio">                
+            <input type="radio" value="8" class="custom-control-input"  [formControl]="angFormdays.controls['daysformonth']" id="defaultUnchecked8">
+            <label class="custom-control-label" for="defaultUnchecked8">8 Hours/Day</label>
+          </div>
+          <div class="custom-control custom-radio">             
+            <input type="radio" value="9" class="custom-control-input" [formControl]="angFormdays.controls['daysformonth']" id="defaultChecked9">
+            <label class="custom-control-label" for="defaultChecked9">9 Hours/Day</label>
+          </div> 
+          <br>
+          <small  *ngIf="angFormdays.controls.daysformonth.errors && (angFormdays.controls.daysformonth.dirty || angFormdays.controls.daysformonth.touched) && !angFormdays.controls.daysformonth.valid">
+            <span *ngIf="angFormdays.controls.daysformonth.errors.required">Project Name is required</span>
+          </small>  
+          
+          
+          <table>
+            <tr *ngFor="let month of  mn"><td>{{month}}</td><td><input type="text" placeholder="number of working days"></td></tr>
+          </table>            
+        </div>
+      </form>      
+      
+      <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>  
+      <button type="button" id="secondnext" name="save" class="next action-button" (click)="savedata1(angFormdays.value)" [disabled]="angFormdays.invalid">Next</button>
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Associate Details</h2>
+      <input type="text" name="email" placeholder="Email"/>
+      <input type="password" name="pass" placeholder="Password"/>
+      <input type="password" name="cpass" placeholder="Confirm Password"/>
+      <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+      <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+    </fieldset>
+  </form>
   
-        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>  
-        <button type="button" name="save" class="next action-button" (click)="savedata1(angFormdays.value)" [disabled]="angFormdays.invalid">Next</button>
-      </fieldset>
-      <fieldset>
-        <h2 class="fs-title">Associate Details</h2>
-        <input type="text" name="email" placeholder="Email"/>
-        <input type="password" name="pass" placeholder="Password"/>
-        <input type="password" name="cpass" placeholder="Confirm Password"/>
-        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-        <input type="submit" name="submit" class="submit action-button" value="Submit"/>
-      </fieldset>
-    </form>
-    
-  </div>
+</div>
 </div>
 <!-- /.MultiStep Form -->

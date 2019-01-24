@@ -23,7 +23,7 @@ import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
   .custom-day.faded {
     background-color: rgba(2, 117, 216, 0.5);
   }
-`]
+  `]
 })
 export class CreateprojectComponent implements OnInit {
   angForm: FormGroup;
@@ -36,23 +36,28 @@ export class CreateprojectComponent implements OnInit {
     {name: 'New York', abbrev: 'NY'},
     {name: 'Pennsylvania', abbrev: 'PA'},
   ];
+  
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
   datefields:any;
   fristfromdata:any;
   crateprojectdata:any;
-  projectintialdata:any;
+  projectintialdata:{};
+  mn=[];
+  mn1:any;
+  monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
   constructor(private formBuilder: FormBuilder,private calendar: NgbCalendar) {
-   
-   }
-   onDateSelection(date: NgbDate) {
+    
+  }
+  onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
     } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
       this.toDate = date;
     } else {      
-    this.datefields=false;
+      this.datefields=false;
       this.toDate = null;
       this.fromDate = date;
     }
@@ -70,9 +75,18 @@ export class CreateprojectComponent implements OnInit {
   isRange(date: NgbDate) {
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
+  dateFormat1(d) {
+    
+    var t = new Date(d);
+    console.log(t.getMonth())
+    return t.getMonth();
+  }
   ngOnInit() {
+    
     this.fristfromdata=false;
     this.datefields=false;
+    
+    
     this.angForm = new FormGroup({
       projectName:new FormControl('',{
         validators: [Validators.required,<any>Validators.minLength(4)],
@@ -91,41 +105,66 @@ export class CreateprojectComponent implements OnInit {
         validators: [Validators.required]
       })
     }    
-  );
- 
-//jQuery time
-let current_fs:any, next_fs:any, previous_fs:any; //fieldsets
-let left, opacity, scale; //fieldset properties which we will animate
-let animating; //flag to prevent quick multi-click glitches
-$(".next").click(function(){
-this.current_fs = $(this).parent();
-	this.next_fs = $(this).parent().next();
-	$("#progressbar li").eq($("fieldset").index(this.next_fs)).addClass("active");
-	
-  this.next_fs.show(); 
-  this.current_fs.hide();
-});
-
-$(".previous").click(function(){
-	this.current_fs = $(this).parent();
-	this.previous_fs = $(this).parent().prev();
-	$("#progressbar li").eq($("fieldset").index(this.current_fs)).removeClass("active");
-	this.previous_fs.show(); 
-  this.current_fs.hide();
-	
-});
-
-$(".submit").click(function(){
-	return false;
-})
+    );
+    
+    //jQuery time
+    let current_fs:any, next_fs:any, previous_fs:any; //fieldsets
+    let left, opacity, scale; //fieldset properties which we will animate
+    let animating; //flag to prevent quick multi-click glitches
+    
+    $(".next").click(function(){
+      
+      this.current_fs = $(this).parent();
+      this.next_fs = $(this).parent().next();
+      $("#progressbar li").eq($("fieldset").index(this.next_fs)).addClass("active");
+      
+      this.next_fs.show(); 
+      this.current_fs.hide();
+    });
+    
+    $(".previous").click(function(){
+      this.current_fs = $(this).parent();
+      this.previous_fs = $(this).parent().prev();
+      $("#progressbar li").eq($("fieldset").index(this.current_fs)).removeClass("active");
+      this.previous_fs.show(); 
+      this.current_fs.hide();
+      
+    });
+    
+    // $(".submit").click(function(){
+    // 	return false;
+    // })
   }
+  monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth()-1;
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
   savedata(v){    
     this.projectintialdata=v;
     this.projectintialdata['fromdate']=this.fromDate;
-    this.projectintialdata['todate']=this.toDate;    
-    console.log(this.projectintialdata);
+    this.projectintialdata['todate']=this.toDate;
+    let monthcount=this.monthDiff(
+      new Date(this.fromDate.year, this.fromDate.month, this.fromDate.day),
+      new Date(this.toDate.year, this.toDate.month, this.toDate.day));
+    
+      
+    for(let i=this.fromDate.month;this.fromDate.month<=this.toDate.month;this.fromDate.month++){
+      this.mn.push(this.monthNames[this.fromDate.month-1])      
+    }
+    
+      // while(this.fromDate.month<=this.toDate.month){
+    //   this.mn.push(this.monthNames[this.fromDate.month-1])
+    //   this.fromDate.month++;
+    // }
+    console.log(this.mn)
+    // console.log(typeof this.projectintialdata)
+    // localStorage.setItem('firstformdata',JSON.stringify(this.projectintialdata));
   }
   savedata1(v1){
     console.log(v1);
   }
+  
 }
