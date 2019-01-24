@@ -1,34 +1,51 @@
 <div class="row ">
-  <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Please sign in</h3>
-       </div>
-        <div class="panel-body">
-            <div *ngIf="error" class="alert alert-danger fade in">{{error}}<button type="button" class="close close-alert" data-dismiss="alert" aria-hidden="true">×</button></div>
+    <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Please sign in</h3>
+            </div>
+            <div class="panel-body">
+                <div *ngIf="error" class="alert alert-danger fade in">{{error}}<button type="button" class="close close-alert" data-dismiss="alert" aria-hidden="true">×</button></div>
                 
-            <form [formGroup]="loginform" (ngSubmit)="onSubmit(loginform.value)">
-                <div class="form-group">
-                    <label> Username</label>
-                    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                        <div *ngIf="f.username.errors.required">First Name is required</div>
+                <form [formGroup]="loginform" (ngSubmit)="onSubmit(loginform.value)">
+                    <div class="form-group">
+                        <label> username</label>                        
+                        <input type="text" class="form-control" placeholder="User Name" [formControl]="loginform.controls['username']" required>
+                        <small class="text-danger" *ngIf="loginform.controls.username.errors && (loginform.controls.username.dirty || loginform.controls.username.touched) && !loginform.controls.username.valid">
+                            <span *ngIf="loginform.controls.username.errors.required">Name is required</span>
+                            <span *ngIf="loginform.controls.username.errors.minlength">Name must be 4 characters long</span>
+                        </small> 
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is required</div>
-                        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                    
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Password" [formControl]="loginform.controls['password']" required class="form-control"/>
+                        <small class="text-danger" *ngIf="loginform.controls.password.errors && (loginform.controls.password.dirty || loginform.controls.password.touched) && !loginform.controls.password.valid">
+                            <span *ngIf="loginform.controls.password.errors.required">Password is required</span>
+                            <span *ngIf="loginform.controls.password.errors.minlength">Password must be 6 characters long</span>
+                        </small> 
                     </div>
-                </div>
-                <div class="form-group">
-                    <button [disabled]="loginform.invalid" class="btn btn-primary" type="submit" >Login</button>
-                </div>
-            </form>
+                    <div class="form-group text-center">
+                        <button [disabled]="loginform.invalid" class="btn btn-primary" type="submit" >Login</button>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <table >
+                            <tr>
+                                <td>
+                                    <button [disabled]="loginform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
+                                </td>
+                                <td>
+                                    <button [disabled]="loginform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
+                                </td>
+                                <td>
+                                    <button [disabled]="loginform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>    
+                </form>
+            </div>
         </div>
     </div>
-  </div>
 </div>

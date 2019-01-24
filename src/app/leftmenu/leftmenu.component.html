@@ -1,5 +1,8 @@
-<div class="nav-side-menu col-lg-3 col-md-3 col-sm-12">
+<div class="nav-side-menu col-lg-3 col-md-3">
   <div class="brand">Brand Logo</div>
+  <span *ngIf=logedas>
+
+  
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
   
   <div class="menu-list">
@@ -34,11 +37,11 @@
         <a ><i class="fa fa-user fa-lg"></i> Profile <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="profile">
-        <li routerLinkActive="active">
+        <!-- <li routerLinkActive="active">
           <a href="" routerLink="/changepassowrd">
             <i class="fa fa-edit fa-lg"></i> Change Password
           </a>
-        </li>
+        </li> -->
         <li routerLinkActive="active">
           <a href="" routerLink="/logout">
             <i class="fa fa-sign-out fa-lg"></i> Logout
@@ -48,4 +51,5 @@
       
     </ul>
   </div>
+</span>
 </div>

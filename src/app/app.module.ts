@@ -9,13 +9,13 @@ import { HomeComponent } from './home/home.component';
 import { ChartsComponent } from './charts/charts.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
+// import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { CreateprojectComponent } from './createproject/createproject.component';
 import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
 import { FormGroup, FormArray, FormBuilder,Validators,ReactiveFormsModule,FormsModule  } from '@angular/forms';
 import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component'; 
-
+import { AppServicesService } from './app-services.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +25,7 @@ import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
     ChartsComponent,
     LogoutComponent,
     LoginComponent,
-    ChangepasswordComponent,
+    // ChangepasswordComponent,
     CreateprojectComponent,
     ProjectinfoComponent,
     LeavedetailsComponent
@@ -39,7 +39,7 @@ import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
     NgbPaginationModule,
     NgbAlertModule
   ],
-  providers: [],
+  providers: [AppServicesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
