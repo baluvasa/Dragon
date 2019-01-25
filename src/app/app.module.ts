@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import * as $ from 'jquery';
+import { DataTablesModule } from 'angular-datatables';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LeftmenuComponent } from './leftmenu/leftmenu.component';
@@ -37,7 +38,8 @@ import { AppServicesService } from './app-services.service';
     ReactiveFormsModule,
     NgbModule,
     NgbPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
+    DataTablesModule
   ],
   providers: [AppServicesService],
   bootstrap: [AppComponent]
