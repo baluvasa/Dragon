@@ -17,6 +17,7 @@ import { FormGroup, FormArray, FormBuilder,Validators,ReactiveFormsModule,FormsM
 import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component'; 
 import { AppServicesService } from './app-services.service';
+import { HolidaysComponent } from './holidays/holidays.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { AppServicesService } from './app-services.service';
     // ChangepasswordComponent,
     CreateprojectComponent,
     ProjectinfoComponent,
-    LeavedetailsComponent
+    LeavedetailsComponent,
+    HolidaysComponent
   ],
   imports: [
     BrowserModule,
