@@ -10,9 +10,11 @@ import { CreateprojectComponent } from './createproject/createproject.component'
 import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
 import { HolidaysComponent } from './holidays/holidays.component'; 
+import { FxratesComponent } from './fxrates/fxrates.component'; 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  
   { path: 'profile', component: ProfileComponent },
   { path: 'charts', component: ChartsComponent },
   { path: 'login', component: LoginComponent },
@@ -21,7 +23,8 @@ const routes: Routes = [
   { path: 'createproject', component: CreateprojectComponent },    
   { path: 'projectinfo', component: ProjectinfoComponent }, 
   { path: 'leavedetails', component: LeavedetailsComponent },
-  {path:'holidays', component:HolidaysComponent}   
+  {path:'holidays', component:HolidaysComponent} ,
+  { path: 'Fxrates', component: FxratesComponent }    
 ];
 
 @NgModule({

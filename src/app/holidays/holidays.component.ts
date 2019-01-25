@@ -18,13 +18,27 @@ export class HolidaysComponent implements OnInit {
   project=null;
   edit=0;
   yr=0;
-  jan:any;
-  feb:any;
+  
+  
+  dtOptions: any = {};
   constructor(private formBuilder: FormBuilder) { 
   }
   
   ngOnInit() {
     
+    this.dtOptions = {
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        pagingType: 'full_numbers',
+        buttons: [
+          'pageLength',
+          'colvis',
+          'excel'
+        ]
+      }; 
     this.projects =[
       {projectname:"proj1"},
       {projectname:"proj2"},
@@ -59,6 +73,36 @@ export class HolidaysComponent implements OnInit {
       }),
       feb:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(28)]
+      }),
+      mar:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      Apr:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      may:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      jun:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      jul:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      aug:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      sep:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      oct:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      nov:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      dec:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       })
     })
 
@@ -86,4 +130,12 @@ export class HolidaysComponent implements OnInit {
     this.yr=0;
     // this.holidayform.reset(); 
   }
+  saveholidayinfo(){
+    this.edit=0;
+    this.yr=0;
+    this.holidaylistform.reset();
+    alert('Data Added Successfully');
+    
+    }  
+ 
 }
