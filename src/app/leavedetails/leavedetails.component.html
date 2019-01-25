@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
+  <div class="container-fluid">
     <div class="panel panel-default">
       
       <div class="panel-heading">Leave Details
@@ -95,20 +95,20 @@
                       <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}</option>
                     </select>
                   </div>
+                  <div class="col-md-6">
+                      <label>Year & Month</label>
+                      <select class="form-control" [formControl]="leaveform.controls['projectyear']" >
+                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
+                        <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
+                      </select>
+                    </div>
+
                 </div>
                 
-                <div class="col-md-6">
-                  <label>Year & Month</label>
-                  <div class="btn-group">
-                    <select class="form-control" id="projectyear" [formControl]="leaveform.controls['projectyear']" >
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
-                      <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
-                    </select>
-                  </div>
-                </div>
               </div>
+         
               <div class="form-group text-center">
-                <button [disabled]="leaveform.invalid" class="btn btn-primary" type="submit">Search</button>
+                <button [disabled]="leaveform.invalid" class="btn btn-primary" type="submit" (click)="searchleaves()">Search</button>
                 <button [disabled]="leaveform.invalid" class="btn btn-danger" type="reset">Cancel</button>
               </div>
               <br>
@@ -127,7 +127,38 @@
                   </tr>
                 </table>
               </div>
+              
             </form>
+            <div class="panel panel-default" *ngIf="leavelists">
+                <div class="panel-body">
+                  
+                  <div class="table-responsive " style="padding:30px">          
+                      <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+                          <thead>
+                              <tr>
+                                  <th>Serial Number</th>
+                                  <th>Associate ID</th>
+                                  <th>Associate Name</th>
+                                  <th>Project Name</th>
+                                  <th>Date</th>
+                                  <th>Edit</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let leavelist of leavelists">
+                                  <td>{{leavelist.name}}</td>
+                                  <td>{{leavelist.position}}</td>
+                                  <td>{{leavelist.office}}</td>
+                                  <td>{{leavelist.age}}</td>
+                                  <td>{{leavelist.start_date}}</td>
+                                  <td>{{leavelist.salary}}</td>
+                              </tr>
+                          </tbody>
+                        </table>
+                  </div>
+                </div>
+                
+              </div>
           </div>
         </div>
       </div>

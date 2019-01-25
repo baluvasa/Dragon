@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
-import { DataTablesModule } from 'angular-datatables';
+
 
 @Component({
   selector: 'app-projectinfo',
