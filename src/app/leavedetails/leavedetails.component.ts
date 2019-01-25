@@ -8,7 +8,6 @@ import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms'
 export class LeavedetailsComponent implements OnInit {
   leaveform: FormGroup;
   error:any;
-
   projects:any;
   project_years:any;
   associates:any;
