@@ -19,11 +19,14 @@ export class HolidaysComponent implements OnInit {
   edit=0;
   yr=0;
   dtOptions: any = {};
+  role:any;
   constructor(private formBuilder: FormBuilder) { 
   }
   
   ngOnInit() {
-
+    if(localStorage.getItem('logeduser')=='admin'){
+      this.role=true;
+    }
     this.dtOptions = {
    
         dom: 'Bfrtip',
