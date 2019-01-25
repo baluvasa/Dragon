@@ -1,0 +1,261 @@
+<div class="container-fluid">
+  
+  <!-- <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Private</a></li>
+    <li><a href="#">Pictures</a></li>
+    <li class="active">Vacation</li>        
+  </ol> -->
+  <h2>Holidays Details</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading">Existing Holiday Details
+      <!-- <i class="fa fa-plus" style="font-size:48px;color:red"></i> -->
+      <button type="button" class="btn btn-success fa fa-plus-circle add" data-toggle="modal" data-target="#exampleModalCenter">&nbsp;&nbsp;Add</button>
+      
+    </div>
+    <div class="panel-body">
+      <div class="col-md-12" >
+      </div>
+      <ng-container *ngIf="error">
+        <div class="col-md-12">
+          <div class="alert alert-danger alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{error}}
+          </div>
+        </div>
+      </ng-container>
+      <form [formGroup]="holidayform" (ngSubmit)="onSubmit(holidayform.value)">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="proj">Project Name</label>
+            
+            <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
+              <option [value]="0" disabled selected>--Please Select Project--</option>
+              <option *ngFor="let project of projects" [value]=project.projectname >
+                {{project.projectname}}
+              </option>
+            </select>
+          </div>
+          
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="year">year</label>
+            <select class="form-control" id="year"  [formControl]="holidayform.controls['year']" [(ngModel)]="yr">
+              <option [value]="0" disabled selected>--Please Select year--</option>
+              <option *ngFor="let year of years" [value]=year.years >
+                {{year.years}}
+              </option>
+            </select>                   
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-1">               
+            <button (click)="getData()" id="bt" type="button" class="btn btn-primary">search</button>
+          </div>
+          <div class="col-md-1">               
+            <button (click)="reset()" type="button" class="btn btn-danger ">cancel</button>
+          </div>
+          <div class="col-md-1">               
+            <button (click)="errordata()" id="bt1"type="button" class="btn btn-danger" >no data</button>
+          </div>
+          <div class="col-md-1">               
+            <button (click)="errorexceptiondata()" id="bt2"type="button" class="btn btn-danger" > exc error</button>
+          </div>
+          
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  
+  <div class="panel panel-default" *ngIf="list">
+    <div class="panel-body">
+      
+      <div class="table-responsive " style="padding:30px">          
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Projectname</th>
+              <th>Year</th>
+              <th>No.of Days</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list">
+              <td>{{item.sno}}</td>
+              <td>{{item.Projectname}}</td>
+              <td>{{item.Year}}</td>
+              <td>{{item.days}}</td>
+             
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- model -->
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Holiday Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="holidaylistform" (ngSubmit)="onSubmit(holidaylistform.value)">
+          <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="proj">Project Name</label>
+                    
+                    <select class="form-control"  [formControl]="holidaylistform.controls['projectlist']" [(ngModel)]="edit">
+                      <option [value]="0" disabled selected>--Please Select Project--</option>
+                      <option *ngFor="let project of projects" [value]=project.projectname >
+                        {{project.projectname}}
+                      </option>
+                    </select>
+                  </div>
+            </div>
+            <div class="col-md-6">
+                <label for="proj">Year</label>
+                <select class="form-control" id="year"  [formControl]="holidaylistform.controls['yearlist']" [(ngModel)]="yr">
+                    <option [value]="0" disabled selected>--Please Select year--</option>
+                    <option *ngFor="let year of years" [value]=year.years >
+                      {{year.years}}
+                    </option>
+                  </select> 
+            </div>
+          </div>
+          <div class="row mt">            
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="col-md-6"><label>January</label></div>
+                <div class="col-md-6">
+                <input type="text"  name="jan" placeholder="Jan" class="form-control"  [formControl]="holidaylistform.controls['jan']"> 
+                <small class="text-danger" *ngIf="holidaylistform.controls.jan.errors && (holidaylistform.controls.jan.dirty || holidaylistform.controls.jan.touched) && !holidaylistform.controls.jan.valid">
+                    <span *ngIf="holidaylistform.controls.jan.errors.maxlength"> must be 2 characters </span>
+                    <span *ngIf="holidaylistform.controls.jan.errors.max"> max no 31 </span>
+                </small>  
+              </div>              
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>February</label></div>
+                  <div class="col-md-6">
+                <input type="text"    name="feb" placeholder="feb" class="form-control" [formControl]="holidaylistform.controls['feb']" >
+                <small class="" *ngIf="holidaylistform.controls.feb.errors && (holidaylistform.controls.feb.dirty || holidaylistform.controls.feb.touched) && !holidaylistform.controls.feb.valid">
+                    <span *ngIf="holidaylistform.controls.feb.errors.maxlength"> must be 2 characters </span>
+                    <span *ngIf="holidaylistform.controls.feb.errors.max"> max no 28 </span>
+                </small> 
+              </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>March</label></div>
+                  <div class="col-md-6">
+                <input type="text"  name="mar" placeholder="March"  class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt">            
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>April</label></div>
+                  <div class="col-md-6">
+                <input type="text"    name="apr" placeholder="Apr" class="form-control">
+              </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>May</label></div>
+                  <div class="col-md-6">
+                <input type="text"  name="may" placeholder="May" class="form-control">
+              </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>June</label></div>
+                  <div class="col-md-6">
+                <input type="text"   name="june" placeholder="June" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt">            
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>July</label></div>
+                  <div class="col-md-6">
+                <input type="text"   name="july" placeholder="July" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>August</label></div>
+                  <div class="col-md-6">
+                <input type="text" name="aug" placeholder="August" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>September</label></div>
+                  <div class="col-md-6">
+                <input type="text"  name="sep" placeholder="September" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt">            
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>October</label></div>
+                  <div class="col-md-6">
+                <input type="text"  name="oct" placeholder="October" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>November</label></div>
+                  <div class="col-md-6">
+                <input type="text"  name="nov" placeholder="November" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                  <div class="col-md-6"><label>December</label></div>
+                  <div class="col-md-6">
+                <input type="text"  name="dec" placeholder="December" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
