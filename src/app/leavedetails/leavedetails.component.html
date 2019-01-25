@@ -1,15 +1,16 @@
 <div class="row">
   <div class="container-fluid">
+    
+    <h2>Leave Details</h2>
     <div class="panel panel-default">
       
-      <div class="panel-heading">Leave Details
-        <button type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#leavedetails" style="float:right">
+      <div class="panel-heading">Search Leave Details
+        <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#leavedetails" style="float:right">
           &nbsp;&nbsp;Add</button>
           
         </div> 
         <div class="panel-body">
           <div>
-            
             <div id="leavedetails" class="modal fade" role="dialog" tabindex="-1">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -17,150 +18,160 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Adding Leave Details</h4>
                   </div>
-                  <div class="modal-body">
-                    <div class="form-row">
-                      <label>Project Name</label>
-                      <select class="form-control" id="modalprojectname" >
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
-                        <option>GE Renewables</option>
-                        <option>GE Digital</option>
-                        <option>GE Industrial</option>
-                      </select>
-                      
-                      
-                      
-                      <label>Associate ID</label>
-                      <input type="text" class="form-control"/>
-                      <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
-                        <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
-                      </div>
-                      
-                      
+                  <form [formGroup]="addleaveform">
+                    <div class="modal-body">
                       <div class="form-row">
-                        <label>Associate Name</label>
+                        <label>Project Name</label>
+                        <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
+                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
+                          <option>GE Renewables</option>
+                          <option>GE Digital</option>
+                          <option>GE Industrial</option>
+                        </select>
+                        <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
+                          <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Project Name is required</span>
+                        </small>
+                        
+                        
+                        <label>Associate ID</label>
                         <input type="text" class="form-control"/>
-                        <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
-                          <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
+                        <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
+                          <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
                         </div>
-                      </div>
-                      
-                      <div class="form-row">
-                        <label>Date</label>
-                        <input type="text" class="form-control"/>
-                        <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
-                          <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
+                        
+                        
+                        <div class="form-row">
+                          <label>Associate Name</label>
+                          <input type="text" class="form-control"/>
+                          <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
+                            <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
+                          </div>
                         </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label>Remarks</label><br>
-                        <textarea class="form-control" placeholder="Enter Remarks here..." rows="4"></textarea>
-                      </div>
-                      <div class="form-group">
+                        
+                        <div class="form-row">
+                          <label>Date</label>
+                          <input type="text" class="form-control"/>
+                          <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
+                            <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label>Remarks</label><br>
+                          <textarea class="form-control" placeholder="Enter Remarks here..." rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                          
+                        </div>
                         
                       </div>
-                      
+                      <div class="modal-footer">
+                        <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-create="modal">Add</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
-            <ng-container *ngIf="error">
-              <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissible fade in">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  {{error}}
-                </div>
+            <div class="col-md-12" *ngIf="error">
+              <div class="alert alert-danger alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{error}}
               </div>
-            </ng-container>
-            
+            </div>
             <form [formGroup]="leaveform" (ngSubmit)="onSubmit(leaveform.value)">
               <div class="form-group">
-                <div class="form-row col-md-12 leave_project_name">
-                  <label>Project Name</label>
-                  <select class="form-control" [formControl]="leaveform.controls['projectname']">
-                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
-                    <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option>
-                  </select>
-                </div>
-                <div class="form-row">
+                <div class="row">
                   <div class="col-md-6">
+                    <label>Project Name</label>
+                    <select class="form-control" [formControl]="leaveform.controls['projectname']">
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
+                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
                     <label>Associate ID</label>
                     <select class="form-control" [formControl]="leaveform.controls['associatesid']">
                       <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
                       <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}</option>
                     </select>
                   </div>
-                  <div class="col-md-6">
-                      <label>Year & Month</label>
-                      <select class="form-control" [formControl]="leaveform.controls['projectyear']" >
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
-                        <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
-                      </select>
+                  <!-- </div>
+                    
+                    <div class="row"> -->
+                      
+                      <div class="col-md-3">
+                        <label>Year & Month</label>
+                        <select class="form-control" [formControl]="leaveform.controls['projectyear']" >
+                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
+                          <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
+                        </select>
+                      </div>
                     </div>
-
+                    
+                    
+                  </div>
+                  
+                  <div class="text-center col-md-12">
+                    <button [disabled]="leaveform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves()">Search</button>
+                    <button [disabled]="leaveform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+                  </div>
+                  
+                </form>
+                
+                
+                <div class="row" style="margin-top:60px;">
+                  <table class="col-md-12 text-center">
+                    <tr>
+                      <td>
+                        <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
+                      </td>
+                      <td>
+                        <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
+                      </td>
+                      <td>
+                        <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
                 
               </div>
-         
-              <div class="form-group text-center">
-                <button [disabled]="leaveform.invalid" class="btn btn-primary" type="submit" (click)="searchleaves()">Search</button>
-                <button [disabled]="leaveform.invalid" class="btn btn-danger" type="reset">Cancel</button>
-              </div>
-              <br>
-              <div class="form-group">
-                <table >
-                  <tr>
-                    <td>
-                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
-                    </td>
-                    <td>
-                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
-                    </td>
-                    <td>
-                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
-                    </td>
-                  </tr>
+            </div>
+          </div>
+          <div class="panel panel-default" *ngIf="leavelists">
+            <div class="panel-body">
+              
+              <div class="table-responsive">          
+                <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+                  <thead>
+                    <tr>
+                      <th>S. No</th>
+                      <th>Project Name</th>
+                      <th>Associate ID</th>
+                      <th>Associate Name</th>
+                      <th>Date</th>
+                      <th>Edit/Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let leavelist of leavelists">
+                      <td>{{leavelist.sno}}</td>
+                      <td>{{leavelist.projectname}}</td>
+                      <td>{{leavelist.associateid}}</td>
+                      <td>{{leavelist.associatename}}</td>
+                      <td>{{leavelist.date}}</td>
+                      <td>
+                        <button *ngIf="role" type="button" class="btn btn-info fa fa-edit" data-toggle="modal" data-target="#leavedetails"></button>&nbsp;
+                        <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash"></button>
+                        
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
-              
-            </form>
-            <div class="panel panel-default" *ngIf="leavelists">
-                <div class="panel-body">
-                  
-                  <div class="table-responsive " style="padding:30px">          
-                      <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
-                          <thead>
-                              <tr>
-                                  <th>Serial Number</th>
-                                  <th>Associate ID</th>
-                                  <th>Associate Name</th>
-                                  <th>Project Name</th>
-                                  <th>Date</th>
-                                  <th>Edit</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let leavelist of leavelists">
-                                  <td>{{leavelist.name}}</td>
-                                  <td>{{leavelist.position}}</td>
-                                  <td>{{leavelist.office}}</td>
-                                  <td>{{leavelist.age}}</td>
-                                  <td>{{leavelist.start_date}}</td>
-                                  <td>{{leavelist.salary}}</td>
-                              </tr>
-                          </tbody>
-                        </table>
-                  </div>
-                </div>
-                
-              </div>
+            </div>             
           </div>
         </div>
-      </div>
-    </div>
-    
+        
