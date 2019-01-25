@@ -15,11 +15,14 @@ export class FxratesComponent implements OnInit  {
   years:any;
   project=null;
   edit=0;
+  role:any;
   constructor(private formBuilder: FormBuilder) { 
   }
   
   ngOnInit() {
-    
+    if(localStorage.getItem('logeduser')=='admin'){
+      this.role=true;
+    }
     this.projects =[
       {projectname:"proj1"},
       {projectname:"proj2"},
@@ -49,7 +52,7 @@ export class FxratesComponent implements OnInit  {
       {sno:4,Projectname:'abc4',Year:2018,days:21},
       {sno:5,Projectname:'abc5',Year:2018,days:21},
     ];
-    
+    console.log(this.list)
   }
   errordata() {
     this.error = 'no data found';
