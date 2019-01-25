@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
             })
           })
         }    
-    
     nodata(){
         this.error="No Data Found";
     }
