@@ -47,6 +47,45 @@ export class ProjectinfoComponent implements OnInit {
       {name:'Michael Bruce',position:'Javascript Developer',office:'Singapore',age:'29',start_date:'2011/06/27',salary:'$183,000'},
       {name:'Shad Decker',position:'Regional Director',office:'Edinburgh',age:'51',start_date:'2008/11/13',salary:'$183,000'},
     ];   
+
+    this.dtOptions = {
+    //   data: this.projectslists,
+    //   columns: [{
+    //     title: 'Name',
+    //     data: 'name'
+    //   }, {
+    //     title: 'Position',
+    //     data: 'position'
+    //   }, {
+    //     title: 'Office',
+    //     data: 'office'
+    //   }
+    //   , {
+    //     title: 'Age',
+    //     data: 'age'
+    //   }
+    //   , {
+    //     title: 'Start Date',
+    //     data: 'start_date'
+    //   }
+    //   , {
+    //     title: 'Salary',
+    //     data: 'salary'
+    //   }
+    // ],
+      // Declare the use of the extension in the dom parameter
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      pagingType: 'full_numbers',
+      buttons: [
+        'pageLength',
+        'colvis',
+        'excel'
+      ]
+    };
     }
   
 }
