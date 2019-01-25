@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms'
 })
 export class LeavedetailsComponent implements OnInit {
   leaveform: FormGroup;
+  error:any;
+
   projects:any;
   project_years:any;
   associates:any;
@@ -38,5 +40,14 @@ export class LeavedetailsComponent implements OnInit {
     })
 
   }
+  nodata(){
+    this.error="No Data Found";
+}
+exception(){
+    this.error="Exception has occurred while Fetching the Data";
+}
+badrequest(){
+    this.error="Bad Request";
+}
 
 }
