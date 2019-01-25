@@ -20,6 +20,9 @@ export class HolidaysComponent implements OnInit {
   yr=0;
   jan:any;
   feb:any;
+  mar:any;
+  Apr:any;
+  may:any;
   constructor(private formBuilder: FormBuilder) { 
   }
   
@@ -59,6 +62,36 @@ export class HolidaysComponent implements OnInit {
       }),
       feb:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(28)]
+      }),
+      mar:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      Apr:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      may:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      jun:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      jul:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      aug:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      sep:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      oct:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      nov:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      dec:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       })
     })
 
@@ -86,4 +119,5 @@ export class HolidaysComponent implements OnInit {
     this.yr=0;
     // this.holidayform.reset(); 
   }
+ 
 }
