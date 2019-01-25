@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <div class="container-fluid">
   
   <!-- <ol class="breadcrumb">
@@ -73,7 +74,7 @@
     <div class="panel-body">
       
       <div class="table-responsive " style="padding:30px">          
-        <table class="table table-bordered table-striped">
+          <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
           <thead>
             <tr>
               <th>S.no</th>

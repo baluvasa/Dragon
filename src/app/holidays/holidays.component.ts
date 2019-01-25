@@ -18,21 +18,36 @@ export class HolidaysComponent implements OnInit {
   project=null;
   edit=0;
   yr=0;
-  jan:any;
-  feb:any;
-  mar:any;
-  Apr:any;
-  may:any;
+  dtOptions: any = {};
   constructor(private formBuilder: FormBuilder) { 
   }
   
   ngOnInit() {
+
+    this.dtOptions = {
+   
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        pagingType: 'full_numbers',
+        buttons: [
+          'pageLength',
+          'colvis',
+          'excel'
+        ]
+      };
     
     this.projects =[
       {projectname:"proj1"},
       {projectname:"proj2"},
       {projectname:"proj3"},
-      {projectname:"proj4"}
+      {projectname:"proj4"},
+      {projectname:"proj5"},
+      {projectname:"proj6"},
+      {projectname:"proj7"},
+      {projectname:"proj8"}
     ];
     this.years =[
       {years:"2018"},
@@ -102,8 +117,13 @@ export class HolidaysComponent implements OnInit {
       {sno:1,Projectname:'abc1',Year:2018,days:21},
       {sno:2,Projectname:'abc2',Year:2018,days:21},
       {sno:3,Projectname:'abc3',Year:2018,days:21},
-      {sno:4,Projectname:'abc4',Year:2018,days:21},
-      {sno:5,Projectname:'abc5',Year:2018,days:21},
+      {sno:4,Projectname:'abc4',Year:2018,days:22},
+      {sno:5,Projectname:'abc5',Year:2018,days:23},
+      {sno:6,Projectname:'abc5',Year:2018,days:24},
+      {sno:7,Projectname:'abc5',Year:2018,days:25},
+      {sno:8,Projectname:'abc5',Year:2018,days:28},
+      {sno:9,Projectname:'abc5',Year:2018,days:27},
+      {sno:10,Projectname:'abc5',Year:2018,days:41},
     ];
     
   }
@@ -119,5 +139,12 @@ export class HolidaysComponent implements OnInit {
     this.yr=0;
     // this.holidayform.reset(); 
   }
-  
+  saveholidayinfo()
+  {
+ 
+    this.holidaylistform.reset();
+   
+    alert("Data Added Successfully")
+  }
+ 
  }
