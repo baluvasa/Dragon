@@ -1,13 +1,14 @@
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-<div class="container-fluid">
-  <h2>Holidays Details</h2>
+<div class="row">
+    <div class="container-fluid">
+      
+      <h2>Holiday Details</h2>
+     
   <div class="panel panel-default">
     <div class="panel-heading">Search Holiday Details
       <button type="button" class="btn btn-success fa fa-plus-circle add" data-toggle="modal" data-target="#exampleModalCenter">&nbsp;&nbsp;Add</button>
     </div>
     <div class="panel-body">
-      <div class="col-md-12" >
-      </div>
+     <div class="row">
       <ng-container *ngIf="error">
         <div class="col-md-12">
           <div class="alert alert-danger alert-dismissible fade in">
@@ -56,42 +57,46 @@
       </form>
     </div>
   </div>
-  <div class="panel panel-default" *ngIf="list">
-    <div class="panel-body">
-      <div class="table-responsive " style="padding:30px">          
-        <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
-          <thead>
-            <tr>
-              <th>S.no</th>
-              <th>Projectname</th>
-              <th>Year</th>
-              <th>No.of Days</th>             
-              <th>Edit/Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of list">
-              <td>{{item.sno}}</td>
-              <td>{{item.Projectname}}</td>
-              <td>{{item.Year}}</td>
-              <td>{{item.days}}</td>
-              <td>
-                <button *ngIf="role" type="button" class="btn btn-info fa fa-edit" data-toggle="modal" data-target="#exampleModalCenter"></button>&nbsp;
-                <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash"></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+</div>
+
+
+  <div class="panel panel-default"*ngIf="list">
+      <div class="panel-body">
+        
+        <div class="table-responsive">          
+          <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+            <thead>
+                <tr>
+                    <th>S.no</th>
+                    <th>Projectname</th>
+                    <th>Year</th>
+                    <th>No.of Days</th>             
+                    <th>Edit/Delete</th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list">
+                    <td>{{item.sno}}</td>
+                    <td>{{item.Projectname}}</td>
+                    <td>{{item.Year}}</td>
+                    <td>{{item.days}}</td>
+                    <td>
+                      <button *ngIf="role" type="button" class="btn btn-info fa fa-edit" data-toggle="modal" data-target="#exampleModalCenter"></button>&nbsp;
+                      <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash"></button>
+                    </td>
+                  </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>             
     </div>
-  </div>
 </div>
 <!-- model -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add Holiday Details</h5>
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Add Holiday Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
