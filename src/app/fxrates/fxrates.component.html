@@ -1,0 +1,287 @@
+<div class="container-fluid">
+
+
+  <h2>Fx Details</h2>
+      <div class="panel panel-default">
+      <div class="panel-heading">Fx Details
+          <!-- <i class="fa fa-plus" style="font-size:48px;color:red"></i> -->
+          <button type="button" class="btn btn-success fa fa-plus-circle pull-right" data-toggle="modal" data-target="#create">&nbsp;&nbsp;Add</button>
+
+      </div>
+      <div class="panel-body">
+          <div class="col-md-12" >
+          </div>
+          <ng-container *ngIf="error">
+          <div class="col-md-12">
+              <div class="alert alert-danger alert-dismissible fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  {{error}}
+                </div>
+          </div>
+        </ng-container>
+          <form [formGroup]="holidayform" (ngSubmit)="onSubmit(holidayform.value)">
+            <div class="row">    
+            <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="proj">Currency Code</label>
+
+                      <input class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
+                          
+                      
+                    </div>
+                  
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="year">Fx Date</label>
+                      <input class="form-control" id="year"  [formControl]="holidayform.controls['year']" [(ngModel)]="yr">
+                        
+                             
+                     </div>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-md-6">
+                  
+                  <div class="form-group">
+                      <label for="year">Fx Rate</label>
+                      <input class="form-control" id="year"  [formControl]="holidayform.controls['year']" [(ngModel)]="yr">
+                    </div>
+                 </div>
+                </div>
+                <div class="row">
+             <div class="col-md-12">
+              <div class="col-md-1">               
+                 <button (click)="getData()" id="bt" type="button" class="btn btn-primary">search</button>
+              </div>
+              <div class="col-md-1">               
+                  <button (click)="reset()" type="button" class="btn btn-danger ">cancel</button>
+                </div>
+               <div class="col-md-1">               
+                  <button (click)="errordata()" id="bt1"type="button" class="btn btn-danger" >no data</button>
+                </div>
+               <div class="col-md-1">               
+                  <button (click)="errorexceptiondata()" id="bt2"type="button" class="btn btn-danger" > exc error</button>
+                </div>
+
+             </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  
+    <ng-container *ngIf="list">
+       
+            <div class="row">
+        
+            
+                <div class="col-md-10 col-md-offset-1">
+        
+                    <div class="panel panel-default panel-table">
+                      <div class="panel-heading">
+                        <div class="row">
+                          <div class="col col-xs-6">
+                            <h3 class="panel-title">Fx Details</h3>
+                          </div>
+                          <!-- <div class="col col-xs-6 text-right">
+                            <button type="button" class="btn btn-sm btn-success btn-create">Add</button>
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="panel-body">
+                        <table class="table table-striped table-bordered table-list">
+                          <thead>
+                           <tr>
+              <th>Srl.No</th>
+              <th colspan="2">Currency code</th>
+              
+              <th colspan="2">FX Rate</th>
+              <th >Date</th>
+              <th>Edit</th>
+        </tr>
+                          </thead>
+                          <tbody>
+                                  <tr>
+              <td>1</td>
+              <td>$</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>01/01/1978</td>
+              <td> <button type="button" class="btn btn-primary fa fa-edit" data-toggle="modal" data-target="#create">&nbsp;&nbsp;Update</button></td>
+              
+            </tr>
+            
+            <tr>
+              <td>2</td>
+              <td>$</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>01/01/1978</td>
+              <td> <button type="button" class="btn btn-primary fa fa-edit" data-toggle="modal" data-target="#create">&nbsp;&nbsp;Update</button></td>
+              
+              
+            </tr>
+            
+            <tr>
+              <td>3</td>
+              <td>$</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>01/01/1994</td>
+              <td> <button type="button" class="btn btn-primary fa fa-edit" data-toggle="modal" data-target="#create">&nbsp;&nbsp;Update</button></td>
+              
+            </tr>
+            
+            <tr>
+              <td>4</td>
+              <td>$</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>01/01/1992</td>
+              <td><button type="button" class="btn btn-primary fa fa-edit" data-toggle="modal" data-target="#create">&nbsp;&nbsp;Update</button></td>
+              
+            </tr>
+            
+                                </tbody>
+                        </table>
+                    
+                      </div>
+                      <div class="panel-footer">
+                        <div class="row">
+                          <div class="col col-xs-4">Page 1 of 5
+                          </div>
+                          <div class="col col-xs-8">
+                            <ul class="pagination hidden-xs pull-right">
+                              <li><a href="#">1</a></li>
+                              <li><a href="#">2</a></li>
+                              <li><a href="#">3</a></li>
+                              <li><a href="#">4</a></li>
+                              <li><a href="#">5</a></li>
+                            </ul>
+                            <ul class="pagination visible-xs pull-right">
+                                <li><a href="#">«</a></li>
+                                <li><a href="#">»</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        
+        </div></div>
+    </ng-container>
+  </div>
+
+
+  <!-- model -->
+
+  <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+          <div class="modal-header">
+            <h5 class="modal-title form-row" id="exampleModalLabel">ADD DETAILS</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="form-group row ">
+              <label for="positionName" class="col-md-4 ">Currency Code<sup>*</sup></label>
+              <div class="col-md-8 col-lg-8 col-xl-8">
+                <input type="text" class="form-control form-control-sm" placeholder="ex:$,INR,IDR......"
+                id="positionName" required name="positionName"
+                [(ngModel)]="accessresp.name" #positionName="ngModel"/>
+                <div class="posAbsolute">
+                  <div *ngIf="positionName.errors?.required && positionName.touched" class="text-danger">
+                    Currency Code is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="description" class="col-md-4 ">Fx Rate</label>
+              <div class="col-md-8 col-lg-8 col-xl-8">
+                <input class="form-control form-control-sm" placeholder="Fx Rate..." type="text">
+              </div>
+              
+            </div>
+            <div class="form-group row">
+              <label for="description" class="col-md-4 ">Fx Date</label>
+              <div class="col-md-8 col-lg-8 col-xl-8">
+                <input class="form-control form-control-sm" type="date">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Save changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+              
+              
+            </div>      
+            
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form class="form-inline">
+                 <div class="row">
+                   <div class="col-md-6">
+
+                  
+                    <div class="form-group">
+                      <label for="email">Projectname:</label>
+                      <input type="text" class="form-control" id="email"  name="email" >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="pwd">year:</label>
+                      <input type="number" class="form-control" id="pwd"  name="pwd">
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                        <label for="pwd">year:</label>
+                        <input type="number" class="form-control" id="pwd"  name="pwd">
+                      </div>
+                      <div class="form-group">
+                          <label for="pwd">year:</label>
+                          <input type="number" class="form-control" id="pwd"  name="pwd">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">year:</label>
+                            <input type="number" class="form-control" id="pwd"  name="pwd">
+                          </div>
+                          <div class="form-group">
+                              <label for="pwd">year:</label>
+                              <input type="number" class="form-control" id="pwd"  name="pwd">
+                            </div>
+                    </div>
+                
+                  
+                  </form> 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
