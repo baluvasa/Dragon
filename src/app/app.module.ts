@@ -17,7 +17,8 @@ import { FormGroup, FormArray, FormBuilder,Validators,ReactiveFormsModule,FormsM
 import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component'; 
 import { AppServicesService } from './app-services.service';
-import { HolidaysComponent } from './holidays/holidays.component'; 
+import { HolidaysComponent } from './holidays/holidays.component';
+import { FxratesComponent } from './fxrates/fxrates.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { HolidaysComponent } from './holidays/holidays.component';
     CreateprojectComponent,
     ProjectinfoComponent,
     LeavedetailsComponent,
-    HolidaysComponent
+    HolidaysComponent,
+    FxratesComponent
   ],
   imports: [
     BrowserModule,
