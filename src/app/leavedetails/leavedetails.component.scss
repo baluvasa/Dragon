@@ -13,3 +13,13 @@ textarea{
 .modal-title{
     text-align: center;
 }
+.modal-header
+{
+  background-color: #428bca;
+  color: #fff;
+  & .close {
+    color: #fff;
+    opacity: 1;
+  }
+}
+ 

@@ -19,7 +19,8 @@ import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
 import { AppServicesService } from './app-services.service';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { FxratesComponent } from './fxrates/fxrates.component';
-import { ResourcesComponent } from './resources/resources.component'; 
+import { ResourcesComponent } from './resources/resources.component';
+import { PoapprovalComponent } from './poapproval/poapproval.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { ResourcesComponent } from './resources/resources.component';
     LeavedetailsComponent,
     HolidaysComponent,
     FxratesComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    PoapprovalComponent
   ],
   imports: [
     BrowserModule,
