@@ -28,9 +28,9 @@
                           <option>USD</option>
                           <option>JPN</option>
                         </select>
-                        <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
+                        <div class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
                           <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Currency Code is required</span>
-                        </small>
+                        </div>
                         
                         
                         <label>Fx Date</label>
@@ -79,18 +79,16 @@
                   </div>
                   <div class="col-md-3">
                     <label>Fx Date</label>
-                    <select class="form-control" [formControl]="leaveform.controls['associatesid']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select FX date</option>
-                      <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}</option>
-                    </select>
+                    <input type="date" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Fx rate here..">
+                      
+                    
                   </div>
                   
                   <div class="col-md-3">
                     <label>FX Rate</label>
-                    <select class="form-control" [formControl]="leaveform.controls['projectyear']" >
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select FX rate</option>
-                      <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
-                    </select>
+                    <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Fx rate here..">
+                     
+                    
                   </div>
                 </div>
                 
@@ -147,7 +145,7 @@
                   
                   <td>
                     <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateleavedetails"></button>&nbsp;
-                    <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash"></button>
+                    <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata()"></button>
                     
                   </td>
                 </tr>
