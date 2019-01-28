@@ -93,8 +93,8 @@
                   <div class="col-md-3">
                     <label>Associate ID</label>
                     <select class="form-control" [formControl]="leaveform.controls['associatesid']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
-                      <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}</option>
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Associate ID</option>
+                      <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}&nbsp;({{id.name}})</option>
                     </select>
                   </div>
                   
@@ -161,7 +161,7 @@
                   <td>{{leavelist.date}}</td>
                   <td>
                     <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateleavedetails"></button>&nbsp;
-                    <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash"></button>
+                    <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata()"></button>
                     
                   </td>
                 </tr>
