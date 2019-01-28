@@ -12,6 +12,7 @@ export class HolidaysComponent implements OnInit {
   list:any;  
   holidayform:FormGroup;
   holidaylistform:FormGroup;
+  holidayeditlistform:FormGroup;
   projects:any;
   years:any;
   year:any;
@@ -113,6 +114,50 @@ export class HolidaysComponent implements OnInit {
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       })
     })
+    this.holidayeditlistform = new FormGroup({
+      projecteditlist:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      yeareditlist:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      jan_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      feb_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(28)]
+      }),
+      mar_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      Apr_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      may_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      jun_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      jul_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      aug_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      sep_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      oct_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      }),
+      nov_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
+      }),
+      dec_edit:new FormControl('',{
+        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
+      })
+    })
 
   }
   
@@ -132,11 +177,31 @@ export class HolidaysComponent implements OnInit {
   errorexceptiondata() {
     this.error = 'Exception has occurred while fetching holiday details';
   }
+  badrequest() {
+    this.error="Bad Request";
+  }
   reset()
   {
     this.edit=0;
     this.yr=0;
     // this.holidayform.reset(); 
   }
+  saveholidayinfo()
+  {
  
+    this.holidaylistform.reset();
+   
+    alert("Data Added Successfully")
+  }
+  saveholidayeditinfo()
+  {
+ 
+    this.holidayeditlistform.reset();
+     alert("Data updated Successfully")
+  }
+  deletedata(){
+    if (confirm("Do you want to delete the Data")) {
+      alert("Data Deleted Successfully")
+    } 
+  }
 }
