@@ -1,29 +1,27 @@
-<div class="container-fluid">
-  
-  
-  <h2>Fx Details</h2>
-  <div class="panel panel-default">
-    <div class="panel-heading">Existing Fx Details
-      <!-- <i class="fa fa-plus" style="font-size:48px;color:red"></i> -->
-      <button *ngIf="role" type="button" class="btn btn-success btn-create fa fa-plus-circle pull-right" data-toggle="modal" data-target="#create">&nbsp;&nbsp;Add</button>
+<div class="row">
+  <div class="container-fluid">
+    
+    <h2>Fx Details</h2>
+    <div class="panel panel-default">
       
-    </div>
-    <div class="panel-body">
-      <div class="col-md-12" >
-      </div>
-      <ng-container *ngIf="error">
-        <div class="col-md-12">
-          <div class="alert alert-danger alert-dismissible fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{error}}
-          </div>
-        </div>
-      </ng-container>
-      <form [formGroup]="holidayform" (ngSubmit)="onSubmit(holidayform.value)">
-        <div class="row">    
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="proj">Currency Code</label>
+      <div class="panel-heading">Search Fx Details
+        <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#leavedetails" style="float:right">
+          &nbsp;&nbsp;Add</button>
+          
+        </div> 
+        <div class="panel-body">
+          <div>
+            <div id="leavedetails" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adding Leave Details</h4>
+                  </div>
+                  <form [formGroup]="addleaveform">
+                    <div class="modal-body">
+                      <div class="form-row">
+                       <label for="proj">Currency Code</label>
               
               <select class="form-control"  [formControl]="holidayform.controls['project']">
                 <option [value]="0">Select Currency</option>
@@ -43,166 +41,165 @@
                   ₱
                 </option>
               </select>
+                        <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
+                          <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Project Name is required</span>
+                        </small>
+                        
+                        
+                        <label>FX Date</label>
+                        <input type="text" class="form-control"/>
+                        <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
+                          <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
+                        </div>
+                        
+                        
+                        <div class="form-row">
+                          <label>Fx Rate</label>
+                          <input type="text" class="form-control"/>
+                          <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
+                            <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
+                          </div>
+                        </div>
+                        
+                        <!-- <div class="form-row">
+                          <label>Date</label>
+                          <input type="text" class="form-control"/>
+                          <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
+                            <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
+                          </div>
+                        </div> -->
+                        
+                        <!-- <div class="form-group">
+                          <label>Remarks</label><br>
+                          <textarea class="form-control" placeholder="Enter Remarks here..." rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                          
+                        </div> -->
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="error">
+              <div class="alert alert-danger alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{error}}
+              </div>
+            </div>
+            <form [formGroup]="leaveform" (ngSubmit)="onSubmit(leaveform.value)">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="proj">Currency Code</label>
               
-              
+                    <select class="form-control"  [formControl]="holidayform.controls['project']">
+                      <option [value]="0">Select Currency</option>
+                      <option >
+                        $
+                      </option>
+                      <option >
+                        €
+                      </option>
+                      <option  >
+                        Rp
+                      </option>
+                      <option  >
+                        ¥
+                      </option>
+                      <option  >
+                        ₱
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label>FX Date</label>
+                        <input type="date" class="form-control"/>
+                        <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
+                          <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
+                        </div>
+                  </div>
+                  <!-- </div>
+                    
+                    <div class="row"> -->
+                      
+                      <div class="col-md-3">
+                        <label>Fx Rate</label>
+                        <input type="text" class="form-control"/>
+                        <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
+                          <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                  </div>
+                  
+                  <div class="text-center col-md-12">
+                    <button [disabled]="leaveform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves()">Search</button>
+                    <button [disabled]="leaveform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+                  </div>
+                  
+                </form>
+                
+                
+                <div class="row" style="margin-top:60px;">
+                  <table class="col-md-12 text-center">
+                    <tr>
+                      <td>
+                        <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
+                      </td>
+                      <td>
+                        <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
+                      </td>
+                      <td>
+                        <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                
+              </div>
             </div>
-            
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="year">Fx Date</label>
-              <input class="form-control" >
-              
-              
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            
-            <div class="form-group">
-              <label for="year">Fx Rate</label>
-              <input class="form-control" >
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-1">               
-              <button (click)="getData()" id="bt" type="button" class="btn btn-primary">search</button>
-            </div>
-            <div class="col-md-1">               
-              <button (click)="reset()" type="button" class="btn btn-danger ">cancel</button>
-            </div>
-            <div class="col-md-1">               
-              <button (click)="errordata()" id="bt1"type="button" class="btn btn-danger" >no data</button>
-            </div>
-            <div class="col-md-1">               
-              <button (click)="errorexceptiondata()" id="bt2"type="button" class="btn btn-danger" > exc error</button>
-            </div>
-            
-          </div>
-        </div>
-      </form>
-    </div>
-      
-      <div class="row">
-        
-        
-        <div class="col-md-10 col-md-offset-1" *ngIf="list">
-          
-          <div class="panel panel-default panel-table">
-            
+          <div class="panel panel-default" *ngIf="leavelists">
             <div class="panel-body">
-              <table class="table table-striped table-bordered table-list" datatable>
-                <thead>
-                  <tr>
-                    <th>Srl.No</th>
-                    <th colspan="2">Currency code</th>
-                    
-                    <th colspan="2">FX Rate</th>
-                    <th >Date</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of list">
-                    <td>{{item.sno}}</td>
-                    <td>{{item.sno}}</td>
-                    <td>{{item.sno}}</td>
-                    <td>{{item.sno}}</td>
-                    <td>{{item.sno}}</td>
-                    <td>{{item.sno}}</td>
-                    <td> <button *ngIf="role" type="button" class="btn btn-primary fa fa-edit" data-toggle="modal" data-target="#create">&nbsp;&nbsp;Update</button></td>
-                    
-                  </tr>
-                  
-                  
-                  
-                </tbody>
-              </table>
               
-            </div>
-            <div class="panel-footer">
-              <div class="row">
-                <div class="col col-xs-4">Page 1 of 5
-                </div>
-                <div class="col col-xs-8">
-                  <ul class="pagination hidden-xs pull-right">
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                  </ul>
-                  <ul class="pagination visible-xs pull-right">
-                    <li><a href="#">«</a></li>
-                    <li><a href="#">»</a></li>
-                  </ul>
-                </div>
+              <div class="table-responsive">          
+                <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+                  <thead>
+                    <tr>
+                      <th>S. No</th>
+                      <th>Project Name</th>
+                      <th>Associate ID</th>
+                      <th>Associate Name</th>
+                      <th>Date</th>
+                      <th>Edit/Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let leavelist of leavelists">
+                      <td>{{leavelist.sno}}</td>
+                      <td>{{leavelist.projectname}}</td>
+                      <td>{{leavelist.associateid}}</td>
+                      <td>{{leavelist.associatename}}</td>
+                      <td>{{leavelist.date}}</td>
+                      <td>
+                        <button *ngIf="role" type="button" class="btn btn-info fa fa-edit" data-toggle="modal" data-target="#leavedetails"></button>&nbsp;
+                        <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash"></button>
+                        
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
+            </div>             
           </div>
-          
-        </div></div>
-    </div>
-    
-    
-  </div>
-  
-  
-  <!-- model -->
-  
-  <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">ADD DETAILS</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            
-          </button>
-        </div>
-        <div class="modal-body">
-          
-          <div class="form-group row ">
-            <label for="positionName" class="col-md-4 ">Currency Code<sup>*</sup></label>
-            <div class="col-md-8 col-lg-8 col-xl-8">
-              <input type="text" class="form-control form-control-sm" placeholder="ex:$,INR,IDR......"
-              id="positionName" required name="positionName"
-              />
-              <div class="posAbsolute">
-                <!-- <div *ngIf="positionName.errors?.required && positionName.touched" class="text-danger">
-                  Currency Code is required
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="description" class="col-md-4 ">Fx Rate</label>
-            <div class="col-md-8 col-lg-8 col-xl-8">
-              <input class="form-control form-control-sm" placeholder="Fx Rate..." type="text">
-            </div>
-            
-          </div>
-          <div class="form-group row">
-            <label for="description" class="col-md-4 ">Fx Date</label>
-            <div class="col-md-8 col-lg-8 col-xl-8">
-              <input class="form-control form-control-sm" type="date">
-              <div class="modal-footer">
-                <button type="button" class="btn btn-success">Save changes</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            
-            
-          </div>      
-          
-          
         </div>
         
-      </div>
-    </div>
-  </div>
-  
-  

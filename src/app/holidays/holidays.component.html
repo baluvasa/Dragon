@@ -1,3 +1,12 @@
+<div class="container-fluid">
+  
+  <!-- <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Private</a></li>
+    <li><a href="#">Pictures</a></li>
+    <li class="active">Vacation</li>        
+  </ol> -->
+  <h2>Holidays Details</h2>
 <div class="row">
     <div class="container-fluid">
       
@@ -56,6 +65,36 @@
         </div>
       </form>
     </div>
+  </div>
+  
+  <div class="panel panel-default" *ngIf="list">
+    <div class="panel-body">
+      
+      <div class="table-responsive " style="padding:30px">          
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Projectname</th>
+              <th>Year</th>
+              <th>No.of Days</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list">
+              <td>{{item.sno}}</td>
+              <td>{{item.Projectname}}</td>
+              <td>{{item.Year}}</td>
+              <td>{{item.days}}</td>
+             
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
   </div>
 </div>
 
@@ -283,8 +322,8 @@
         </form> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="saveholidayinfo()" >Add</button> 
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
         
       </div>
     </div>
