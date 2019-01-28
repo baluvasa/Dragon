@@ -37,6 +37,7 @@ import { ResourcesComponent } from './resources/resources.component';
     HolidaysComponent,
     FxratesComponent,
     AccountcategoryComponent,
+    ResourcesComponent
    
   ],
   imports: [
