@@ -20,6 +20,7 @@ import { AppServicesService } from './app-services.service';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { FxratesComponent } from './fxrates/fxrates.component';
 import { AccountcategoryComponent } from './accountcategory/accountcategory.component'; 
+import { ResourcesComponent } from './resources/resources.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { AccountcategoryComponent } from './accountcategory/accountcategory.comp
     LeavedetailsComponent,
     HolidaysComponent,
     FxratesComponent,
-    AccountcategoryComponent
+    AccountcategoryComponent,
+   
   ],
   imports: [
     BrowserModule,
