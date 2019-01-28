@@ -26,10 +26,38 @@ export class HolidaysComponent implements OnInit {
   may:any;
   dtOptions: any = {};
   role:any;
+  holidaysinfo:any;
   constructor(private formBuilder: FormBuilder) { 
   }
   
   ngOnInit() {
+    this.holidaysinfo=[
+      {sno:'1',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Sep',year:'2018',count:'8'},
+      {sno:'2',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Oct',year:'2018',count:'11'},
+      {sno:'3',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Nov',year:'2018',count:'9'},
+      {sno:'4',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Dec',year:'2018',count:'10'},      
+      {sno:'5',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Jan',year:'2019',count:'8'},
+      {sno:'6',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Feb',year:'2019',count:'9'},
+      {sno:'7',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Mar',year:'2019',count:'10'},
+      {sno:'8',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Apr',year:'2019',count:'11'},
+      {sno:'9',projectname:'GE Energy-NPI Support-ICFC Pro',month:'May',year:'2019',count:'9'},
+      {sno:'10',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Jan',year:'2019',count:'8'},
+      {sno:'11',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Feb',year:'2019',count:'9'},
+      {sno:'12',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Mar',year:'2019',count:'10'},
+      {sno:'13',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Apr',year:'2019',count:'11'},
+      {sno:'14',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'May',year:'2019',count:'8'},
+      {sno:'15',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Jun',year:'2019',count:'10'},
+      {sno:'16',projectname:'GE Energy - Industrial',month:'Oct',year:'2018',count:'9'},
+      {sno:'17',projectname:'GE Energy - Industrial',month:'Nov',year:'2018',count:'10'},
+      {sno:'18',projectname:'GE Energy - Industrial',month:'Dec',year:'2018',count:'9'},
+      {sno:'19',projectname:'GE Energy - Industrial',month:'Jan',year:'2019',count:'8'},
+      {sno:'20',projectname:'GE Energy - Industrial',month:'Feb',year:'2019',count:'8'},
+      {sno:'21',projectname:'AVS 6 months',month:'Jan',year:'2019',count:'9'},
+      {sno:'22',projectname:'AVS 6 months',month:'Feb',year:'2019',count:'8'},
+      {sno:'23',projectname:'AVS 6 months',month:'Mar',year:'2019',count:'8'},
+      {sno:'24',projectname:'AVS 6 months',month:'Apr',year:'2019',count:'10'},
+      {sno:'25',projectname:'AVS 6 months',month:'May',year:'2019',count:'11'}
+    ];
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
@@ -49,13 +77,12 @@ export class HolidaysComponent implements OnInit {
       };
     
     this.projects =[
-      {projectname:"proj1"},
-      {projectname:"proj2"},
-      {projectname:"proj3"},
-      {projectname:"proj4"}
+      {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
+      {projectname:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
+      {projectname:'GE Energy - Industrial',pid:'12004711'},
+      {projectname:'AVS 6 months',pid:'000000000029578'}
     ];
     this.years =[
-      {years:"2018"},
       {years:"2018"},
       {years:"2019"},
       {years:"2020"}
@@ -66,7 +93,7 @@ export class HolidaysComponent implements OnInit {
       project:new FormControl('',{
         validators: [Validators.required]
       }),
-      year:new FormControl('',{
+      yearlist:new FormControl('',{
         validators: [Validators.required]
       })
     })
@@ -160,14 +187,17 @@ export class HolidaysComponent implements OnInit {
     })
 
   }
-  
+  onSubmit(a){
+    console.log(a)
+  }
   getData(){    
     this.list = [
-      {sno:1,Projectname:'abc1',Year:2018,days:21},
-      {sno:2,Projectname:'abc2',Year:2018,days:21},
-      {sno:3,Projectname:'abc3',Year:2018,days:21},
-      {sno:4,Projectname:'abc4',Year:2018,days:21},
-      {sno:5,Projectname:'abc5',Year:2018,days:21},
+      {sno:1,Projectname:'GE Energy-NPI Support-ICFC Pro',Year:2018,days:104},
+      {sno:2,Projectname:'GE Energy-NPI Support-ICFC Pro',Year:2019,days:104},
+      {sno:3,Projectname:'GE Energy - Industrial',Year:2018,days:104},
+      {sno:4,Projectname:'GE Energy - Industrial',Year:2019,days:104},
+      {sno:5,Projectname:'AVS 6 months',Year:2018,days:104},
+      {sno:6,Projectname:'AVS 6 months',Year:2019,days:104},
     ];
     
   }
@@ -200,8 +230,8 @@ export class HolidaysComponent implements OnInit {
      alert("Data updated Successfully")
   }
   deletedata(){
-    if (confirm("Do you want to delete the Data")) {
-      alert("Data Deleted Successfully")
+    if (confirm("Do you want to delete Holidays For the Year?")) {
+      alert("Holiday Details Deleted Successfully.")
     } 
   }
 }

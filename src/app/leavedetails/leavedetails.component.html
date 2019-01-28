@@ -23,7 +23,7 @@
                       <div class="form-row">
                         <label>Project Name</label>
                         <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
+                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
                           <option>GE Renewables</option>
                           <option>GE Digital</option>
                           <option>GE Industrial</option>
@@ -50,7 +50,7 @@
                         
                         <div class="form-row">
                           <label>Date</label>
-                          <input type="text" class="form-control"/>
+                          <input type="date" class="form-control"/>
                           <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
                             <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
                           </div>
@@ -86,15 +86,15 @@
                   <div class="col-md-6">
                     <label>Project Name</label>
                     <select class="form-control" [formControl]="leaveform.controls['projectname']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
-                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option>
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
                     </select>
                   </div>
                   <div class="col-md-3">
                     <label>Associate ID</label>
                     <select class="form-control" [formControl]="leaveform.controls['associatesid']">
                       <option value="" disabled selected hidden style="color:#a4b2ba;">Select Associate ID</option>
-                      <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}&nbsp;({{id.name}})</option>
+                      <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}&nbsp;( {{id.name}} )</option>
                     </select>
                   </div>
                   
@@ -155,7 +155,7 @@
               <tbody>
                 <tr *ngFor="let leavelist of leavelists">
                   <td>{{leavelist.sno}}</td>
-                  <td>{{leavelist.projectname}}</td>
+                  <td>{{leavelist.name}}</td>
                   <td>{{leavelist.associateid}}</td>
                   <td>{{leavelist.associatename}}</td>
                   <td>{{leavelist.date}}</td>
@@ -179,19 +179,20 @@
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Project Name</label>
-                        <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select a Project</option>
+                        <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control">
+                        <!-- <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
+                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
                           <option>GE Renewables</option>
                           <option>GE Digital</option>
                           <option>GE Industrial</option>
-                        </select>
+                        </select> -->
                         <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
                           <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Project Name is required</span>
                         </small>
                         
                         
                         <label>Associate ID</label>
-                        <input type="text" class="form-control"/>
+                        <input type="text" class="form-control" disabled value="505050"/>
                         <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                           <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
                         </div>
@@ -199,7 +200,7 @@
                         
                         <div class="form-row">
                           <label>Associate Name</label>
-                          <input type="text" class="form-control"/>
+                          <input type="text" class="form-control" disabled value="Vijay Krishna"/>
                           <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
                           </div>
@@ -207,7 +208,7 @@
                         
                         <div class="form-row">
                           <label>Date</label>
-                          <input type="text" class="form-control"/>
+                          <input type="text" class="form-control" value="01/07/2019"/>
                           <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
                             <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
                           </div>
@@ -215,7 +216,7 @@
                         
                         <div class="form-group">
                           <label>Remarks</label><br>
-                          <textarea class="form-control" placeholder="Enter Remarks here..." rows="4"></textarea>
+                          <textarea class="form-control" placeholder="Enter Remarks here..." rows="4">Not Feeling Well</textarea>
                         </div>
                         <div class="form-group">
                           
