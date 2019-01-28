@@ -18,7 +18,8 @@ import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bo
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component'; 
 import { AppServicesService } from './app-services.service';
 import { HolidaysComponent } from './holidays/holidays.component';
-import { FxratesComponent } from './fxrates/fxrates.component'; 
+import { FxratesComponent } from './fxrates/fxrates.component';
+import { AccountcategoryComponent } from './accountcategory/accountcategory.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { FxratesComponent } from './fxrates/fxrates.component';
     ProjectinfoComponent,
     LeavedetailsComponent,
     HolidaysComponent,
-    FxratesComponent
+    FxratesComponent,
+    AccountcategoryComponent
   ],
   imports: [
     BrowserModule,
