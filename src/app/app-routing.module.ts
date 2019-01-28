@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'projectinfo', component: ProjectinfoComponent }, 
   { path: 'leavedetails', component: LeavedetailsComponent },
   {path:'holidays', component:HolidaysComponent} ,
+  { path: 'fxrates', component: FxratesComponent } ,   
   { path: 'resources', component: ResourcesComponent },    
 ];
 

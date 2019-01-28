@@ -19,6 +19,7 @@ import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
 import { AppServicesService } from './app-services.service';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { FxratesComponent } from './fxrates/fxrates.component';
+import { AccountcategoryComponent } from './accountcategory/accountcategory.component'; 
 import { ResourcesComponent } from './resources/resources.component'; 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { ResourcesComponent } from './resources/resources.component';
     LeavedetailsComponent,
     HolidaysComponent,
     FxratesComponent,
+    AccountcategoryComponent,
     ResourcesComponent
+   
   ],
   imports: [
     BrowserModule,
