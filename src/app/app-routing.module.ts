@@ -12,6 +12,8 @@ import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
 import { HolidaysComponent } from './holidays/holidays.component'; 
 import { FxratesComponent } from './fxrates/fxrates.component'; 
 import { ResourcesComponent } from './resources/resources.component'; 
+import { AccountcategoryComponent } from './accountcategory/accountcategory.component';
+import { PoapprovalComponent } from './poapproval/poapproval.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
@@ -26,7 +28,10 @@ const routes: Routes = [
   { path: 'leavedetails', component: LeavedetailsComponent },
   {path:'holidays', component:HolidaysComponent} ,
   { path: 'fxrates', component: FxratesComponent } ,   
-  { path: 'resources', component: ResourcesComponent },    
+  { path: 'resources', component: ResourcesComponent },
+  { path: 'accountcategory', component: AccountcategoryComponent },
+  { path: 'poapproval', component: PoapprovalComponent },
+      
 ];
 
 @NgModule({

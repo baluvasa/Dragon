@@ -22,7 +22,6 @@ import { FxratesComponent } from './fxrates/fxrates.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { PoapprovalComponent } from './poapproval/poapproval.component'; 
 import { AccountcategoryComponent } from './accountcategory/accountcategory.component'; 
-import { ResourcesComponent } from './resources/resources.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,14 +37,11 @@ import { ResourcesComponent } from './resources/resources.component';
     LeavedetailsComponent,
     HolidaysComponent,
     FxratesComponent,
-<<<<<<< HEAD
     ResourcesComponent,
-    PoapprovalComponent
-=======
+    PoapprovalComponent,
     AccountcategoryComponent,
     ResourcesComponent
    
->>>>>>> 700f119dd9bda121b1eaeb95a46556950c4a3f44
   ],
   imports: [
     BrowserModule,
