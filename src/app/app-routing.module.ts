@@ -11,6 +11,7 @@ import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component';
 import { HolidaysComponent } from './holidays/holidays.component'; 
 import { FxratesComponent } from './fxrates/fxrates.component'; 
+import { ResourcesComponent } from './resources/resources.component'; 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'projectinfo', component: ProjectinfoComponent }, 
   { path: 'leavedetails', component: LeavedetailsComponent },
   {path:'holidays', component:HolidaysComponent} ,
-  { path: 'Fxrates', component: FxratesComponent }    
+  { path: 'resources', component: ResourcesComponent },    
 ];
 
 @NgModule({
