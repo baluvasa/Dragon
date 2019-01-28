@@ -101,7 +101,7 @@
                     <td>{{item.days}}</td>
                     <td>
                       <button *ngIf="role" type="button" class="btn btn-info fa fa-edit" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
-                      <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash"></button>
+                      <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
                     </td>
                   </tr>
             </tbody>
