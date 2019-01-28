@@ -23,22 +23,22 @@ export class LeavedetailsComponent implements OnInit {
     }
 
     this.projects=[
-      {name:'project A'},
-      {name:'project B'},
-      {name:'project C'},
-      {name:'project D'}
+      {name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
+      {name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
+      {name:'GE Energy - Industrial',pid:'12004711'},
+      {name:'AVS 6 months',pid:'000000000029578'}
     ];
     this.project_years=[
-      {year_month:'Jan-2018'},
-      {year_month:'Feb-2018'},
-      {year_month:'Mar-2018'},
-      {year_month:'Apr-2018'}  
+      {year_month:'Jan-2019'},
+      {year_month:'Feb-2019'},
+      {year_month:'Mar-2019'},
+      {year_month:'Apr-2019'}  
     ];
     this.associates=[
-      {associateid:'505050', name:"vijay"},
-      {associateid:'505051', name:"vishal"},
-      {associateid:'505052', name:"balu"},
-      {associateid:'505053', name:"mani"}  
+      {associateid:'505050', name:"Vijay Krishna"},
+      {associateid:'505051', name:"Vishal Gourav"},
+      {associateid:'505052', name:"Balu Vasa"},
+      {associateid:'505053', name:"Mani Bandari"}  
     ];
     this.leaveform = new FormGroup({
       projectname:new FormControl('',{}),
@@ -76,19 +76,19 @@ badrequest(){
 }
 searchleaves(){
   this.leavelists=[
-    {sno:'1',projectname:'Project A',associateid:'545454',associatename:'balakrishna',date:'2011/12/06'},
-    {sno:'2',projectname:'Project B',associateid:'787878',associatename:'mani',date:'2011/12/06'},
-    {sno:'3',projectname:'Project C',associateid:'595959',associatename:'akhil',date:'2011/12/06'},
-    {sno:'4',projectname:'Project A',associateid:'454545',associatename:'khali',date:'2011/12/06'},
-    {sno:'5',projectname:'Project B',associateid:'121212',associatename:'prashanthi',date:'2011/12/06'},
-    {sno:'6',projectname:'Project C',associateid:'323232',associatename:'sridhar',date:'2011/12/06'},
-    {sno:'7',projectname:'Project A',associateid:'568945',associatename:'sharath',date:'2011/12/06'},
-    {sno:'8',projectname:'Project B',associateid:'451278',associatename:'shruthi',date:'2011/12/06'},
+    {sno:'1',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'07-Jan-2019'},
+    {sno:'2',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'19-FEb-2019'},
+    {sno:'3',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'17-Jan-2019'},
+    {sno:'4',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'20-Feb-2019'},
+    {sno:'5',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'09-Jan-2019'},
+    {sno:'6',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'19-Feb-2019'},
+    {sno:'7',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'18-Jan-2019'},
+    {sno:'8',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'20-Feb-2019'},
   ];
 }
 deletedata(){
-  if (confirm("Do you want to delete the Data")) {
-  alert("Data Deleted Successfully")
+  if (confirm("Do you want to delete the Leave Details?")) {
+  alert("Leave Details Deleted Successfully.")
   } 
   } 
 }
