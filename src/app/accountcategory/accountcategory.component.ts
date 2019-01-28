@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
   templateUrl: './accountcategory.component.html',
   styleUrls: ['./accountcategory.component.scss']
 })
-export class FxratesComponent implements OnInit  {
+export class AccountcategoryComponent implements OnInit  {
   leaveform: FormGroup;
   addleaveform: FormGroup;
   error:any;
