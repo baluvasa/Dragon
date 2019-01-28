@@ -35,10 +35,10 @@ export class LeavedetailsComponent implements OnInit {
       {year_month:'Apr-2018'}  
     ];
     this.associates=[
-      {associateid:'505050'},
-      {associateid:'505051'},
-      {associateid:'505052'},
-      {associateid:'505053'}  
+      {associateid:'505050', name:"vijay"},
+      {associateid:'505051', name:"vishal"},
+      {associateid:'505052', name:"balu"},
+      {associateid:'505053', name:"mani"}  
     ];
     this.leaveform = new FormGroup({
       projectname:new FormControl('',{}),
@@ -86,4 +86,9 @@ searchleaves(){
     {sno:'8',projectname:'Project B',associateid:'451278',associatename:'shruthi',date:'2011/12/06'},
   ];
 }
+deletedata(){
+  if (confirm("Do you want to delete the Data")) {
+  alert("Data Deleted Successfully")
+  } 
+  } 
 }

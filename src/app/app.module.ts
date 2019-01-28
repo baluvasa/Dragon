@@ -39,8 +39,7 @@ import { AccountcategoryComponent } from './accountcategory/accountcategory.comp
     FxratesComponent,
     ResourcesComponent,
     PoapprovalComponent,
-    AccountcategoryComponent,
-    ResourcesComponent
+    AccountcategoryComponent
    
   ],
   imports: [

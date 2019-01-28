@@ -88,4 +88,9 @@ searchleaves(){
     {sno:'8',projectname:'USD',associateid:'22-Jan-14',associatename:'45'},
   ];
 }
+deletedata(){
+  if (confirm("Do you want to delete the Data")) {
+    alert("Data Deleted Successfully")
+  } 
+}
 }

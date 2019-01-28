@@ -1,0 +1,25 @@
+.modal_view{
+    float:right;
+  }
+  .leave_project_name{
+    margin-bottom: 3%;
+  }
+  textarea{
+    resize: none;
+  }
+  .add_new_leave{
+    float:right;
+  }
+  .modal-title{
+    text-align: center;
+  }
+  .modal-header
+  {
+  background-color: #428bca;
+  color: #fff;
+  & .close {
+    color: #fff;
+    opacity: 1;
+  }
+  }
+  
