@@ -31,9 +31,9 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="year">year</label>
+          <label for="year">Year</label>
           <select class="form-control" id="year"  [formControl]="holidayform.controls['year']" [(ngModel)]="yr">
-            <option [value]="0" disabled selected>--Please Select year--</option>
+            <option [value]="0" disabled selected>--Please Select Year--</option>
             <option *ngFor="let year of years" [value]=year.years >
               {{year.years}}
             </option>
@@ -86,8 +86,8 @@
         <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
           <thead>
               <tr>
-                  <th>S.no</th>
-                  <th>Projectname</th>
+                  <th>S.No</th>
+                  <th>Project Name</th>
                   <th>Year</th>
                   <th>No.of Days</th>             
                   <th>Edit/Delete</th>
@@ -139,7 +139,7 @@
           <div class="col-md-6">
             <label for="proj">Year</label>
             <select class="form-control" id="year"  [formControl]="holidaylistform.controls['yearlist']" [(ngModel)]="yr">
-              <option [value]="0" disabled selected>--Please Select year--</option>
+              <option [value]="0" disabled selected>--Please Select Year--</option>
               <option *ngFor="let year of years" [value]=year.years >
                 {{year.years}}
               </option>
@@ -339,7 +339,7 @@
           <div class="col-md-6">
             <label for="proj">Year</label>
             <select class="form-control" id="year"  [formControl]="holidayeditlistform.controls['yeareditlist']" [(ngModel)]="yr">
-              <option [value]="0" disabled selected>--Please Select year--</option>
+              <option [value]="0" disabled selected>--Please Select Year--</option>
               <option *ngFor="let year of years" [value]=year.years >
                 {{year.years}}
               </option>
