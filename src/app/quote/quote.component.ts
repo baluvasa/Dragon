@@ -40,9 +40,13 @@ export class QuoteComponent implements OnInit {
         associatesid:new FormControl('',{})    
       })
       this.addleaveform = new FormGroup({
-        modalprojectname:new FormControl('',{
-          validators: [Validators.required]
-        })
+        modalprojectname:new FormControl('', Validators.compose([
+          Validators.maxLength(25),
+          Validators.minLength(5),
+          Validators.required,
+          Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$'), // <-- Allow letters and numbers only
+        ])),
+    
       })
      
       this.dtOptions = {
