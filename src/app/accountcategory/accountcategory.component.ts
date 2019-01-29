@@ -94,16 +94,5 @@ deletedata(){
   } 
 }
 
-deldata(){
-  if (confirm("Do you want to delete the Account Details?")) {
-    alert("Account Details Deleted Successfully.")
-  } 
-}
-
-detedata(){
-  if (confirm("Do you want to delete the Account Details?")) {
-    alert("Account Details Deleted Successfully.")
-  } 
-}
 }
 
