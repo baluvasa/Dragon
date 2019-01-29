@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'resources', component: ResourcesComponent },
   { path: 'accountcategory', component: AccountcategoryComponent },
   { path: 'poapproval', component: PoapprovalComponent },
+  { path: 'quote', component: PoapprovalComponent }
       
 ];
 
