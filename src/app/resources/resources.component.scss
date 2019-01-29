@@ -1,0 +1,22 @@
+
+.add
+{
+  float:right;
+  margin-top: -5px;
+}
+.modal-dialog
+{
+  height: 100%;
+}
+
+.modal-header
+{
+  background-color: #428bca;
+  color: #fff;
+  & .close {
+    margin-top: -20px;
+    color: #fff;
+    opacity: 1;
+  }
+}
+

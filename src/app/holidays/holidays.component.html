@@ -127,7 +127,6 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="proj">Project Name</label>
-              
               <select class="form-control"  [formControl]="holidaylistform.controls['projectlist']" [(ngModel)]="edit">
                 <option [value]="0" disabled selected>Select Project</option>
                 <option *ngFor="let project of projects" [value]=project.projectname >
