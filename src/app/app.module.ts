@@ -21,7 +21,8 @@ import { HolidaysComponent } from './holidays/holidays.component';
 import { FxratesComponent } from './fxrates/fxrates.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { PoapprovalComponent } from './poapproval/poapproval.component'; 
-import { AccountcategoryComponent } from './accountcategory/accountcategory.component'; 
+import { AccountcategoryComponent } from './accountcategory/accountcategory.component';
+import { QuoteComponent } from './quote/quote.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { AccountcategoryComponent } from './accountcategory/accountcategory.comp
     FxratesComponent,
     ResourcesComponent,
     PoapprovalComponent,
-    AccountcategoryComponent
+    AccountcategoryComponent,
+    QuoteComponent
    
   ],
   imports: [
