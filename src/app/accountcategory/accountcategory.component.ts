@@ -37,10 +37,10 @@ export class AccountcategoryComponent implements OnInit  {
       {year_month:'45'}  
     ];
     this.associates=[
-      {associateid:'12-Jan-18'},
-      {associateid:'03-Mar-18'},
-      {associateid:'09-Sep-18'},
-      {associateid:'21-Dec-18'}  
+      {associateid:'GE Ticketless'},
+      {associateid:'GE P&W'},
+      {associateid:'GE Oil & Gas  '},
+      {associateid:'GE Turbines'}  
     ];
     this.leaveform = new FormGroup({
       projectname:new FormControl('',{}),
@@ -78,14 +78,14 @@ badrequest(){
 }
 searchleaves(){
   this.leavelists=[
-    {sno:'1',projectname:' GE Industrial-A',associateid:'GE Ticketless',associatename:'10'},
-    {sno:'2',projectname:' GE Appliances',associateid:'GE INDIA EXPORTS PVT LTD',associatename:'20'},
-    {sno:'3',projectname:' GE Industrial',associateid:'GE Oil & Gas ',associatename:'30'},
-    {sno:'4',projectname:' GE Industrial-B',associateid:'GE Packaged Power',associatename:'40'},
-    {sno:'5',projectname:' GE P&W-A',associateid:'Metso',associatename:'15'},
-    {sno:'6',projectname:' GE Industrial',associateid:'GE Amphenol',associatename:'25'},
-    {sno:'7',projectname:' GE Industrial-C',associateid:'GE P&W11',associatename:'35'},
-    {sno:'8',projectname:' GE P&W-B',associateid:'GE APP',associatename:'45'},
+    {sno:'1',projectname:' GE Industrial-A',associateid:'GE Ticketless'},
+    {sno:'2',projectname:' GE Appliances',associateid:'GE INDIA EXPORTS PVT LTD'},
+    {sno:'3',projectname:' GE Industrial',associateid:'GE Oil & Gas '},
+    {sno:'4',projectname:' GE Industrial-B',associateid:'GE Packaged Power'},
+    {sno:'5',projectname:' GE P&W-A',associateid:'Metso'},
+    {sno:'6',projectname:' GE Industrial',associateid:'GE Amphenol'},
+    {sno:'7',projectname:' GE Industrial-C',associateid:'GE P&W11'},
+    {sno:'8',projectname:' GE P&W-B',associateid:'GE APP'},
   ];
 }
 deletedata(){
