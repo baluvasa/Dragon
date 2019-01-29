@@ -66,10 +66,7 @@
                   <div class="col-md-6">
                     <label>Quote ID</label>
                     <input type="text" class="form-control" placeholder="Contract Id..."/>
-                    <!-- <select class="form-control" [formControl]="leaveform.controls['projectname']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
-                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - {{project.country}}</option>
-                    </select> -->
+                   
                   </div>
                   <div class="col-md-3">
                     <label>PO ID</label>
@@ -157,24 +154,13 @@
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Quote ID</label>
-                        <!-- <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
-                          <option>INR</option>
-                          <option selected>USD</option>
-                          <option>JPN</option>
-                        </select>
-                        <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
-                          <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Currency Code is required</span>
-                        </small> -->
+                    
                         <input class="form-control" [value]="projects.name" disabled>
                         
                         <label>PO ID</label>
                         <input class="form-control" [value]="projects.associateid">
-                        <!-- <input type="date" class="form-control"/> -->
-                        <!-- <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
-                          <div *ngIf="f.modalassociateid.errors.required">Fx Date is required</div>
-                        </div>
-                         -->
+                      
+                
                         
                         <div class="form-row">
                           <label>Contract ID</label>
