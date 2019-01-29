@@ -21,28 +21,20 @@
                   <form [formGroup]="addleaveform">
                     <div class="modal-body">
                       <div class="form-row">
-                        <label>Quote Id</label>
+                        <label>Quote ID</label>
                         <input type="text" class="form-control" placeholder="Quote Id..."/>
-                        <!-- <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
-                          <option>INR</option>
-                          <option>USD</option>
-                          <option>JPN</option>
-                        </select>
-                        <div class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
-                          <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Currency Code is required</span>
-                        </div> -->
+                      
                         
                         
-                        <label>PO Id</label>
-                        <input type="date" class="form-control" placeholder="Po Id..."/>
+                        <label>PO ID</label>
+                        <input type="text" class="form-control" placeholder="Po Id..."/>
                         <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                           <div *ngIf="f.modalassociateid.errors.required">Po Id is required</div>
                         </div>
                         
                         
                         <div class="form-row">
-                          <label>Contract Id</label>
+                          <label>Contract ID</label>
                           <input type="text" class="form-control" placeholder="Contract Id..."/>
                           <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociatename.errors.required">Contract Id is required</div>
@@ -72,7 +64,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
-                    <label>Quote Id</label>
+                    <label>Quote ID</label>
                     <input type="text" class="form-control" placeholder="Contract Id..."/>
                     <!-- <select class="form-control" [formControl]="leaveform.controls['projectname']">
                       <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
@@ -80,14 +72,14 @@
                     </select> -->
                   </div>
                   <div class="col-md-3">
-                    <label>PO Id</label>
+                    <label>PO ID</label>
                     <input type="text" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Po Id...">
                       
                     
                   </div>
                   
                   <div class="col-md-3">
-                    <label>Contract Id</label>
+                    <label>Contract ID</label>
                     <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Contract Id...">
                      
                     
@@ -132,9 +124,9 @@
               <thead>
                 <tr>
                   <th>S. No</th>
-                  <th>Quote Id</th>
-                  <th>PO Id</th>
-                  <th>Contract Id</th>
+                  <th>Quote ID</th>
+                  <th>PO ID</th>
+                  <th>Contract ID</th>
                   <th>Edit/Delete</th>
                 </tr>
               </thead>
@@ -174,10 +166,10 @@
                         <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
                           <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Currency Code is required</span>
                         </small> -->
-                        <input class="form-control" value="USD - US Doller" disabled>
+                        <input class="form-control" [value]="projects.name" disabled>
                         
                         <label>PO ID</label>
-                        <input class="form-control" value="16-Jan-2019" disabled>
+                        <input class="form-control" [value]="projects.associateid" disabled>
                         <!-- <input type="date" class="form-control"/> -->
                         <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                           <div *ngIf="f.modalassociateid.errors.required">Fx Date is required</div>
@@ -186,7 +178,7 @@
                         
                         <div class="form-row">
                           <label>Contract ID</label>
-                          <input type="text" class="form-control" value="0.011545" autofocus/>
+                          <input type="text" class="form-control" [value]="projects.associatename" autofocus/>
                           <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociatename.errors.required">Fx Rate is required</div>
                           </div>
