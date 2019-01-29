@@ -40,7 +40,7 @@
                         
                         <div class="form-row">
                           <label>Account Name</label>
-                          <input type="text"  placeholder="Search Account Name..."class="form-control" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
+                          <input type="text"  placeholder="Account Name..."class="form-control" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                           <div *ngIf="submitted && addleaveform.controls.modalassociateid.errors" class="invalid-feedback">
                             <div *ngIf="addleaveform.controls.modalassociateid.errors.required">Account Name</div>
                           </div>
@@ -161,9 +161,10 @@
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Account Category</label>
-                        <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
-                          <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option>
+                        <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" disabled required>
+                          <option value="" selected style="color:#a4b2ba;">GE Appliances</option>
+                          <!-- <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option> -->
+              
                         </select>
                         <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
                           <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Account Category is required</span>
@@ -179,7 +180,7 @@
                         
                         <div class="form-row">
                           <label>Account Name</label>
-                          <input type="text" placeholder="Account Name..." class="form-control" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
+                          <input type="text" value="GE INDIA EXPORTS PVT LTD" placeholder="Account Name..." class="form-control" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                           <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociateid.errors.required">Account Name Rate is required</div>
                           </div>
