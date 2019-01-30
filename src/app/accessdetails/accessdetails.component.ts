@@ -15,6 +15,7 @@ export class AccessdetailsComponent implements OnInit {
     leavelists:any;
     dtOptions: any = {};
     role:any;
+    roles:any;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -24,8 +25,12 @@ export class AccessdetailsComponent implements OnInit {
     }
     
     this.projects=     
-      {name:'QMS9645007',associatename:'TML19S75A51',associateid:'0000032951893'};
+      {name:'Mani B',associatename:'Admin',associateid:'BK00677333'};
+   this.roles=
+   [
+   {name:'Mani B',associateid:'BM00677999',associatename:'Admin'},
    
+   {name:'Rokkam Murali',associateid:'RM00677333',associatename:'User'}];
     this.leaveform = new FormGroup({
       projectname:new FormControl('',{}),
       projectyear:new FormControl('',{}),    
@@ -67,15 +72,15 @@ badrequest(){
 searchleaves(){
   this.leavelists=[
     
-    {sno:'1',projectname:'QMS9645008',associateid:'0000032951893',associatename:'TML19S75A51'},
-    {sno:'2',projectname:'KMS9645009',associateid:'0000063951811',associatename:'TML20S75Q72'},
-    {sno:'3',projectname:'GMS9645010',associateid:'0000023295133',associatename:'TML30S75W93'},
-    {sno:'4',projectname:'QMS9645007',associateid:'0000013295156',associatename:'TML50006E64'},
-    {sno:'5',projectname:'KMS9645006',associateid:'0000012004711',associatename:'TML10S75B35'},
-    {sno:'6',projectname:'GMS9645005',associateid:'0000099295189',associatename:'TML15006P66'},    
-    {sno:'7',projectname:'QMS6645009',associateid:'0000012004711',associatename:'TML18006B67'},
-    {sno:'8',projectname:'KMS6645008',associateid:'0000063295180',associatename:'TML27006B68'},    
-    {sno:'9',projectname:'GMS6645007',associateid:'0000012004711',associatename:'TML22S75A39'},
+    {sno:'1',projectname:'Mani B',associateid:'MB00677999',associatename:'Admin'},
+    {sno:'2',projectname:'Bala Krishna',associateid:'BK00677333',associatename:'Super Admin'},
+    {sno:'3',projectname:'Sailesh Kumar N',associateid:'SK00677666',associatename:'User'},
+    {sno:'4',projectname:'Venesh Mani Raj',associateid:'VR00677111',associatename:'User'},
+    {sno:'5',projectname:'Dharma A',associateid:'DA00677444',associatename:'Admin'},
+    {sno:'6',projectname:'khalesha',associateid:'SK00677222',associatename:'User'},    
+    {sno:'7',projectname:'Kiran Sukumar',associateid:'KS00677777',associatename:'Admin'},
+    {sno:'8',projectname:'Prashanthi',associateid:'NP00677000',associatename:'User'},    
+    {sno:'9',projectname:'Rokkam Murali',associateid:'RK00677232',associatename:'User'},
   ];
 }
 deletedata(){

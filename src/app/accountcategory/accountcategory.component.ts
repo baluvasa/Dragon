@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
   styleUrls: ['./accountcategory.component.scss']
 })
 export class AccountcategoryComponent implements OnInit  {
+  
   leaveform: FormGroup;
   addleaveform: FormGroup;
   error:any;

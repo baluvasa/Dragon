@@ -15,6 +15,7 @@ import { ResourcesComponent } from './resources/resources.component';
 import { AccountcategoryComponent } from './accountcategory/accountcategory.component';
 import { PoapprovalComponent } from './poapproval/poapproval.component';
 import { QuoteComponent } from './quote/quote.component'; 
+import { AccessdetailsComponent } from './accessdetails/accessdetails.component'; 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'resources', component: ResourcesComponent },
   { path: 'accountcategory', component: AccountcategoryComponent },
   { path: 'poapproval', component: PoapprovalComponent },
-  { path: 'quote', component:  QuoteComponent}
+  { path: 'quote', component:  QuoteComponent},
+  { path: 'accessdetails', component:  AccessdetailsComponent}
       
 ];
 
