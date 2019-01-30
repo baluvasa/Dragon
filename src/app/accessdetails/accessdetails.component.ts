@@ -25,12 +25,12 @@ export class AccessdetailsComponent implements OnInit {
     }
     
     this.projects=     
-      {name:'Mani B',associatename:'Admin',associateid:'BK00677333'};
+      {name:'Mani B',associatename:'Admin User',associateid:'BK00677333'};
    this.roles=
    [
-   {name:'Mani B',associateid:'BM00677999',associatename:'Admin'},
+   {name:'Mani B',associateid:'BM00677999',associatename:'Admin User'},
    
-   {name:'Rokkam Murali',associateid:'RM00677333',associatename:'User'}];
+   {name:'Rokkam Murali',associateid:'RM00677333',associatename:'Normal User'}];
     this.leaveform = new FormGroup({
       projectname:new FormControl('',{}),
       projectyear:new FormControl('',{}),    
@@ -72,20 +72,20 @@ badrequest(){
 searchleaves(){
   this.leavelists=[
     
-    {sno:'1',projectname:'Mani B',associateid:'MB00677999',associatename:'Admin'},
-    {sno:'2',projectname:'Bala Krishna',associateid:'BK00677333',associatename:'Super Admin'},
-    {sno:'3',projectname:'Sailesh Kumar N',associateid:'SK00677666',associatename:'User'},
-    {sno:'4',projectname:'Venesh Mani Raj',associateid:'VR00677111',associatename:'User'},
-    {sno:'5',projectname:'Dharma A',associateid:'DA00677444',associatename:'Admin'},
-    {sno:'6',projectname:'khalesha',associateid:'SK00677222',associatename:'User'},    
-    {sno:'7',projectname:'Kiran Sukumar',associateid:'KS00677777',associatename:'Admin'},
-    {sno:'8',projectname:'Prashanthi',associateid:'NP00677000',associatename:'User'},    
-    {sno:'9',projectname:'Rokkam Murali',associateid:'RK00677232',associatename:'User'},
+    {sno:'1',projectname:'Mani B',associateid:'MB00677999',associatename:'Admin User'},
+    {sno:'2',projectname:'Bala Krishna',associateid:'BK00677333',associatename:'Admin User'},
+    {sno:'3',projectname:'Sailesh Kumar N',associateid:'SK00677666',associatename:'Normal User'},
+    {sno:'4',projectname:'Venesh Mani Raj',associateid:'VR00677111',associatename:'Normal User'},
+    {sno:'5',projectname:'Dharma A',associateid:'DA00677444',associatename:'Admin User'},
+    {sno:'6',projectname:'khalesha',associateid:'SK00677222',associatename:'Normal User'},    
+    {sno:'7',projectname:'Kiran Sukumar',associateid:'KS00677777',associatename:'Admin User'},
+    {sno:'8',projectname:'Prashanthi',associateid:'NP00677000',associatename:'Normal User'},    
+    {sno:'9',projectname:'Rokkam Murali',associateid:'RK00677232',associatename:'Normal User'},
   ];
 }
 deletedata(){
-  if (confirm("Do you want to delete the Quote Details?")) {
-    alert("Quote Details Deleted Successfully.")
+  if (confirm("Do you want to delete the Access Details?")) {
+    alert("Access Details Deleted Successfully.")
   } 
 }
 

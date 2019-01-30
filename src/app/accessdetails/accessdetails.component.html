@@ -171,7 +171,7 @@
                         <div class="form-row">
                           <label>Access Type</label>
                           <select class="form-control">
-                            <option value="" disabled selected hidden style="color:#a4b2ba;">Admin</option>
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Admin User</option>
                             <option *ngFor="let pro of roles">{{pro.associatename}}</option>
                           </select>
                           <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
