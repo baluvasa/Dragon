@@ -95,14 +95,8 @@ export class CreateprojectComponent implements OnInit {
     },
       {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',start_date:'23-Oct-2017',end_date:'22-Apr-2018',resource_count:'1',po_amount:'65877.50000000',currency:'EUR',type:'TIME & MATERIAL',status:'In Active'
     },
-      {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',start_date:'23-Oct-2017',end_date:'22-Apr-2018',resource_count:'1',po_amount:'65877.50000000',currency:'JPY',type:'TIME & MATERIAL',status:'In Active'
+      {account_category:'GE Packaged Power',account_name:'Aero',project_name:'IES_SHOULD COSTING-ES',start_date:'1-Jan-18',end_date:'30-Jun-18',resource_count:'10',po_amount:'170000.00',currency:'JPY',type:'FIXED PRICE',status:'In Active'
     }
   ];
-  
-  // GE Industrial - US India
-  // GE Oil & Gas
-  // GE Packaged Power
-  // GE Power & Water
-  // Amphenol
 }
 }
