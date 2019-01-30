@@ -16,6 +16,7 @@ export class ResourcesComponent implements OnInit {
   editerror:any;
   edit=0;
   band:any;
+
   resourceaddform:FormGroup;
   constructor(private formBuilder: FormBuilder) { }
 
@@ -105,13 +106,15 @@ errorexceptiondata() {
 badrequest() {
   this.error="Bad Request";
 }
-saveadd()
+sendvalue(v)
 {
-  this.resourceaddform.reset();
-   alert("Data Added Successfully.");
+ console.log(v);
+ alert("Data Added Successfully.");
+ this.resourceaddform.reset();
 }
-saveedit()
+saveeditvalue(v)
 {
+  console.log(v);
   this.resourceeditform.reset();
    alert("Data Updated Successfully.");
 }

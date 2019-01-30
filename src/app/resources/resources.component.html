@@ -102,7 +102,7 @@
         </div>
         <div class="modal-body">
           
-            <form [formGroup]="resourceaddform" (ngSubmit)="onSubmit(resourceaddform.value)">
+            <form [formGroup]="resourceaddform">
              <div class="row">
                <div class="col-md-6">
                   <div class="form-group">
@@ -152,7 +152,7 @@
   
         </div>
         <div class="modal-footer">
-            <button [disabled]="resourceaddform.invalid" type="button" class="btn btn-success" (click)="saveadd()" >Add</button> 
+            <button [disabled]="resourceaddform.invalid" type="submit" class="btn btn-success" (click)="sendvalue(resourceaddform.value)" >Add</button> 
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div>
       </div>
@@ -177,7 +177,7 @@
                     </div>
                   </div>
                 </ng-container>
-              <form [formGroup]="resourceeditform" (ngSubmit)="onSubmit(resourceeditform.value)">
+              <form [formGroup]="resourceeditform">
                       <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
@@ -235,7 +235,7 @@
                 </form>
            </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-success" (click)="saveedit()" >update</button> 
+              <button type="submit" class="btn btn-success" (click)="saveeditvalue(resourceeditform.value)" >update</button> 
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
