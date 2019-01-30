@@ -216,13 +216,13 @@ export class HolidaysComponent implements OnInit {
     this.yr=0;
     // this.holidayform.reset(); 
   }
-  saveholidayinfo()
-  {
- 
-    this.holidaylistform.reset();
+//   saveholidayinfo(a)
+//   {
+//  console.log(a);
+//     // this.holidaylistform.reset();
    
-    alert("Data Added Successfully")
-  }
+//     alert("Data Added Successfully")
+//   }
   saveholidayeditinfo()
   {
  
@@ -233,5 +233,8 @@ export class HolidaysComponent implements OnInit {
     if (confirm("Do you want to delete Holidays For the Year?")) {
       alert("Holiday Details Deleted Successfully.")
     } 
+  }
+  sendvalues(q){
+    console.log(q);
   }
 }

@@ -1,170 +1,108 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
-import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-createproject',
   templateUrl: './createproject.component.html',
-  styleUrls: ['./createproject.component.scss'],
-  styles: [`
-  .custom-day {
-    text-align: center;
-    padding: 0.185rem 0.25rem;
-    display: inline-block;
-    height: 2rem;
-    width: 2rem;
-  }
-  .custom-day.focused {
-    background-color: #e6e6e6;
-  }
-  .custom-day.range, .custom-day:hover {
-    background-color: rgb(2, 117, 216);
-    color: white;
-  }
-  .custom-day.faded {
-    background-color: rgba(2, 117, 216, 0.5);
-  }
-  `]
+  styleUrls: ['./createproject.component.scss']
 })
-export class CreateprojectComponent implements OnInit {
-  angForm: FormGroup;
-  angFormdays: FormGroup;
-  submitted = false;
-  clients = [
-    {name: 'Arizona', abbrev: 'AZ'},
-    {name: 'California', abbrev: 'CA'},
-    {name: 'Colorado', abbrev: 'CO'},
-    {name: 'New York', abbrev: 'NY'},
-    {name: 'Pennsylvania', abbrev: 'PA'},
+export class CreateprojectComponent implements OnInit {  
+  projectsearchform: FormGroup;
+  categories:any;
+  projects:any;
+  types:any;
+  statuses:any;
+  error:any;
+  acc_category_default=0;
+  project_name_default=0;
+  type_default=0;
+  status_default=0;
+  role:any;
+  projectlists:any;
+  dtOptions:any;
+  constructor(private formBuilder: FormBuilder) {}
+  ngOnInit() {
+    if(localStorage.getItem('logeduser')=='admin'){
+      this.role=true;
+    }
+    this.dtOptions = {
+      
+      dom: 'Bfrtip',
+      lengthMenu: [
+        [ 10, 25, 50, -1 ],
+        [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      pagingType: 'full_numbers',
+      scrollX: true,
+      buttons: [
+        'pageLength',
+        'colvis',
+        'excel'
+      ]
+    };
+    this.categories=[
+      {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl"},
+      {acc_category:"GE Industrial - US India",code:"giui"},
+      {acc_category:"GE Oil & Gas",code:"gog"},
+      {acc_category:"GE Packaged Power",code:"gpp"},
+      {acc_category:"GE Power & Water",code:"gpw"},
+      {acc_category:"Amphenol",code:"amp"}
+    ];
+    this.projects =[
+      {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
+      {projectname:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
+      {projectname:'GE Energy - Industrial',pid:'12004711'},
+      {projectname:'AVS 6 months',pid:'000000000029578'}
+    ];
+    this.types=[
+      {type:'Time & Meterial',code:'tm'},
+      {type:'Fixed Price',code:'fp'}
+    ];
+    this.statuses=[
+      {status:'In Active',code:'iac'},
+      {status:'Active',code:'ac'}
+    ];
+    this.projectsearchform = new FormGroup({
+      acc_category:new FormControl('',{
+        validators: []
+      }),
+      project_name:new FormControl('',{
+        validators: []
+      }),
+      type:new FormControl('',{
+        validators: []
+      }),
+      status:new FormControl('',{
+        validators: []
+      })
+    })
+  }  
+  errordata() {
+    this.error = 'no data found';
+  }
+  errorexceptiondata() {
+    this.error = 'Exception has occurred while fetching Project details';
+  }
+  badrequest() {
+    this.error="Bad Request";
+  }
+  onSubmit(a){
+    console.log(a)
+  }
+  getData(){
+    this.projectlists=[
+      {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',start_date:'16-Jul-2018',end_date:'13-Aug-2018',resource_count:'8',po_amount:'184800',currency:'INR',type:'TIME & MATERIAL',status:'In Active'
+    },
+      {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',start_date:'23-Oct-2017',end_date:'22-Apr-2018',resource_count:'1',po_amount:'65877.50000000',currency:'EUR',type:'TIME & MATERIAL',status:'In Active'
+    },
+      {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',start_date:'23-Oct-2017',end_date:'22-Apr-2018',resource_count:'1',po_amount:'65877.50000000',currency:'JPY',type:'TIME & MATERIAL',status:'In Active'
+    }
   ];
   
-  hoveredDate: NgbDate;
-  fromDate: NgbDate;
-  toDate: NgbDate;
-  datefields:any;
-  fristfromdata:any;
-  crateprojectdata:any;
-  projectintialdata:{};
-  mn=[];
-  mn1:any;
-  monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"];
-  constructor(private formBuilder: FormBuilder,private calendar: NgbCalendar) {
-    
-  }
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
-    } else {      
-      this.datefields=false;
-      this.toDate = null;
-      this.fromDate = date;
-    }
-    if(this.fromDate && this.toDate)
-    {    
-      this.datefields=true;     
-    }
-  }
-  isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-  }
-  isInside(date: NgbDate) {
-    return date.after(this.fromDate) && date.before(this.toDate);
-  }
-  isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
-  }
-  dateFormat1(d) {
-    
-    var t = new Date(d);
-    console.log(t.getMonth())
-    return t.getMonth();
-  }
-  ngOnInit() {
-    
-    this.fristfromdata=false;
-    this.datefields=false;
-    
-    
-    this.angForm = new FormGroup({
-      projectName:new FormControl('',{
-        validators: [Validators.required,<any>Validators.minLength(4)],
-        updateOn:'blur'
-      }),
-      ProjectClient:new FormControl('',{
-        validators: [Validators.required]
-      }),
-      associates:new FormControl('',{
-        validators: [Validators.required],
-        updateOn:'blur'
-      })
-    }) 
-    this.angFormdays = new FormGroup({
-      daysformonth:new FormControl('',{
-        validators: [Validators.required]
-      })
-    }    
-    );
-    
-    //jQuery time
-    let current_fs:any, next_fs:any, previous_fs:any; //fieldsets
-    let left, opacity, scale; //fieldset properties which we will animate
-    let animating; //flag to prevent quick multi-click glitches
-    
-    $(".next").click(function(){
-      
-      this.current_fs = $(this).parent();
-      this.next_fs = $(this).parent().next();
-      $("#progressbar li").eq($("fieldset").index(this.next_fs)).addClass("active");
-      
-      this.next_fs.show(); 
-      this.current_fs.hide();
-    });
-    
-    $(".previous").click(function(){
-      this.current_fs = $(this).parent();
-      this.previous_fs = $(this).parent().prev();
-      $("#progressbar li").eq($("fieldset").index(this.current_fs)).removeClass("active");
-      this.previous_fs.show(); 
-      this.current_fs.hide();
-      
-    });
-    
-    // $(".submit").click(function(){
-    // 	return false;
-    // })
-  }
-  monthDiff(d1, d2) {
-    var months;
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    months -= d1.getMonth()-1;
-    months += d2.getMonth();
-    return months <= 0 ? 0 : months;
+  // GE Industrial - US India
+  // GE Oil & Gas
+  // GE Packaged Power
+  // GE Power & Water
+  // Amphenol
 }
-  savedata(v){    
-    this.projectintialdata=v;
-    this.projectintialdata['fromdate']=this.fromDate;
-    this.projectintialdata['todate']=this.toDate;
-    let monthcount=this.monthDiff(
-      new Date(this.fromDate.year, this.fromDate.month, this.fromDate.day),
-      new Date(this.toDate.year, this.toDate.month, this.toDate.day));
-    
-      
-    for(let i=this.fromDate.month;this.fromDate.month<=this.toDate.month;this.fromDate.month++){
-      this.mn.push(this.monthNames[this.fromDate.month-1])      
-    }
-    
-      // while(this.fromDate.month<=this.toDate.month){
-    //   this.mn.push(this.monthNames[this.fromDate.month-1])
-    //   this.fromDate.month++;
-    // }
-    console.log(this.mn)
-    // console.log(typeof this.projectintialdata)
-    // localStorage.setItem('firstformdata',JSON.stringify(this.projectintialdata));
-  }
-  savedata1(v1){
-    console.log(v1);
-  }
-  
 }

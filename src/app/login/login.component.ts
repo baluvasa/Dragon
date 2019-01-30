@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     }
     
     onSubmit(value:any) {
-
+console.log(value);
         if(value.username=='admin' && value.password=='admin123'){
             this.appservice.setLogedinfo('admin');            
             this.router.navigate(['home']);

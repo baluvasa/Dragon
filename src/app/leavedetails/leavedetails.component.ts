@@ -9,7 +9,7 @@ export class LeavedetailsComponent implements OnInit {
   leaveform: FormGroup;
   addleaveform: FormGroup;
   error:any;
-  projects:any;
+  // projects:any;
   project_years:any;
   associates:any;
   leavelists:any;
@@ -22,12 +22,12 @@ export class LeavedetailsComponent implements OnInit {
       this.role=true;
     }
 
-    this.projects=[
-      {name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
-      {name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
-      {name:'GE Energy - Industrial',pid:'12004711'},
-      {name:'AVS 6 months',pid:'000000000029578'}
-    ];
+    // this.projects=[
+    //   {name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
+    //   {name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
+    //   {name:'GE Energy - Industrial',pid:'12004711'},
+    //   {name:'AVS 6 months',pid:'000000000029578'}
+    // ];
     this.project_years=[
       {year_month:'Jan-2019'},
       {year_month:'Feb-2019'},
@@ -41,9 +41,9 @@ export class LeavedetailsComponent implements OnInit {
       {associateid:'505053', name:"Mani Bandari"}  
     ];
     this.leaveform = new FormGroup({
-      projectname:new FormControl('',{}),
-      projectyear:new FormControl('',{}),    
-      associatesid:new FormControl('',{})    
+      associatesid:new FormControl('',{}),
+      associatesname:new FormControl('',{}),    
+      projectyear:new FormControl('',{})    
     })
     this.addleaveform = new FormGroup({
       modalprojectname:new FormControl('',{
@@ -57,6 +57,7 @@ export class LeavedetailsComponent implements OnInit {
             [ 10, 25, 50, -1 ],
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
+        
         pagingType: 'full_numbers',
         buttons: [
           'pageLength',
@@ -75,15 +76,25 @@ badrequest(){
     this.error="Bad Request";
 }
 searchleaves(){
+  // this.leavelists=[
+  //   {sno:'1',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'07-Jan-2019'},
+  //   {sno:'2',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'19-FEb-2019'},
+  //   {sno:'3',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'17-Jan-2019'},
+  //   {sno:'4',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'20-Feb-2019'},
+  //   {sno:'5',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'09-Jan-2019'},
+  //   {sno:'6',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'19-Feb-2019'},
+  //   {sno:'7',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'18-Jan-2019'},
+  //   {sno:'8',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'20-Feb-2019'},
+  // ];
   this.leavelists=[
-    {sno:'1',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'07-Jan-2019'},
-    {sno:'2',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'19-FEb-2019'},
-    {sno:'3',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'17-Jan-2019'},
-    {sno:'4',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'20-Feb-2019'},
-    {sno:'5',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'09-Jan-2019'},
-    {sno:'6',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'19-Feb-2019'},
-    {sno:'7',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'18-Jan-2019'},
-    {sno:'8',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'20-Feb-2019'},
+    {sno:'1',associateid:'505050', associatename:"Vijay Krishna",date:'07-Jan-2019'},
+    {sno:'2',associateid:'505050', associatename:"Vijay Krishna",date:'19-FEb-2019'},
+    {sno:'3',associateid:'505051', associatename:"Vishal Gourav",date:'17-Jan-2019'},
+    {sno:'4',associateid:'505051', associatename:"Vishal Gourav",date:'20-Feb-2019'},
+    {sno:'5',associateid:'505052', associatename:"Balu Vasa",date:'09-Jan-2019'},
+    {sno:'6',associateid:'505052', associatename:"Balu Vasa",date:'19-Feb-2019'},
+    {sno:'7',associateid:'505053', associatename:"Mani Bandari",date:'18-Jan-2019'},
+    {sno:'8',associateid:'505053', associatename:"Mani Bandari",date:'20-Feb-2019'},
   ];
 }
 deletedata(){
@@ -91,4 +102,7 @@ deletedata(){
   alert("Leave Details Deleted Successfully.")
   } 
   } 
+  onSubmit(a){
+    console.log(a);
+  }
 }

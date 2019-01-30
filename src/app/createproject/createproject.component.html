@@ -1,100 +1,131 @@
-<!-- MultiStep Form -->
 <div class="row">
-  <div class="col-md-12">
-    <form id="msform">
-      <!-- progressbar -->
-      <ul id="progressbar">
-        <li class="active">Project initial Details</li>
-        <li>Days for Each Month</li>
-        <li>Associate Details</li>
-      </ul> 
-      <!-- fieldsets -->
-      <fieldset>
-        <h2 class="fs-title">Project initial Details</h2>
-        <form [formGroup]="angForm">
-          <div>    
-            <input type="text" placeholder="Project Name" [formControl]="angForm.controls['projectName']" required>
-            <br>
-            <small  *ngIf="angForm.controls.projectName.errors && (angForm.controls.projectName.dirty || angForm.controls.projectName.touched) && !angForm.controls.projectName.valid">
-              <span *ngIf="angForm.controls.projectName.errors.required">Project Name is required</span>
-              <span *ngIf="angForm.controls.projectName.errors.minlength">Project Name must be 4 characters long</span>
-            </small>  
+    <div class="container-fluid">    
+      <h2>Project Details</h2>
+      <div class="panel panel-default">
+          <div class="panel-heading">Search Project Details
+            <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#exampleModalCenter">&nbsp;&nbsp;Add</button>
           </div>
-          <div>
-            <select class="form-control" required [formControl]="angForm.controls['ProjectClient']" >                            
-              <option value="" >Please Select</option>
-              <option *ngFor="let client of clients" [ngValue]="client">
-                {{ client.name }}
-              </option>
-            </select>            
-            <br><small *ngIf="angForm.controls.ProjectClient.errors && (angForm.controls.ProjectClient.dirty || angForm.controls.ProjectClient.touched) && !angForm.controls.ProjectClient.valid">
-              <span *ngIf="angForm.controls.ProjectClient.errors.required">Client is required</span>
-            </small>
+          <div class="panel-body">
+           <div class="row">
+              <ng-container *ngIf="error">
+                  <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade in">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      {{error}}
+                    </div>
+                  </div>
+                </ng-container>
+            <form [formGroup]="projectsearchform" (ngSubmit)="onSubmit(projectsearchform.value)">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="proj">Account Category</label>
+                      <select class="form-control"  [formControl]="projectsearchform.controls['acc_category']" [(ngModel)]="acc_category_default">
+                        <option [value]="0" disabled selected>Select Account Category</option>
+                        <option *ngFor="let category of categories" [value]=category.code >
+                          {{category.acc_category}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="proj">Project Name</label>
+                  <select class="form-control"  [formControl]="projectsearchform.controls['project_name']" [(ngModel)]="project_name_default">
+                    <option [value]="0" disabled selected>Select Project</option>
+                    <option *ngFor="let project of projects" [value]=project.projectname >
+                      {{project.projectname}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="year">Type</label>
+                  <select class="form-control" id="year"  [formControl]="projectsearchform.controls['type']" [(ngModel)]="type_default">
+                      <option [value]="0" disabled selected>Select Type</option>
+                      <option *ngFor="let type of types" [value]=type.type >
+                        {{type.type}}
+                      </option>
+                    </select>                  
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="year">Status</label>
+                  <select class="form-control" id="year"  [formControl]="projectsearchform.controls['status']" [(ngModel)]="status_default">
+                      <option [value]="0" disabled selected>Select Status</option>
+                      <option *ngFor="let status of statuses" [value]=status.code >
+                        {{status.status}}
+                      </option>
+                    </select>                  
+                </div>
+              </div>
+              <div class="text-center col-md-12">
+                <button [disabled]="projectsearchform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="getData()">Search</button>
+                <button [disabled]="projectsearchform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
+              </div>
+            </form>
+            <div class="row" style="margin-top:60px;">
+              <table class="col-md-12 text-center">
+                <tr>
+                  <td>
+                    <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="errordata()()">No Data Found</button>
+                  </td>
+                  <td>
+                    <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="errorexceptiondata()">Exception</button>
+                  </td>
+                  <td>
+                    <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
-          <div>    
-            <input type="number" placeholder="Number of Associates" [formControl]="angForm.controls['associates']" required>
-            <br>
-            <small  *ngIf="angForm.controls.associates.errors && (angForm.controls.associates.dirty || angForm.controls.associates.touched) && !angForm.controls.associates.valid">
-              <span *ngIf="angForm.controls.associates.errors.required">Number of Associates required</span>
-            </small>  
-          </div>
-          <div class="text-left">              
-            <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
-            </ngb-datepicker>
-            
-            <ng-template #t let-date let-focused="focused">
-              <span class="custom-day"
-              [class.focused]="focused"
-              [class.range]="isRange(date)"
-              [class.faded]="isHovered(date) || isInside(date)"
-              (mouseenter)="hoveredDate = date"
-              (mouseleave)="hoveredDate = null">
-              {{ date.day }}
-            </span>
-          </ng-template>  
         </div>
-        <!-- <button type="submit" class="next action-button"[disabled]="angForm.invalid">Save</button> -->
-      </form>
-      <button type="button" id="firstnext" name="save" class="next action-button" (click)="savedata(angForm.value)" [disabled]="angForm.invalid || !datefields">Next</button>
-      
-    </fieldset>
-    <fieldset>
-      <h2 class="fs-title">Days for Each Month</h2>  
-      <form [formGroup]="angFormdays">
-        <div class="text-left">  
-          <div class="custom-control custom-radio">                
-            <input type="radio" value="8" class="custom-control-input"  [formControl]="angFormdays.controls['daysformonth']" id="defaultUnchecked8">
-            <label class="custom-control-label" for="defaultUnchecked8">8 Hours/Day</label>
-          </div>
-          <div class="custom-control custom-radio">             
-            <input type="radio" value="9" class="custom-control-input" [formControl]="angFormdays.controls['daysformonth']" id="defaultChecked9">
-            <label class="custom-control-label" for="defaultChecked9">9 Hours/Day</label>
-          </div> 
-          <br>
-          <small  *ngIf="angFormdays.controls.daysformonth.errors && (angFormdays.controls.daysformonth.dirty || angFormdays.controls.daysformonth.touched) && !angFormdays.controls.daysformonth.valid">
-            <span *ngIf="angFormdays.controls.daysformonth.errors.required">Project Name is required</span>
-          </small>  
-          
-          
-          <table>
-            <tr *ngFor="let month of  mn"><td>{{month}}</td><td><input type="text" placeholder="number of working days"></td></tr>
-          </table>            
         </div>
-      </form>      
-      
-      <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>  
-      <button type="button" id="secondnext" name="save" class="next action-button" (click)="savedata1(angFormdays.value)" [disabled]="angFormdays.invalid">Next</button>
-    </fieldset>
-    <fieldset>
-      <h2 class="fs-title">Associate Details</h2>
-      <input type="text" name="email" placeholder="Email"/>
-      <input type="password" name="pass" placeholder="Password"/>
-      <input type="password" name="cpass" placeholder="Confirm Password"/>
-      <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-      <input type="submit" name="submit" class="submit action-button" value="Submit"/>
-    </fieldset>
-  </form>
-  
-</div>
-</div>
-<!-- /.MultiStep Form -->
+        
+<div class="panel panel-default" *ngIf='projectlists'>
+    <div class="panel-body">
+      <div class="table-responsive">          
+        <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+          <thead>
+              <tr>
+                  <th>S.No</th>
+                  <th>Account Category</th>
+                  <th>Account Name</th>
+                  <th>Project Name</th>
+                  <th>Start Date</th>
+                  <th>End  Date</th>
+                  <th>Resource Count</th>
+                  <th>PO Amount</th>
+                  <!-- <th>Currency</th> -->
+                  <th>Type</th>
+                  <th>Status</th>            
+                  <th>Edit/Delete</th>
+                </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let projectlist of projectlists; index as i">
+                  <td>{{i+1}}</td>
+                  <td>{{projectlist.account_category}}</td>
+                  <td>{{projectlist.account_name}}</td>
+                  <td>{{projectlist.project_name}}</td>
+                  <td>{{projectlist.start_date}}</td>
+                  <td>{{projectlist.end_date}}</td>
+                  <td>{{projectlist.resource_count}}</td>
+                  <td>{{projectlist.po_amount| currency:projectlist.currency:true:'1.2'}}</td>
+                  <!-- <td>{{projectlist.currency }}</td> -->
+                  <td>{{projectlist.type}}</td>
+                  <td>{{projectlist.status}}</td>
+                  <td>
+                    <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
+                    <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
+                  </td>
+                </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>             
+  </div>
+    </div>
+  </div>
