@@ -22,7 +22,8 @@ import { FxratesComponent } from './fxrates/fxrates.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { PoapprovalComponent } from './poapproval/poapproval.component'; 
 import { AccountcategoryComponent } from './accountcategory/accountcategory.component';
-import { QuoteComponent } from './quote/quote.component'; 
+import { QuoteComponent } from './quote/quote.component';
+import { AccessdetailsComponent } from './accessdetails/accessdetails.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { QuoteComponent } from './quote/quote.component';
     ResourcesComponent,
     PoapprovalComponent,
     AccountcategoryComponent,
-    QuoteComponent
+    QuoteComponent,
+    AccessdetailsComponent
    
   ],
   imports: [
