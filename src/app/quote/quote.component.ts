@@ -26,14 +26,7 @@ export class QuoteComponent implements OnInit {
       
       this.projects=     
         {name:'QMS9645007',associatename:'TML19S75A51',associateid:'0000032951893'};
-      // this.project_years=
-    
-      //   {year_month:'45'}  
-      // ;
-      // this.associates=
-       
-      //   {associateid:'0000032951893'}  
-      // ;
+     
       this.leaveform = new FormGroup({
         projectname:new FormControl('',{}),
         projectyear:new FormControl('',{}),    

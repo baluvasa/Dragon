@@ -1,3 +1,189 @@
-<p>
-  accessdetails works!
-</p>
+<div class="row">
+  <div class="container-fluid">
+    
+    <h2>Access Details</h2>
+    <div class="panel panel-default">
+      
+      <div class="panel-heading">Search Access Details
+        <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#leavedetails" style="float:right">
+          &nbsp;&nbsp;Add</button>
+          
+        </div> 
+        <div class="panel-body">
+          <div>
+            <div id="leavedetails" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adding Access Details</h4>
+                  </div>
+                  <form [formGroup]="addleaveform">
+                    <div class="modal-body">
+                      <div class="form-row">
+                        <label>Associate Name</label>
+                        <input type="text" class="form-control" placeholder="Associate Name..."/>
+                      
+                        
+                        
+                        <label>Associate ID</label>
+                        <input type="text" class="form-control" placeholder="Associate Id..."/>
+                        <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
+                          <div *ngIf="f.modalassociateid.errors.required">Associate Id is required</div>
+                        </div>
+                        
+                        
+                        <div class="form-row">
+                          <label>Access Type</label>
+                          <input type="text" class="form-control" placeholder="Access Type..."/>
+                          <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
+                            <div *ngIf="f.modalassociatename.errors.required">Access Type is required</div>
+                          </div>
+                        </div>
+                        
+                        
+                        
+                      
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="error">
+              <div class="alert alert-danger alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{error}}
+              </div>
+            </div>
+            <form [formGroup]="leaveform" (ngSubmit)="onSubmit(leaveform.value)">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Associate Name</label>
+                    <input type="text" class="form-control" placeholder="Associate Name..."/>
+                   
+                  </div>
+                  <div class="col-md-3">
+                    <label>Associate ID</label>
+                    <input type="text" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Associate ID...">
+                      
+                    
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <label>Access Type</label>
+                    <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Access Type...">
+                     
+                    
+                  </div>
+                </div>
+                
+                
+              </div>
+              
+              <div class="text-center col-md-12">
+                <button [disabled]="leaveform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves()">Search</button>
+                <button [disabled]="leaveform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+              </div>
+              
+            </form>
+            
+            
+            <div class="row" style="margin-top:60px;">
+              <table class="col-md-12 text-center">
+                <tr>
+                  <td>
+                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
+                  </td>
+                  <td>
+                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
+                  </td>
+                  <td>
+                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" *ngIf="leavelists">
+        <div class="panel-body">
+          
+          <div class="table-responsive">          
+            <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th>S. No</th>
+                  <th>Associate Name</th>
+                  <th>Associate ID</th>
+                  <th>Access Type</th>
+                  <th>Edit/Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let leavelist of leavelists">
+                  <td>{{leavelist.sno}}</td>
+                  <td>{{leavelist.projectname}}</td>
+                  <td>{{leavelist.associateid}}</td>
+                  <td>{{leavelist.associatename}}</td>
+                  
+                  <td>
+                    <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateleavedetails"></button>&nbsp;
+                    <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata()"></button>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="updateleavedetails" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Access Details</h4>
+                  </div>
+                  <form [formGroup]="addleaveform">
+                    <div class="modal-body">
+                      <div class="form-row">
+                        <label>Associate Name</label>
+                    
+                        <input class="form-control" [value]="projects.name" disabled>
+                        
+                        <label>Associate ID</label>
+                        <input class="form-control" [value]="projects.associateid">
+                      
+                
+                        
+                        <div class="form-row">
+                          <label>Access Type</label>
+                          <input type="text" class="form-control" [value]="projects.associatename" autofocus/>
+                          <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
+                            <div *ngIf="f.modalassociatename.errors.required">Access Type is required</div>
+                          </div>
+                        </div>
+                        
+                        
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>  
+
+        </div>             
+      </div>
+    </div>
+    
