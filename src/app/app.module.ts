@@ -24,7 +24,8 @@ import { PoapprovalComponent } from './poapproval/poapproval.component';
 import { AccountcategoryComponent } from './accountcategory/accountcategory.component';
 import { QuoteComponent } from './quote/quote.component';
 import { AccessdetailsComponent } from './accessdetails/accessdetails.component';
-import { Createproject1Component } from './createproject1/createproject1.component'; 
+import { Createproject1Component } from './createproject1/createproject1.component';
+import { Accountcategory1Component } from './accountcategory1/accountcategory1.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { Createproject1Component } from './createproject1/createproject1.compone
     AccountcategoryComponent,
     QuoteComponent,
     AccessdetailsComponent,
-    Createproject1Component
+    Createproject1Component,
+    Accountcategory1Component
    
   ],
   imports: [

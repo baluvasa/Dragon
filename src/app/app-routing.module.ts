@@ -17,6 +17,7 @@ import { PoapprovalComponent } from './poapproval/poapproval.component';
 import { QuoteComponent } from './quote/quote.component'; 
 import { AccessdetailsComponent } from './accessdetails/accessdetails.component'; 
 import {  Createproject1Component} from './createproject1/createproject1.component'; 
+import { Accountcategory1Component } from './accountcategory1/accountcategory1.component'; 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'accountcategory', component: AccountcategoryComponent },
   { path: 'poapproval', component: PoapprovalComponent },
   { path: 'quote', component:  QuoteComponent},
-  { path: 'accessdetails', component:  AccessdetailsComponent}
+  { path: 'accessdetails', component:  AccessdetailsComponent},
+  { path: 'accountcategory1', component:  Accountcategory1Component}
       
 ];
 
