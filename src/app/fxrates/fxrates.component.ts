@@ -25,7 +25,7 @@ export class FxratesComponent implements OnInit  {
     }
 
     this.projects=[      
-      {name:'USD',country:'US Doller'},
+      {name:'USD',country:'US Dollar'},
       {name:'JPY',country:'Yen'},
       {name:'EUR',country:'Euro'},
     ];

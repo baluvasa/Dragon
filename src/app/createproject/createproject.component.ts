@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms'
 })
 export class CreateprojectComponent implements OnInit {  
   projectsearchform: FormGroup;
+  projectcreateform: FormGroup;
   categories:any;
   projects:any;
   types:any;
@@ -15,11 +16,18 @@ export class CreateprojectComponent implements OnInit {
   error:any;
   acc_category_default=0;
   project_name_default=0;
+  acc_category_default1=0;
+  project_name_default1=0;
+  approval_default=0;
   type_default=0;
   status_default=0;
+  type_default1=0;
+  status_default1=0;
   role:any;
   projectlists:any;
   dtOptions:any;
+  approvalmethods:any;
+  currency_modes:any;
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
     if(localStorage.getItem('logeduser')=='admin'){
@@ -62,6 +70,14 @@ export class CreateprojectComponent implements OnInit {
       {status:'In Active',code:'iac'},
       {status:'Active',code:'ac'}
     ];
+    this.approvalmethods=[
+      {status:'Customer Mail',code:'CM'}
+    ];
+    this.currency_modes=[      
+      {name:'USD',country:'US Dollar'},
+      {name:'JPY',country:'Yen'},
+      {name:'EUR',country:'Euro'},
+    ];
     this.projectsearchform = new FormGroup({
       acc_category:new FormControl('',{
         validators: []
@@ -73,6 +89,68 @@ export class CreateprojectComponent implements OnInit {
         validators: []
       }),
       status:new FormControl('',{
+        validators: []
+      })
+    })
+    this.projectcreateform = new FormGroup({
+      acc_category:new FormControl('',{
+        validators: []
+      }),
+      acc_name:new FormControl('',{
+        validators: []
+      }),
+      project_name:new FormControl('',{
+        validators: []
+      }),
+      customer_name:new FormControl('',{
+        validators: []
+      }),
+      customer_spoc:new FormControl('',{
+        validators: []
+      }),
+      approval_method:new FormControl('',{
+        validators: []
+      }),
+      submission_mode:new FormControl('',{
+        validators: []
+      }),
+      project_type:new FormControl('',{
+        validators: []
+      }),
+      billing_currency:new FormControl('',{
+        validators: []
+      }),
+      po_amount:new FormControl('',{
+        validators: []
+      }),
+      start_date:new FormControl('',{
+        validators: []
+      }),
+      end_date:new FormControl('',{
+        validators: []
+      }),
+      type:new FormControl('',{
+        validators: []
+      }),
+      status:new FormControl('',{
+        validators: []
+      }),
+      delivery_spoc:new FormControl('',{
+        validators: []
+      }),
+      effort_spoc:new FormControl('',{
+        validators: []
+      }),
+      pid:new FormControl('',{
+        validators: []
+      }),
+      quote_id:new FormControl('',{
+        validators: []
+      }),
+      contract_id:new FormControl('',{
+        validators: []
+      }),
+      po_id:new FormControl('',{
         validators: []
       })
     })
@@ -89,6 +167,11 @@ export class CreateprojectComponent implements OnInit {
   onSubmit(a){
     console.log(a)
   }
+  deletedata(){
+    if (confirm("Do you want to delete the Project Details?")) {
+    alert("Project Details Deleted Successfully.")
+    } 
+    } 
   getData(){
     this.projectlists=[
       {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',start_date:'16-Jul-2018',end_date:'13-Aug-2018',resource_count:'8',po_amount:'184800',currency:'INR',type:'TIME & MATERIAL',status:'In Active'

@@ -9,11 +9,11 @@
                 
                 <form [formGroup]="loginform" (ngSubmit)="onSubmit(loginform.value)">
                     <div class="form-group">
-                        <label>User Name</label>                        
+                        <label>Associate ID</label>                        
                         <input type="text" class="form-control" placeholder="User Name" [formControl]="loginform.controls['username']" required autofocus>
                         <small class="text-danger" *ngIf="loginform.controls.username.errors && (loginform.controls.username.dirty || loginform.controls.username.touched) && !loginform.controls.username.valid">
-                            <span *ngIf="loginform.controls.username.errors.required">Name is required</span>
-                            <span *ngIf="loginform.controls.username.errors.minlength">Name must be 4 characters long</span>
+                            <span *ngIf="loginform.controls.username.errors.required">Associate ID</span>
+                            <span *ngIf="loginform.controls.username.errors.minlength">Name must be 10 characters long</span>
                         </small> 
                     </div>
                     
