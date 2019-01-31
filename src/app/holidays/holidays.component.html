@@ -32,8 +32,8 @@
               <label for="year">Account Name</label>
               <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
                   <option [value]="0" disabled selected>Select Account Name</option>
-                  <option *ngFor="let project of projects" [value]=project.projectname >
-                    {{project.projectname}}
+                  <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
+                    {{account_name.acc_name}}
                   </option>
                 </select>                  
             </div>
@@ -41,12 +41,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="proj">Project Name</label>
-          <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
+          <input type="text" placeholder="Project Name" class="form-control" [formControl]="holidayform.controls['project_name']">
+          <!-- <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
             <option [value]="0" disabled selected>Select Project</option>
             <option *ngFor="let project of projects" [value]=project.projectname >
               {{project.projectname}}
             </option>
-          </select>
+          </select> -->
         </div>
       </div>
     
@@ -117,11 +118,11 @@
                 </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let item of list">
-                  <td>{{item.sno}}</td>
-                  <td>{{item.Projectname}}</td>
-                  <td>{{item.Projectname}}</td>
-                  <td>{{item.Projectname}}</td>
+              <tr *ngFor="let item of list; index as i">
+                  <td>{{i+1}}</td>
+                  <td>{{item.account_category}}</td>
+                  <td>{{item.account_name}}</td>
+                  <td>{{item.project_name}}</td>
                   <td>{{item.Year}}</td>
                 
                   <td>
@@ -160,24 +161,25 @@
               </div> </div>
                   <div class="col-md-6">
             <div class="form-group">
-              <label for="year">Account Name</label>
-              <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
-                  <option [value]="0" disabled selected>Select Account Name</option>
-                  <option *ngFor="let project of projects" [value]=project.projectname >
-                    {{project.projectname}}
-                  </option>
-                </select>                  
+              <label for="year">Account Name</label>             
+                <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
+                    <option [value]="0" disabled selected>Select Account Name</option>
+                    <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
+                      {{account_name.acc_name}}
+                    </option>
+                  </select>                 
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="proj">Project Name</label>
-              <select class="form-control"  [formControl]="holidaylistform.controls['projectlist']" [(ngModel)]="edit">
+              <input type="text" class="form-control" placeholder="Project Name" [formControl]="holidaylistform.controls['projectlist']">
+              <!-- <select class="form-control"  [formControl]="holidaylistform.controls['projectlist']" [(ngModel)]="edit">
                 <option [value]="0" disabled selected>Select Project</option>
                 <option *ngFor="let project of projects" [value]=project.projectname >
                   {{project.projectname}}
                 </option>
-              </select>
+              </select> -->
             </div>
           </div>
           <div class="col-md-6">
@@ -371,14 +373,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                   <label for="proj">Account Category</label>
-                 <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> 
+                 <input value="GE India Exports Pvt. Ltd." disabled class="form-control"> 
                 
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                     <label for="proj">Account Name</label>
-                   <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> 
+                   <input value="SQL PO" disabled class="form-control"> 
                   
                   </div>
                 </div>

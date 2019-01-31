@@ -140,8 +140,8 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="proj">Account Category</label>
-                    <select class="form-control" [(ngModel)]="acc_category_default1" [formControl]="projectcreateform.controls['acc_category']">
-                      <option [value]="0" disabled selected>Select Account Category</option>
+                    <select class="form-control" [(ngModel)]="acc_category_default1" (change)="onChange($event.target.value)" [formControl]="projectcreateform.controls['acc_category']">
+                      <option [value]="0" disabled selected>Select Account Name</option>
                       <option *ngFor="let category of categories" [value]=category.code >
                         {{category.acc_category}}
                       </option>
@@ -150,7 +150,13 @@
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Account Name</label>
-                  <input type="text" class="form-control" [formControl]="projectcreateform.controls['acc_name']">
+                  <!-- <input type="text" class="form-control" [formControl]="projectcreateform.controls['acc_name']"> -->
+                  <select class="form-control" [(ngModel)]="acc_category_default2" [formControl]="projectcreateform.controls['acc_name']">
+                      <option [value]="0" disabled selected>Select Account Category</option>
+                      <option *ngFor="let category of categories" [value]=category.acc_name_code >
+                        {{category.acc_name}}
+                      </option>
+                    </select>
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Project Name</label>

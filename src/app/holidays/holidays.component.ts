@@ -27,6 +27,7 @@ export class HolidaysComponent implements OnInit {
   dtOptions: any = {};
   role:any;
   holidaysinfo:any;
+  account_names:any;
   constructor(private formBuilder: FormBuilder) { 
   }
   
@@ -82,6 +83,14 @@ export class HolidaysComponent implements OnInit {
       {projectname:'GE Energy - Industrial',pid:'12004711'},
       {projectname:'AVS 6 months',pid:'000000000029578'}
     ];
+    this.account_names=[
+      {acc_name:'Bhaskar V PO',acc_name_code:'bvp'},
+      {acc_name:'HTC (Jul18)',acc_name_code:'htc'},
+      {acc_name:'Patrick Old',acc_name_code:'patold'},
+      {acc_name:'Aero',acc_name_code:'aero'},
+      {acc_name:'Ommi Gopi',acc_name_code:'ommi'},
+      {acc_name:'AVS__1st half',acc_name_code:'avs1st'}
+    ];
     this.years =[
       {years:"2018"},
       {years:"2019"},
@@ -95,6 +104,9 @@ export class HolidaysComponent implements OnInit {
       }),
       yearlist:new FormControl('',{
         validators: [Validators.required]
+      }),
+      project_name:new FormControl('',{
+        validators: []
       })
     })
     this.holidaylistform = new FormGroup({
@@ -190,14 +202,11 @@ export class HolidaysComponent implements OnInit {
   onSubmit(a){
     console.log(a)
   }
-  getData(){    
+  getData(){   
     this.list = [
-      {sno:1,Projectname:'GE Energy-NPI Support-ICFC Pro',Year:2018,days:104},
-      {sno:2,Projectname:'GE Energy-NPI Support-ICFC Pro',Year:2019,days:104},
-      {sno:3,Projectname:'GE Energy - Industrial',Year:2018,days:104},
-      {sno:4,Projectname:'GE Energy - Industrial',Year:2019,days:104},
-      {sno:5,Projectname:'AVS 6 months',Year:2018,days:104},
-      {sno:6,Projectname:'AVS 6 months',Year:2019,days:104},
+      {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',Year:2018,days:104},
+      {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',Year:2019,days:104},
+      {account_category:'GE Packaged Power',account_name:'Aero',project_name:'IES_SHOULD COSTING-ES',Year:2018,days:104}      
     ];
     
   }

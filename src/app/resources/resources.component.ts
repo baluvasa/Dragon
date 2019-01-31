@@ -44,13 +44,13 @@ export class ResourcesComponent implements OnInit {
       ];
     this.resourceform = new FormGroup({
       associatename:new FormControl('',{
-        validators: [Validators.required]
+        validators: []
       }),
       associateid:new FormControl('',{
-        validators: [Validators.required]
+        validators: []
       }),
       desigination:new FormControl('',{
-        validators: [Validators.required]
+        validators: []
       })
     });
     this.resourceaddform = new FormGroup({
@@ -90,9 +90,9 @@ export class ResourcesComponent implements OnInit {
  }
  getData(){    
   this.list = [
-    {sno:1,associatename:'Prashanthi',id:'NP00585716',band:'u3'},
-    {sno:2,associatename:'suman',id:'SK00550019',band:'u4'},
-    {sno:3,associatename:'srinitha',id:'SR00551505',band:'u2'},
+    {sno:1,associatename:'Prashanthi',id:'NP00585716',band:'U3'},
+    {sno:2,associatename:'suman',id:'SK00550019',band:'U4'},
+    {sno:3,associatename:'srinitha',id:'SR00551505',band:'U2'},
   
   ];
   

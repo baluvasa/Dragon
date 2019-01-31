@@ -17,6 +17,7 @@ export class CreateprojectComponent implements OnInit {
   acc_category_default=0;
   project_name_default=0;
   acc_category_default1=0;
+  acc_category_default2=0;
   project_name_default1=0;
   approval_default=0;
   type_default=0;
@@ -29,6 +30,7 @@ export class CreateprojectComponent implements OnInit {
   approvalmethods:any;
   currency_modes:any;
   resources:any;
+  categories_names:any;
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
     if(localStorage.getItem('logeduser')=='admin'){
@@ -49,13 +51,21 @@ export class CreateprojectComponent implements OnInit {
         'excel'
       ]
     };
+    // this.categories=[
+    //   {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl"},
+    //   {acc_category:"GE Industrial - US India",code:"giui"},
+    //   {acc_category:"GE Oil & Gas",code:"gog"},
+    //   {acc_category:"GE Packaged Power",code:"gpp"},
+    //   {acc_category:"GE Power & Water",code:"gpw"},
+    //   {acc_category:"Amphenol",code:"amp"}
+    // ];
     this.categories=[
-      {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl"},
-      {acc_category:"GE Industrial - US India",code:"giui"},
-      {acc_category:"GE Oil & Gas",code:"gog"},
-      {acc_category:"GE Packaged Power",code:"gpp"},
-      {acc_category:"GE Power & Water",code:"gpw"},
-      {acc_category:"Amphenol",code:"amp"}
+      {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl",acc_name:'Bhaskar V PO',acc_name_code:'bvp'},
+      {acc_category:"GE Industrial - US India",code:"giui",acc_name:'HTC (Jul18)',acc_name_code:'htc'},
+      {acc_category:"GE Oil & Gas",code:"gog",acc_name:'Patrick Old',acc_name_code:'patold'},
+      {acc_category:"GE Packaged Power",code:"gpp",acc_name:'Aero',acc_name_code:'aero'},
+      {acc_category:"GE Power & Water",code:"gpw",acc_name:'Ommi Gopi',acc_name_code:'ommi'},
+      {acc_category:"Amphenol",code:"amp",acc_name:'AVS__1st half',acc_name_code:'avs1st'}
     ];
     this.projects =[
       {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
@@ -179,6 +189,9 @@ export class CreateprojectComponent implements OnInit {
     alert("Project Details Deleted Successfully.")
     } 
     } 
+    onChange(a){
+console.log(this.acc_category_default1)
+    }
   getData(){
     this.projectlists=[
       {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',start_date:'16-Jul-2018',end_date:'13-Aug-2018',resource_count:'8',po_amount:'184800',currency:'INR',type:'TIME & MATERIAL',status:'In Active'
