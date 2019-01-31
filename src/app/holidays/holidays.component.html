@@ -18,6 +18,26 @@
       </div>
     </ng-container>
     <form [formGroup]="holidayform" (ngSubmit)="onSubmit(holidayform.value)">
+      <div class="col-md-6"><div class="form-group">
+          <label for="proj">Account Category</label>
+          <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
+            <option [value]="0" disabled selected>Select Account Category</option>
+            <option *ngFor="let project of projects" [value]=project.projectname >
+              {{project.projectname}}
+            </option>
+          </select>
+        </div> </div>
+        <div class="col-md-6">
+            <div class="form-group">
+              <label for="year">Account Name</label>
+              <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
+                  <option [value]="0" disabled selected>Select Account Name</option>
+                  <option *ngFor="let project of projects" [value]=project.projectname >
+                    {{project.projectname}}
+                  </option>
+                </select>                  
+            </div>
+          </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="proj">Project Name</label>
@@ -29,6 +49,7 @@
           </select>
         </div>
       </div>
+    
       <div class="col-md-6">
         <div class="form-group">
           <label for="year">Year</label>
@@ -87,9 +108,11 @@
           <thead>
               <tr>
                   <th>S.No</th>
+                  <th>Account Category</th>
+                  <th>Account Name</th>
                   <th>Project Name</th>
                   <th>Year</th>
-                  <th>No.of Days</th>             
+                      
                   <th>Edit/Delete</th>
                 </tr>
           </thead>
@@ -97,8 +120,10 @@
               <tr *ngFor="let item of list">
                   <td>{{item.sno}}</td>
                   <td>{{item.Projectname}}</td>
+                  <td>{{item.Projectname}}</td>
+                  <td>{{item.Projectname}}</td>
                   <td>{{item.Year}}</td>
-                  <td>{{item.days}}</td>
+                
                   <td>
                     <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
                     <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
@@ -124,6 +149,26 @@
     <div class="modal-body">
       <form [formGroup]="holidaylistform">
         <div class="row">
+            <div class="col-md-6"><div class="form-group">
+                <label for="proj">Account Category</label>
+                <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
+                  <option [value]="0" disabled selected>Select Account Category</option>
+                  <option *ngFor="let project of projects" [value]=project.projectname >
+                    {{project.projectname}}
+                  </option>
+                </select>
+              </div> </div>
+                  <div class="col-md-6">
+            <div class="form-group">
+              <label for="year">Account Name</label>
+              <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
+                  <option [value]="0" disabled selected>Select Account Name</option>
+                  <option *ngFor="let project of projects" [value]=project.projectname >
+                    {{project.projectname}}
+                  </option>
+                </select>                  
+            </div>
+          </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="proj">Project Name</label>
@@ -323,27 +368,31 @@
     <div class="modal-body">
       <form [formGroup]="holidayeditlistform" (ngSubmit)="onSubmit(holidayeditlistform.value)">
         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label for="proj">Account Category</label>
+                 <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> 
+                
+                </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="proj">Account Name</label>
+                   <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> 
+                  
+                  </div>
+                </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="proj">Project Name</label>
              <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> 
-             <!-- <select class="form-control"  [formControl]="holidayeditlistform.controls['projecteditlist']" [(ngModel)]="edit">
-               <option [value]="0" disabled selected>Select Project</option>
-               <option *ngFor="let project of projects" [value]=project.projectname >
-                 {{project.projectname}}
-                </option>
-              </select> -->
+            
             </div>
           </div>
           <div class="col-md-6">
             <label for="proj">Year</label>
             <input value="2018" disabled class="form-control"> 
-            <!-- <select class="form-control" id="year"  [formControl]="holidayeditlistform.controls['yeareditlist']" [(ngModel)]="yr">
-              <option [value]="0" disabled selected>Select Year</option>
-              <option *ngFor="let year of years" [value]=year.years >
-                {{year.years}}
-              </option>
-            </select>  -->
+          
           </div>
         </div>
         
