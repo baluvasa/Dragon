@@ -28,6 +28,7 @@ export class CreateprojectComponent implements OnInit {
   dtOptions:any;
   approvalmethods:any;
   currency_modes:any;
+  resources:any;
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
     if(localStorage.getItem('logeduser')=='admin'){
@@ -77,6 +78,12 @@ export class CreateprojectComponent implements OnInit {
       {name:'USD',country:'US Dollar'},
       {name:'JPY',country:'Yen'},
       {name:'EUR',country:'Euro'},
+    ];
+    this.resources=[      
+      {id:'MK00123456',name:'Venkatesh',band:'U1',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
+      {id:'SP00234567',name:'Swayam',band:'U2',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
+      {id:'GC00345678',name:'Chandra',band:'U3',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
+      {id:'KM00456789',name:'Krishna',band:'U4',start_date:'01-Jan-2019',end_date:'29-Feb-2019'}
     ];
     this.projectsearchform = new FormGroup({
       acc_category:new FormControl('',{
