@@ -83,7 +83,7 @@ searchleaves(){
     {sno:'1',associatename:'GE Power', associateid:"GE Oil & Gas ",loc:'GMS9645005',sdate:'0000023295133', edate:"TML19S75A51"},
     {sno:'1',associatename:'GE Turbine', associateid:"GE Amphenol ",loc:'KMS6645008',sdate:'0000013295156', edate:"TML30S75W93"},
     {sno:'1',associatename:'GE Industrial', associateid:"Metso ",loc:'QMS9645008',sdate:'0000032951893', edate:"TML22S75A39"},
-    {sno:'1',associatename:'GE ', associateid:"VL00591001",loc:'GE Packaged Power ',sdate:'0000013295159', edate:"TML22S75A34"},
+    {sno:'1',associatename:'GE ', associateid:"Amphenol",loc:'GE Packaged Power ',sdate:'0000013295159', edate:"TML22S75A34"},
     {sno:'1',associatename:'GE Appliances', associateid:"Metso ",loc:'KMS6645008',sdate:'0000063295180', edate:"TML22S75A35"},
     {sno:'1',associatename:'GE P&W', associateid:"GE Oil & Gas ",loc:'KMS9645009',sdate:'0000012004711', edate:"TML22S75A60"},
   ];
