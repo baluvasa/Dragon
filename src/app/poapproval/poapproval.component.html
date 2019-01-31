@@ -16,7 +16,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">PO Approval Details</h4>
+                      <h4 class="modal-title">Add PO Approval Details</h4>
                     </div>
                     <form [formGroup]="addpoform">
                       <div class="modal-body">
@@ -31,7 +31,7 @@
                               <option>GE Industrial</option>
                             </select>
                             <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
-                              <span *ngIf="addpoform.controls.modalprojectname.errors.required">Project Name is required</span>
+                              <span *ngIf="addpoform.controls.modalprojectname.errors.required">Account Category is required</span>
                             </small>
                          </div>
 
@@ -103,10 +103,10 @@
                                           <th rowspan="2">Associate Start Date</th>
                                           <th rowspan="2">Associate End Date</th>
                                           <th rowspan="2">Rate</th>
-                                          <th rowspan="2">Unit Of Measurement</th>
+                                          <th rowspan="2">UOM</th>
                                           <th colspan="2" style="text-align:center">Accruals</th>
                                           <th colspan="2" style="text-align:center">Billed</th>
-                                          
+                                          <th rowspan="2">Edit/Delete</th>
                                       </tr>
                                       <tr>
                                         <th>No. Of Days</th>
@@ -116,19 +116,25 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let leavelist of leavelists">
-                                        <td>{{leavelist.sno}}</td>
-                                        <td>{{leavelist.associateid}}</td>
-                                        <td>{{leavelist.associatename}}</td>
-                                        <td>{{leavelist.associatename}}</td>
-                                        <td>{{leavelist.date}}</td>
-                                        <td>{{leavelist.date}}</td>
-                                        <td>{{leavelist.sno}}</td>
-                                        <td>{{leavelist.associateid}}</td>
-                                        <td>{{leavelist.associatename}}</td>
-                                        <td>{{leavelist.associatename}}</td>
-                                        <td>{{leavelist.date}}</td>
-                                        <td>{{leavelist.date}}</td>
+                                      <tr *ngFor="let emplist of emplists">
+                                        <td>{{emplist.sno}}</td>
+                                        <td>{{emplist.associateid}}</td>
+                                        <td>{{emplist.associatename}}</td>
+                                        <td>{{emplist.loc}}</td>
+                                        <td>{{emplist.sdate}}</td>
+                                        <td>{{emplist.edate}}</td>
+                                        <td>{{emplist.rate}}</td>
+                                        <td>{{emplist.uom}}</td>
+                                        <td>{{emplist.nod1}}</td>
+                                        <td>{{emplist.amount1}}</td>
+                                        <td>{{emplist.nod2}}</td>
+                                        <td>{{emplist.amount2}}</td>
+                                        <td>
+                                            <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updatepoapprovaldetails"></button>&nbsp;
+                                            <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
+                                          </td>
+                                        <!-- <td>{{emplists.nod}}</td>
+                                        <td>{{emplists.amount}}</td> -->
                                       </tr>
                                     </tbody>
                                   </table>
@@ -156,33 +162,36 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>Account Category</label>
-                      <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <input type="text" class="form-control" placeholder="Account Category..." />
+                      <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
+                        <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
                         <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
-                      </select>
+                      </select> -->
                     </div>
 
                     <div class="col-md-6">
                       <label>Account Name</label>
-                      <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <input type="text" class="form-control" placeholder="Account Name..." />
+                      <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
+                        <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
                         <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
-                      </select>
+                      </select> -->
                     </div>
 
                     <div class="col-md-6">
                       <label>Project Name</label>
-                      <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <input type="text" class="form-control" placeholder="Project Name..." />
+                      <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
+                        <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
                         <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
-                      </select>
+                      </select> -->
                     </div>
 
                     <div class="col-md-3">
                       <label>Project Billing Currency</label>
                       <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
                         <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
-                        <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
+                        <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.country}} )</option>
                       </select>
                     </div>
                    
@@ -240,6 +249,7 @@
                     <th>Month & Year</th>
                     <th>Project Billing Currency</th>
                     <th>Amount</th>
+                    <th>Edit/Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -247,10 +257,14 @@
                     <td>{{leavelist.sno}}</td>
                     <td>{{leavelist.associateid}}</td>
                     <td>{{leavelist.associatename}}</td>
-                    <td>{{leavelist.associatename}}</td>
-                    <td>{{leavelist.associatename}}</td>
-                    <td>{{leavelist.date}}</td>
-                    <td>{{leavelist.date}}</td>
+                    <td>{{leavelist.pname}}</td>
+                    <td>{{leavelist.yearmonth}}</td>
+                    <td>{{leavelist.pbc}}</td>
+                    <td>{{leavelist.pcurr}}</td>
+                    <td>
+                        <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updatepoapprovaldetails"></button>&nbsp;
+                        <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
+                      </td>
                   </tr>
                 </tbody>
               </table>

@@ -14,6 +14,7 @@ export class PoapprovalComponent implements OnInit {
   project_years:any;
   associates:any;
   leavelists:any;
+  emplists:any;
   dtOptions: any = {};
   modaldtOptions: any = {};
   role:any;
@@ -25,10 +26,10 @@ export class PoapprovalComponent implements OnInit {
     }
 
     this.projects=[
-      {name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
-      {name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
-      {name:'GE Energy - Industrial',pid:'12004711'},
-      {name:'AVS 6 months',pid:'000000000029578'}
+      {name:'USD',country:'US Dollar'},
+      {name:'JPY',country:'Yen'},
+      {name:'EUR',country:'Euro'},
+     
     ];
     this.project_years=[
       {year_month:'Jan-2019'},
@@ -91,25 +92,26 @@ badrequest(){
     this.error="Bad Request";
 }
 searchpodata(){
-  // this.leavelists=[
-  //   {sno:'1',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'07-Jan-2019'},
-  //   {sno:'2',name:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531',associateid:'505050', associatename:"Vijay Krishna",date:'19-FEb-2019'},
-  //   {sno:'3',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'17-Jan-2019'},
-  //   {sno:'4',name:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600',associateid:'505051', associatename:"Vishal Gourav",date:'20-Feb-2019'},
-  //   {sno:'5',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'09-Jan-2019'},
-  //   {sno:'6',name:'GE Energy - Industrial',pid:'12004711',associateid:'505052', associatename:"Balu Vasa",date:'19-Feb-2019'},
-  //   {sno:'7',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'18-Jan-2019'},
-  //   {sno:'8',name:'AVS 6 months',pid:'000000000029578',associateid:'505053', associatename:"Mani Bandari",date:'20-Feb-2019'},
-  // ];
+ 
   this.leavelists=[
-    {sno:'1',associateid:'505050', associatename:"Vijay Krishna",date:'07-Jan-2019'},
-    {sno:'2',associateid:'505050', associatename:"Vijay Krishna",date:'19-FEb-2019'},
-    {sno:'3',associateid:'505051', associatename:"Vishal Gourav",date:'17-Jan-2019'},
-    {sno:'4',associateid:'505051', associatename:"Vishal Gourav",date:'20-Feb-2019'},
-    {sno:'5',associateid:'505052', associatename:"Balu Vasa",date:'09-Jan-2019'},
-    {sno:'6',associateid:'505052', associatename:"Balu Vasa",date:'19-Feb-2019'},
-    {sno:'7',associateid:'505053', associatename:"Mani Bandari",date:'18-Jan-2019'},
-    {sno:'8',associateid:'505053', associatename:"Mani Bandari",date:'20-Feb-2019'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE INDIA EXPORTS PVT LTD",pname:'GE P&W-A', pbc:"EUR",yearmonth:'Jan-2018',pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE Industrial', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Feb-2019",pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE P&W', associatename:"GE P&W-A",pname:'GE P&W-A',pbc:'JPY', yearmonth:"USD",pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE Industrial', associatename:"GE Amphenol",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Jan-2015",pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Aug-2009",pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Oct-2018",pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Dec-2019",pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Nov-2016",pcurr:'6,66,000.2345'},
+  ];
+  this.emplists=[
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'10-Jan-2019',edate:"15-Oct-2020",rate:'0.01423',uom:'8',nod1:'24',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'16-Mar-2018', edate:"12-Oct-2019",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'16-Mar-2018', edate:"21-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'10-Jan-2019', edate:"27-Oct-2022",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'15-Oct-2021', edate:"30-Oct-2020",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'16-Mar-2018', edate:"03-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'15-Oct-2021', edate:"06-Oct-2023",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'AKHIL', associateid:"SA00597600",loc:'TMTC-U2',sdate:'10-Jan-2019', edate:"09-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
   ];
 }
 deletedata(){
