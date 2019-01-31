@@ -23,7 +23,8 @@ import { ResourcesComponent } from './resources/resources.component';
 import { PoapprovalComponent } from './poapproval/poapproval.component'; 
 import { AccountcategoryComponent } from './accountcategory/accountcategory.component';
 import { QuoteComponent } from './quote/quote.component';
-import { AccessdetailsComponent } from './accessdetails/accessdetails.component'; 
+import { AccessdetailsComponent } from './accessdetails/accessdetails.component';
+import { Createproject1Component } from './createproject1/createproject1.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,8 @@ import { AccessdetailsComponent } from './accessdetails/accessdetails.component'
     PoapprovalComponent,
     AccountcategoryComponent,
     QuoteComponent,
-    AccessdetailsComponent
+    AccessdetailsComponent,
+    Createproject1Component
    
   ],
   imports: [

@@ -1,0 +1,517 @@
+<div class="row">
+    <div class="container-fluid">    
+      <h2>Project Details 1</h2>
+      <div class="panel panel-default">
+        <div class="panel-heading">Search Project Details
+          <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createprojectmodel">&nbsp;&nbsp;Add</button>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <ng-container *ngIf="error">
+              <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  {{error}}
+                </div>
+              </div>
+            </ng-container>
+            <form [formGroup]="projectsearchform" (ngSubmit)="onSubmit(projectsearchform.value)">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="proj">Account Category</label>
+                  <select class="form-control"  [formControl]="projectsearchform.controls['acc_category']" [(ngModel)]="acc_category_default">
+                    <option [value]="0" disabled selected>Select Account Category</option>
+                    <option *ngFor="let category of categories" [value]=category.code >
+                      {{category.acc_category}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="proj">Account Name</label>
+                  <select class="form-control"  [formControl]="projectsearchform.controls['acc_name']" [(ngModel)]="acc_category_default">
+                    <option [value]="0" disabled selected>Select Account Category</option>
+                    <option *ngFor="let category of categories" [value]=category.code >
+                      {{category.acc_category}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="proj">Project Name</label>
+                  <select class="form-control"  [formControl]="projectsearchform.controls['project_name']" [(ngModel)]="project_name_default">
+                    <option [value]="0" disabled selected>Select Project</option>
+                    <option *ngFor="let project of projects" [value]=project.projectname >
+                      {{project.projectname}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="year">Type</label>
+                  <select class="form-control" id="year"  [formControl]="projectsearchform.controls['type']" [(ngModel)]="type_default">
+                    <option [value]="0" disabled selected>Select Type</option>
+                    <option *ngFor="let type of types" [value]=type.type >
+                      {{type.type}}
+                    </option>
+                  </select>                  
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="year">Status</label>
+                  <select class="form-control" id="year"  [formControl]="projectsearchform.controls['status']" [(ngModel)]="status_default">
+                    <option [value]="0" disabled selected>Select Status</option>
+                    <option *ngFor="let status of statuses" [value]=status.code >
+                      {{status.status}}
+                    </option>
+                  </select>                  
+                </div>
+              </div>
+              <div class="text-center col-md-12">
+                <button [disabled]="projectsearchform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="getData()">Search</button>
+                <button [disabled]="projectsearchform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
+              </div>
+            </form>
+            <div class="row" style="margin-top:60px;">
+              <table class="col-md-12 text-center">
+                <tr>
+                  <td>
+                    <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="errordata()()">No Data Found</button>
+                  </td>
+                  <td>
+                    <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="errorexceptiondata()">Exception</button>
+                  </td>
+                  <td>
+                    <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel panel-default" *ngIf='projectlists'>
+        <div class="panel-body">
+          <div class="table-responsive">          
+            <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Account Category</th>
+                  <th>Account Name</th>
+                  <th>Project Name</th>
+                  <th>Start Date</th>
+                  <th>End  Date</th>
+                  <th>Resource Count</th>
+                  <th>PO Amount</th>
+                  <!-- <th>Currency</th> -->
+                  <th>Type</th>
+                  <th>Status</th>            
+                  <th>Edit/Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let projectlist of projectlists; index as i">
+                  <td>{{i+1}}</td>
+                  <td>{{projectlist.account_category}}</td>
+                  <td>{{projectlist.account_name}}</td>
+                  <td>{{projectlist.project_name}}</td>
+                  <td>{{projectlist.start_date}}</td>
+                  <td>{{projectlist.end_date}}</td>
+                  <td>{{projectlist.resource_count}}</td>
+                  <td>{{projectlist.po_amount| currency:projectlist.currency:true:'1.2'}}</td>
+                  <!-- <td>{{projectlist.currency }}</td> -->
+                  <td>{{projectlist.type}}</td>
+                  <td>{{projectlist.status}}</td>
+                  <td>
+                    <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updateprojectmodel"></button>&nbsp;
+                    <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>             
+      </div>
+      <div id="createprojectmodel" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog" style="width:75%">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Creating Project</h4>
+            </div>
+            <form [formGroup]="projectcreateform">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Account Category</label>
+                      <select class="form-control" [(ngModel)]="acc_category_default1" [formControl]="projectcreateform.controls['acc_category']">
+                        <option [value]="0" disabled selected>Select Account Category</option>
+                        <option *ngFor="let category of categories" [value]=category.code >
+                          {{category.acc_category}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Account Name</label>
+                    <input type="text" class="form-control" [formControl]="projectcreateform.controls['acc_name']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Name</label>
+                    <input type="text" class="form-control" [formControl]="projectcreateform.controls['project_name']">
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="proj">PID</label>
+                        <input type='text' class="form-control" [formControl]="projectcreateform.controls['pid']">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proj">Quote#</label>
+                      <input type="text" class="form-control" disabled [formControl]="projectcreateform.controls['quote_id']">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proj">Contract#</label>
+                      <input type="text" class="form-control" disabled [formControl]="projectcreateform.controls['contract_id']">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proj">PO#</label>
+                      <input type="text" class="form-control" disabled [formControl]="projectcreateform.controls['po_id']">
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Customer Name</label>
+                      <input type='text' class="form-control" [formControl]="projectcreateform.controls['customer_name']">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Customer SPOC</label>
+                    <input type="text" class="form-control" [formControl]="projectcreateform.controls['customer_spoc']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Approval Method</label>
+                    <select class="form-control" [(ngModel)]="approval_default" [formControl]="projectcreateform.controls['approval_method']">
+                      <option [value]="0" disabled selected>Select Approval Method</option>
+                      <option *ngFor="let approvalmethod of approvalmethods" [value]=approvalmethod.code >
+                        {{approvalmethod.status}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Submission Mode</label>
+                      <input type='text' class="form-control" [formControl]="projectcreateform.controls['submission_mode']">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Type</label>
+                    <select class="form-control" id="year"  [(ngModel)]="type_default1" [formControl]="projectcreateform.controls['project_type']">
+                      <option [value]="0" disabled selected>Select Type</option>
+                      <option *ngFor="let type of types" [value]=type.type >
+                        {{type.type}}
+                      </option>
+                    </select> 
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Billing Currency</label>                  
+                    <select class="form-control" [formControl]="projectcreateform.controls['billing_currency']">
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
+                      <option *ngFor="let currency_mode of currency_modes" [value]='currency_mode.name'>{{currency_mode.name}} - {{currency_mode.country}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">PO Amount</label>
+                      <input type='text' class="form-control" [formControl]="projectcreateform.controls['po_amount']">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Start Date</label>
+                    <input type="date" class="form-control" [formControl]="projectcreateform.controls['start_date']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project End Date</label>
+                    <input type="date" class="form-control" [formControl]="projectcreateform.controls['end_date']">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Status</label>
+                      <select class="form-control" id="year" [(ngModel)]="status_default1" [formControl]="projectcreateform.controls['status']">
+                        <option [value]="0" disabled selected>Select Status</option>
+                        <option *ngFor="let status of statuses" [value]=status.code >
+                          {{status.status}}
+                        </option>
+                      </select> 
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Delivery SPOC</label>
+                    <input type="text" class="form-control" [formControl]="projectcreateform.controls['delivery_spoc']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Effort SPOC</label>
+                    <input type="text" class="form-control" [formControl]="projectcreateform.controls['effort_spoc']">
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <h4>Resource Mapping Details</h4>
+                  <table border="1" class="table">
+                    <thead>
+                      <tr>
+                        <th>Associate ID</th><th>	Associate Name</th><th>Designation</th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let resource of resources'>
+                        <td>{{resource.id}}</td><td>{{resource.name}}</td><td>{{resource.band}}</td><td>      
+                          <select>
+                            <option>Select Option</option>
+                            <option>Onsite</option>
+                            <option>Offshore</option>
+                          </select>
+                        </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
+                          <input type="text" class="form-control">
+                        </td><td>
+                          <input type="checkbox">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-create="modal">Add</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div id="updateprojectmodel" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog" style="width:75%">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Update Project Details</h4>
+            </div>
+            <form [formGroup]="projectcreateform">
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Account Category</label>
+                      <!-- <select class="form-control" [(ngModel)]="acc_category_default1" [formControl]="projectcreateform.controls['acc_category']">
+                        <option [value]="0" disabled selected>Select Account Category</option>
+                        <option *ngFor="let category of categories" [value]=category.code >
+                          {{category.acc_category}}
+                        </option>
+                      </select> -->
+                      <input type="text" class="form-control" placeholder="GE India Exports Pvt. Ltd." disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Account Name</label>
+                    <input type="text" class="form-control" placeholder="SQL PO" disabled [formControl]="projectcreateform.controls['acc_name']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Name</label>
+                    <input type="text" class="form-control" placeholder="GE Energy-NPI Support-ICFC Pro" disabled [formControl]="projectcreateform.controls['project_name']">
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="proj">PID</label>
+                        <input type='text' class="form-control" placeholder="000000000029531" [formControl]="projectcreateform.controls['pid']">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proj">Quote#</label>
+                      <input type="text" class="form-control" disabled placeholder="QMS0100917" [formControl]="projectcreateform.controls['quote_id']">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proj">Contract#</label>
+                      <input type="text" class="form-control" disabled placeholder="TML206945" [formControl]="projectcreateform.controls['contract_id']">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proj">PO#</label>
+                      <input type="text" class="form-control" disabled placeholder="232130187" [formControl]="projectcreateform.controls['po_id']">
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Customer Name</label>
+                      <input type='text' class="form-control" placeholder="GE India Industrial Pvt Limited" disabled [formControl]="projectcreateform.controls['customer_name']">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Customer SPOC</label>
+                    <input type="text" class="form-control" [formControl]="projectcreateform.controls['customer_spoc']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Approval Method</label>
+                    <!-- <select class="form-control" [(ngModel)]="approval_default" placeholder='Customer Mail' [formControl]="projectcreateform.controls['approval_method']">
+                      <option [value]="0" disabled selected>Select Approval Method</option>
+                      <option *ngFor="let approvalmethod of approvalmethods" [value]=approvalmethod.code >
+                        {{approvalmethod.status}}
+                      </option>
+                    </select> -->
+                    <input type="text" class="form-control" placeholder="Customer Mail">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Submission Mode</label>
+                      <input type='text' class="form-control" placeholder="Email / Hard Copy" [formControl]="projectcreateform.controls['submission_mode']">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Type</label>
+                    <!-- <select class="form-control" id="year" placeholder="TIME & MATERIAL" [(ngModel)]="type_default1" [formControl]="projectcreateform.controls['project_type']">
+                      <option [value]="0" disabled selected>Select Type</option>
+                      <option *ngFor="let type of types" [value]=type.type >
+                        {{type.type}}
+                      </option>
+                    </select>  -->
+                    <input type="text" class="form-control" placeholder="TIME & MATERIAL">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Billing Currency</label>
+                    <input type="text" class="form-control" placeholder="INR" [formControl]="projectcreateform.controls['billing_currency']">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">PO Amount</label>
+                      <input type='text' class="form-control" placeholder="184800" [formControl]="projectcreateform.controls['po_amount']">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project Start Date</label>
+                    <input type="date" class="form-control" placeholder="16-Jul-2018" [formControl]="projectcreateform.controls['start_date']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Project End Date</label>
+                    <input type="date" class="form-control" placeholder="13-Aug-2018" [formControl]="projectcreateform.controls['end_date']">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="proj">Status</label>
+                      <!-- <select class="form-control" id="year" placeholder="In Active" [(ngModel)]="status_default1" [formControl]="projectcreateform.controls['status']">
+                        <option [value]="0" disabled selected>Select Status</option>
+                        <option *ngFor="let status of statuses" [value]=status.code >
+                          {{status.status}}
+                        </option>
+                      </select>  -->
+                      <input type="text" class="form-control" placeholder="In Active">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Delivery SPOC</label>
+                    <input type="text" class="form-control" placeholder="RUDRARAJU,PRABHAKARRAJU" [formControl]="projectcreateform.controls['delivery_spoc']">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proj">Effort SPOC</label>
+                    <input type="text" class="form-control" placeholder="Reddy,Ashanna Sridhar" [formControl]="projectcreateform.controls['effort_spoc']">
+                  </div>
+                </div>
+              
+                
+                <div class="row">
+                  <h4>Resource Mapping Details</h4>
+                  <table border="1" class="table">
+                    <thead>
+                      <tr>
+                        <th>Associate ID</th><th>	Associate Name</th><th>Designation</th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>MK00123456</td><td>Venkatesh</td><td>	U1</td><td>      
+                          <select>
+                            <option>Onsite</option>
+                            <option>Offshore</option>
+                          </select>
+                        </td><td>	01-Jan-2019</td><td>	29-Feb-2019</td><td>	100.00
+                        </td><td>
+                          <input type="checkbox" checked>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>SP00234567
+                        </td><td>Swayam
+                        </td><td>	U2</td><td>      
+                          <select>
+                            <option>Onsite</option>
+                            <option>Offshore</option>
+                          </select>
+                        </td><td>	01-Jan-2019</td><td>	29-Feb-2019</td><td>	100.00
+                        </td><td>
+                          <input type="checkbox" checked>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>GC00345678
+                        </td><td>Chandra
+                        </td><td>	U3</td><td>      
+                          <select>
+                            <option>Onsite</option>
+                            <option>Offshore</option>
+                          </select>
+                        </td><td>	01-Jan-2019</td><td>	29-Feb-2019</td><td>	300.00
+                        </td><td>
+                          <input type="checkbox" checked>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>KM00456789
+                          
+                        </td><td>Krishna
+                        </td><td>	U4</td><td>      
+                          <select>
+                            <option>Onsite</option>
+                            <option>Offshore</option>
+                          </select>
+                        </td><td>	01-Jan-2019</td><td>	29-Feb-2019</td><td>	150.00
+                        </td><td>
+                          <input type="checkbox" checked>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-create="modal">Update</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
