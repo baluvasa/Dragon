@@ -21,12 +21,12 @@
                   <form [formGroup]="addleaveform">
                     <div class="modal-body">
                       <div class="form-row">
-                        <label>Quote ID</label>
+                        <label>Quote#</label>
                         <input type="text" class="form-control" placeholder="Quote Id..."/>
                       
                         
                         
-                        <label>PO ID</label>
+                        <label>PO#</label>
                         <input type="text" class="form-control" placeholder="Po Id..."/>
                         <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                           <div *ngIf="f.modalassociateid.errors.required">Po Id is required</div>
@@ -34,7 +34,7 @@
                         
                         
                         <div class="form-row">
-                          <label>Contract ID</label>
+                          <label>Contract#</label>
                           <input type="text" class="form-control" placeholder="Contract Id..."/>
                           <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociatename.errors.required">Contract Id is required</div>
@@ -64,19 +64,19 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
-                    <label>Quote ID</label>
+                    <label>Quote#</label>
                     <input type="text" class="form-control" placeholder="Quote Id..."/>
                    
                   </div>
                   <div class="col-md-3">
-                    <label>PO ID</label>
+                    <label>PO#</label>
                     <input type="text" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Po Id...">
                       
                     
                   </div>
                   
                   <div class="col-md-3">
-                    <label>Contract ID</label>
+                    <label>Contract#</label>
                     <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Contract Id...">
                      
                     
@@ -121,9 +121,9 @@
               <thead>
                 <tr>
                   <th>S. No</th>
-                  <th>Quote ID</th>
-                  <th>PO ID</th>
-                  <th>Contract ID</th>
+                  <th>Quote#</th>
+                  <th>PO#</th>
+                  <th>Contract#</th>
                   <th>Edit/Delete</th>
                 </tr>
               </thead>
@@ -153,17 +153,17 @@
                   <form [formGroup]="addleaveform">
                     <div class="modal-body">
                       <div class="form-row">
-                        <label>Quote ID</label>
+                        <label>Quote#</label>
                     
                         <input class="form-control" [value]="projects.name" disabled>
                         
-                        <label>PO ID</label>
+                        <label>PO#</label>
                         <input class="form-control" [value]="projects.associateid">
                       
                 
                         
                         <div class="form-row">
-                          <label>Contract ID</label>
+                          <label>Contract#</label>
                           <input type="text" class="form-control" [value]="projects.associatename" autofocus/>
                           <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociatename.errors.required">Fx Rate is required</div>

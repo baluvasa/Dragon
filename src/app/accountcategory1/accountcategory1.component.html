@@ -46,21 +46,21 @@
                             </div>
                           </div>
                           <div class="form-row">
-                              <label>Quote ID</label>
+                              <label>Quote#</label>
                               <input type="text"  placeholder="Account Name..."class="form-control" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                               <div *ngIf="submitted && addleaveform.controls.modalassociateid.errors" class="invalid-feedback">
                                 <div *ngIf="addleaveform.controls.modalassociateid.errors.required">Quote ID is required</div>
                               </div>
                             </div>
                             <div class="form-row">
-                                <label>Contract ID</label>
+                                <label>Contract#</label>
                                 <input type="text"  placeholder="Contract ID..."class="form-control" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                                 <div *ngIf="submitted && addleaveform.controls.modalassociateid.errors" class="invalid-feedback">
                                   <div *ngIf="addleaveform.controls.modalassociateid.errors.required">Contract ID is required</div>
                                 </div>
                               </div>
                               <div class="form-row">
-                                  <label>PO ID</label>
+                                  <label>PO#</label>
                                   <input type="text"  placeholder="PO ID..."class="form-control" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                                   <div *ngIf="submitted && addleaveform.controls.modalassociateid.errors" class="invalid-feedback">
                                     <div *ngIf="addleaveform.controls.modalassociateid.errors.required">PO ID is required</div>
@@ -110,13 +110,13 @@
                       
                     </div>
                     <div class="col-md-6">
-                        <label>Quote ID</label>
+                        <label>Quote#</label>
                         <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Quote ID..." pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')">
                          
                         
                       </div>
                       <div class="col-md-6">
-                          <label>Contract ID</label>
+                          <label>Contract#</label>
                           <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Contract ID..." pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')">
                            
                           
@@ -164,10 +164,10 @@
                     <th>Account Category</th>
                     
                     <th>Account Name</th>
-                    <th>Quote ID</th>
+                    <th>Quote#</th>
                     
-                    <th>Contract ID</th>
-                    <th>PO ID</th>
+                    <th>Contract#</th>
+                    <th>PO#</th>
                     
                   
                     <th>Edit/Delete</th>
@@ -228,21 +228,21 @@
                             </div>
                           </div>
                           <div class="form-row">
-                              <label>Quote ID</label>
+                              <label>Quote#</label>
                               <input type="text" value="QMS9645008" placeholder="Quote ID..." class="form-control" pattern="[a-zA-Z]" disabled oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                               <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                                 <div *ngIf="f.modalassociateid.errors.required">Quote ID Rate is required</div>
                               </div>
                             </div>
                             <div class="form-row">
-                                <label>Contract ID</label>
+                                <label>Contract#</label>
                                 <input type="text" value="0000032951893" placeholder="Contract ID..." class="form-control" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                                 <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                                   <div *ngIf="f.modalassociateid.errors.required">Contract ID Rate is required</div>
                                 </div>
                               </div>
                               <div class="form-row">
-                                  <label>PO ID</label>
+                                  <label>PO#</label>
                                   <input type="text" value="TML19S75A51" placeholder="PO ID..." class="form-control" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
                                   <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                                     <div *ngIf="f.modalassociateid.errors.required">PO ID Rate is required</div>

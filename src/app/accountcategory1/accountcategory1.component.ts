@@ -89,8 +89,8 @@ searchleaves(){
   ];
 }
 deletedata(){
-  if (confirm("Do you want to delete the Account Details?")) {
-    alert("Account Details Deleted Successfully.")
+  if (confirm("Do you want to delete the Account Category1 Details?")) {
+    alert("Account Category1 Details Deleted Successfully.")
   } 
 }
 

@@ -94,14 +94,14 @@ badrequest(){
 searchpodata(){
  
   this.leavelists=[
-    {sno:'1',associateid:'GE Appliances', associatename:"GE INDIA EXPORTS PVT LTD",pname:'GE P&W-A', pbc:"EUR",yearmonth:'Jan-2018',pcurr:'6,66,000.2345'},
-    {sno:'1',associateid:'GE Industrial', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Feb-2019",pcurr:'6,66,000.2345'},
-    {sno:'1',associateid:'GE P&W', associatename:"GE P&W-A",pname:'GE P&W-A',pbc:'JPY', yearmonth:"USD",pcurr:'6,66,000.2345'},
-    {sno:'1',associateid:'GE Industrial', associatename:"GE Amphenol",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Jan-2015",pcurr:'6,66,000.2345'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Aug-2009",pcurr:'6,66,000.2345'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Oct-2018",pcurr:'6,66,000.2345'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Dec-2019",pcurr:'6,66,000.2345'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Nov-2016",pcurr:'6,66,000.2345'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE INDIA EXPORTS PVT LTD",pname:'GE P&W-A', pbc:"EUR",yearmonth:'Jan-2018',pcurr:'6,66,000.23'},
+    {sno:'1',associateid:'GE Industrial', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Feb-2019",pcurr:'6,66,000.23'},
+    {sno:'1',associateid:'GE P&W', associatename:"GE P&W-A",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Feb-2018",pcurr:'6,66,000.23'},
+    {sno:'1',associateid:'GE Industrial', associatename:"GE Amphenol",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Jan-2015",pcurr:'6,66,000.23'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Aug-2009",pcurr:'6,66,000.23'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Oct-2018",pcurr:'6,66,000.23'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Dec-2019",pcurr:'6,66,000.23'},
+    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Nov-2016",pcurr:'6,66,000.23'},
   ];
   this.emplists=[
     {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'10-Jan-2019',edate:"15-Oct-2020",rate:'0.01423',uom:'8',nod1:'24',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
