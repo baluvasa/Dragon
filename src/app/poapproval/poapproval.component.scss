@@ -1,0 +1,45 @@
+.modal_view{
+    float:right;
+}
+.leave_project_name{
+    margin-bottom: 3%;
+}
+textarea{
+    resize: none;
+}
+.add_new_leave{
+    float:right;
+}
+.modal-title{
+    text-align: center;
+}
+.modal-dialog {
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.modal-header
+{
+  background-color: #428bca;
+  color: #fff;
+  & .close {
+    color: #fff;
+    opacity: 1;
+  }
+}
+.modaldatatable th {
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+}
+ 
+.modaldatatable  th:first-child {
+  border-left: 1px solid #aaa;
+}
+
+
+
+ 

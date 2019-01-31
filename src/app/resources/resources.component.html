@@ -25,14 +25,14 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label for="id">Associate Id</label>
+                  <label for="id">Associate ID</label>
                   <input type="id" class="form-control" name="name" [formControl]="resourceform.controls['associateid']">
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label for="id">Desigination</label>
-                  <input type="text" class="form-control" name="name" [formControl]="resourceform.controls['desigination']">
+                  <label for="id">Designation</label>
+                  <input type="text" class="form-control" name="name" [formControl]="resourceform.controls['Designation']">
                 </div>
               </div>
               <div class="text-center col-md-12">
@@ -68,8 +68,8 @@
               <tr>
                   <th>S.No</th>
                   <th>Associate Name</th>
-                  <th>Associate Id</th>
-                  <th>Desigination</th> 
+                  <th>Associate ID</th>
+                  <th>Designation</th> 
                   <th>Edit/Delete</th>              
                 </tr>
           </thead>
@@ -116,7 +116,7 @@
                </div>
                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="id">Associate Id</label>
+                    <label for="id">Associate ID</label>
                     <input type="id" class="form-control" name="name" [formControl]="resourceaddform.controls['addassociateid']">
                   </div>
                 </div>
@@ -124,7 +124,7 @@
              <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label for="id">Desigination</label>
+                      <label for="id">Designation</label>
                       <select class="form-control"  [formControl]="resourceaddform.controls['addband']" [(ngModel)]="edit">
                           <option [value]="0" disabled selected>Select Designination</option>
                           <option *ngFor="let b of band" [value]=b.bandname>
@@ -135,7 +135,7 @@
                   </div>
                   <div class="col-md-6">
                       <div class="form-group">
-                        <label for="id">Email</label>
+                        <label for="id">Email ID</label>
                         <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['addemailid']">
                       </div>
                     </div>
@@ -143,7 +143,7 @@
              <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label for="id">Contact No</label>
+                      <label for="id">Contact No.</label>
                       <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['addcno']">
                     </div>
                   </div>
@@ -191,7 +191,7 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                             <label for="id">Associate Id</label>
+                             <label for="id">Associate ID</label>
                              <input type="id" class="form-control" placeholder="np00585716" name="name" [formControl]="resourceeditform.controls['editassociateid']" disabled>
                              <small class="text-danger" *ngIf="resourceeditform.controls.editassociateid.errors &&(resourceeditform.controls.editassociateid.dirty || resourceeditform.controls.editassociateid.touched) && !resourceeditform.controls.editassociateid.valid">
                                 <span  *ngIf="resourceeditform.controls.editassociateid.errors.required">Id is Required</span>
@@ -202,7 +202,7 @@
                       <div class="row">
                          <div class="col-md-6">
                              <div class="form-group">
-                               <label for="id">Desigination</label>
+                               <label for="id">Designation</label>
                                 <select class="form-control"  [formControl]="resourceeditform.controls['editband']" [(ngModel)]="edit">
                                       <option [value]="0" disabled selected>Select Designination</option>
                                       <option *ngFor="let b of band" [value]=b.bandname>
@@ -224,7 +224,7 @@
                       <div class="row">
                          <div class="col-md-6">
                              <div class="form-group">
-                               <label for="id">Contact No</label>
+                               <label for="id">Contact No.</label>
                                <input type="text" class="form-control" placeholder="8008645747" name="name" [formControl]="resourceeditform.controls['editcno']">
                                <small class="text-danger" *ngIf="resourceeditform.controls.editcno.errors &&(resourceeditform.controls.editcno.dirty || resourceeditform.controls.editcno.touched) && !resourceeditform.controls.editcno.valid">
                                   <span  *ngIf="resourceeditform.controls.editcno.errors.required">Contact No is Required</span>

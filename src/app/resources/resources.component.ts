@@ -90,9 +90,9 @@ export class ResourcesComponent implements OnInit {
  }
  getData(){    
   this.list = [
-    {sno:1,associatename:'Prashanthi',id:'np00585716',band:'u3'},
-    {sno:2,associatename:'suman',id:'sk00550019',band:'u4'},
-    {sno:3,associatename:'srinitha',id:'sr00551505',band:'u2'},
+    {sno:1,associatename:'Prashanthi',id:'NP00585716',band:'u3'},
+    {sno:2,associatename:'suman',id:'SK00550019',band:'u4'},
+    {sno:3,associatename:'srinitha',id:'SR00551505',band:'u2'},
   
   ];
   
