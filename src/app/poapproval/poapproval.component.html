@@ -1,3 +1,31 @@
+<script>
+    $(document).ready(function() {
+      var row = 0,
+        col = 0,
+        ncol = 0;
+      var sum;
+     
+      // sum by col
+      for (col = 1; col < ncol + 1; col++) {
+        console.log("column: " + col);
+        sum = 0;
+        $("tr").each(function(rowindex) {
+          $(this).find("td:nth-child(" + col + ")").each(function(rowindex) {
+            newval = $(this).find("input").val();
+            console.log(newval);
+            if (isNaN(newval)) {
+              $(this).html(sum);
+            } else {
+              sum += parseInt(newval);
+            }
+          });
+        });
+      }
+    });
+    </script>
+    
+
+
 <div class="row">
     <div class="container-fluid">
       
@@ -134,7 +162,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                          <td><b>Total</b></td>
+                                          <td><b>Total{{$index+1}}</b></td>
                                           <td></td>
                                           <td></td>
                                           <td></td>
@@ -142,7 +170,7 @@
                                           <td></td>
                                           <td></td>
                                           <td></td>
-                                          <td><b>192</b></td>
+                                          <td><b></b></td>
                                           <td><b>3,60,002.64</b></td>
                                           <td><b>144</b></td>
                                           <td><b>348802.64</b></td>
@@ -416,7 +444,7 @@
                                           <td></td>
                                           <td></td>
                                           <td></td>
-                                          <td><b>192</b></td>
+                                          <td  class="sum"><b>192</b></td>
                                           <td><b>3,60,002.64</b></td>
                                           <td><b>144</b></td>
                                           <td><b>348802.64</b></td>
