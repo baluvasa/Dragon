@@ -115,8 +115,8 @@ searchpodata(){
   ];
 }
 deletedata(){
-  if (confirm("Do you want to delete the Leave Details?")) {
-  alert("Leave Details Deleted Successfully.")
+  if (confirm("Do you want to delete the PO Approval Details?")) {
+  alert("PO Approval Deleted Successfully.")
   } 
   } 
   onSubmit(a){
