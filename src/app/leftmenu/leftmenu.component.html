@@ -1,101 +1,61 @@
 <div class="nav-side-menu col-lg-3 col-md-3">
   <div class="brand">Purchase Order</div>
   <span *ngIf=logedas>
-
-  
-  <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-  
-  <div class="menu-list">
     
-    <ul id="menu-content" class="menu-content collapse out">
-      <li routerLinkActive="active">
-        <a href="" routerLink="/home">
-          <i class="fa fa-dashboard fa-lg"></i> Dashboard
-        </a>
-      </li>
-      <li routerLinkActive="active">
-        <a href="" routerLink="/createproject">
+    
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    
+    <div class="menu-list">
+      
+      <ul id="menu-content" class="menu-content collapse out">
+        <li routerLinkActive="active" routerLink="/home">
+          <i class="fa fa-dashboard fa-lg"></i> Dashboard          
+        </li>
+        <li routerLinkActive="active" routerLink="/createproject">          
           <i class="fa fa-book fa-lg"></i> Create Project
-        </a>
-      </li>
-      <li routerLinkActive="active">
-        <a href="" routerLink="/createproject1">
+        </li>
+        <li routerLinkActive="active" routerLink="/createproject1">
           <i class="fa fa-book fa-lg"></i> Create Project-1
-        </a>
-      </li>
-      <li routerLinkActive="active">
-        <a href="" routerLink="/accountcategory">
+        </li>
+        <li routerLinkActive="active" routerLink="/accountcategory">
           <i class="fa fa-cogs fa-lg"></i> Account Category
-        </a>
-      </li>
-        <li routerLinkActive="active">
-          <a href="" routerLink="/accountcategory1">
-            <i class="fa fa-cog fa-lg"></i> Account Category-1
-          </a>
         </li>
-      <li routerLinkActive="active">
-        <a href="" routerLink="/fxrates">
+        <li routerLinkActive="active" routerLink="/accountcategory1">
+          <i class="fa fa-cog fa-lg"></i> Account Category-1
+        </li>
+        <li routerLinkActive="active" routerLink="/fxrates">
           <i class="fa fa-calculator fa-lg"></i> FX Rates
-        </a>
-      </li>
-      <li routerLinkActive="active">
-        <a href="" routerLink="/leavedetails">
+        </li>
+        <li routerLinkActive="active" routerLink="/leavedetails">
           <i class="fa fa-calendar fa-lg"></i> Leave Details
-        </a>
-      </li>
-      <li routerLinkActive="active">
-          <a href="" routerLink="/holidays">
-            <i class="fa fa-calendar fa-lg"></i> Holidays
-          </a>
         </li>
-        <li routerLinkActive="active">
-          <a href="" routerLink="/resources">
-            <i class="fa fa-users"></i> Resources
-          </a>
+        <li routerLinkActive="active" routerLink="/holidays">
+          <i class="fa fa-calendar fa-lg"></i> Holidays
         </li>
-        <li routerLinkActive="active">
-          <a href="" routerLink="/poapproval">
-            <i class="fa fa-check-square-o"></i> PO Approval
-          </a>
+        <li routerLinkActive="active" routerLink="/resources">
+          <i class="fa fa-users"></i> Resources
         </li>
-        <!-- <li routerLinkActive="active">
-          <a href="" routerLink="/quote">
-            <i class="fa fa-icon-print fa-lg"></i> Quote
-          </a>
-        </li> -->
-      <li routerLinkActive="active">
-        <a href="" routerLink="/charts">
+        <li routerLinkActive="active" routerLink="/poapproval">
+          <i class="fa fa-check-square-o"></i> PO Approval
+        </li>
+        <li routerLinkActive="active" routerLink="/charts">
           <i class="fa fa-bar-chart fa-lg"></i> Chart
-        </a>
-      </li>
-      <li routerLinkActive="active">
-        <a href="" routerLink="/quote">
-          <i class="fa fa-pencil-square-o fa-lg"></i>Quote
-        </a>
-      </li>
-      <li routerLinkActive="active">
-        <a href="" routerLink="/accessdetails">
-          <i class="fa fa-calculator fa-lg"></i> Access Details
-        </a>
-      </li>
-      
-                <li  data-toggle="collapse" data-target="#profile" class="collapsed">
-                  <a ><i class="fa fa-user fa-lg"></i> Profile <span class="arrow"></span></a>
-                </li>
-      <ul class="sub-menu collapse" id="profile">
-        <!-- <li routerLinkActive="active">
-          <a href="" routerLink="/changepassowrd">
-            <i class="fa fa-edit fa-lg"></i> Change Password
-          </a>
-        </li> -->
-        <li routerLinkActive="active">
-          <a href="" routerLink="/logout">
-            <i class="fa fa-sign-out fa-lg"></i> Logout
-          </a>
         </li>
+        <li routerLinkActive="active" routerLink="/quote">
+          <i class="fa fa-pencil-square-o fa-lg"></i>Quote
+        </li>
+        <li routerLinkActive="active" routerLink="/accessdetails">
+          <i class="fa fa-calculator fa-lg"></i> Access Details
+        </li>                
+        <li  data-toggle="collapse" data-target="#profile" class="collapsed">
+          <i class="fa fa-user fa-lg"></i> Profile <span class="arrow"></span>
+        </li>
+        <ul class="sub-menu collapse" id="profile">
+          <li routerLinkActive="active" routerLink="/logout">
+            <i class="fa fa-sign-out fa-lg"></i> Logout
+          </li>
+        </ul>
       </ul>
-      
-    </ul>
-  </div>
-</span>
+    </div>
+  </span>
 </div>
