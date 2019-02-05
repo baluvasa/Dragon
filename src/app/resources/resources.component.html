@@ -70,6 +70,7 @@
                   <th>Associate ID</th>
                   <th>Associate Name</th>
                   <th>Band</th> 
+                  <th>PID</th> 
                   <th>Edit/Delete</th>              
                 </tr>
           </thead>
@@ -79,6 +80,7 @@
                   <td>{{item.id}}</td>
                   <td>{{item.associatename}}</td>
                   <td>{{item.band}}</td>
+                  <td>{{item.pid}}</td>
                   <td>
                     <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
                     <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
@@ -143,6 +145,12 @@
                     <div class="form-group">
                       <label for="id">Contact No.</label>
                       <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['addcno']">
+                    </div>
+                  </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="id">PID</label>
+                      <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['pid']">
                     </div>
                   </div>
              </div>
@@ -230,6 +238,13 @@
                                 </small>
                               </div>
                            </div>
+                           <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="id">PID</label>
+                              <input type="text" class="form-control" placeholder="8008645747" name="name" [formControl]="resourceeditform.controls['editpid']">
+                             
+                             </div>
+                          </div>
                       </div>
                 </form>
            </div>

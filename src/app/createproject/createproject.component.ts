@@ -20,6 +20,7 @@ export class CreateprojectComponent implements OnInit {
   acc_category_default2=0;
   project_name_default1=0;
   approval_default=0;
+  submission_default=0;
   type_default=0;
   status_default=0;
   type_default1=0;
@@ -31,6 +32,7 @@ export class CreateprojectComponent implements OnInit {
   currency_modes:any;
   resources:any;
   categories_names:any;
+  submisson_modes:any;
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
     if(localStorage.getItem('logeduser')=='admin'){
@@ -83,6 +85,9 @@ export class CreateprojectComponent implements OnInit {
     ];
     this.approvalmethods=[
       {status:'Customer Mail',code:'CM'}
+    ];
+    this.submisson_modes=[
+      {status:'EMail',code:'email'},{status:'EMail/Hard Copy',code:'ehcopy'},{status:'NA',code:'na'}
     ];
     this.currency_modes=[      
       {name:'USD',country:'US Dollar'},

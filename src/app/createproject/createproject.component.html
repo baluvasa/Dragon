@@ -188,7 +188,13 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="proj">Submission Mode</label>
-                    <input type='text' class="form-control" [formControl]="projectcreateform.controls['submission_mode']">
+                    <!-- <input type='text' class="form-control" [formControl]="projectcreateform.controls['submission_mode']"> -->
+                    <select class="form-control" [(ngModel)]="submission_default" [formControl]="projectcreateform.controls['submission_mode']">
+                      <option [value]="0" disabled selected>Select Submission Mode</option>
+                      <option *ngFor="let submisson_mode of submisson_modes" [value]=submisson_mode.code >
+                        {{submisson_mode.status}}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -253,43 +259,104 @@
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">Quote ID</label>
+                  <label for="proj">Quote#</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['quote_id']">
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">Contract ID</label>
+                  <label for="proj">Contract#</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['contract_id']">
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">PO ID</label>
+                  <label for="proj">PO#</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['po_id']">
                 </div>
               </div>
               <div class="row">
                 <h4>Resource Mapping Details</h4>
-                <table border="1" class="table">
-                  <thead>
-                    <tr>
-                      <th>Associate ID</th><th>	Associate Name</th><th>Designation</th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor='let resource of resources'>
-                      <td>{{resource.id}}</td><td>{{resource.name}}</td><td>{{resource.band}}</td><td>      
-                        <select>
-                          <option>Select Option</option>
-                          <option>Onsite</option>
-                          <option>Offshore</option>
-                        </select>
-                      </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
-                        <input type="text" class="form-control">
-                      </td><td>
-                        <input type="checkbox">
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#mapped">Mapped Resource</a></li>
+                  <li><a data-toggle="tab" href="#nonmapped">Resource</a></li>
+                </ul>
+
+                <div class="tab-content">
+                  <div id="mapped" class="tab-pane fade in active">
+                    <h3>Mapped Resource</h3>
+                      <table border="1" class="table">
+                        <!-- <thead>
+                          <tr>
+                            <th>Associate ID</th><th>	Associate Name</th><th>Designation</th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor='let resource of resources'>
+                            <td>{{resource.id}}</td><td>{{resource.name}}</td><td>{{resource.band}}</td><td>      
+                              <select>
+                                <option>Select Option</option>
+                                <option>Onsite</option>
+                                <option>Offshore</option>
+                              </select>
+                            </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
+                              <input type="text" class="form-control">
+                            </td><td>
+                              <input type="checkbox" checked>
+                            </td>
+                          </tr>
+                        </tbody> -->
+                        <thead>
+                          <tr>
+                            <th>Associate Details<br>
+                            <h6>Associate Name (Associate ID - BAND)</h6></th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor='let resource of resources'>
+                            <td>{{resource.name}}(<small> {{resource.id}} - {{resource.band}} </small>)</td><td>      
+                              <select>
+                                <option>Select Option</option>
+                                <option>Onsite</option>
+                                <option>Offshore</option>
+                              </select>
+                            </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
+                              <input type="text" class="form-control">
+                            </td><td>
+                              <input type="checkbox" checked>
+                            </td>
+                          </tr>
+                        </tbody> 
+                      </table>
+                    
+
+                  </div>
+                  <div id="nonmapped" class="tab-pane fade">
+                    <h3>Resources</h3>
+                    <table border="1" class="table">
+                      <thead>
+                        <tr>
+                          <th>Associate ID</th><th>	Associate Name</th><th>Designation</th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor='let resource of resources'>
+                          <td>{{resource.id}}</td><td>{{resource.name}}</td><td>{{resource.band}}</td><td>      
+                            <select>
+                              <option>Select Option</option>
+                              <option>Onsite</option>
+                              <option>Offshore</option>
+                            </select>
+                          </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
+                            <input type="text" class="form-control">
+                          </td><td>
+                            <input type="checkbox">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                  </div>
+                </div>
               </div>
+
+              
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-create="modal">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -324,23 +391,23 @@
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Account Name</label>
-                  <input type="text" class="form-control" placeholder="SQL PO" disabled [formControl]="projectcreateform.controls['acc_name']">
+                  <input type="text" class="form-control" placeholder="SQL PO" disabled >
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Project Name</label>
-                  <input type="text" class="form-control" placeholder="GE Energy-NPI Support-ICFC Pro" disabled [formControl]="projectcreateform.controls['project_name']">
+                  <input type="text" class="form-control" placeholder="GE Energy-NPI Support-ICFC Pro" disabled >
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="proj">Customer Name</label>
-                    <input type='text' class="form-control" placeholder="GE India Industrial Pvt Limited" disabled [formControl]="projectcreateform.controls['customer_name']">
+                    <input type='text' class="form-control" placeholder="GE India Industrial Pvt Limited" disabled>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Customer SPOC</label>
-                  <input type="text" class="form-control" [formControl]="projectcreateform.controls['customer_spoc']">
+                  <input type="text" class="form-control" >
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Approval Method</label>
@@ -357,7 +424,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="proj">Submission Mode</label>
-                    <input type='text' class="form-control" placeholder="Email / Hard Copy" [formControl]="projectcreateform.controls['submission_mode']">
+                    <input type='text' class="form-control" placeholder="Email / Hard Copy" >
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -372,23 +439,23 @@
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Project Billing Currency</label>
-                  <input type="text" class="form-control" placeholder="INR" [formControl]="projectcreateform.controls['billing_currency']">
+                  <input type="text" class="form-control" placeholder="INR" >
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="proj">PO Amount</label>
-                    <input type='text' class="form-control" placeholder="184800" [formControl]="projectcreateform.controls['po_amount']">
+                    <input type='text' class="form-control" placeholder="184800" >
                   </div>
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Project Start Date</label>
-                  <input type="date" class="form-control" placeholder="16-Jul-2018" [formControl]="projectcreateform.controls['start_date']">
+                  <input type="date" class="form-control" placeholder="16-Jul-2018" >
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Project End Date</label>
-                  <input type="date" class="form-control" placeholder="13-Aug-2018" [formControl]="projectcreateform.controls['end_date']">
+                  <input type="date" class="form-control" placeholder="13-Aug-2018" >
                 </div>
               </div>
               <div class="row">
@@ -406,31 +473,31 @@
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Delivery SPOC</label>
-                  <input type="text" class="form-control" placeholder="RUDRARAJU,PRABHAKARRAJU" [formControl]="projectcreateform.controls['delivery_spoc']">
+                  <input type="text" class="form-control" placeholder="RUDRARAJU,PRABHAKARRAJU" >
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Effort SPOC</label>
-                  <input type="text" class="form-control" placeholder="Reddy,Ashanna Sridhar" [formControl]="projectcreateform.controls['effort_spoc']">
+                  <input type="text" class="form-control" placeholder="Reddy,Ashanna Sridhar" >
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="proj">PID</label>
-                    <input type='text' class="form-control" placeholder="000000000029531" [formControl]="projectcreateform.controls['pid']">
+                    <input type='text' class="form-control" placeholder="000000000029531" >
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">Quote ID</label>
-                  <input type="text" class="form-control" placeholder="QMS0100917" [formControl]="projectcreateform.controls['quote_id']">
+                  <label for="proj">Quote#</label>
+                  <input type="text" class="form-control" placeholder="QMS0100917" >
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">Contract ID</label>
-                  <input type="text" class="form-control" placeholder="TML206945" [formControl]="projectcreateform.controls['contract_id']">
+                  <label for="proj">Contract#</label>
+                  <input type="text" class="form-control" placeholder="TML206945" >
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">PO ID</label>
-                  <input type="text" class="form-control" placeholder="232130187" [formControl]="projectcreateform.controls['po_id']">
+                  <label for="proj">PO#</label>
+                  <input type="text" class="form-control" placeholder="232130187">
                 </div>
               </div>
               

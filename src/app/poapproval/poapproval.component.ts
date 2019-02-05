@@ -104,14 +104,14 @@ searchpodata(){
     {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Nov-2016",pcurr:'6,66,000.23'},
   ];
   this.emplists=[
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'10-Jan-2019',edate:"15-Oct-2020",rate:'0.01423',uom:'8',nod1:'24',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'16-Mar-2018', edate:"12-Oct-2019",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'16-Mar-2018', edate:"21-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'10-Jan-2019', edate:"27-Oct-2022",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'15-Oct-2021', edate:"30-Oct-2020",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'16-Mar-2018', edate:"03-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'15-Oct-2021', edate:"06-Oct-2023",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
-    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",loc:'TMTC-U2',sdate:'10-Jan-2019', edate:"09-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'U2',sdate:'10-Jan-2019',edate:"15-Oct-2020",rate:'0.01423',uom:'8',nod1:'24',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'U3',sdate:'16-Mar-2018', edate:"12-Oct-2019",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'U4',sdate:'16-Mar-2018', edate:"21-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'U3',sdate:'10-Jan-2019', edate:"27-Oct-2022",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'U2',sdate:'15-Oct-2021', edate:"30-Oct-2020",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'U3',sdate:'16-Mar-2018', edate:"03-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'P1',sdate:'15-Oct-2021', edate:"06-Oct-2023",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
+    {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'P2',sdate:'10-Jan-2019', edate:"09-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
   ];
 }
 deletedata(){

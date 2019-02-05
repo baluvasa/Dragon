@@ -127,20 +127,20 @@
                                           <th rowspan="2">S. No</th>
                                           <th rowspan="2">Associate ID</th>
                                           <th rowspan="2">Associate Name</th>
-                                          <th rowspan="2">Location</th>
+                                          <th rowspan="2">Band</th>
                                           <th rowspan="2">Associate Start Date</th>
                                           <th rowspan="2">Associate End Date</th>
                                           <th rowspan="2">Rate</th>
                                           <th rowspan="2">UOM</th>
-                                          <th colspan="2" style="text-align:center">Accruals</th>
-                                          <th colspan="2" style="text-align:center">Billed</th>
+                                          <th colspan="2" class='accruals' style="text-align:center">Accruals</th>
+                                          <th colspan="2" class="billed" style="text-align:center">Billed</th>
                                        
                                       </tr>
                                       <tr>
-                                        <th>No. Of Days</th>
-                                        <th>Amount</th>
-                                        <th>No. Of Days</th>
-                                        <th>Amount</th>
+                                        <th class='accruals'>No. Of Hours</th>
+                                        <th class='accruals'>Amount</th>
+                                        <th class="billed" >No. Of Hours</th>
+                                        <th class="billed" >Amount</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -148,21 +148,21 @@
                                         <td>{{emplist.sno}}</td>
                                         <td>{{emplist.associateid}}</td>
                                         <td>{{emplist.associatename}}</td>
-                                        <td>{{emplist.loc}}</td>
+                                        <td>{{emplist.band}}</td>
                                         <td>{{emplist.sdate}}</td>
                                         <td>{{emplist.edate}}</td>
                                         <td>{{emplist.rate}}</td>
                                         <td>{{emplist.uom}}</td>
-                                        <td contenteditable='true'>{{emplist.nod1}}</td>
+                                        <td contenteditable='true' class='accruals'>{{emplist.nod1}}</td>
                                         <td contenteditable='true'>{{emplist.amount1}}</td>
-                                        <td contenteditable='true'>{{emplist.nod2}}</td>
+                                        <td contenteditable='true' class="billed">{{emplist.nod2}}</td>
                                         <td contenteditable='true'>{{emplist.amount2}}</td>
                                       
                                       </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                          <td><b>Total{{$index+1}}</b></td>
+                                          <td><b>Total</b></td>
                                           <td></td>
                                           <td></td>
                                           <td></td>
@@ -170,10 +170,10 @@
                                           <td></td>
                                           <td></td>
                                           <td></td>
-                                          <td><b></b></td>
-                                          <td><b>3,60,002.64</b></td>
-                                          <td><b>144</b></td>
-                                          <td><b>348802.64</b></td>
+                                          <td class='sum accruals'><b>192</b></td>
+                                          <td class='accruals'><b>3,60,002.64</b></td>
+                                          <td class='billed'><b>144</b></td>
+                                          <td class='billed'><b>348802.64</b></td>
                                           
                                         </tr>
                                       </tfoot>
@@ -400,20 +400,20 @@
                                           <th rowspan="2">S. No</th>
                                           <th rowspan="2">Associate ID</th>
                                           <th rowspan="2">Associate Name</th>
-                                          <th rowspan="2">Location</th>
+                                          <th rowspan="2">Band</th>
                                           <th rowspan="2">Associate Start Date</th>
                                           <th rowspan="2">Associate End Date</th>
                                           <th rowspan="2">Rate</th>
                                           <th rowspan="2">UOM</th>
-                                          <th colspan="2" style="text-align:center">Accruals</th>
-                                          <th colspan="2" style="text-align:center">Billed</th>
+                                          <th colspan="2"  class='accruals' style="text-align:center">Accruals</th>
+                                          <th colspan="2"  class='billed' style="text-align:center">Billed</th>
                                        
                                       </tr>
                                       <tr>
-                                        <th>No. Of Days</th>
-                                        <th>Amount</th>
-                                        <th>No. Of Days</th>
-                                        <th>Amount</th>
+                                        <th class='accruals'>No. Of Hours</th>
+                                        <th class='accruals'>Amount</th>
+                                        <th class='billed'>No. Of Hours</th>
+                                        <th class='billed'>Amount</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -421,14 +421,14 @@
                                         <td>{{emplist.sno}}</td>
                                         <td>{{emplist.associateid}}</td>
                                         <td>{{emplist.associatename}}</td>
-                                        <td>{{emplist.loc}}</td>
+                                        <td>{{emplist.band}}</td>
                                         <td>{{emplist.sdate}}</td>
                                         <td>{{emplist.edate}}</td>
                                         <td>{{emplist.rate}}</td>
                                         <td>{{emplist.uom}}</td>
-                                        <td contenteditable='true'>{{emplist.nod1}}</td>
+                                        <td contenteditable='true' class='accruals'>{{emplist.nod1}}</td>
                                         <td contenteditable='true'>{{emplist.amount1}}</td>
-                                        <td contenteditable='true'>{{emplist.nod2}}</td>
+                                        <td contenteditable='true' class='billed'>{{emplist.nod2}}</td>
                                         <td contenteditable='true'>{{emplist.amount2}}</td>
                                       
                                       </tr>
@@ -444,10 +444,10 @@
                                           <td></td>
                                           <td></td>
                                           <td></td>
-                                          <td  class="sum"><b>192</b></td>
-                                          <td><b>3,60,002.64</b></td>
-                                          <td><b>144</b></td>
-                                          <td><b>348802.64</b></td>
+                                          <td  class="sum accruals"><b>192</b></td>
+                                          <td class='accruals'><b>3,60,002.64</b></td>
+                                          <td class='billed'><b>144</b></td>
+                                          <td class='billed'><b>348802.64</b></td>
                                           
                                         </tr>
                                       </tfoot>

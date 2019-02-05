@@ -68,6 +68,9 @@ export class ResourcesComponent implements OnInit {
       }),
       addcno:new FormControl('',{
         validators: [Validators.required]
+      }),
+      pid:new FormControl('',{
+        validators: [Validators.required]
       })
     });
     this.resourceeditform = new FormGroup({
@@ -85,14 +88,17 @@ export class ResourcesComponent implements OnInit {
       }),
       editcno:new FormControl('',{
         validators: [Validators.required]
+      }),
+      editpid:new FormControl('',{
+        validators: [Validators.required]
       })
     });
  }
  getData(){    
   this.list = [
-    {sno:1,associatename:'Prashanthi',id:'NP00585716',band:'U3'},
-    {sno:2,associatename:'suman',id:'SK00550019',band:'U4'},
-    {sno:3,associatename:'srinitha',id:'SR00551505',band:'U2'},
+    {sno:1,associatename:'Prashanthi',id:'NP00585716',band:'U3',pid:'02121212'},
+    {sno:2,associatename:'suman',id:'SK00550019',band:'U4',pid:'02121212'},
+    {sno:3,associatename:'srinitha',id:'SR00551505',band:'U2',pid:'02121212'},
   
   ];
   
