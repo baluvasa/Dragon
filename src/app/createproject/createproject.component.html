@@ -19,23 +19,25 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Account Category</label>
-                <select class="form-control"  [formControl]="projectsearchform.controls['acc_category']" [(ngModel)]="acc_category_default">
+                <input type="text" class="form-control" placeholder="Account Category" [formControl]="projectsearchform.controls['acc_category']">
+                <!-- <select class="form-control"  [formControl]="projectsearchform.controls['acc_category']" [(ngModel)]="acc_category_default">
                   <option [value]="0" disabled selected>Select Account Category</option>
                   <option *ngFor="let category of categories" [value]=category.code >
                     {{category.acc_category}}
                   </option>
-                </select>
+                </select> -->
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Project Name</label>
-                <select class="form-control"  [formControl]="projectsearchform.controls['project_name']" [(ngModel)]="project_name_default">
+                <input type="text" class="form-control" placeholder="Project Name" [formControl]="projectsearchform.controls['project_name']">
+                <!-- <select class="form-control"  [formControl]="projectsearchform.controls['project_name']" [(ngModel)]="project_name_default">
                   <option [value]="0" disabled selected>Select Project</option>
                   <option *ngFor="let project of projects" [value]=project.projectname >
                     {{project.projectname}}
                   </option>
-                </select>
+                </select> -->
               </div>
             </div>
             <div class="col-md-6">

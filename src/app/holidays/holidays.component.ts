@@ -17,8 +17,9 @@ export class HolidaysComponent implements OnInit {
   years:any;
   year:any;
   project=null;
-  edit=0;
-  yr=0;
+  // edit=0;
+  // yr=0;
+  year_default=0;
   jan:any;
   feb:any;
   mar:any;
@@ -221,8 +222,8 @@ export class HolidaysComponent implements OnInit {
   }
   reset()
   {
-    this.edit=0;
-    this.yr=0;
+    // this.edit=0;
+    this.year_default=0;
     // this.holidayform.reset(); 
   }
 //   saveholidayinfo(a)

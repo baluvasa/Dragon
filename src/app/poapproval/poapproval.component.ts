@@ -18,6 +18,8 @@ export class PoapprovalComponent implements OnInit {
   dtOptions: any = {};
   modaldtOptions: any = {};
   role:any;
+  month_default=0;
+  currency_default=0;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -49,8 +51,15 @@ export class PoapprovalComponent implements OnInit {
       projectyear:new FormControl('',{})    
     })
     this.addpoform = new FormGroup({
+      modalaccountcategory:new FormControl('',{
+        validators: []
+      }),
       modalprojectname:new FormControl('',{
-        validators: [Validators.required]
+        validators: []
+      })
+      ,
+      modalpo_year_month:new FormControl('',{
+        validators: []
       })
     })
    

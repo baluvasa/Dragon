@@ -20,22 +20,24 @@
     <form [formGroup]="holidayform" (ngSubmit)="onSubmit(holidayform.value)">
       <div class="col-md-6"><div class="form-group">
           <label for="proj">Account Category</label>
-          <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
+          <input type='text' placeholder="Account Category" class="form-control"  [formControl]="holidayform.controls['project']">
+          <!-- <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
             <option [value]="0" disabled selected>Select Account Category</option>
             <option *ngFor="let project of projects" [value]=project.projectname >
               {{project.projectname}}
             </option>
-          </select>
+          </select> -->
         </div> </div>
         <div class="col-md-6">
-            <div class="form-group">
-              <label for="year">Account Name</label>
-              <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
+          <div class="form-group">
+            <label for="year">Account Name</label>
+            <input type='text' placeholder="Account Name" class="form-control"  [formControl]="holidayform.controls['yearlist']">
+              <!-- <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
                   <option [value]="0" disabled selected>Select Account Name</option>
                   <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
                     {{account_name.acc_name}}
                   </option>
-                </select>                  
+                </select>                   -->
             </div>
           </div>
       <div class="col-md-6">
@@ -54,7 +56,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="year">Year</label>
-          <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
+          <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']">
               <option [value]="0" disabled selected>Select Year</option>
               <option *ngFor="let year of years" [value]=year.years >
                 {{year.years}}

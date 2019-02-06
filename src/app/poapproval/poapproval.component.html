@@ -52,7 +52,7 @@
                         
                         <div class="form-group col-md-4">
                             <label>Account Category</label>
-                            <select class="form-control" [formControl]="addpoform.controls['modalaccountcategory']" required>
+                            <select class="form-control" [formControl]="addpoform.controls['modalaccountcategory']">
                               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
                               <option>GE Renewables</option>
                               <option>GE Digital</option>
@@ -65,7 +65,7 @@
 
                         <div class="form-group col-md-4">
                           <label>Project Name</label>
-                          <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" required>
+                          <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" >
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
                             <option>GE Renewables</option>
                             <option>GE Digital</option>
@@ -78,8 +78,8 @@
                           
                           <div class="form-group  col-md-4">
                               <label>Year & Month</label>
-                              <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']" required>
-                                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
+                              <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']" [(ngModel)]="month_default">
+                                <option [value]="0" disabled selected >Select Year & Month</option>
                                 <option>Jan-2019</option>
                                 <option>Feb-2018</option>
                                 <option>Oct-2018</option>
@@ -229,8 +229,8 @@
 
                     <div class="col-md-3">
                       <label>Project Billing Currency</label>
-                      <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <select class="form-control" >
+                        <option value="" disabled selected>Select Currency</option>
                         <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.country}} )</option>
                       </select>
                     </div>
