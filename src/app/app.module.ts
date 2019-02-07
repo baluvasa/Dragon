@@ -26,6 +26,7 @@ import { QuoteComponent } from './quote/quote.component';
 import { AccessdetailsComponent } from './accessdetails/accessdetails.component';
 import { Createproject1Component } from './createproject1/createproject1.component';
 import { Accountcategory1Component } from './accountcategory1/accountcategory1.component'; 
+import { HttpClientModule } from  "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { Accountcategory1Component } from './accountcategory1/accountcategory1.c
     NgbModule,
     NgbPaginationModule,
     NgbAlertModule,
-    DataTablesModule
+    DataTablesModule,
+    HttpClientModule 
   ],
   providers: [AppServicesService],
   bootstrap: [AppComponent]
