@@ -134,7 +134,7 @@
                                           <th rowspan="2">UOM</th>
                                           <th colspan="2" class='accruals' style="text-align:center">Accruals</th>
                                           <th colspan="2" class="billed" style="text-align:center">Billed</th>
-                                       
+                                          <th rowspan="2">Remarks</th>                                       
                                       </tr>
                                       <tr>
                                         <th class='accruals'>No. Of Hours</th>
@@ -144,8 +144,8 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let emplist of emplists">
-                                        <td>{{emplist.sno}}</td>
+                                      <tr *ngFor="let emplist of emplists; index as i">
+                                        <td>{{i+1}}</td>
                                         <td>{{emplist.associateid}}</td>
                                         <td>{{emplist.associatename}}</td>
                                         <td>{{emplist.band}}</td>
@@ -157,6 +157,7 @@
                                         <td contenteditable='true'>{{emplist.amount1}}</td>
                                         <td contenteditable='true' class="billed">{{emplist.nod2}}</td>
                                         <td contenteditable='true'>{{emplist.amount2}}</td>
+                                        <td ><textarea></textarea></td>
                                       
                                       </tr>
                                     </tbody>
@@ -293,8 +294,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let leavelist of leavelists">
-                    <td>{{leavelist.sno}}</td>
+                  <tr *ngFor="let leavelist of leavelists; index as i">
+                    <td>{{i+1}}</td>
                     <td>{{leavelist.associateid}}</td>
                     <td>{{leavelist.associatename}}</td>
                     <td>{{leavelist.pname}}</td>
@@ -407,7 +408,7 @@
                                           <th rowspan="2">UOM</th>
                                           <th colspan="2"  class='accruals' style="text-align:center">Accruals</th>
                                           <th colspan="2"  class='billed' style="text-align:center">Billed</th>
-                                       
+                                          <th rowspan="2">Remarks</th>
                                       </tr>
                                       <tr>
                                         <th class='accruals'>No. Of Hours</th>
@@ -417,8 +418,8 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let emplist of emplists">
-                                        <td>{{emplist.sno}}</td>
+                                      <tr *ngFor="let emplist of emplists; index as i">
+                                        <td>{{i+1}}</td>
                                         <td>{{emplist.associateid}}</td>
                                         <td>{{emplist.associatename}}</td>
                                         <td>{{emplist.band}}</td>
@@ -430,6 +431,7 @@
                                         <td contenteditable='true'>{{emplist.amount1}}</td>
                                         <td contenteditable='true' class='billed'>{{emplist.nod2}}</td>
                                         <td contenteditable='true'>{{emplist.amount2}}</td>
+                                        <td><textarea></textarea></td>
                                       
                                       </tr>
                                      

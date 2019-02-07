@@ -30,17 +30,17 @@
                         
                         
                         
-                        
-                        <div class="form-row">
                           <label>Access Type</label>
                           <select class="form-control">
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                             <option *ngFor="let pro of roles">{{pro.associatename}}</option>
                           </select>
-                          <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
-                            <div *ngIf="f.modalassociatename.errors.required">Access Type is required</div>
-                          </div>
-                        </div>
+
+                              <label>Status</label>
+                              <select class="form-control">
+                                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
+                                <option *ngFor="let status of statuses">{{status.name}}</option>
+                              </select>
                         
                         
                         
@@ -64,26 +64,31 @@
             <form [formGroup]="leaveform" (ngSubmit)="onSubmit(leaveform.value)">
               <div class="form-group">
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <label>Associate ID</label>
                     <input type="text" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Associate ID...">
                       
                     
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <label>Associate Name</label>
                     <input type="text" class="form-control" placeholder="Associate Name..."/>
                    
                   </div>
                   
-                  <div class="col-md-3">
+                  <div class="col-md-6">
                     <label>Access Type</label>
                     <select class="form-control">
                       <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                       <option *ngFor="let pro of roles">{{pro.associatename}}</option>
                     </select>
-                     
-                    
+                  </div>
+                  <div class="col-md-6">
+                    <label>Status</label>
+                    <select class="form-control">
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
+                      <option *ngFor="let status of statuses">{{status.name}}</option>
+                    </select>
                   </div>
                 </div>
                 
@@ -128,6 +133,7 @@
                   <th>Associate ID</th>
                   <th>Associate Name</th>
                   <th>Access Type</th>
+                  <th>Status</th>
                   <th>Edit/Delete</th>
                 </tr>
               </thead>
@@ -137,6 +143,7 @@
                   <td>{{leavelist.associateid}}</td>
                   <td>{{leavelist.projectname}}</td>
                   <td>{{leavelist.associatename}}</td>
+                  <td>{{leavelist.status}}</td>
                   
                   <td>
                     <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateleavedetails"></button>&nbsp;
@@ -165,17 +172,16 @@
                         
                       
                 
-                        
-                        <div class="form-row">
                           <label>Access Type</label>
                           <select class="form-control">
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Admin User</option>
                             <option *ngFor="let pro of roles">{{pro.associatename}}</option>
                           </select>
-                          <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
-                            <div *ngIf="f.modalassociatename.errors.required">Access Type is required</div>
-                          </div>
-                        </div>
+                          <label>Status</label>
+                          <select class="form-control">
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Active</option>
+                            <option *ngFor="let status of statuses">{{status.name}}</option>
+                    </select>
                         
                         
                         
