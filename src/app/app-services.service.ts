@@ -6,11 +6,7 @@ import { Injectable } from '@angular/core';
 export class AppServicesService {
   loged:any;
   constructor() { }
-  getLogedinfo(){
-    return this.getLogedinfo;
-  }
-  setLogedinfo(value){    
-    
+  setLogedinfo(value){        
     this.loged=localStorage.setItem('logeduser',value);
   }
 }
