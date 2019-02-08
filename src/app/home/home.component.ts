@@ -12,7 +12,10 @@ datas:any;
   constructor(private  httpClient:HttpClient) { }
 
   ngOnInit() {
-    this.httpClient.get('http://10.56.67.9:8082/po/resources/fetch').subscribe(result => {
+    let ip='http://10.56.67.9:8082';
+    let url=ip+'/po/resources/fetch';
+    this.httpClient.get(url).subscribe(result => {
+      console.log(result)
 this.results=result;
 this.datas=this.results.resources;  
     })

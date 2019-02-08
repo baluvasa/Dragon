@@ -9,7 +9,7 @@ export class AppServicesService {
   getLogedinfo(){
     return this.getLogedinfo;
   }
-  setLogedinfo(value){
+  setLogedinfo(value){    
     
     this.loged=localStorage.setItem('logeduser',value);
   }
