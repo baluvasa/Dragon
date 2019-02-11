@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
+
+import { EventEmitterService } from '../event-emitter.service';
 @Component({
   selector: 'app-accessdetails',
   templateUrl: './accessdetails.component.html',
@@ -18,9 +20,10 @@ export class AccessdetailsComponent implements OnInit {
     roles:any;
     statuses:any;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }

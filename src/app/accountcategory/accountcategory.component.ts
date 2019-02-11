@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
+import { EventEmitterService } from '../event-emitter.service';
 @Component({
   selector: 'app-accountcategory',
   templateUrl: './accountcategory.component.html',
@@ -16,9 +17,11 @@ export class AccountcategoryComponent implements OnInit  {
   leavelists:any;
   dtOptions: any = {};
   role:any;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    
+    this.eventEmitterService.menuinvokefunction(); 
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }

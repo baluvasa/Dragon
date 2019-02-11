@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-projectinfo',
@@ -8,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectinfoComponent implements OnInit {
   projectslists:any;
-  constructor() { }
+  constructor(private eventEmitterService: EventEmitterService) { }
   dtOptions: any = {};
   ngOnInit() {
     
+    this.eventEmitterService.menuinvokefunction();
     this.projectslists=[
       {name:'Cara Stevens',position:'Sales Assistant',office:'New York',age:'46',start_date:'2011/12/06',salary:'$145,600'},
       {name:'Donna Snider',position:'Customer Support',office:'New York',age:'27',start_date:'2011/01/25',salary:'$112,000'},

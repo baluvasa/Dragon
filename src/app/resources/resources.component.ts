@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-resources',
@@ -18,9 +19,10 @@ export class ResourcesComponent implements OnInit {
   band:any;
 
   resourceaddform:FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
 
   ngOnInit() {
+    this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }

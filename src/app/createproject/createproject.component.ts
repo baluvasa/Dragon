@@ -1,12 +1,15 @@
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-createproject',
   templateUrl: './createproject.component.html',
   styleUrls: ['./createproject.component.scss']
 })
+
 export class CreateprojectComponent implements OnInit {  
+  
   projectsearchform: FormGroup;
   projectcreateform: FormGroup;
   categories:any;
@@ -33,8 +36,9 @@ export class CreateprojectComponent implements OnInit {
   resources:any;
   categories_names:any;
   submisson_modes:any;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) {}
   ngOnInit() {
+    this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }

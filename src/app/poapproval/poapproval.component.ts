@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-poapproval',
@@ -20,9 +21,11 @@ export class PoapprovalComponent implements OnInit {
   role:any;
   month_default=0;
   currency_default=0;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService ) { }
 
   ngOnInit() {
+    
+    this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }

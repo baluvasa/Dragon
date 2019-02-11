@@ -16,13 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(private  httpClient:HttpClient,private eventEmitterService: EventEmitterService,private appservice:AppServicesService,private router:Router) { }
   
   ngOnInit() {
-    if(localStorage.getItem('logeduser')){
-      this.eventEmitterService.menuinvokefunction();      
-    }
-    else{
-      this.router.navigate(['login']);
-    }
-
+      this.eventEmitterService.menuinvokefunction(); 
     this.ip=AppLink.baseURL;
       let url=this.ip+'/po/resources/fetch';
       this.httpClient.get(url).subscribe(result => {

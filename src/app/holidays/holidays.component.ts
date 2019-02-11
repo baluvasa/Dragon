@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
+import { EventEmitterService } from '../event-emitter.service';
 
 
 @Component({
@@ -29,10 +30,11 @@ export class HolidaysComponent implements OnInit {
   role:any;
   holidaysinfo:any;
   account_names:any;
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { 
   }
   
   ngOnInit() {
+    this.eventEmitterService.menuinvokefunction();
     this.holidaysinfo=[
       {sno:'1',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Sep',year:'2018',count:'8'},
       {sno:'2',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Oct',year:'2018',count:'11'},

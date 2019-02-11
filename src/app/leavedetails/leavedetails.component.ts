@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
+import { EventEmitterService } from '../event-emitter.service';
 @Component({
   selector: 'app-leavedetails',
   templateUrl: './leavedetails.component.html',
@@ -15,9 +16,10 @@ export class LeavedetailsComponent implements OnInit {
   leavelists:any;
   dtOptions: any = {};
   role:any;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
 
   ngOnInit() {
+    this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
