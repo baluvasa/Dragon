@@ -21,36 +21,18 @@
       <div class="col-md-6"><div class="form-group">
           <label for="proj">Account Category</label>
           <input type='text' placeholder="Account Category" class="form-control"  [formControl]="holidayform.controls['project']">
-          <!-- <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
-            <option [value]="0" disabled selected>Select Account Category</option>
-            <option *ngFor="let project of projects" [value]=project.projectname >
-              {{project.projectname}}
-            </option>
-          </select> -->
-        </div> </div>
+      </div> </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="year">Account Name</label>
             <input type='text' placeholder="Account Name" class="form-control"  [formControl]="holidayform.controls['yearlist']">
-              <!-- <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
-                  <option [value]="0" disabled selected>Select Account Name</option>
-                  <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
-                    {{account_name.acc_name}}
-                  </option>
-                </select>                   -->
             </div>
           </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="proj">Project Name</label>
           <input type="text" placeholder="Project Name" class="form-control" [formControl]="holidayform.controls['project_name']">
-          <!-- <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
-            <option [value]="0" disabled selected>Select Project</option>
-            <option *ngFor="let project of projects" [value]=project.projectname >
-              {{project.projectname}}
-            </option>
-          </select> -->
-        </div>
+      </div>
       </div>
     
       <div class="col-md-6">
@@ -64,20 +46,6 @@
             </select>                  
         </div>
       </div>
-      <!-- <div class="col-md-12">
-        <div class="col-md-1">               
-          <button (click)="getData()" id="bt" type="button" class="btn btn-primary">Search</button>
-        </div>
-        <div class="col-md-1">               
-          <button (click)="reset()" type="button" class="btn btn-danger ">Cancel</button>
-        </div>
-        <div class="col-md-1">               
-          <button (click)="errordata()" id="bt1"type="button" class="btn btn-danger" >no data</button>
-        </div>
-        <div class="col-md-1">               
-          <button (click)="errorexceptiondata()" id="bt2"type="button" class="btn btn-danger" > exc error</button>
-        </div>
-      </div> -->
       <div class="text-center col-md-12">
         <button [disabled]="holidayform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="getData()">Search</button>
         <button [disabled]="holidayform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
@@ -176,12 +144,7 @@
             <div class="form-group">
               <label for="proj">Project Name</label>
               <input type="text" class="form-control" placeholder="Project Name" [formControl]="holidaylistform.controls['projectlist']">
-              <!-- <select class="form-control"  [formControl]="holidaylistform.controls['projectlist']" [(ngModel)]="edit">
-                <option [value]="0" disabled selected>Select Project</option>
-                <option *ngFor="let project of projects" [value]=project.projectname >
-                  {{project.projectname}}
-                </option>
-              </select> -->
+
             </div>
           </div>
           <div class="col-md-6">
