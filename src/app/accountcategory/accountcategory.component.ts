@@ -8,8 +8,9 @@ import { EventEmitterService } from '../event-emitter.service';
 })
 export class AccountcategoryComponent implements OnInit  {
   
-  leaveform: FormGroup;
-  addleaveform: FormGroup;
+  searchaccountcategory: FormGroup;
+  addaccountcategory: FormGroup;
+  update_accountcategory: FormGroup;
   error:any;
   projects:any;
   project_years:any;
@@ -46,17 +47,28 @@ export class AccountcategoryComponent implements OnInit  {
       {associateid:'GE Oil & Gas  '},
       {associateid:'GE Turbines'}  
     ];
-    this.leaveform = new FormGroup({
-      projectname:new FormControl('',{}),
-      projectyear:new FormControl('',{}),    
-      associatesid:new FormControl('',{})    
+    this.searchaccountcategory = new FormGroup({
+      search_account_category:new FormControl('',{}),
+      search_account_name:new FormControl('',{})
     })
-    this.addleaveform = new FormGroup({
-      modalprojectname:new FormControl('',{
+    this.addaccountcategory = new FormGroup({
+      add_account_category:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      add_account_name:new FormControl('',{
         validators: [Validators.required]
       })
     })
-   
+    this.update_accountcategory = new FormGroup({
+      update_account_category:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      update_account_name:new FormControl('',{
+        validators: [Validators.required]
+      })
+    })
+
+    
     this.dtOptions = {
         dom: 'Bfrtip',
         lengthMenu: [
@@ -71,16 +83,23 @@ export class AccountcategoryComponent implements OnInit  {
         ]
       };   
   }
-  nodata(){
-    this.error="No Data Found";
+//   nodata(){
+//     this.error="No Data Found";
+// }
+// exception(){
+//     this.error="Exception has occurred while Fetching the Data";
+// }
+// badrequest(){
+//     this.error="Bad Request";
+// }
+add_account_category_data(addaccountcategory){
+  console.log(addaccountcategory);
 }
-exception(){
-    this.error="Exception has occurred while Fetching the Data";
+update_account_category_data(updateaccountcategory){
+  console.log(updateaccountcategory);
 }
-badrequest(){
-    this.error="Bad Request";
-}
-searchleaves(){
+search_accountcategory(a){
+  console.log(a);
   this.leavelists=[
     {sno:'1',projectname:' GE Industrial-A',associateid:'GE Ticketless'},
     {sno:'2',projectname:' GE Appliances',associateid:'GE INDIA EXPORTS PVT LTD'},

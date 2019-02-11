@@ -18,41 +18,23 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Add Account Category Details</h4>
                   </div>
-                  <form [formGroup]="addleaveform">
+                  <form [formGroup]="addaccountcategory" (ngSubmit)="add_account_category_data(addaccountcategory.value)">
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Account Category</label>
-                        <input class="form-control" placeholder="Account Category" [formControl]="addleaveform.controls['modalprojectname']">
-                        <!-- <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
-                          <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option>
-                        </select> -->
-                        <div class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
-                          <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Account Category is required</span>
+                        <input class="form-control" placeholder="Account Category" [formControl]="addaccountcategory.controls['add_account_category']">                        
+                        <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_category.errors && (addaccountcategory.controls.add_account_category.dirty || addaccountcategory.controls.add_account_category.touched) && !addaccountcategory.controls.add_account_category.valid">
+                          <span *ngIf="addaccountcategory.controls.add_account_category.errors.required">Account Category is required</span>
                         </div>
-                        
-                        
-                        <!-- <label>Fx Date</label>
-                        <input type="date" class="form-control"/>
-                        <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
-                          <div *ngIf="f.modalassociateid.errors.required">Fx Date is required</div>
-                        </div> -->
-                        
-                        
                         <div class="form-row">
                           <label>Account Name</label>
-                          <input type="text"  placeholder="Account Name"class="form-control" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
-                          <div *ngIf="submitted && addleaveform.controls.modalassociateid.errors" class="invalid-feedback">
-                            <div *ngIf="addleaveform.controls.modalassociateid.errors.required">Account Name</div>
-                          </div>
-                        </div>
-                        
-                        
-                        
-                      
-                      </div>
+                          <input type="text"  placeholder="Account Name"class="form-control" [formControl]="addaccountcategory.controls['add_account_name']"/>
+                          <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_name.errors && (addaccountcategory.controls.add_account_name.dirty || addaccountcategory.controls.add_account_name.touched) && !addaccountcategory.controls.add_account_name.valid">
+                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.required">Account Category is required</span>
+                            </div>
+                        </div></div>
                       <div class="modal-footer">
-                        <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                        <button type="submit" [disabled]="addaccountcategory.invalid" class="btn btn-primary" data-create="modal">Add</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -66,44 +48,25 @@
                 {{error}}
               </div>
             </div>
-            <form [formGroup]="leaveform" (ngSubmit)="onSubmit(leaveform.value)">
+            <form [formGroup]="searchaccountcategory">
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
                     <label>Account Category</label>
-                    <input class="form-control" placeholder="Account Category" [formControl]="leaveform.controls['projectname']">
-                    <!-- <select class="form-control" [formControl]="leaveform.controls['projectname']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
-                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option>
-                    </select> -->
+                    <input class="form-control" placeholder="Account Category" [formControl]="searchaccountcategory.controls['search_account_category']">                   
                   </div>
-                  <!-- <div class="col-md-3">
-                    <label>Fx Date</label>
-                    <input type="date" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Fx rate here..">
-                      
-                    
-                  </div> -->
-                  
                   <div class="col-md-6">
                     <label>Account Name</label>
-                    <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Account Name" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')">
-                     
-                    
+                    <input class="form-control" [formControl]="searchaccountcategory.controls['search_account_name']" placeholder="Account Name">
                   </div>
                 </div>
-                
-                
               </div>
-              
               <div class="text-center col-md-12">
-                <button [disabled]="leaveform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves()">Search</button>
-                <button [disabled]="leaveform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+                <button class="btn btn-primary col-md-offset-3 col-md-2" (click)="search_accountcategory(searchaccountcategory.value)">Search</button>
+                <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
               </div>
-              
             </form>
-            
-            
-            <div class="row" style="margin-top:60px;">
+            <!-- <div class="row" style="margin-top:60px;">
               <table class="col-md-12 text-center">
                 <tr>
                   <td>
@@ -117,7 +80,7 @@
                   </td>
                 </tr>
               </table>
-            </div>
+            </div> -->
             
           </div>
         </div>
@@ -159,40 +122,34 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Update Account Category Details</h4>
                   </div>
-                  <form [formGroup]="addleaveform">
+                  <form [formGroup]="update_accountcategory" (ngSubmit)="update_account_category_data(update_accountcategory.value)">
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Account Category</label>
-                        <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" disabled required>
+                        <input type="text" class="form-control" [formControl]="update_accountcategory.controls['update_account_category']" disabled required>
+                        <!-- <select class="form-control" [formControl]="update_accountcategory.controls['update_account_category']" disabled required>
                           <option value="" selected style="color:#a4b2ba;">GE Appliances</option>
-                          <!-- <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option> -->
+                        <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option> 
               
-                        </select>
-                        <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
-                          <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Account Category is required</span>
+                        </select> -->
+                        <small class="text-danger" *ngIf="update_accountcategory.controls.update_account_category.errors && (update_accountcategory.controls.update_account_category.dirty || update_accountcategory.controls.update_account_category.touched) && !update_accountcategory.controls.update_account_category.valid">
+                          <span *ngIf="update_accountcategory.controls.update_account_category.errors.required">Account Category is required</span>
                         </small>
-                        
-                        
-                        <!-- <label>Fx Date</label>
-                        <input type="date" class="form-control"/>
-                        <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
-                          <div *ngIf="f.modalassociateid.errors.required">Fx Date is required</div>
-                        </div> -->
                         
                         
                         <div class="form-row">
                           <label>Account Name</label>
-                          <input type="text" value="GE INDIA EXPORTS PVT LTD" placeholder="Account Name..." class="form-control" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')"/>
-                          <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
-                            <div *ngIf="f.modalassociateid.errors.required">Account Name Rate is required</div>
-                          </div>
+                          <input type="text" value="GE INDIA EXPORTS PVT LTD" placeholder="Account Name..." class="form-control" [formControl]="update_accountcategory.controls['update_account_name']" />
+                          <small class="text-danger" *ngIf="update_accountcategory.controls.update_account_name.errors && (update_accountcategory.controls.update_account_name.dirty || update_accountcategory.controls.update_account_name.touched) && !update_accountcategory.controls.update_account_name.valid">
+                              <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Category is required</span>
+                            </small>
                         </div>
                         
                         
                         
                       </div>
                       <div class="modal-footer">
-                        <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Update</button>
+                        <button type="submit" [disabled]="update_accountcategory.invalid" class="btn btn-primary" data-create="modal">Update</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                       </div>
                     </div>
