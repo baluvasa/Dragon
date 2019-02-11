@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
+import { AppLink } from '../app-link';
+import { HttpClient } from  "@angular/common/http";
 @Component({
   selector: 'app-accountcategory',
   templateUrl: './accountcategory.component.html',
@@ -11,14 +13,22 @@ export class AccountcategoryComponent implements OnInit  {
   searchaccountcategory: FormGroup;
   addaccountcategory: FormGroup;
   update_accountcategory: FormGroup;
-  error:any;
+  error='';
   projects:any;
   project_years:any;
   associates:any;
-  leavelists:any;
+  categorylists:any;
   dtOptions: any = {};
   role:any;
-  constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder) { }
+  ip=AppLink.baseURL;
+  results:any;
+  datas:any;  
+  addresult:any;
+  searchresult:any;
+  addmsg='';
+  updatemsg='';
+  deletemsg='';
+  constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder,private  httpClient:HttpClient) { }
 
   ngOnInit() {
     
@@ -60,6 +70,9 @@ export class AccountcategoryComponent implements OnInit  {
       })
     })
     this.update_accountcategory = new FormGroup({
+      update_account_category_id:new FormControl('',{
+        validators: [Validators.required]
+      }),
       update_account_category:new FormControl('',{
         validators: [Validators.required]
       }),
@@ -83,6 +96,12 @@ export class AccountcategoryComponent implements OnInit  {
         ]
       };   
   }
+
+  closemsg(){
+    this.addmsg='';
+    this.error='';
+    this.updatemsg='';
+  }
 //   nodata(){
 //     this.error="No Data Found";
 // }
@@ -93,27 +112,63 @@ export class AccountcategoryComponent implements OnInit  {
 //     this.error="Bad Request";
 // }
 add_account_category_data(addaccountcategory){
-  console.log(addaccountcategory);
+  let category={accountCategory:addaccountcategory.add_account_category,accountName:addaccountcategory.add_account_name};
+  let url=this.ip+'/po/account_category/create';
+  this.httpClient.post(url,category).subscribe(result => {
+    this.addresult=result;
+    if(this.addresult.status==201){
+      this.addmsg=this.addresult.message;
+      this.addaccountcategory.reset();
+    }
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
+} 
+setupdatemodel(categorylist){
+  this.update_accountcategory.setValue({update_account_category_id:categorylist.accId,update_account_category:categorylist.accountCategory,update_account_name:categorylist.accountName});
 }
-update_account_category_data(updateaccountcategory){
-  console.log(updateaccountcategory);
+update_account_category_data(updateaccountcategory){  
+  let modilfyurl=this.ip+'/po/account_category/update';
+  let updatecategory={accId :updateaccountcategory.update_account_category_id,accountName:updateaccountcategory.update_account_name};
+  this.httpClient.put(modilfyurl,updatecategory).subscribe(result => {
+    this.addresult=result;
+    if(this.addresult.status==200){
+      this.updatemsg=this.addresult.message;
+      let data={search_account_category:'',search_account_name:''};
+      this.search_accountcategory(data);
+    }
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
 }
-search_accountcategory(a){
-  console.log(a);
-  this.leavelists=[
-    {sno:'1',projectname:' GE Industrial-A',associateid:'GE Ticketless'},
-    {sno:'2',projectname:' GE Appliances',associateid:'GE INDIA EXPORTS PVT LTD'},
-    {sno:'3',projectname:' GE Industrial',associateid:'GE Oil & Gas '},
-    {sno:'4',projectname:' GE Industrial-B',associateid:'GE Packaged Power'},
-    {sno:'5',projectname:' GE P&W-A',associateid:'Metso'},
-    {sno:'6',projectname:' GE Industrial',associateid:'GE Amphenol'},
-    {sno:'7',projectname:' GE Industrial-C',associateid:'GE P&W11'},
-    {sno:'8',projectname:' GE P&W-B',associateid:'GE APP'},
-  ];
+search_accountcategory(value){ 
+  let url=this.ip+'/po/account_category/fetch?category='+value.search_account_category+'&name='+value.search_account_name;
+  this.httpClient.get(url).subscribe(result => {    
+    this.results=result;
+      this.categorylists=this.results.accountCategory;
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
 }
-deletedata(){
-  if (confirm("Do you want to delete the Account Details?")) {
-    alert("Account Details Deleted Successfully.")
+deletedata(deletevalue){
+  if (confirm("Do you want to delete the Account Details?")) {    
+    let delurl=this.ip+'/po/account_category/delete?id='+deletevalue.accId;
+    this.httpClient.delete(delurl).subscribe(result => {
+      this.addresult=result;
+      if(this.addresult.status==200){
+        this.deletemsg=this.addresult.message;
+        alert(this.deletemsg);
+        let data={search_account_category:'',search_account_name:''};
+        this.search_accountcategory(data);
+      } 
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    })
+  
   } 
 }
 
