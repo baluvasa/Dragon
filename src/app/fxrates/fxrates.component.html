@@ -79,7 +79,12 @@
                   </div>
                   <div class="col-md-3">
                     <label>Fx Date</label>
-                    <input type="date" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Fx rate here..">
+
+                    <my-date-picker [options]="myDatePickerOptions" [(ngModel)]="model"
+                    [formControl]="leaveform.controls['associatesid']"></my-date-picker>
+
+
+                    <!-- <input type="date" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Fx rate here.."> -->
                       
                     
                   </div>

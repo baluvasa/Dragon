@@ -28,6 +28,7 @@ import { Createproject1Component } from './createproject1/createproject1.compone
 import { Accountcategory1Component } from './accountcategory1/accountcategory1.component'; 
 import { HttpClientModule } from  "@angular/common/http";
 import { CanActivateGuard } from './can-activate.guard';
+import {MyDatePickerModule} from 'mydatepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { CanActivateGuard } from './can-activate.guard';
     NgbPaginationModule,
     NgbAlertModule,
     DataTablesModule,
-    HttpClientModule 
+    HttpClientModule,
+    MyDatePickerModule  
   ],
   providers: [AppServicesService,CanActivateGuard],
   bootstrap: [AppComponent]

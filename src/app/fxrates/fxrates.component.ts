@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
-
+import {IMyDpOptions} from 'mydatepicker';
 
 @Component({
   selector: 'app-fxrates',
@@ -9,6 +9,13 @@ import { EventEmitterService } from '../event-emitter.service';
   styleUrls: ['./fxrates.component.scss']
 })
 export class FxratesComponent implements OnInit  {
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd-mmm-yyyy',
+};
+
+// Initialized to specific date (09.10.2018).
+//09-10-2019
+//public model: any = { date: { year: 2018, month: 10, day: 9 } };
   leaveform: FormGroup;
   addleaveform: FormGroup;
   error:any;
@@ -44,8 +51,7 @@ export class FxratesComponent implements OnInit  {
       {associateid:'21-Dec-18'}  
     ];
     this.leaveform = new FormGroup({
-      projectname:new FormControl('',{}),
-      projectyear:new FormControl('',{}),    
+      projectname:new FormControl('',{}), 
       associatesid:new FormControl('',{})    
     })
     this.addleaveform = new FormGroup({
@@ -95,5 +101,10 @@ deletedata(){
   if (confirm("Do you want to delete the FX Rate?")) {
     alert("Data Deleted Successfully.")
   } 
+}
+
+onSubmit(leaveform){
+console.log(leaveform)
+console.log(leaveform.associatesid.formatted)
 }
 }
