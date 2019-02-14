@@ -1,4 +1,15 @@
+import {IMyDpOptions} from 'mydatepicker';
 export class AppLink {
+    public static get myDatePickerOptions() {
+        let IMyDpOptions = {
+            dateFormat: 'dd-mmm-yyyy',
+            inline:false,
+            editableDateField:false,
+            openSelectorOnInputClick:true
+        };
+        return IMyDpOptions;
+    }
+ 
     public static get baseURL(): string { return "http://10.56.67.9:8082"; }
     public static get DTOptions() { 
         let dtOptions = {

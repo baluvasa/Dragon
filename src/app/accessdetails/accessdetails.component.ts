@@ -18,9 +18,10 @@ export class AccessdetailsComponent implements OnInit {
     ip=AppLink.baseURL;
     dtOptions = AppLink.DTOptions;
     accessTypes=AppLink.access_type; 
+    statuses=AppLink.status;
     role:any;
     // roles:any;
-    statuses:any;
+    // statuses:any;
 
   constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder) { }
 
@@ -36,9 +37,9 @@ export class AccessdetailsComponent implements OnInit {
   //  {name:'Mani B',associateid:'BM00677999',associatename:'Admin User'},
    
   //  {name:'Rokkam Murali',associateid:'RM00677333',associatename:'Normal User'}];
-   this.statuses=[
-   {name:'Active',code:'act'},
-   {name:'In Active',code:'inact'}];
+  //  this.statuses=[
+  //  {name:'Active',code:'act'},
+  //  {name:'In Active',code:'inact'}];
 
 
     this.leaveform = new FormGroup({

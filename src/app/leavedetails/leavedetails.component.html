@@ -50,7 +50,8 @@
                           
                           <div class="form-row">
                             <label>Date</label>
-                            <input type="date" class="form-control"/>
+                            <!-- <input type="date" class="form-control"/> -->
+                            <my-date-picker [options]="myDatePickerOptions" placeholder='Select Date'></my-date-picker>
                             <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
                               <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
                             </div>

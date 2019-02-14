@@ -16,7 +16,8 @@ export class LeavedetailsComponent implements OnInit {
   associates:any;
   leavelists:any;
   ip=AppLink.baseURL;
-  dtOptions = AppLink.DTOptions; 
+  dtOptions = AppLink.DTOptions;   
+  myDatePickerOptions=AppLink.myDatePickerOptions;
   role:any;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
 

@@ -32,18 +32,19 @@
           <div class="form-group">
             <label for="proj">Project Name</label>
             <input type="text" placeholder="Project Name" class="form-control" [formControl]="holidayform.controls['project_name']">
+          </div>
         </div>
-        </div>
-      
+        
         <div class="col-md-6">
           <div class="form-group">
             <label for="year">Year</label>
-            <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']">
+            <input type="text" placeholder="Year" class="form-control" [formControl]="holidayform.controls['yearlist']">
+            <!-- <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']">
                 <option [value]="0" disabled selected>Select Year</option>
                 <option *ngFor="let year of years" [value]=year.years >
                   {{year.years}}
                 </option>
-              </select>                  
+              </select>                   -->
           </div>
         </div>
         <div class="text-center col-md-12">

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
-import {IMyDpOptions} from 'mydatepicker';
 import { AppLink } from '../app-link';
 
 @Component({
@@ -10,13 +9,6 @@ import { AppLink } from '../app-link';
   styleUrls: ['./fxrates.component.scss']
 })
 export class FxratesComponent implements OnInit  {
-  public myDatePickerOptions: IMyDpOptions = {
-    dateFormat: 'dd-mmm-yyyy',
-    inline:false,
-    editableDateField:false,
-    openSelectorOnInputClick:true
-};
-
 // Initialized to specific date (09.10.2018).
 //09-10-2019
 //public model: any = { date: { year: 2018, month: 10, day: 9 } };
@@ -28,7 +20,7 @@ export class FxratesComponent implements OnInit  {
   associates:any;
   leavelists:any;
   role:any;
-  
+  myDatePickerOptions=AppLink.myDatePickerOptions;
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
