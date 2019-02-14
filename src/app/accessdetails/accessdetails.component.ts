@@ -16,9 +16,10 @@ export class AccessdetailsComponent implements OnInit {
     associates:any;
     leavelists:any;
     ip=AppLink.baseURL;
-    dtOptions = AppLink.DTOptions; 
+    dtOptions = AppLink.DTOptions;
+    accessTypes=AppLink.access_type; 
     role:any;
-    roles:any;
+    // roles:any;
     statuses:any;
 
   constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder) { }
@@ -31,10 +32,10 @@ export class AccessdetailsComponent implements OnInit {
     
     this.projects=     
       {name:'Mani B',associatename:'Admin User',associateid:'BK00677333'};
-   this.roles=[
-   {name:'Mani B',associateid:'BM00677999',associatename:'Admin User'},
+  //  this.roles=[
+  //  {name:'Mani B',associateid:'BM00677999',associatename:'Admin User'},
    
-   {name:'Rokkam Murali',associateid:'RM00677333',associatename:'Normal User'}];
+  //  {name:'Rokkam Murali',associateid:'RM00677333',associatename:'Normal User'}];
    this.statuses=[
    {name:'Active',code:'act'},
    {name:'In Active',code:'inact'}];
