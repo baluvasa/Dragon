@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
-
+import { AppLink } from '../app-link';
 @Component({
   selector: 'app-poapproval',
   templateUrl: './poapproval.component.html',
@@ -15,9 +15,9 @@ export class PoapprovalComponent implements OnInit {
   project_years:any;
   associates:any;
   leavelists:any;
-  emplists:any;
-  dtOptions: any = {};
-  modaldtOptions: any = {};
+  emplists:any; 
+  ip=AppLink.baseURL;
+  dtOptions = AppLink.DTOptions; 
   role:any;
   month_default=0;
   currency_default=0;
@@ -66,32 +66,6 @@ export class PoapprovalComponent implements OnInit {
       })
     })
    
-    this.dtOptions = {
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };   
-    this.modaldtOptions = {
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };   
       
   }
   nodata(){

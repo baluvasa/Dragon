@@ -12,12 +12,12 @@ import { AppServicesService } from '../app-services.service';
 export class HomeComponent implements OnInit {
   results:any;
   datas:any;
-  ip:string;
+  ip=AppLink.baseURL;
+  dtOptions = AppLink.DTOptions; 
   constructor(private  httpClient:HttpClient,private eventEmitterService: EventEmitterService,private appservice:AppServicesService,private router:Router) { }
   
   ngOnInit() {
       this.eventEmitterService.menuinvokefunction(); 
-    this.ip=AppLink.baseURL;
       let url=this.ip+'/po/resources/fetch';
       this.httpClient.get(url).subscribe(result => {
         console.log(result)

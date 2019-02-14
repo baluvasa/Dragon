@@ -17,10 +17,10 @@ export class AccountcategoryComponent implements OnInit  {
   projects:any;
   project_years:any;
   associates:any;
-  categorylists:any;
-  dtOptions: any = {};
+  categorylists:any;  
   role:any;
   ip=AppLink.baseURL;
+  dtOptions = AppLink.DTOptions; 
   results:any;
   datas:any;  
   addresult:any;
@@ -28,6 +28,7 @@ export class AccountcategoryComponent implements OnInit  {
   addmsg='';
   updatemsg='';
   deletemsg='';
+  datalists:any;
   constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder,private  httpClient:HttpClient) { }
 
   ngOnInit() {
@@ -79,22 +80,8 @@ export class AccountcategoryComponent implements OnInit  {
       update_account_name:new FormControl('',{
         validators: [Validators.required]
       })
-    })
-
-    
-    this.dtOptions = {
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };   
+    });
+      
   }
 
   closemsg(){
@@ -144,14 +131,49 @@ update_account_category_data(updateaccountcategory){
   });
 }
 search_accountcategory(value){ 
-  let url=this.ip+'/po/account_category/fetch?category='+value.search_account_category+'&name='+value.search_account_name;
-  this.httpClient.get(url).subscribe(result => {    
-    this.results=result;
-      this.categorylists=this.results.accountCategory;
-  },
-  error => {
-    this.error = 'Connection Interrupted..'; 
-  });
+  // let url=this.ip+'/po/account_category/fetch?category='+value.search_account_category+'&name='+value.search_account_name;
+  // this.httpClient.get(url).subscribe(result => {    
+  //   this.results=result;
+  //     this.categorylists=this.results.accountCategory;
+  // },
+  // error => {
+  //   this.error = 'Connection Interrupted..'; 
+  // });
+
+  {
+   this.datalists={"accountCategory": [
+        {
+            "accId": "8684680",
+            "accountCategory": "GE Heir",
+            "accountName": "Appliances"
+        },
+        {
+            "accId": "04fb71",
+            "accountCategory": "GE Appliances",
+            "accountName": "Mani kumar"
+        },
+        {
+            "accId": "91284c0",
+            "accountCategory": "GE Appliances",
+            "accountName": "Sharath Kumar"
+        },
+        {
+            "accId": "22960e",
+            "accountCategory": "Test 3",
+            "accountName": "Sathya"
+        },
+        {
+            "accId": "c6f9349",
+            "accountCategory": "GE Appliances",
+            "accountName": "Shruthi"
+        }
+    ],
+    "message": "Account Category details fetched successfully.",
+    "status": 200
+}
+  };
+  this.categorylists=this.datalists.accountCategory;
+  
 }
 deletedata(deletevalue){
   if (confirm("Do you want to delete the Account Details?")) {    

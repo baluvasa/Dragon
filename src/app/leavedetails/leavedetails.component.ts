@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
+import { AppLink } from '../app-link';
 @Component({
   selector: 'app-leavedetails',
   templateUrl: './leavedetails.component.html',
@@ -14,7 +15,8 @@ export class LeavedetailsComponent implements OnInit {
   project_years:any;
   associates:any;
   leavelists:any;
-  dtOptions: any = {};
+  ip=AppLink.baseURL;
+  dtOptions = AppLink.DTOptions; 
   role:any;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
 
@@ -53,20 +55,6 @@ export class LeavedetailsComponent implements OnInit {
       })
     })
    
-    this.dtOptions = {
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };   
   }
   nodata(){
     this.error="No Data Found";

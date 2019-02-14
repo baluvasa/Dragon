@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
-
+import { AppLink } from '../app-link';
 import { EventEmitterService } from '../event-emitter.service';
 @Component({
   selector: 'app-accessdetails',
@@ -15,7 +15,8 @@ export class AccessdetailsComponent implements OnInit {
     project_years:any;
     associates:any;
     leavelists:any;
-    dtOptions: any = {};
+    ip=AppLink.baseURL;
+    dtOptions = AppLink.DTOptions; 
     role:any;
     roles:any;
     statuses:any;
@@ -52,21 +53,7 @@ export class AccessdetailsComponent implements OnInit {
         Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$'), // <-- Allow letters and numbers only
       ])),
   
-    })
-   
-    this.dtOptions = {
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };   
+    })  
   }
   nodata(){
     this.error="No Data Found";

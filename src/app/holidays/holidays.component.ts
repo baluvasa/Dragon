@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
-
+import { AppLink } from '../app-link';
 
 @Component({
   selector: 'app-holidays',
@@ -26,7 +26,8 @@ export class HolidaysComponent implements OnInit {
   mar:any;
   Apr:any;
   may:any;
-  dtOptions: any = {};
+  ip=AppLink.baseURL;
+  dtOptions = AppLink.DTOptions; 
   role:any;
   holidaysinfo:any;
   account_names:any;
@@ -65,20 +66,6 @@ export class HolidaysComponent implements OnInit {
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
-    this.dtOptions = {
-   
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };
     
     this.projects =[
       {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},

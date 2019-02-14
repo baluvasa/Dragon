@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import {IMyDpOptions} from 'mydatepicker';
+import { AppLink } from '../app-link';
 
 @Component({
   selector: 'app-fxrates',
@@ -11,6 +12,9 @@ import {IMyDpOptions} from 'mydatepicker';
 export class FxratesComponent implements OnInit  {
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd-mmm-yyyy',
+    inline:false,
+    editableDateField:false,
+    openSelectorOnInputClick:true
 };
 
 // Initialized to specific date (09.10.2018).
@@ -23,8 +27,10 @@ export class FxratesComponent implements OnInit  {
   project_years:any;
   associates:any;
   leavelists:any;
-  dtOptions: any = {};
   role:any;
+  
+  ip=AppLink.baseURL;
+  dtOptions = AppLink.DTOptions; 
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
 
   ngOnInit() {
@@ -59,20 +65,7 @@ export class FxratesComponent implements OnInit  {
         validators: [Validators.required]
       })
     })
-   
-    this.dtOptions = {
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };   
+  
   }
   nodata(){
     this.error="No Data Found";
