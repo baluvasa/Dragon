@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
-
+import { AppLink } from '../app-link';
 @Component({
   selector: 'app-resources',
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.scss']
 })
 export class ResourcesComponent implements OnInit {
-  resourceform:FormGroup;
-  resourceeditform:FormGroup;
+  searchresourceform:FormGroup;
+  updateresourcedetails:FormGroup;
   role:any;
   error:any;
-  dtOptions: any = {};
+  ip=AppLink.baseURL;
+  dtOptions = AppLink.DTOptions; 
   list:any;
   editerror:any;
   edit=0;
   band:any;
 
-  resourceaddform:FormGroup;
+  addresourceform:FormGroup;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
 
   ngOnInit() {
@@ -26,36 +27,22 @@ export class ResourcesComponent implements OnInit {
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
-    this.dtOptions = {
    
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        pagingType: 'full_numbers',
-        buttons: [
-          'pageLength',
-          'colvis',
-          'excel'
-        ]
-      };
-
       this.band=[
-        {bandname:'U1'},  {bandname:'U2'},  {bandname:'U3'},  {bandname:'U4'}
+        {bandname:'U1'},  {bandname:'U2'},  {bandname:'U3'},  {bandname:'U4'},  {bandname:'P1'},  {bandname:'P2'}
       ];
-    this.resourceform = new FormGroup({
-      associatename:new FormControl('',{
+    this.searchresourceform = new FormGroup({
+      search_associatename:new FormControl('',{
         validators: []
       }),
-      associateid:new FormControl('',{
+      search_associateid:new FormControl('',{
         validators: []
       }),
-      desigination:new FormControl('',{
+      search_band:new FormControl('',{
         validators: []
       })
     });
-    this.resourceaddform = new FormGroup({
+    this.addresourceform = new FormGroup({
       addassociatename:new FormControl('',{
         validators: [Validators.required]
       }),
@@ -68,14 +55,14 @@ export class ResourcesComponent implements OnInit {
       addemailid:new FormControl('',{
         validators: [Validators.required]
       }),
-      addcno:new FormControl('',{
+      addcontactnumber:new FormControl('',{
         validators: [Validators.required]
       }),
-      pid:new FormControl('',{
+      addpid:new FormControl('',{
         validators: [Validators.required]
       })
     });
-    this.resourceeditform = new FormGroup({
+    this.updateresourcedetails = new FormGroup({
       editassociatename:new FormControl('',{
         validators: [Validators.required]
       }),
@@ -96,7 +83,8 @@ export class ResourcesComponent implements OnInit {
       })
     });
  }
- getData(){    
+ search_resource_details(a){
+   console.log(a);    
   this.list = [
     {sno:1,associatename:'Prashanthi',id:'NP00585716',band:'U3',pid:'02121212'},
     {sno:2,associatename:'suman',id:'SK00550019',band:'U4',pid:'02121212'},
@@ -105,26 +93,40 @@ export class ResourcesComponent implements OnInit {
   ];
   
 }
-errordata() {
-  this.error = 'no data found';
-}
-errorexceptiondata() {
-  this.error = 'Exception has occurred while fetching resource details';
-}
-badrequest() {
-  this.error="Bad Request";
-}
-sendvalue(v)
+// errordata() {
+//   this.error = 'no data found';
+// }
+// errorexceptiondata() {
+//   this.error = 'Exception has occurred while fetching resource details';
+// }
+// badrequest() {
+//   this.error="Bad Request";
+// }
+add_resource_data(data)
 {
- console.log(v);
+ console.log(data);
  alert("Data Added Successfully.");
- this.resourceaddform.reset();
+ this.addresourceform.reset();
 }
-saveeditvalue(v)
+update_resource_data(data)
 {
-  console.log(v);
-  this.resourceeditform.reset();
-   alert("Data Updated Successfully.");
+  console.log(data);
+  if(data.editpid==""){
+   let flag= confirm("Associate is Not Mapped to any PID,\nDo you want to update ?");
+    if(flag== true){
+      alert("Data Updated Successfully.");
+    }
+    else{
+      alert("Data Updation Failed.");
+    }
+  }
+  else{
+    alert("Data Updated Successfully.");
+  }
+
+
+
+ // this.updateresourcedetails.reset();
 }
 deletedata(){
   if (confirm("Do you want to delete Resource For the Year?")) {

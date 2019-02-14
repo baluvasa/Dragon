@@ -1,261 +1,266 @@
 <div class="row">
-  <div class="container-fluid">
-    <h2>Resource Details</h2>
-        <div class="panel panel-default">
-          <div class="panel-heading">Search Resource Details
-            <button type="button" class="btn btn-success fa fa-plus-circle add" data-toggle="modal" data-target="#addmodel">&nbsp;&nbsp;Add</button>
-          </div>
-          <div class="panel-body">
-          <div class="row">
-            <ng-container *ngIf="error">
-              <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissible fade in">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  {{error}}
-                </div>
-              </div>
-            </ng-container>
-            <form [formGroup]="resourceform" (ngSubmit)="onSubmit(resourceform.value)">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="name">Associate ID</label>
-                <input type="text" class="form-control" name="name" [formControl]="resourceform.controls['associateid']">
-                
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="id">Associate Name</label>
-                  <input  class="form-control" name="name" [formControl]="resourceform.controls['associatename']">
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="id">Band</label>
-                  <input type="text" class="form-control" name="name" [formControl]="resourceform.controls['desigination']">
-                </div>
-              </div>
-              <div class="text-center col-md-12">
-                <button [disabled]="resourceform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="getData()">Search</button>
-                <button [disabled]="resourceform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
-              </div>
-            </form>
-            <div class="row" style="margin-top:60px;">
-              <table class="col-md-12 text-center">
-                <tr>
-                  <td>
-                    <button [disabled]="resourceform.invalid" class="btn btn-primary" type="button" (click)="errordata()">No Data Found</button>
-                  </td>
-                  <td>
-                    <button [disabled]="resourceform.invalid" class="btn btn-primary" type="button" (click)="errorexceptiondata()">Exception</button>
-                  </td>
-                  <td>
-                    <button [disabled]="resourceform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
-                  </td>
-                </tr>
-              </table>
+    <div class="container-fluid">
+      <h2>Resource Details</h2>
+          <div class="panel panel-default">
+            <div class="panel-heading">Search Resource Details
+              <button type="button" class="btn btn-success fa fa-plus-circle add" data-toggle="modal" data-target="#addmodel">&nbsp;&nbsp;Add</button>
             </div>
-          </div>
-        </div>
-    </div>
-  </div>
-</div>
-<div class="panel panel-default"*ngIf="list">
-    <div class="panel-body">
-      <div class="table-responsive">          
-        <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
-          <thead>
-              <tr>
-                  <th>S.No</th>
-                  <th>Associate ID</th>
-                  <th>Associate Name</th>
-                  <th>Band</th> 
-                  <th>PID</th> 
-                  <th>Edit/Delete</th>              
-                </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let item of list">
-                  <td>{{item.sno}}</td>
-                  <td>{{item.id}}</td>
-                  <td>{{item.associatename}}</td>
-                  <td>{{item.band}}</td>
-                  <td>{{item.pid}}</td>
-                  <td>
-                    <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
-                    <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
-                  </td>
-                </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>             
-  </div>
-
-<!-- modal -->
-<div class="modal fade" id="addmodel" tabindex="-1" role="dialog" aria-labelledby="addmodel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-center" id="exampleModalLongTitle">Add Resource Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          
-            <form [formGroup]="resourceaddform">
-             <div class="row">
-               <div class="col-md-6">
+            <div class="panel-body">
+            <div class="row">
+              <ng-container *ngIf="error">
+                <div class="col-md-12">
+                  <div class="alert alert-danger alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{error}}
+                  </div>
+                </div>
+              </ng-container>
+              <form [formGroup]="searchresourceform">
+                <div class="col-md-6">
                   <div class="form-group">
-                      <label for="name">Associate ID</label>
-                     <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['addassociateid']" required>
-                    
-                    
-                    </div>
-               </div>
-               <div class="col-md-6">
+                  <label for="name">Associate ID</label>
+                  <input type="text" placeholder="Associate ID" class="form-control" [formControl]="searchresourceform.controls['search_associateid']">
+                  </div>
+                </div>
+                <div class="col-md-3">
                   <div class="form-group">
                     <label for="id">Associate Name</label>
-                    <input type="id" class="form-control" name="name" [formControl]="resourceaddform.controls['addassociatename']">
+                    <input  class="form-control" placeholder="Associate Name" name="name" [formControl]="searchresourceform.controls['search_associatename']">
                   </div>
                 </div>
-             </div>
-             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="id">Band</label>
-                      <select class="form-control"  [formControl]="resourceaddform.controls['addband']" [(ngModel)]="edit">
-                          <option [value]="0" disabled selected>Select Band</option>
-                          <option *ngFor="let b of band" [value]=b.bandname>
-                              {{b.bandname}}
-                            </option>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="id">Band</label>
+                    <select class="form-control" [formControl]="searchresourceform.controls['search_band']">
+                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Band</option>
+                        <option *ngFor="let b of band" [value]=b.bandname>
+                            {{b.bandname}}
+                          </option>
                     </select>
-                    </div>
                   </div>
-                  <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="id">Email ID</label>
-                        <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['addemailid']">
-                      </div>
-                    </div>
-             </div>
-             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="id">Contact No.</label>
-                      <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['addcno']">
-                    </div>
-                  </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="id">PID</label>
-                      <input type="text" class="form-control" name="name" [formControl]="resourceaddform.controls['pid']">
-                    </div>
-                  </div>
-             </div>
-            </form>
-  
-        </div>
-        <div class="modal-footer">
-            <button [disabled]="resourceaddform.invalid" type="submit" class="btn btn-success" (click)="sendvalue(resourceaddform.value)" >Add</button> 
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                <div class="text-center col-md-12">
+                  <button [disabled]="searchresourceform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="search_resource_details(searchresourceform.value)">Search</button>
+                  <button [disabled]="searchresourceform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+                </div>
+              </form>
+              <!-- <div class="row" style="margin-top:60px;">
+                <table class="col-md-12 text-center">
+                  <tr>
+                    <td>
+                      <button [disabled]="resourceform.invalid" class="btn btn-primary" type="button" (click)="errordata()">No Data Found</button>
+                    </td>
+                    <td>
+                      <button [disabled]="resourceform.invalid" class="btn btn-primary" type="button" (click)="errorexceptiondata()">Exception</button>
+                    </td>
+                    <td>
+                      <button [disabled]="resourceform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                    </td>
+                  </tr>
+                </table>
+              </div> -->
+            </div>
           </div>
       </div>
     </div>
-  </div> 
-  <!-- update model -->
-  <div class="modal fade" id="editmodel" tabindex="-1" role="dialog" aria-labelledby="editmodel" aria-hidden="true">
+  </div>
+  <div class="panel panel-default"*ngIf="list">
+      <div class="panel-body">
+        <div class="table-responsive">          
+          <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Associate ID</th>
+                    <th>Associate Name</th>
+                    <th>Band</th> 
+                    <th>PID</th> 
+                    <th>Edit/Delete</th>              
+                  </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list">
+                    <td>{{item.sno}}</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.associatename}}</td>
+                    <td>{{item.band}}</td>
+                    <td>{{item.pid}}</td>
+                    <td>
+                      <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
+                      <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
+                    </td>
+                  </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>             
+    </div>
+  
+  <!-- modal -->
+  <div class="modal fade" id="addmodel" tabindex="-1" role="dialog" aria-labelledby="addmodel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-center" id="exampleModalLongTitle">Edit Resource Details</h5>
+            <h5 class="modal-title text-center" id="exampleModalLongTitle">Add Resource Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-              <ng-container *ngIf="editerror">
-                  <div class="col-md-12">
-                    <div class="alert alert-danger alert-dismissible fade in">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      {{editerror}}
-                    </div>
-                  </div>
-                </ng-container>
-              <form [formGroup]="resourceeditform">
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                <label for="id">Associate ID</label>
-                                <input type="id" class="form-control" placeholder="NP00585716" name="name" [formControl]="resourceeditform.controls['editassociateid']" disabled>
-                                <small class="text-danger" *ngIf="resourceeditform.controls.editassociateid.errors &&(resourceeditform.controls.editassociateid.dirty || resourceeditform.controls.editassociateid.touched) && !resourceeditform.controls.editassociateid.valid">
-                                   <span  *ngIf="resourceeditform.controls.editassociateid.errors.required">Id is Required</span>
-                                 </small>
-                              </div>
-                            </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                               <label for="name">Associate Name</label>
-                              <input type="text"  class="form-control"  placeholder="Prashanthi" name="name" [formControl]="resourceeditform.controls['editassociatename']" >
-                              <small class="text-danger" *ngIf="resourceeditform.controls.editassociatename.errors &&(resourceeditform.controls.editassociatename.dirty || resourceeditform.controls.editassociatename.touched) && !resourceeditform.controls.editassociatename.valid">
-                                <span  *ngIf="resourceeditform.controls.editassociatename.errors.required">Name is Required</span>
-                              </small>
-                             
-                             </div>
-                        </div>
+            
+              <form [formGroup]="addresourceform">
+               <div class="row">
+                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Associate ID</label>
+                       <input type="text" class="form-control" placeholder="Associate ID" name="name" [formControl]="addresourceform.controls['addassociateid']" required>
+                      
                       
                       </div>
-                      <div class="row">
-                         <div class="col-md-6">
-                             <div class="form-group">
-                               <label for="id">Band</label>
-                                <select class="form-control"  [formControl]="resourceeditform.controls['editband']" [(ngModel)]="edit">
-                                      <option [value]="0" disabled selected>Select Band</option>
-                                      <option *ngFor="let b of band" [value]=b.bandname>
-                                          {{b.bandname}}
-                                        </option>
-                                </select>
-                             </div>
-                           </div>
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                 <label for="id">Email</label>
-                                 <input type="text" class="form-control" placeholder="NP00585716@techmahindra.com" name="name" [formControl]="resourceeditform.controls['editemailid']">
-                                 <small class="text-danger" *ngIf="resourceeditform.controls.editemailid.errors &&(resourceeditform.controls.editemailid.dirty || resourceeditform.controls.editemailid.touched) && !resourceeditform.controls.editemailid.valid">
-                                    <span  *ngIf="resourceeditform.controls.editemailid.errors.required">Email Id is Required</span>
-                                  </small>
-                                </div>
-                             </div>
+                 </div>
+                 <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="id">Associate Name</label>
+                      <input type="id" class="form-control"  placeholder="Associate Name" name="name" [formControl]="addresourceform.controls['addassociatename']">
+                    </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="id">Band</label>
+                        <select class="form-control"  [formControl]="addresourceform.controls['addband']">
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Band</option>
+                            <option *ngFor="let b of band" [value]=b.bandname>{{b.bandname}}</option>
+                      </select>
                       </div>
-                      <div class="row">
-                         <div class="col-md-6">
-                             <div class="form-group">
-                               <label for="id">Contact No.</label>
-                               <input type="text" class="form-control" placeholder="8008645747" name="name" [formControl]="resourceeditform.controls['editcno']">
-                               <small class="text-danger" *ngIf="resourceeditform.controls.editcno.errors &&(resourceeditform.controls.editcno.dirty || resourceeditform.controls.editcno.touched) && !resourceeditform.controls.editcno.valid">
-                                  <span  *ngIf="resourceeditform.controls.editcno.errors.required">Contact No is Required</span>
-                                </small>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="id">PID</label>
-                              <input type="text" class="form-control" placeholder="8008645747" name="name" [formControl]="resourceeditform.controls['editpid']">
-                             
-                             </div>
-                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="id">Project ID (PID)</label>
+                          <input type="text" placeholder="Project ID (PID)" class="form-control" name="name" [formControl]="addresourceform.controls['addpid']">
+                        </div>
                       </div>
-                </form>
-           </div>
+                    
+               </div>
+               <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="id">Email ID</label>
+                          <input type="text" placeholder="Email ID" class="form-control" name="name" [formControl]="addresourceform.controls['addemailid']">
+                        </div>
+                      </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="id">Contact Number</label>
+                          <input type="text" placeholder="Contact Number" class="form-control" name="name" [formControl]="addresourceform.controls['addcontactnumber']">
+                        </div>
+                      </div>  
+               </div>
+              </form>
+    
+          </div>
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success" (click)="saveeditvalue(resourceeditform.value)" >update</button> 
+              <button [disabled]="addresourceform.invalid" type="submit" class="btn btn-success" (click)="add_resource_data(addresourceform.value)" >Add</button> 
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
+          </div>
         </div>
       </div>
     </div> 
+    <!-- update model -->
+    <div class="modal fade" id="editmodel" tabindex="-1" role="dialog" aria-labelledby="editmodel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center" id="exampleModalLongTitle">Update Resource Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="editerror">
+                    <div class="col-md-12">
+                      <div class="alert alert-danger alert-dismissible fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{editerror}}
+                      </div>
+                    </div>
+                  </ng-container>
+                <form [formGroup]="updateresourcedetails">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="id">Associate ID</label>
+                                  <input type="id" class="form-control" placeholder="Associate ID" name="name" [formControl]="updateresourcedetails.controls['editassociateid']" >
+                                  <small class="text-danger" *ngIf="updateresourcedetails.controls.editassociateid.errors &&(updateresourcedetails.controls.editassociateid.dirty || updateresourcedetails.controls.editassociateid.touched) && !updateresourcedetails.controls.editassociateid.valid">
+                                     <span  *ngIf="updateresourcedetails.controls.editassociateid.errors.required">Id is Required</span>
+                                   </small>
+                                </div>
+                              </div>
+                          <div class="col-md-6">
+                             <div class="form-group">
+                                 <label for="name">Associate Name</label>
+                                <input type="text"  class="form-control"  placeholder="Associate Name" name="name" [formControl]="updateresourcedetails.controls['editassociatename']" >
+                                <small class="text-danger" *ngIf="updateresourcedetails.controls.editassociatename.errors &&(updateresourcedetails.controls.editassociatename.dirty || updateresourcedetails.controls.editassociatename.touched) && !updateresourcedetails.controls.editassociatename.valid">
+                                  <span  *ngIf="updateresourcedetails.controls.editassociatename.errors.required">Name is Required</span>
+                                </small>
+                               
+                               </div>
+                          </div>
+                        
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                               <div class="form-group">
+                                 <label for="id">Band</label>
+                                  <select class="form-control"  [formControl]="updateresourcedetails.controls['editband']">
+                                        <option [value]="0" disabled selected>Select Band</option>
+                                        <option *ngFor="let b of band" [value]=b.bandname>
+                                            {{b.bandname}}
+                                          </option>
+                                  </select>
+                               </div>
+                             </div>
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="id">Project ID (PID)</label>
+                                  <input type="text" class="form-control" placeholder="Project ID" name="name" [formControl]="updateresourcedetails.controls['editpid']">
+                                 
+                                 </div>
+                              </div>
+                            
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="id">Email ID</label>
+                                  <input type="text" class="form-control" placeholder="Enter Email" name="name" [formControl]="updateresourcedetails.controls['editemailid']">
+                                  <small class="text-danger" *ngIf="updateresourcedetails.controls.editemailid.errors &&(updateresourcedetails.controls.editemailid.dirty || updateresourcedetails.controls.editemailid.touched) && !updateresourcedetails.controls.editemailid.valid">
+                                     <span  *ngIf="updateresourcedetails.controls.editemailid.errors.required">Email Id is Required</span>
+                                   </small>
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="id">Contact Number</label>
+                                    <input type="text" class="form-control" placeholder="Enter Contact Number" name="name" [formControl]="updateresourcedetails.controls['editcno']">
+                                    <small class="text-danger" *ngIf="updateresourcedetails.controls.editcno.errors &&(updateresourcedetails.controls.editcno.dirty || updateresourcedetails.controls.editcno.touched) && !updateresourcedetails.controls.editcno.valid">
+                                       <span  *ngIf="updateresourcedetails.controls.editcno.errors.required">Contact No is Required</span>
+                                     </small>
+                                   </div>
+                                </div>
+                            
+                        </div>
+                  </form>
+             </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" (click)="update_resource_data(updateresourcedetails.value)">Update</button> 
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+        </div>
+      </div> 
+    
   
-
-
   
+    
