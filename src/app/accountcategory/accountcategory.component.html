@@ -27,13 +27,15 @@
                           <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_category.errors && (addaccountcategory.controls.add_account_category.dirty || addaccountcategory.controls.add_account_category.touched) && !addaccountcategory.controls.add_account_category.valid">
                             <span *ngIf="addaccountcategory.controls.add_account_category.errors.required">Account Category is required</span>
                             <span *ngIf="addaccountcategory.controls.add_account_category.errors.maxlength">Account Category length should not exceed 50 characters</span>
+                            <span *ngIf="addaccountcategory.controls.add_account_category.errors.pattern">Empty Spaces are not allowed</span> 
                           </div>
                           <div class="form-row">
                             <label>Account Name*</label>
                             <input type="text"  placeholder="Account Name"class="form-control" [formControl]="addaccountcategory.controls['add_account_name']"/>
                             <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_name.errors && (addaccountcategory.controls.add_account_name.dirty || addaccountcategory.controls.add_account_name.touched) && !addaccountcategory.controls.add_account_name.valid">
                               <span *ngIf="addaccountcategory.controls.add_account_name.errors.required">Account Name is required</span>
-                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.pattern">Enter Alphabets only</span>
+                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.pattern">Empty Spaces are not allowed</span>
+                              
                             </div>
                           </div>
                           <small id="mandatory_fields">* fields are Mandatory</small>
@@ -147,8 +149,8 @@
                           <label>Account Name*</label>
                           <input type="text" value="GE INDIA EXPORTS PVT LTD" placeholder="Account Name..." class="form-control" [formControl]="update_accountcategory.controls['update_account_name']" />
                           <small class="text-danger" *ngIf="update_accountcategory.controls.update_account_name.errors && (update_accountcategory.controls.update_account_name.dirty || update_accountcategory.controls.update_account_name.touched) && !update_accountcategory.controls.update_account_name.valid">
-                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Name is required</span>
-                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.pattern">Enter Characters only</span>
+                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Name is required</span>                            
+                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.pattern">Empty Spaces are not allowed</span>
                           </small>
                         </div>
                         

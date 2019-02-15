@@ -67,8 +67,7 @@ export class AccountcategoryComponent implements OnInit  {
         validators: [
           Validators.required,
           Validators.maxLength(50),
-          Validators.pattern('^[a-zA-Z ]*$'),
-
+          Validators.pattern('^(?! )[a-zA-Z0-9!@#$&()\\-`.+,/\"]*(?<! )$') 
         ]
       }),
       add_account_name:new FormControl('',{
@@ -76,7 +75,7 @@ export class AccountcategoryComponent implements OnInit  {
           Validators.required,
           Validators.maxLength(50),
           Validators.minLength(1),
-          Validators.pattern('^[a-zA-Z ]*$')
+          Validators.pattern('^(?! )[a-zA-Z0-9!@#$&()\\-`.+,/\"]*(?<! )$') 
         ]
       })
     })
@@ -92,7 +91,9 @@ export class AccountcategoryComponent implements OnInit  {
       update_account_name:new FormControl('',{
         validators: [
           Validators.required,
-          Validators.pattern('^[a-zA-Z ]*$'),
+          Validators.maxLength(50),
+          Validators.minLength(1),
+          Validators.pattern('^(?! )[a-zA-Z0-9!@#$&()\\-`.+,/\"]*(?<! )$')
 
         ]
       })
