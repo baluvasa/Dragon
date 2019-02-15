@@ -16,24 +16,24 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Adding Access Details</h4>
+                      <h4 class="modal-title">Add Access Details</h4>
                     </div>
                     <form [formGroup]="addleaveform">
                       <div class="modal-body">
                         <div class="form-row">
-                          <label>Associate ID</label>
+                          <label>Associate ID*</label>
                           <input type="text" class="form-control" placeholder="Associate ID"/>
                           
-                          <label>Associate Name</label>
+                          <label>Associate Name*</label>
                           <input type="text" class="form-control" placeholder="Associate Name"/>
                         
-                            <label>Access Type</label>
+                            <label>Access Type*</label>
                             <select class="form-control">
                                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                                 <option *ngFor="let pro of accessTypes" [value]=pro.role>{{pro.type}}</option>
                               </select>
   
-                                <label>Status</label>
+                                <label>Status*</label>
                                 <select class="form-control">
                                   <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                                   <option *ngFor="let status of statuses">{{status.name}}</option>
@@ -159,20 +159,20 @@
                     <form [formGroup]="addleaveform">
                       <div class="modal-body">
                         <div class="form-row">
-                          <label>Associate ID</label>
+                          <label>Associate ID*</label>
                           <input class="form-control" [value]="projects.associateid" disabled>
-                          <label>Associate Name</label>
+                          <label>Associate Name*</label>
                       
                           <input class="form-control" [value]="projects.name">
                           
                         
                   
-                            <label>Access Type</label>
+                            <label>Access Type*</label>
                             <select class="form-control">
                                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                                 <option *ngFor="let pro of accessTypes" [value]=pro.role>{{pro.type}}</option>
                               </select>
-                            <label>Status</label>
+                            <label>Status*</label>
                             <select class="form-control">
                               <option value="" disabled selected hidden style="color:#a4b2ba;">Active</option>
                               <option *ngFor="let status of statuses">{{status.name}}</option>
