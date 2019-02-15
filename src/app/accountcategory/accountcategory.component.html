@@ -23,7 +23,7 @@
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Account Category</label>
-                        <input class="form-control" placeholder="Account Category" [formControl]="addaccountcategory.controls['add_account_category']">                        
+                        <input class="form-control" placeholder="Account Category"  [formControl]="addaccountcategory.controls['add_account_category']">                        
                         <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_category.errors && (addaccountcategory.controls.add_account_category.dirty || addaccountcategory.controls.add_account_category.touched) && !addaccountcategory.controls.add_account_category.valid">
                           <span *ngIf="addaccountcategory.controls.add_account_category.errors.required">Account Category is required</span>
                         </div>
