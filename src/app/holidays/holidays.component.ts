@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
+import { HttpClient } from  "@angular/common/http";
 
 @Component({
   selector: 'app-holidays',
@@ -18,8 +19,6 @@ export class HolidaysComponent implements OnInit {
   years:any;
   year:any;
   project=null;
-  // edit=0;
-  // yr=0;
   year_default=0;
   jan:any;
   feb:any;
@@ -31,7 +30,12 @@ export class HolidaysComponent implements OnInit {
   role:any;
   holidaysinfo:any;
   account_names:any;
-  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { 
+  results:any;
+  holidayslists:any;
+  addresult:any;
+  deletemsg="";
+  addmsg:any;
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) { 
   }
   
   ngOnInit() {
@@ -89,57 +93,66 @@ export class HolidaysComponent implements OnInit {
 
 
     this.holidayform = new FormGroup({
-      project:new FormControl('',{
+      search_account_category:new FormControl('',{
         validators: [Validators.required]
       }),
-      yearlist:new FormControl('',{
+      search_account_name:new FormControl('',{
         validators: [Validators.required]
       }),
-      project_name:new FormControl('',{
+      search_project_name:new FormControl('',{
+        validators: []
+      }),
+      search_holidays_years:new FormControl('',{
         validators: []
       })
     })
     this.holidaylistform = new FormGroup({
-      projectlist:new FormControl('',{
+      add_account_category:new FormControl('',{
         validators: [Validators.required]
       }),
-      yearlist:new FormControl('',{
+      add_account_name:new FormControl('',{
         validators: [Validators.required]
       }),
-      jan:new FormControl('',{
+      add_project_name:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      add_holiday_year:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      holiday_jan:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       }),
-      feb:new FormControl('',{
+      holiday_feb:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(28)]
       }),
-      mar:new FormControl('',{
+      holiday_mar:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       }),
-      Apr:new FormControl('',{
+      holiday_apr:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
       }),
-      may:new FormControl('',{
+      holiday_may:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       }),
-      jun:new FormControl('',{
+      holiday_jun:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
       }),
-      jul:new FormControl('',{
+      holiday_jul:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       }),
-      aug:new FormControl('',{
+      holiday_aug:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       }),
-      sep:new FormControl('',{
+      holiday_sep:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
       }),
-      oct:new FormControl('',{
+      holiday_oct:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       }),
-      nov:new FormControl('',{
+      holiday_nov:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(30)]
       }),
-      dec:new FormControl('',{
+      holiday_dec:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       })
     })
@@ -187,17 +200,28 @@ export class HolidaysComponent implements OnInit {
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       })
     })
-
+   
   }
   onSubmit(a){
     console.log(a)
   }
-  getData(){   
-    this.list = [
-      {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',Year:2018,days:104},
-      {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',Year:2019,days:104},
-      {account_category:'GE Packaged Power',account_name:'Aero',project_name:'IES_SHOULD COSTING-ES',Year:2018,days:104}      
-    ];
+  search_holidays_details(value){  
+    //let url=this.ip+'/po/holidays/fetch?accountCategory='+asd+'&accountName='+asd+'&projectName='+asd+'&year='+value.search_account_name;
+    let url=this.ip+'/po/holidays/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name+'&projectName='+value.search_project_name+'&year='+value.search_holidays_years;
+    this.httpClient.get(url).subscribe(result => {    
+        this.results=result;
+        this.holidayslists=this.results.holidaysDetails;
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+  
+
+    // this.list = [
+    //   {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',Year:2018,days:104},
+    //   {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',Year:2019,days:104},
+    //   {account_category:'GE Packaged Power',account_name:'Aero',project_name:'IES_SHOULD COSTING-ES',Year:2018,days:104}      
+    // ];
     
   }
   errordata() {
@@ -228,12 +252,64 @@ export class HolidaysComponent implements OnInit {
     this.holidayeditlistform.reset();
      alert("Data updated Successfully")
   }
-  deletedata(){
-    if (confirm("Do you want to delete Holidays For the Year?")) {
-      alert("Holiday Details Deleted Successfully.")
+
+  add_holiday_list_form(addholidaydata){
+    console.log(addholidaydata);
+    let holidays={
+            accountCategory: addholidaydata.add_account_category,
+            accountName: addholidaydata.add_account_name,
+            year: addholidaydata.add_holiday_year,
+            projectName:  addholidaydata.add_project_name,
+            january: addholidaydata.holiday_jan,
+            february:  addholidaydata.holiday_feb,
+            march: addholidaydata.holiday_mar,
+            april:  addholidaydata.holiday_apr,
+            may: addholidaydata.holiday_may,
+            june: addholidaydata.holiday_jun,
+            july: addholidaydata.holiday_jul,
+            august:  addholidaydata.holiday_aug,
+            september:  addholidaydata.holiday_sep,
+            october: addholidaydata.holiday_oct,
+            november: addholidaydata.holiday_nov,
+            december: addholidaydata.holiday_dec,
+            createdBy: 'admin'
+          };
+    let url=this.ip+'/po/holidays/add ';
+    this.httpClient.post(url,holidays).subscribe(result => {
+      this.addresult=result;
+      if(this.addresult.status==201){
+        this.addmsg=this.addresult.message;
+        this.holidaylistform.reset();
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+
+  }
+  delete_hoilday_data(delete_data){
+
+    if (confirm("Do you want to delete the Account Details?")) {    
+      let delurl=this.ip+'/po/holidays/delete?id='+delete_data.id;
+      this.httpClient.delete(delurl).subscribe(result => {
+        this.addresult=result;
+        if(this.addresult.status==200){
+          this.deletemsg=this.addresult.message;
+          alert(this.deletemsg);
+          let data={
+            search_account_category:'',
+            search_account_name:'',
+            search_project_name:'',
+            search_holidays_years:''
+          };
+          this.search_holidays_details(data);
+        } 
+      },
+      error => {
+        this.error = 'Connection Interrupted..'; 
+      })
+    
     } 
   }
-  sendvalues(q){
-    console.log(q);
-  }
+
 }

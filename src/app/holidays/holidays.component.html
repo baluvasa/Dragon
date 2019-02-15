@@ -17,28 +17,28 @@
           </div>
         </div>
       </ng-container>
-      <form [formGroup]="holidayform" (ngSubmit)="onSubmit(holidayform.value)">
+      <form [formGroup]="holidayform">
         <div class="col-md-6"><div class="form-group">
             <label for="proj">Search Account Category</label>
-            <input type='text' placeholder="Account Category" class="form-control"  [formControl]="holidayform.controls['project']">
+            <input type='text' placeholder="Account Category" class="form-control"  [formControl]="holidayform.controls['search_account_category']">
         </div> </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="year">Search Account Name</label>
-              <input type='text' placeholder="Account Name" class="form-control"  [formControl]="holidayform.controls['yearlist']">
+              <input type='text' placeholder="Account Name" class="form-control"  [formControl]="holidayform.controls['search_account_name']">
               </div>
             </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="proj">Search Project Name</label>
-            <input type="text" placeholder="Project Name" class="form-control" [formControl]="holidayform.controls['project_name']">
+            <input type="text" placeholder="Project Name" class="form-control" [formControl]="holidayform.controls['search_project_name']">
         </div>
         </div>
       
         <div class="col-md-6">
           <div class="form-group">
             <label for="year">Year</label>
-            <select class="form-control" [formControl]="holidayform.controls['yearlist']">
+            <select class="form-control" [formControl]="holidayform.controls['search_holidays_years']">
                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year</option>
                 <option *ngFor="let year of years" [value]=year.years>
                   {{year.years}}
@@ -47,11 +47,11 @@
           </div>
         </div>
         <div class="text-center col-md-12">
-          <button  class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="getData()">Search</button>
+          <button  class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="search_holidays_details(holidayform.value)">Search</button>
           <button  class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
         </div>
       </form>
-      <div class="row" style="margin-top:60px;">
+      <!-- <div class="row" style="margin-top:60px;">
         <table class="col-md-12 text-center">
           <tr>
             <td>
@@ -65,13 +65,13 @@
             </td>
           </tr>
         </table>
-      </div>
+      </div> -->
     </div>
   </div>
   </div>
   
   
-  <div class="panel panel-default"*ngIf="list">
+  <div class="panel panel-default" *ngIf="holidayslists">
       <div class="panel-body">
         
         <div class="table-responsive">          
@@ -87,16 +87,15 @@
                   </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of list; index as i">
+                <tr *ngFor="let holidayslist of holidayslists; index as i">
                     <td>{{i+1}}</td>
-                    <td>{{item.account_category}}</td>
-                    <td>{{item.account_name}}</td>
-                    <td>{{item.project_name}}</td>
-                    <td>{{item.Year}}</td>
-                  
+                    <td>{{holidayslist.accountCategory}}</td>
+                    <td>{{holidayslist.accountName}}</td>
+                    <td>{{holidayslist.projectName}}</td>
+                    <td>{{holidayslist.year}}</td>
                     <td>
                       <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
-                      <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
+                      <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="delete_hoilday_data(holidayslist)"></button>
                     </td>
                   </tr>
             </tbody>
@@ -121,18 +120,19 @@
           <div class="row">
               <div class="col-md-6"><div class="form-group">
                   <label for="proj">Account Category*</label>
-                  <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
+                  <select class="form-control"  [formControl]="holidaylistform.controls['add_account_category']">
                     <option [value]="0" disabled selected>Select Account Category</option>
                     <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
                     <option *ngFor="let project of projects" [value]=project.projectname >
                       {{project.projectname}}
                     </option>
                   </select>
-                </div> </div>
-                    <div class="col-md-6">
+                </div> 
+              </div>
+              <div class="col-md-6">
               <div class="form-group">
                 <label for="year">Account Name*</label>             
-                  <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
+                  <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_account_name']">
                       <option [value]="0" disabled selected>Select Account Name</option>
                       <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
                         {{account_name.acc_name}}
@@ -143,13 +143,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Project Name*</label>
-                <input type="text" class="form-control" placeholder="Project Name" [formControl]="holidaylistform.controls['projectlist']">
+                <input type="text" class="form-control" placeholder="Project Name" [formControl]="holidaylistform.controls['add_project_name']">
   
               </div>
             </div>
             <div class="col-md-6">
               <label for="proj">Year*</label>
-              <select class="form-control" id="year"  [formControl]="holidaylistform.controls['yearlist']" [(ngModel)]="yr">
+              <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_holiday_year']">
                 <option [value]="0" disabled selected>Select Year</option>
                 <option *ngFor="let year of years" [value]=year.years >
                   {{year.years}}
@@ -163,11 +163,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>January</label></div>
                 <div class="col-md-6">
-                  <input type="text"  name="jan" placeholder="" class="form-control"  [formControl]="holidaylistform.controls['jan']"> 
-                  <small class="text-danger" *ngIf="holidaylistform.controls.jan.errors && (holidaylistform.controls.jan.dirty || holidaylistform.controls.jan.touched) && !holidaylistform.controls.jan.valid">
+                  <input type="text"  name="jan" placeholder="" class="form-control"  [formControl]="holidaylistform.controls['holiday_jan']"> 
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.jan.errors && (holidaylistform.controls.jan.dirty || holidaylistform.controls.jan.touched) && !holidaylistform.controls.jan.valid">
                     <span *ngIf="holidaylistform.controls.jan.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.jan.errors.max"> max no 31 </span>
-                  </small>  
+                  </small>   -->
                 </div>              
               </div>
             </div>
@@ -175,11 +175,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>February</label></div>
                 <div class="col-md-6">
-                  <input type="text"    name="feb" placeholder="" class="form-control" [formControl]="holidaylistform.controls['feb']" >
-                  <small class="text-danger" *ngIf="holidaylistform.controls.feb.errors && (holidaylistform.controls.feb.dirty || holidaylistform.controls.feb.touched) && !holidaylistform.controls.feb.valid">
+                  <input type="text"    name="feb" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_feb']" >
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.feb.errors && (holidaylistform.controls.feb.dirty || holidaylistform.controls.feb.touched) && !holidaylistform.controls.feb.valid">
                     <span *ngIf="holidaylistform.controls.feb.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.feb.errors.max"> max no 28 </span>
-                  </small> 
+                  </small>  -->
                   
                 </div>
               </div>
@@ -188,11 +188,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>March</label></div>
                 <div class="col-md-6">
-                  <input type="text"  name="mar" placeholder=""  class="form-control" [formControl]="holidaylistform.controls['mar']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.mar.errors && (holidaylistform.controls.mar.dirty || holidaylistform.controls.mar.touched) && !holidaylistform.controls.mar.valid">
+                  <input type="text"  name="mar" placeholder=""  class="form-control" [formControl]="holidaylistform.controls['holiday_mar']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.mar.errors && (holidaylistform.controls.mar.dirty || holidaylistform.controls.mar.touched) && !holidaylistform.controls.mar.valid">
                     <span *ngIf="holidaylistform.controls.mar.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.mar.errors.max"> max no 31 </span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -202,11 +202,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>April</label></div>
                 <div class="col-md-6">
-                  <input type="text"    name="apr" placeholder="" class="form-control" [formControl]="holidaylistform.controls['Apr']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.Apr.errors && (holidaylistform.controls.Apr.dirty || holidaylistform.controls.Apr.touched) && !holidaylistform.controls.Apr.valid">
+                  <input type="text"    name="apr" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_apr']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.Apr.errors && (holidaylistform.controls.Apr.dirty || holidaylistform.controls.Apr.touched) && !holidaylistform.controls.Apr.valid">
                     <span *ngIf="holidaylistform.controls.Apr.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.Apr.errors.max"> max no 30 </span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -214,11 +214,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>May</label></div>
                 <div class="col-md-6">
-                  <input type="text"  name="may" placeholder="" class="form-control" [formControl]="holidaylistform.controls['may']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.may.errors && (holidaylistform.controls.may.dirty || holidaylistform.controls.may.touched) && !holidaylistform.controls.may.valid">
+                  <input type="text"  name="may" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_may']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.may.errors && (holidaylistform.controls.may.dirty || holidaylistform.controls.may.touched) && !holidaylistform.controls.may.valid">
                     <span *ngIf="holidaylistform.controls.may.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.may.errors.max"> max no 31 </span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -226,11 +226,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>June</label></div>
                 <div class="col-md-6">
-                  <input type="text"   name="june" placeholder="" class="form-control" [formControl]="holidaylistform.controls['jun']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.jun.errors && (holidaylistform.controls.jun.dirty || holidaylistform.controls.jun.touched) && !holidaylistform.controls.jun.valid">
+                  <input type="text"   name="june" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_jun']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.jun.errors && (holidaylistform.controls.jun.dirty || holidaylistform.controls.jun.touched) && !holidaylistform.controls.jun.valid">
                     <span *ngIf="holidaylistform.controls.jun.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.jun.errors.max"> max no 30 </span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -240,11 +240,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>July</label></div>
                 <div class="col-md-6">
-                  <input type="text"   name="july" placeholder="" class="form-control"  [formControl]="holidaylistform.controls['jul']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.jul.errors && (holidaylistform.controls.jul.dirty || holidaylistform.controls.jul.touched) && !holidaylistform.controls.jul.valid">
+                  <input type="text"   name="july" placeholder="" class="form-control"  [formControl]="holidaylistform.controls['holiday_jul']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.jul.errors && (holidaylistform.controls.jul.dirty || holidaylistform.controls.jul.touched) && !holidaylistform.controls.jul.valid">
                     <span *ngIf="holidaylistform.controls.jul.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.jul.errors.max"> max no 31 </span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -252,11 +252,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>August</label></div>
                 <div class="col-md-6">
-                  <input type="text" name="aug" placeholder="" class="form-control" [formControl]="holidaylistform.controls['aug']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.aug.errors && (holidaylistform.controls.aug.dirty || holidaylistform.controls.aug.touched) && !holidaylistform.controls.aug.valid">
+                  <input type="text" name="aug" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_aug']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.aug.errors && (holidaylistform.controls.aug.dirty || holidaylistform.controls.aug.touched) && !holidaylistform.controls.aug.valid">
                     <span *ngIf="holidaylistform.controls.aug.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.aug.errors.max"> max no 31 </span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -264,11 +264,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>September</label></div>
                 <div class="col-md-6">
-                  <input type="text"  name="sep" placeholder="" class="form-control" [formControl]="holidaylistform.controls['sep']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.sep.errors && (holidaylistform.controls.sep.dirty || holidaylistform.controls.sep.touched) && !holidaylistform.controls.sep.valid">
+                  <input type="text"  name="sep" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_sep']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.sep.errors && (holidaylistform.controls.sep.dirty || holidaylistform.controls.sep.touched) && !holidaylistform.controls.sep.valid">
                     <span *ngIf="holidaylistform.controls.sep.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.sep.errors.max"> max no 30</span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -278,11 +278,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>October</label></div>
                 <div class="col-md-6">
-                  <input type="text"  name="oct" placeholder="" class="form-control" [formControl]="holidaylistform.controls['oct']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.oct.errors && (holidaylistform.controls.oct.dirty || holidaylistform.controls.oct.touched) && !holidaylistform.controls.oct.valid">
+                  <input type="text"  name="oct" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_oct']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.oct.errors && (holidaylistform.controls.oct.dirty || holidaylistform.controls.oct.touched) && !holidaylistform.controls.oct.valid">
                     <span *ngIf="holidaylistform.controls.oct.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.oct.errors.max"> max no 31</span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -290,11 +290,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>November</label></div>
                 <div class="col-md-6">
-                  <input type="text"  name="nov" placeholder="" class="form-control" [formControl]="holidaylistform.controls['nov']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.nov.errors && (holidaylistform.controls.nov.dirty || holidaylistform.controls.nov.touched) && !holidaylistform.controls.nov.valid">
+                  <input type="text"  name="nov" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_nov']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.nov.errors && (holidaylistform.controls.nov.dirty || holidaylistform.controls.nov.touched) && !holidaylistform.controls.nov.valid">
                     <span *ngIf="holidaylistform.controls.nov.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.nov.errors.max"> max no 30</span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -302,11 +302,11 @@
               <div class="form-group">
                 <div class="col-md-6"><label>December</label></div>
                 <div class="col-md-6">
-                  <input type="text"  name="dec" placeholder="" class="form-control" [formControl]="holidaylistform.controls['dec']">
-                  <small class="text-danger" *ngIf="holidaylistform.controls.dec.errors && (holidaylistform.controls.dec.dirty || holidaylistform.controls.dec.touched) && !holidaylistform.controls.dec.valid">
+                  <input type="text"  name="dec" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_dec']">
+                  <!-- <small class="text-danger" *ngIf="holidaylistform.controls.dec.errors && (holidaylistform.controls.dec.dirty || holidaylistform.controls.dec.touched) && !holidaylistform.controls.dec.valid">
                     <span *ngIf="holidaylistform.controls.dec.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.dec.errors.max"> max no 31</span>
-                  </small> 
+                  </small>  -->
                 </div>
               </div>
             </div>
@@ -315,7 +315,7 @@
         </form> 
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" type="submit" (click)='sendvalues(holidaylistform.value)'>Add</button> 
+        <button class="btn btn-success" type="button"  (click)="add_holiday_list_form(holidaylistform.value)">Add</button> 
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         
       </div>
