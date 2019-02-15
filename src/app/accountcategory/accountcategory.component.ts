@@ -131,13 +131,14 @@ add_account_category_data(addaccountcategory){
   });
 } 
 setupdatemodel(categorylist){
-  this.update_accountcategory.setValue({update_account_category_id:categorylist.accId,update_account_category:categorylist.accountCategory,update_account_name:categorylist.accountName});
+  this.update_accountcategory.setValue({update_account_category_id:categorylist.accountCategoryId,update_account_category:categorylist.accountCategory,update_account_name:categorylist.accountName});
 }
 update_account_category_data(updateaccountcategory){  
   let modilfyurl=this.ip+'/po/account_category/update';
-  let updatecategory={accId :updateaccountcategory.update_account_category_id,accountName:updateaccountcategory.update_account_name};
+  let updatecategory={accountCategoryId :updateaccountcategory.update_account_category_id,accountName:updateaccountcategory.update_account_name};
   this.httpClient.put(modilfyurl,updatecategory).subscribe(result => {
     this.addresult=result;
+    console.log(this.addresult);
     if(this.addresult.status==200){
       this.updatemsg=this.addresult.message;
       let data={search_account_category:'',search_account_name:''};
@@ -149,49 +150,14 @@ update_account_category_data(updateaccountcategory){
   });
 }
 search_accountcategory(value){ 
-  // let url=this.ip+'/po/account_category/fetch?category='+value.search_account_category+'&name='+value.search_account_name;
-  // this.httpClient.get(url).subscribe(result => {    
-  //   this.results=result;
-  //     this.categorylists=this.results.accountCategory;
-  // },
-  // error => {
-  //   this.error = 'Connection Interrupted..'; 
-  // });
-
-  {
-   this.datalists={"accountCategory": [
-        {
-            "accId": "8684680",
-            "accountCategory": "GE Heir",
-            "accountName": "Appliances"
-        },
-        {
-            "accId": "04fb71",
-            "accountCategory": "GE Appliances",
-            "accountName": "Mani kumar"
-        },
-        {
-            "accId": "91284c0",
-            "accountCategory": "GE Appliances",
-            "accountName": "Sharath Kumar"
-        },
-        {
-            "accId": "22960e",
-            "accountCategory": "Test 3",
-            "accountName": "Sathya"
-        },
-        {
-            "accId": "c6f9349",
-            "accountCategory": "GE Appliances",
-            "accountName": "Shruthi"
-        }
-    ],
-    "message": "Account Category details fetched successfully.",
-    "status": 200
-}
-  };
-  this.categorylists=this.datalists.accountCategory;
-  
+  let url=this.ip+'/po/account_category/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name;
+  this.httpClient.get(url).subscribe(result => {    
+    this.results=result;
+      this.categorylists=this.results.accountCategory;
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
 }
 deletedata(deletevalue){
   if (confirm("Do you want to delete the Account Details?")) {    
