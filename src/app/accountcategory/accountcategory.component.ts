@@ -8,8 +8,7 @@ import { HttpClient } from  "@angular/common/http";
   templateUrl: './accountcategory.component.html',
   styleUrls: ['./accountcategory.component.scss']
 })
-export class AccountcategoryComponent implements OnInit  {
-  
+export class AccountcategoryComponent implements OnInit  {  
   searchaccountcategory: FormGroup;
   addaccountcategory: FormGroup;
   update_accountcategory: FormGroup;
@@ -30,34 +29,11 @@ export class AccountcategoryComponent implements OnInit  {
   deletemsg='';
   datalists:any;
   constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder,private  httpClient:HttpClient) { }
-
-  ngOnInit() {
-    
+  ngOnInit() {    
     this.eventEmitterService.menuinvokefunction(); 
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
-
-    this.projects=[
-      {name:'GE Industrial'},
-      {name:'GE INDIA EXPORTS PVT LTD'},
-      {name:'GE Oil & Gas'},
-      {name:'GE P&W'},
-      {name:'GE Packaged Power'},
-      {name:'GE Ticketless'}
-    ];
-    this.project_years=[
-      {year_month:'10'},
-      {year_month:'30'},
-      {year_month:'15'},
-      {year_month:'45'}  
-    ];
-    this.associates=[
-      {associateid:'GE Ticketless'},
-      {associateid:'GE P&W'},
-      {associateid:'GE Oil & Gas  '},
-      {associateid:'GE Turbines'}  
-    ];
     this.searchaccountcategory = new FormGroup({
       search_account_category:new FormControl('',{}),
       search_account_name:new FormControl('',{})
@@ -97,8 +73,7 @@ export class AccountcategoryComponent implements OnInit  {
 
         ]
       })
-    });
-      
+    });      
   }
   trim_whitespace(value){
     return value ? value.replace(/^\s+|\s+$/gm, '') : '';  
@@ -108,17 +83,8 @@ export class AccountcategoryComponent implements OnInit  {
     this.error='';
     this.updatemsg='';
   }
-//   nodata(){
-//     this.error="No Data Found";
-// }
-// exception(){
-//     this.error="Exception has occurred while Fetching the Data";
-// }
-// badrequest(){
-//     this.error="Bad Request";
-// }
 add_account_category_data(addaccountcategory){
-  let category={accountCategory:addaccountcategory.add_account_category,accountName:addaccountcategory.add_account_name};
+  let category={accountCategory:addaccountcategory.add_account_category,accountName:addaccountcategory.add_account_name,createdBy:'admin'};
   let url=this.ip+'/po/account_category/create';
   this.httpClient.post(url,category).subscribe(result => {
     this.addresult=result;
@@ -136,10 +102,9 @@ setupdatemodel(categorylist){
 }
 update_account_category_data(updateaccountcategory){  
   let modilfyurl=this.ip+'/po/account_category/update';
-  let updatecategory={accountCategoryId :updateaccountcategory.update_account_category_id,accountName:updateaccountcategory.update_account_name};
+  let updatecategory={accountCategoryId :updateaccountcategory.update_account_category_id,accountName:updateaccountcategory.update_account_name,modifiedBy:'admin'};  console.log(updatecategory)
   this.httpClient.put(modilfyurl,updatecategory).subscribe(result => {
     this.addresult=result;
-    console.log(this.addresult);
     if(this.addresult.status==200){
       this.updatemsg=this.addresult.message;
       let data={search_account_category:'',search_account_name:''};
@@ -162,7 +127,7 @@ search_accountcategory(value){
 }
 deletedata(deletevalue){
   if (confirm("Do you want to delete the Account Details?")) {    
-    let delurl=this.ip+'/po/account_category/delete?id='+deletevalue.accId;
+    let delurl=this.ip+'/po/account_category/delete?accountCategoryId='+deletevalue.accountCategoryId;
     this.httpClient.delete(delurl).subscribe(result => {
       this.addresult=result;
       if(this.addresult.status==200){
@@ -174,10 +139,7 @@ deletedata(deletevalue){
     },
     error => {
       this.error = 'Connection Interrupted..'; 
-    })
-  
+    })  
   } 
 }
-
 }
-

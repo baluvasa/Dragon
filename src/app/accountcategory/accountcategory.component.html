@@ -92,6 +92,10 @@
             </div>
           </div>
         </div>
+        <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+          {{deletemsg}}
+        </div>        
         <div class="panel panel-default" *ngIf="categorylists">
           <div class="panel-body">
             
