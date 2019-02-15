@@ -2,5 +2,6 @@
 <app-leftmenu></app-leftmenu>
 </div>
 <div class="col-lg-offset-3 col-lg-9 col-md-offset-3 col-md-9 col-sm-offset-3 col-sm-9">
+  <p>Date/Time: {{ todays_date | date:'dd-MMM-yyyy hh:mm:ss a'}}</p>
   <router-outlet></router-outlet>
 </div>

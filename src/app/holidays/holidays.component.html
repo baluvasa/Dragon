@@ -19,32 +19,31 @@
       </ng-container>
       <form [formGroup]="holidayform" (ngSubmit)="onSubmit(holidayform.value)">
         <div class="col-md-6"><div class="form-group">
-            <label for="proj">Account Category</label>
+            <label for="proj">Search Account Category</label>
             <input type='text' placeholder="Account Category" class="form-control"  [formControl]="holidayform.controls['project']">
         </div> </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="year">Account Name</label>
+              <label for="year">Search Account Name</label>
               <input type='text' placeholder="Account Name" class="form-control"  [formControl]="holidayform.controls['yearlist']">
               </div>
             </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="proj">Project Name</label>
+            <label for="proj">Search Project Name</label>
             <input type="text" placeholder="Project Name" class="form-control" [formControl]="holidayform.controls['project_name']">
-          </div>
         </div>
-        
+        </div>
+      
         <div class="col-md-6">
           <div class="form-group">
             <label for="year">Year</label>
-            <input type="text" placeholder="Year" class="form-control" [formControl]="holidayform.controls['yearlist']">
-            <!-- <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']">
-                <option [value]="0" disabled selected>Select Year</option>
-                <option *ngFor="let year of years" [value]=year.years >
+            <select class="form-control" [formControl]="holidayform.controls['yearlist']">
+                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year</option>
+                <option *ngFor="let year of years" [value]=year.years>
                   {{year.years}}
                 </option>
-              </select>                   -->
+              </select>                  
           </div>
         </div>
         <div class="text-center col-md-12">
@@ -84,7 +83,6 @@
                     <th>Account Name</th>
                     <th>Project Name</th>
                     <th>Year</th>
-                        
                     <th>Edit/Delete</th>
                   </tr>
             </thead>
@@ -122,9 +120,10 @@
         <form [formGroup]="holidaylistform">
           <div class="row">
               <div class="col-md-6"><div class="form-group">
-                  <label for="proj">Account Category</label>
+                  <label for="proj">Account Category*</label>
                   <select class="form-control"  [formControl]="holidayform.controls['project']" [(ngModel)]="edit">
                     <option [value]="0" disabled selected>Select Account Category</option>
+                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
                     <option *ngFor="let project of projects" [value]=project.projectname >
                       {{project.projectname}}
                     </option>
@@ -132,7 +131,7 @@
                 </div> </div>
                     <div class="col-md-6">
               <div class="form-group">
-                <label for="year">Account Name</label>             
+                <label for="year">Account Name*</label>             
                   <select class="form-control" id="year"  [formControl]="holidayform.controls['yearlist']" [(ngModel)]="yr">
                       <option [value]="0" disabled selected>Select Account Name</option>
                       <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
@@ -143,13 +142,13 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="proj">Project Name</label>
+                <label for="proj">Project Name*</label>
                 <input type="text" class="form-control" placeholder="Project Name" [formControl]="holidaylistform.controls['projectlist']">
   
               </div>
             </div>
             <div class="col-md-6">
-              <label for="proj">Year</label>
+              <label for="proj">Year*</label>
               <select class="form-control" id="year"  [formControl]="holidaylistform.controls['yearlist']" [(ngModel)]="yr">
                 <option [value]="0" disabled selected>Select Year</option>
                 <option *ngFor="let year of years" [value]=year.years >
@@ -312,7 +311,7 @@
               </div>
             </div>
           </div>
-          
+          <small id="mandatory_fields">* fields are Mandatory</small>
         </form> 
       </div>
       <div class="modal-footer">
@@ -328,7 +327,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center" id="exampleModalLongTitle">Edit Holiday Details</h5>
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Update Holiday Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -338,27 +337,27 @@
           <div class="row">
               <div class="col-md-6">
                   <div class="form-group">
-                    <label for="proj">Account Category</label>
+                    <label for="proj">Account Category*</label>
                    <input value="GE India Exports Pvt. Ltd." disabled class="form-control"> 
                   
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label for="proj">Account Name</label>
+                      <label for="proj">Account Name*</label>
                      <input value="SQL PO" disabled class="form-control"> 
                     
                     </div>
                   </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="proj">Project Name</label>
+                <label for="proj">Project Name*</label>
                <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> 
               
               </div>
             </div>
             <div class="col-md-6">
-              <label for="proj">Year</label>
+              <label for="proj">Year*</label>
               <input value="2018" disabled class="form-control"> 
             
             </div>
@@ -518,7 +517,7 @@
               </div>
             </div>
           </div>
-          
+          <small id="mandatory_fields">* fields are Mandatory</small>
         </form> 
       </div>
       <div class="modal-footer">

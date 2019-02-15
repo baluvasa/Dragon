@@ -30,7 +30,7 @@ export class AccountcategoryComponent implements OnInit  {
   deletemsg='';
   datalists:any;
   constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder,private  httpClient:HttpClient) { }
-  
+
   ngOnInit() {
     
     this.eventEmitterService.menuinvokefunction(); 
@@ -64,26 +64,44 @@ export class AccountcategoryComponent implements OnInit  {
     })
     this.addaccountcategory = new FormGroup({
       add_account_category:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z ]*$'),
+
+        ]
       }),
       add_account_name:new FormControl('',{
-        validators: [Validators.required]
+        validators: [ 
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.minLength(1),
+          Validators.pattern('^[a-zA-Z ]*$')
+        ]
       })
     })
     this.update_accountcategory = new FormGroup({
       update_account_category_id:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+        ]
       }),
       update_account_category:new FormControl('',{
         validators: [Validators.required]
       }),
       update_account_name:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z ]*$'),
+
+        ]
       })
     });
       
   }
-
+  trim_whitespace(value){
+    return value ? value.replace(/^\s+|\s+$/gm, '') : '';  
+  }
   closemsg(){
     this.addmsg='';
     this.error='';

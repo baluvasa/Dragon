@@ -1,119 +1,122 @@
 <div class="row">
-  <div class="container-fluid">
-    <h2>Account Category Details</h2>
-    <div class="panel panel-default">
-      <div class="panel-heading">Search Account Category Details
-        <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#addaccountcategorymodel" style="float:right" (click)='closemsg()'>
-          &nbsp;&nbsp;Add</button>
-        </div> 
-        <div class="panel-body">
-          <div>
-            <div id="addaccountcategorymodel" class="modal fade" role="dialog" tabindex="-1">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Account Category Details</h4>                    
-                  </div>
-                  <div class="alert alert-success alert-dismissible" *ngIf="addmsg">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
-                    {{addmsg}}
-                  </div>
-                  <form [formGroup]="addaccountcategory" (ngSubmit)="add_account_category_data(addaccountcategory.value)">
-                    <div class="modal-body">
-                      <div class="form-row">
-                        <label>Account Category</label>
-                        <input class="form-control" placeholder="Account Category"  [formControl]="addaccountcategory.controls['add_account_category']">                        
-                        <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_category.errors && (addaccountcategory.controls.add_account_category.dirty || addaccountcategory.controls.add_account_category.touched) && !addaccountcategory.controls.add_account_category.valid">
-                          <span *ngIf="addaccountcategory.controls.add_account_category.errors.required">Account Category is required</span>
-                        </div>
-                        <div class="form-row">
-                          <label>Account Name</label>
-                          <input type="text"  placeholder="Account Name"class="form-control" [formControl]="addaccountcategory.controls['add_account_name']"/>
-                          <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_name.errors && (addaccountcategory.controls.add_account_name.dirty || addaccountcategory.controls.add_account_name.touched) && !addaccountcategory.controls.add_account_name.valid">
-                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.required">Account Category is required</span>
-                            </div>
-                        </div></div>
-                      <div class="modal-footer">
-                        <button type="submit" [disabled]="addaccountcategory.invalid" class="btn btn-primary" data-create="modal">Add</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                      </div>
+    <div class="container-fluid">
+      <h2>Account Category Details</h2>
+      <div class="panel panel-default">
+        <div class="panel-heading">Search Account Category Details
+          <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#addaccountcategorymodel" style="float:right" (click)='closemsg()'>
+            &nbsp;&nbsp;Add</button>
+          </div> 
+          <div class="panel-body">
+            <div>
+              <div id="addaccountcategorymodel" class="modal fade" role="dialog" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Add Account Category Details</h4>                    
                     </div>
-                  </form>
+                    <div class="alert alert-success alert-dismissible" *ngIf="addmsg">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{addmsg}}
+                    </div>
+                    <form [formGroup]="addaccountcategory" (ngSubmit)="add_account_category_data(addaccountcategory.value)">
+                      <div class="modal-body">
+                        <div class="form-row">
+                          <label>Account Category*</label>
+                          <input class="form-control" placeholder="Account Category" [formControl]="addaccountcategory.controls['add_account_category']" (blur)="whitespace=trim_whitespace($event.target.value)" value="{{whitespace}}">                        
+                          <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_category.errors && (addaccountcategory.controls.add_account_category.dirty || addaccountcategory.controls.add_account_category.touched) && !addaccountcategory.controls.add_account_category.valid">
+                            <span *ngIf="addaccountcategory.controls.add_account_category.errors.required">Account Category is required</span>
+                            <span *ngIf="addaccountcategory.controls.add_account_category.errors.maxlength">Account Category length should not exceed 50 characters</span>
+                          </div>
+                          <div class="form-row">
+                            <label>Account Name*</label>
+                            <input type="text"  placeholder="Account Name"class="form-control" [formControl]="addaccountcategory.controls['add_account_name']"/>
+                            <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_name.errors && (addaccountcategory.controls.add_account_name.dirty || addaccountcategory.controls.add_account_name.touched) && !addaccountcategory.controls.add_account_name.valid">
+                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.required">Account Name is required</span>
+                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.pattern">Enter Alphabets only</span>
+                            </div>
+                          </div>
+                          <small id="mandatory_fields">* fields are Mandatory</small>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" [disabled]="addaccountcategory.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-12" *ngIf="error">
-              <div class="alert alert-danger alert-dismissible fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close"  (click)='closemsg()'>&times;</a>
-                {{error}}
-              </div>
-            </div>
-            <form [formGroup]="searchaccountcategory">
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-md-6">
-                    <label>Account Category</label>
-                    <input class="form-control" placeholder="Account Category" [formControl]="searchaccountcategory.controls['search_account_category']">                   
-                  </div>
-                  <div class="col-md-6">
-                    <label>Account Name</label>
-                    <input class="form-control" [formControl]="searchaccountcategory.controls['search_account_name']" placeholder="Account Name">
-                  </div>
+              <div class="col-md-12" *ngIf="error">
+                <div class="alert alert-danger alert-dismissible fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close"  (click)='closemsg()'>&times;</a>
+                  {{error}}
                 </div>
               </div>
-              <div class="text-center col-md-12">
-                <button class="btn btn-primary col-md-offset-3 col-md-2" (click)="search_accountcategory(searchaccountcategory.value)">Search</button>
-                <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset"  (click)='closemsg()'>Cancel</button>
-              </div>
-            </form>
-            <!-- <div class="row" style="margin-top:60px;">
-              <table class="col-md-12 text-center">
-                <tr>
-                  <td>
-                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
-                  </td>
-                  <td>
-                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
-                  </td>
-                  <td>
-                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
-                  </td>
-                </tr>
-              </table>
-            </div> -->
-            
+              <form [formGroup]="searchaccountcategory">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Account Category</label>
+                      <input class="form-control" placeholder="Account Category" [formControl]="searchaccountcategory.controls['search_account_category']">                   
+                    </div>
+                    <div class="col-md-6">
+                      <label>Account Name</label>
+                      <input class="form-control" [formControl]="searchaccountcategory.controls['search_account_name']" placeholder="Account Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center col-md-12">
+                  <button class="btn btn-primary col-md-offset-3 col-md-2" (click)="search_accountcategory(searchaccountcategory.value)">Search</button>
+                  <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset"  (click)='closemsg()'>Cancel</button>
+                </div>
+              </form>
+              <!-- <div class="row" style="margin-top:60px;">
+                <table class="col-md-12 text-center">
+                  <tr>
+                    <td>
+                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
+                    </td>
+                    <td>
+                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
+                    </td>
+                    <td>
+                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                    </td>
+                  </tr>
+                </table>
+              </div> -->
+              
+            </div>
           </div>
         </div>
-      </div>
-      <div class="panel panel-default" *ngIf="categorylists">
-        <div class="panel-body">
-          
-          <div class="table-responsive">          
-            <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
-              <thead>
-                <tr>
-                  <th>S. No</th>
-                  <th>Account Category</th>
-                  
-                  <th>Account Name</th>
-                  <th>Edit/Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let categorylist of categorylists; index as i">
-                  <td>{{i+1}}</td>
-                  <td>{{categorylist.accountCategory}}</td>
-                  <td>{{categorylist.accountName}}</td>                  
-                  <td>
-                    <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateaccountcategorymodel" (click)='setupdatemodel(categorylist)'></button>&nbsp;
-                    <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata(categorylist)"></button>                    
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div id="updateaccountcategorymodel" class="modal fade" role="dialog" tabindex="-1">
+        <div class="panel panel-default" *ngIf="categorylists">
+          <div class="panel-body">
+            
+            <div class="table-responsive">          
+              <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+                <thead>
+                  <tr>
+                    <th>S. No</th>
+                    <th>Account Category</th>
+                    <th>Account Name</th>
+                    <th>Edit/Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let categorylist of categorylists; index as i">
+                    <td>{{i+1}}</td>
+                    <td>{{categorylist.accountCategory}}</td>
+                    <td>{{categorylist.accountName}}</td>                  
+                    <td>
+                      <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateaccountcategorymodel" (click)='setupdatemodel(categorylist)'></button>&nbsp;
+                      <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata(categorylist)"></button>                    
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="updateaccountcategorymodel" class="modal fade" role="dialog" tabindex="-1">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -127,13 +130,13 @@
                   <form [formGroup]="update_accountcategory" (ngSubmit)="update_account_category_data(update_accountcategory.value)">
                     <div class="modal-body">
                       <div class="form-row">
-                        <label>Account Category</label>
+                        <label>Account Category*</label>
                         <input type="hidden" class="form-control" [formControl]="update_accountcategory.controls['update_account_category_id']" disabled required>
                         <input type="text" class="form-control" [formControl]="update_accountcategory.controls['update_account_category']" disabled required>
                         <!-- <select class="form-control" [formControl]="update_accountcategory.controls['update_account_category']" disabled required>
                           <option value="" selected style="color:#a4b2ba;">GE Appliances</option>
-                        <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option> 
-              
+                          <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option> 
+                          
                         </select> -->
                         <small class="text-danger" *ngIf="update_accountcategory.controls.update_account_category.errors && (update_accountcategory.controls.update_account_category.dirty || update_accountcategory.controls.update_account_category.touched) && !update_accountcategory.controls.update_account_category.valid">
                           <span *ngIf="update_accountcategory.controls.update_account_category.errors.required">Account Category is required</span>
@@ -141,14 +144,15 @@
                         
                         
                         <div class="form-row">
-                          <label>Account Name</label>
+                          <label>Account Name*</label>
                           <input type="text" value="GE INDIA EXPORTS PVT LTD" placeholder="Account Name..." class="form-control" [formControl]="update_accountcategory.controls['update_account_name']" />
                           <small class="text-danger" *ngIf="update_accountcategory.controls.update_account_name.errors && (update_accountcategory.controls.update_account_name.dirty || update_accountcategory.controls.update_account_name.touched) && !update_accountcategory.controls.update_account_name.valid">
-                              <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Category is required</span>
-                            </small>
+                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Name is required</span>
+                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.pattern">Enter Characters only</span>
+                          </small>
                         </div>
                         
-                        
+                        <small id="mandatory_fields">* fields are Mandatory</small>
                         
                       </div>
                       <div class="modal-footer">
@@ -160,8 +164,8 @@
                 </div>
               </div>
             </div>  
-
-        </div>             
+            
+          </div>             
+        </div>
       </div>
-    </div>
-    
+      

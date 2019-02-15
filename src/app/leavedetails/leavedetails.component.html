@@ -33,38 +33,34 @@
                           </small> -->
                           
                           
-                          <label>Associate ID</label>
-                          <input type="text" class="form-control"/>
+                          <label>Associate ID*</label>
+                          <input type="text" placeholder="Enter Associate ID" class="form-control"/>
                           <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
                           </div>
                           
                           
                           <div class="form-row">
-                            <label>Associate Name</label>
-                            <input type="text" class="form-control"/>
+                            <label>Associate Name*</label>
+                            <input type="text" placeholder="Enter Associate Name" class="form-control"/>
                             <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
                               <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
                             </div>
                           </div>
                           
                           <div class="form-row">
-                            <label>Date</label>
-                            <!-- <input type="date" class="form-control"/> -->
-                            <my-date-picker [options]="myDatePickerOptions" placeholder='Select Date'></my-date-picker>
+                            <label>Date*</label>
+                            <input type="date" placeholder="Select Date" class="form-control"/>
                             <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
                               <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
                             </div>
                           </div>
                           
                           <div class="form-group">
-                            <label>Remarks</label><br>
+                            <label>Remarks*</label><br>
                             <textarea class="form-control" placeholder="Enter Remarks here..." rows="4"></textarea>
                           </div>
-                          <div class="form-group">
-                            
-                          </div>
-                          
+                         <small id="mandatory_fields">* fields are Mandatory</small>
                         </div>
                         <div class="modal-footer">
                           <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Add</button>
@@ -199,7 +195,7 @@
                           </small> -->
                           
                           
-                          <label>Associate ID</label>
+                          <label>Associate ID*</label>
                           <input type="text" class="form-control" disabled value="505050"/>
                           <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
                             <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
@@ -207,7 +203,7 @@
                           
                           
                           <div class="form-row">
-                            <label>Associate Name</label>
+                            <label>Associate Name*</label>
                             <input type="text" class="form-control" disabled value="Vijay Krishna"/>
                             <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
                               <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
@@ -215,7 +211,7 @@
                           </div>
                           
                           <div class="form-row">
-                            <label>Date</label>
+                            <label>Date*</label>
                             <input type="text" class="form-control" value="01/07/2019"/>
                             <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
                               <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
@@ -223,12 +219,10 @@
                           </div>
                           
                           <div class="form-group">
-                            <label>Remarks</label><br>
+                            <label>Remarks*</label><br>
                             <textarea class="form-control" placeholder="Enter Remarks here..." rows="4">Not Feeling Well</textarea>
                           </div>
-                          <div class="form-group">
-                            
-                          </div>
+                          <small id="mandatory_fields">* fields are Mandatory</small>
                           
                         </div>
                         <div class="modal-footer">
