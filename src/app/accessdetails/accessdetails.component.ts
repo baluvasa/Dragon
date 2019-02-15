@@ -147,12 +147,17 @@ error => {
       })  
     } 
   }
-  update_accessdetails(updateaccessdetails){
-    console.log(updateaccessdetails);
+  update_accessdetails(updateaccessdetails){    
+    console.log(updateaccessdetails)
     let modilfyurl='http://10.56.65.45:8082/po/access/update';
-    let updatecategory={accountCategoryId :updateaccessdetails.update_account_category_id,accountName:updateaccessdetails.update_account_name,modifiedBy:'admin'};  console.log(updatecategory)
+    let updatecategory={
+      associateId :updateaccessdetails.updateassociateid,
+      associateName:updateaccessdetails.updateassociatename,
+      accessType:updateaccessdetails.updateaccesstype,
+      activeStatus:updateaccessdetails.updatestatus};
     this.httpClient.put(modilfyurl,updatecategory).subscribe(result => {
       this.addresult=result;
+      console.log(this.addresult)
       if(this.addresult.status==200){
         this.updatemsg=this.addresult.message;
         let data={associateid:'',associatename:'',accesstype:'',status:''};
