@@ -13,6 +13,8 @@ export class AccessdetailsComponent implements OnInit {
   addaccessdetails: FormGroup;
   updateaccessdetails: FormGroup;
   error:any;
+  adderror:any;
+  updateerror:any;
   projects:any;
   project_years:any;
   associates:any;
@@ -34,19 +36,7 @@ export class AccessdetailsComponent implements OnInit {
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
-    
-    // this.projects=     
-    // {name:'Mani B',associatename:'Admin User',associateid:'BK00677333'};
-    //  this.roles=[
-    //  {name:'Mani B',associateid:'BM00677999',associatename:'Admin User'},
-    
-    //  {name:'Rokkam Murali',associateid:'RM00677333',associatename:'Normal User'}];
-    //  this.statuses=[
-    //  {name:'Active',code:'act'},
-    //  {name:'In Active',code:'inact'}];
-    
-    
-    this.leaveform = new FormGroup({
+     this.leaveform = new FormGroup({
       associateid:new FormControl('',{}),
       associatename:new FormControl('',{}),    
       accesstype:new FormControl('',{}),    
@@ -60,7 +50,7 @@ export class AccessdetailsComponent implements OnInit {
         Validators.maxLength(25),
         Validators.minLength(5),
         Validators.required,
-        Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$'), // <-- Allow letters and numbers only
+        Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]+$'), // <-- Allow letters and numbers only
       ])),
       
     })  
@@ -72,32 +62,23 @@ export class AccessdetailsComponent implements OnInit {
         Validators.maxLength(25),
         Validators.minLength(4),
         Validators.required,
-        Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$'), // <-- Allow letters and numbers only
+        Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]+$'), // <-- Allow letters and numbers only
       ])),
       
     })  
   }
-  // nodata(){
-  //   this.error="No Data Found";
-  // }
-  // exception(){
-  //   this.error="Exception has occurred while Fetching the Data";
-  // }
-  // badrequest(){
-  //   this.error="Bad Request";
-  // }
   setupdatemodel(accessdetail){
     console.log(accessdetail)
     this.updateaccessdetails.setValue(
-      {updateassociateid:accessdetail.associateId,
+      {updateassociateid:accessdetail.gid,
         updateassociatename:accessdetail.associateName,
         updateaccesstype:accessdetail.accessType,
-        updatestatus:accessdetail.activeStatus
+        updatestatus:accessdetail.status
       });
   }
-  searchleaves(value){
+  searchleaves(value){    
     console.log(value)
-    let url='http://10.56.65.45:8082/po/access/fetch?id='+value.associateid+'&name='+value.associatename+'&type='+value.accesstype+'&active='+value.status;
+    let url=this.ip+'/po/access/fetch?gid='+value.associateid+'&name='+value.associatename+'&type='+value.accesstype+'&active='+value.status;
     this.httpClient.get(url).subscribe(result => {    
       this.results=result;
       this.accessdetails=this.results.accessdetails;
@@ -108,18 +89,21 @@ export class AccessdetailsComponent implements OnInit {
     });
   }
   add_accessdetails(value){
-let category={associateId:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,activeStatus:value.addstatus,createdBy:'admin'};
-let url='http://10.56.65.45:8082/po/access/add';
+let category={gid:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
+console.log(category)
+let url=this.ip+'/po/access/add';
 this.httpClient.post(url,category).subscribe(result => {
   console.log(result);
   this.addresult=result;
   if(this.addresult.status==201){
     this.addmsg=this.addresult.message;
     this.addaccessdetails.reset();
+    let data={associateid:'',associatename:'',accesstype:'',status:''};
+    this.searchleaves(data);
   }
 },
 error => {
-  this.error = 'Connection Interrupted..'; 
+  this.adderror = 'Connection Interrupted..'; 
 });
   }
   closemsg(){
@@ -127,17 +111,21 @@ error => {
     this.error='';
     this.updatemsg='';
     this.deletemsg='';
+    this.adderror='';
+    this.updateerror='';
   }
  
   deletedata(deletevalue){
+    console.log(deletevalue)
     if (confirm("Do you want to delete the Account Details?")) {    
-      let delurl='http://10.56.65.45:8082/po/access/delete?id='+deletevalue.associateId;
-   
+      let delurl=this.ip+'/po/access/delete?gid='+deletevalue.gid;
       this.httpClient.delete(delurl).subscribe(result => {
         this.addresult=result;
-        if(this.addresult.status==200){
+        console.log(this.addresult)
+        if(this.addresult.Status==200){
           this.deletemsg=this.addresult.message;
-          alert(this.deletemsg);
+          console.log(this.deletemsg)
+          // alert(this.deletemsg);
           let data={associateid:'',associatename:'',accesstype:'',status:''};
           this.searchleaves(data);
         } 
@@ -148,13 +136,14 @@ error => {
     } 
   }
   update_accessdetails(updateaccessdetails){    
-    console.log(updateaccessdetails)
-    let modilfyurl='http://10.56.65.45:8082/po/access/update';
+    let modilfyurl=this.ip+'/po/access/update';
     let updatecategory={
-      associateId :updateaccessdetails.updateassociateid,
+      gid :updateaccessdetails.updateassociateid,
       associateName:updateaccessdetails.updateassociatename,
       accessType:updateaccessdetails.updateaccesstype,
-      activeStatus:updateaccessdetails.updatestatus};
+      status:updateaccessdetails.updatestatus,
+      modifiedBy:'admin'};
+      console.log(updatecategory)
     this.httpClient.put(modilfyurl,updatecategory).subscribe(result => {
       this.addresult=result;
       console.log(this.addresult)
@@ -165,7 +154,7 @@ error => {
       }
     },
     error => {
-      this.error = 'Connection Interrupted..'; 
+      this.updateerror = 'Connection Interrupted..'; 
     });
   }
   }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
-
+import { HttpClient } from  "@angular/common/http";
 @Component({
   selector: 'app-fxrates',
   templateUrl: './fxrates.component.html',
@@ -12,84 +12,118 @@ export class FxratesComponent implements OnInit  {
 // Initialized to specific date (09.10.2018).
 //09-10-2019
 //public model: any = { date: { year: 2018, month: 10, day: 9 } };
-  leaveform: FormGroup;
-  addleaveform: FormGroup;
+searchfxform: FormGroup;
+  addfxform: FormGroup;
+  updatefxform: FormGroup;
   error:any;
   projects:any;
+  results:any;
   project_years:any;
   associates:any;
-  leavelists:any;
+  fxlists:any;
+  addresult:any;
   role:any;
+  addmsg:any;
+  deletemsg:any;
+  updatemsg:any;
   myDatePickerOptions=AppLink.myDatePickerOptions;
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
-  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
+  currency_codes=AppLink.billingcurrency;
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) { }
 
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
-
-    this.projects=[      
-      {name:'USD',country:'US Dollar'},
-      {name:'JPY',country:'Yen'},
-      {name:'EUR',country:'Euro'},
-    ];
-    this.project_years=[
-      {year_month:'10'},
-      {year_month:'30'},
-      {year_month:'15'},
-      {year_month:'45'}  
-    ];
-    this.associates=[
-      {associateid:'12-Jan-18'},
-      {associateid:'03-Mar-18'},
-      {associateid:'09-Sep-18'},
-      {associateid:'21-Dec-18'}  
-    ];
-    this.leaveform = new FormGroup({
-      projectname:new FormControl('',{}), 
-      associatesid:new FormControl('',{})    
+    this.searchfxform = new FormGroup({
+      currency:new FormControl('',{}), 
+      fxdate:new FormControl('',{})    
     })
-    this.addleaveform = new FormGroup({
-      modalprojectname:new FormControl('',{
+    this.addfxform = new FormGroup({
+      currency:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      fxdate:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      fxrate:new FormControl('',{
         validators: [Validators.required]
       })
-    })
-  
+    })  
+    this.updatefxform = new FormGroup({
+      fxid:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      currency:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      fxdate:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      fxrate:new FormControl('',{
+        validators: [Validators.required]
+      })
+    })  
   }
-  nodata(){
-    this.error="No Data Found";
+searchfx_form(value){  
+  let url='';    
+  if(value.fxdate==''){
+    url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date';
+  }
+  else{
+    url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date='+value.fxdate.formatted;
+  }
+  this.httpClient.get(url).subscribe(result => {    
+    this.results=result;
+    this.fxlists=this.results.fxRates;
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
 }
-exception(){
-    this.error="Exception has occurred while Fetching the Data";
+closemsg(){
+  this.addmsg='';
+  this.error='';
+  this.updatemsg='';
 }
-badrequest(){
-    this.error="Bad Request";
-}
-searchleaves(){
-  this.leavelists=[
-    
-    {sno:'1',projectname:'USD -US Doller',associateid:'16-Jan-2019',associatename:'0.011545'},
-    {sno:'2',projectname:'USD -US Doller',associateid:'17-Jan-2019',associatename:'0.010546'},
-    {sno:'3',projectname:'USD -US Doller',associateid:'18-Jan-2019',associatename:'0.012015'},
-    {sno:'4',projectname:'JPY - Yen',associateid:'16-Jan-2019',associatename:'0.650000'},
-    {sno:'5',projectname:'JPY - Yen',associateid:'17-Jan-2019',associatename:'0.651000'},
-    {sno:'6',projectname:'JPY - Yen',associateid:'18-Jan-2019',associatename:'0.651250'},    
-    {sno:'7',projectname:'EUR - Euro',associateid:'16-Jan-2019',associatename:'0.012000'},
-    {sno:'8',projectname:'EUR - Euro',associateid:'17-Jan-2019',associatename:'0.012900'},    
-    {sno:'9',projectname:'EUR - Euro',associateid:'18-Jan-2019',associatename:'0.015000'},
-  ];
-}
-deletedata(){
-  if (confirm("Do you want to delete the FX Rate?")) {
-    alert("Data Deleted Successfully.")
+deletedata(deletevalue){
+  if (confirm("Do you want to delete the FX Rate?")) {    
+    let delurl=this.ip+'/po/fx_rates/delete?fxId='+deletevalue.fxId;
+    this.httpClient.delete(delurl).subscribe(result => {
+      this.addresult=result;
+      if(this.addresult.status==200){
+        this.deletemsg=this.addresult.message;
+        // alert(this.deletemsg);
+        let data={currency:'',fxdate:''};
+        this.searchfx_form(data);
+      } 
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    })  
   } 
 }
-
-onSubmit(leaveform){
-console.log(leaveform)
-console.log(leaveform.associatesid.formatted)
+add_fxdetails(value){
+  console.log(value);
+  let category={currencyCode:value.currency,fxDate:value.fxdate.formatted,fxRate:value.fxrate,createdBy:'admin'};
+  console.log(category)
+  let url=this.ip+'/po/fx_rates/create';
+  this.httpClient.post(url,category).subscribe(result => {
+    console.log(result)
+    this.addresult=result;
+    if(this.addresult.status==201){
+      this.addmsg=this.addresult.message;
+      this.searchfxform.reset();
+      let data={currency:'',fxdate:''};
+    }
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
+}
+setupdatemodel(fxlist){
+  this.updatefxform.setValue({fxid:fxlist.fxId,currency:fxlist.currencyCode,fxdate:fxlist.fxDate,fxrate:fxlist.fxRate});
 }
 }

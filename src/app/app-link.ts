@@ -10,7 +10,7 @@ export class AppLink {
         return IMyDpOptions;
     }
  
-    public static get baseURL(): string { return "http://10.56.67.114:8082"; }
+    public static get baseURL(): string { return "http://10.56.67.9:8082"; }
     public static get DTOptions() { 
         let dtOptions = {
             dom: 'Bfrtip<t>ip',
@@ -28,7 +28,7 @@ export class AppLink {
         return dtOptions;
     }
     public static get access_type() { 
-        let accessTypes = [{role:'admin',type:'Admin User'},{role:'normal',type:'Normal User'}];
+        let accessTypes = [{role:'ADMIN',type:'Admin User'},{role:'NORMAL',type:'Normal User'}];
         return accessTypes; 
     }
     public static get band() { 
@@ -48,7 +48,7 @@ export class AppLink {
         return submitionModes; 
     }
     public static get status() { 
-        let statuses = [{code:'active',type:'Active'},{code:'inactive',type:'In Active'}];
+        let statuses = [{code:'ACTIVE',type:'Active'},{code:'INACTIVE',type:'In Active'}];
         return statuses; 
     }
     public static get billingcurrency() { 

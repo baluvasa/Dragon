@@ -22,6 +22,10 @@
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
                     {{addmsg}}
                   </div>
+                  <div class="alert alert-danger alert-dismissible" *ngIf="adderror">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                    {{adderror}}
+                  </div>
                   <form [formGroup]="addaccessdetails" (ngSubmit)="add_accessdetails(addaccessdetails.value)">
                     <div class="modal-body">
                       <div class="form-row">
@@ -100,31 +104,17 @@
               </div>
               
             </form>
-<!--             
-            
-            <div class="row" style="margin-top:60px;">
-              <table class="col-md-12 text-center">
-                <tr>
-                  <td>
-                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
-                  </td>
-                  <td>
-                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
-                  </td>
-                  <td>
-                    <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
-                  </td>
-                </tr>
-              </table>
-            </div> -->
-            
-          </div>
+ </div>
         </div>
       </div>
       <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
         <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
         {{deletemsg}}
       </div>
+      <!-- <div class="alert alert-danger alert-dismissible" *ngIf="delerror">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+        {{delerror}}
+      </div> -->
       <div class="panel panel-default" *ngIf="accessdetails">
         <div class="panel-body">
           
@@ -143,10 +133,10 @@
               <tbody>
                 <tr *ngFor="let accessdetail of accessdetails; index as i">
                   <td>{{i+1}}</td>
-                  <td>{{accessdetail.associateId}}</td>
+                  <td>{{accessdetail.gid}}</td>
                   <td>{{accessdetail.associateName}}</td>
                   <td>{{accessdetail.accessType}}</td>
-                  <td>{{accessdetail.activeStatus}}</td>
+                  <td>{{accessdetail.status}}</td>
                   
                   <td>
                     <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateaccessdetails" (click)='setupdatemodel(accessdetail)'></button>&nbsp;
@@ -167,6 +157,10 @@
                 <div class="alert alert-success alert-dismissible" *ngIf="updatemsg">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
                     {{updatemsg}}
+                  </div>
+                <div class="alert alert-danger  alert-dismissible" *ngIf="updateerror">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                    {{updateerror}}
                   </div>
                 <form [formGroup]="updateaccessdetails" (ngSubmit)="update_accessdetails(updateaccessdetails.value)">
                   <div class="modal-body">
