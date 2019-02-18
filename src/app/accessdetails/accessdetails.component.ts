@@ -43,26 +43,41 @@ export class AccessdetailsComponent implements OnInit {
       status:new FormControl('',{})    
     })
     this.addaccessdetails = new FormGroup({
-      addassociateid:new FormControl('',{}),    
-      addaccesstype:new FormControl('',{}),    
-      addstatus:new FormControl('',{}) ,
+      addassociateid:new FormControl('',{
+        validators: [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9]*[a-zA-Z0-9]$') 
+        ]
+      }),    
+      addaccesstype:new FormControl(null,{ validators: [
+        Validators.required,
+      ]}),    
+      addstatus:new FormControl(null,{validators: [
+        Validators.required,
+      ]}) ,
       addassociatename:new FormControl('', Validators.compose([
         Validators.maxLength(25),
         Validators.minLength(5),
         Validators.required,
-        Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]+$'), // <-- Allow letters and numbers only
+        Validators.pattern('^[a-zA-Z0-9][a-zA-Z0-9 ]*[a-zA-Z0-9_]$'), // <-- Allow letters and numbers only
       ])),
       
     })  
     this.updateaccessdetails = new FormGroup({
       updateassociateid:new FormControl('',{}),    
-      updateaccesstype:new FormControl('',{}),    
-      updatestatus:new FormControl('',{}) ,
+      updateaccesstype:new FormControl('',{ validators: [
+        Validators.required,
+      ]}),    
+      updatestatus:new FormControl('',{ validators: [
+        Validators.required,
+      ]}) ,
       updateassociatename:new FormControl('', Validators.compose([
         Validators.maxLength(25),
-        Validators.minLength(4),
+        Validators.minLength(5),
         Validators.required,
-        Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]+$'), // <-- Allow letters and numbers only
+        Validators.pattern('^[a-zA-Z0-9][a-zA-Z0-9 ]*[a-zA-Z0-9_]$'), // <-- Allow letters and numbers only
       ])),
       
     })  
@@ -91,7 +106,7 @@ export class AccessdetailsComponent implements OnInit {
   add_accessdetails(value){
 let category={gid:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
 console.log(category)
-let url=this.ip+'/po/access/add';
+let url=this.ip+'/1po/access/add';
 this.httpClient.post(url,category).subscribe(result => {
   console.log(result);
   this.addresult=result;
@@ -107,11 +122,11 @@ error => {
 });
   }
   closemsg(){
-    this.addmsg='';
     this.error='';
-    this.updatemsg='';
     this.deletemsg='';
+    this.addmsg='';
     this.adderror='';
+    this.updatemsg='';
     this.updateerror='';
   }
  

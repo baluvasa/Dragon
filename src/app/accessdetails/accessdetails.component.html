@@ -30,20 +30,29 @@
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Associate ID*</label>
-                        <input type="text" class="form-control" placeholder="Associate ID" [formControl]="addaccessdetails.controls['addassociateid']"/>
-                        
+                        <input type="text" class="form-control" placeholder="Associate ID" [formControl]="addaccessdetails.controls['addassociateid']" />
+                        <div class="text-danger" *ngIf="addaccessdetails.controls.addassociateid.errors && (addaccessdetails.controls.addassociateid.dirty || addaccessdetails.controls.addassociateid.touched) && !addaccessdetails.controls.addassociateid.valid">
+                            <span *ngIf="addaccessdetails.controls.addassociateid.errors.required">Associate Id is required</span>
+                            <span *ngIf="addaccessdetails.controls.addassociateid.errors.maxlength">Associate Id length should be 10 characters</span>
+                            <span *ngIf="addaccessdetails.controls.addassociateid.errors.minlength">Associate Id length should be 10 characters</span>
+                            <span *ngIf="addaccessdetails.controls.addassociateid.errors.pattern">Empty Spaces are not allowed/pattern not match</span> 
+                          </div>
                         <label>Associate Name*</label>
                         <input type="text" class="form-control" placeholder="Associate Name" [formControl]="addaccessdetails.controls['addassociatename']"/>
-                        
+                        <div class="text-danger" *ngIf="addaccessdetails.controls.addassociatename.errors && (addaccessdetails.controls.addassociatename.dirty || addaccessdetails.controls.addassociatename.touched) && !addaccessdetails.controls.addassociatename.valid">
+                            <span *ngIf="addaccessdetails.controls.addassociatename.errors.required">Associate Name is required</span>
+                            <span *ngIf="addaccessdetails.controls.addassociatename.errors.maxlength">Associate Name length should not exceed 50 characters</span>
+                            <span *ngIf="addaccessdetails.controls.addassociatename.errors.pattern">Empty Spaces are not allowed/pattern not match</span> 
+                          </div>
                         <label>Access Type*</label>
                         <select class="form-control" [formControl]="addaccessdetails.controls['addaccesstype']">
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
+                          <option [value]="null" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                           <option *ngFor="let pro of accessTypes" [value]=pro.role>{{pro.type}}</option>
                         </select>
                         
                         <label>Status*</label>
                         <select class="form-control" [formControl]="addaccessdetails.controls['addstatus']">
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
+                          <option [value]="null" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                           <option *ngFor="let status of statuses" [value]=status.code>{{status.type}}</option>
                         </select>
                         <small id="mandatory_fields">* fields are Mandatory</small>
@@ -170,17 +179,19 @@
                       <label>Associate Name*</label>
                       
                       <input class="form-control" [formControl]="updateaccessdetails.controls['updateassociatename']">
-                      
-                      
-                      
+                      <div class="text-danger" *ngIf="updateaccessdetails.controls.updateassociatename.errors && (updateaccessdetails.controls.updateassociatename.dirty || updateaccessdetails.controls.updateassociatename.touched) && !updateaccessdetails.controls.updateassociatename.valid">
+                          <span *ngIf="updateaccessdetails.controls.updateassociatename.errors.required">Associate Name is required</span>
+                          <span *ngIf="updateaccessdetails.controls.updateassociatename.errors.maxlength">Associate Name length should not exceed 50 characters</span>
+                          <span *ngIf="updateaccessdetails.controls.updateassociatename.errors.pattern">Empty Spaces are not allowed/pattern not match</span> 
+                        </div>
                       <label>Access Type*</label>
                       <select class="form-control" [formControl]="updateaccessdetails.controls['updateaccesstype']">
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
+                        <option [value]="null" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                         <option *ngFor="let pro of accessTypes" [value]=pro.role>{{pro.type}}</option>
                       </select>
                       <label>Status*</label>
                       <select class="form-control" [formControl]="updateaccessdetails.controls['updatestatus']">
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
+                          <option [value]="null" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                           <option *ngFor="let status of statuses" [value]=status.code>{{status.type}}</option>
                         </select>
                       
