@@ -5,7 +5,7 @@
      
   <div class="panel panel-default">
     <div class="panel-heading">Search Holiday Details
-      <button type="button" class="btn btn-success fa fa-plus-circle add" data-toggle="modal" data-target="#exampleModalCenter">&nbsp;&nbsp;Add</button>
+      <button type="button" class="btn btn-success fa fa-plus-circle add" data-toggle="modal" data-target="#exampleModalCenter"  (click)='closemsg()'>&nbsp;&nbsp;Add</button>
     </div>
     <div class="panel-body">
      <div class="row">
@@ -70,6 +70,10 @@
   </div>
   </div>
   
+  <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+      {{deletemsg}}
+    </div> 
   
   <div class="panel panel-default" *ngIf="holidayslists">
       <div class="panel-body">
@@ -94,7 +98,7 @@
                     <td>{{holidayslist.projectName}}</td>
                     <td>{{holidayslist.year}}</td>
                     <td>
-                      <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"></button>&nbsp;
+                      <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#editmodel"  (click)='update_holiday_modal_screen(holidayslist)'></button>&nbsp;
                       <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="delete_hoilday_data(holidayslist)"></button>
                     </td>
                   </tr>
@@ -111,9 +115,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-center" id="exampleModalLongTitle">Add Holiday Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
           <span aria-hidden="true">&times;</span>
         </button>
+      </div>
+      <div class="alert alert-success alert-dismissible" *ngIf="addmsg">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+        {{addmsg}}
       </div>
       <div class="modal-body">
         <form [formGroup]="holidaylistform">
@@ -133,7 +141,7 @@
               <div class="form-group">
                 <label for="year">Account Name*</label>             
                   <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_account_name']">
-                      <option [value]="0" disabled selected>Select Account Name</option>
+                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
                       <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
                         {{account_name.acc_name}}
                       </option>
@@ -143,14 +151,19 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Project Name*</label>
-                <input type="text" class="form-control" placeholder="Project Name" [formControl]="holidaylistform.controls['add_project_name']">
-  
-              </div>
+                <select class="form-control" id="year" [formControl]="holidaylistform.controls['add_project_name']">
+                  <!-- <option [value]="0" disabled selected>Select Account Name</option> -->
+                  <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project Name</option>
+                  <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
+                    {{account_name.acc_name}}
+                  </option>
+                </select>
+               </div>
             </div>
             <div class="col-md-6">
               <label for="proj">Year*</label>
               <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_holiday_year']">
-                <option [value]="0" disabled selected>Select Year</option>
+                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year</option>
                 <option *ngFor="let year of years" [value]=year.years >
                   {{year.years}}
                 </option>
@@ -175,7 +188,7 @@
               <div class="form-group">
                 <div class="col-md-6"><label>February</label></div>
                 <div class="col-md-6">
-                  <input type="text"    name="feb" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_feb']" >
+                  <input type="text" name="feb" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_feb']" >
                   <!-- <small class="text-danger" *ngIf="holidaylistform.controls.feb.errors && (holidaylistform.controls.feb.dirty || holidaylistform.controls.feb.touched) && !holidaylistform.controls.feb.valid">
                     <span *ngIf="holidaylistform.controls.feb.errors.maxlength"> must be 2 characters </span>
                     <span *ngIf="holidaylistform.controls.feb.errors.max"> max no 28 </span>
@@ -322,7 +335,16 @@
     </div>
   </div>
   </div>
-  <!-- EDITMODAL -->
+
+
+
+  <!-- Update Holiday Details -->
+
+
+
+
+
+
   <div class="modal fade" id="editmodel" tabindex="-1" role="dialog" aria-labelledby="editmodel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -332,33 +354,37 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div class="alert alert-success alert-dismissible" *ngIf="updatemsg">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+          {{updatemsg}}
+        </div>
+      <form [formGroup]="holidayeditlistform" (ngSubmit)="update_holiday_list_form(holidayeditlistform.value)" >
       <div class="modal-body">
-        <form [formGroup]="holidayeditlistform" (ngSubmit)="onSubmit(holidayeditlistform.value)">
           <div class="row">
               <div class="col-md-6">
                   <div class="form-group">
                     <label for="proj">Account Category*</label>
-                   <input value="GE India Exports Pvt. Ltd." disabled class="form-control"> 
+                   <input value="GE India Exports Pvt. Ltd." disabled class="form-control" [formControl]="holidayeditlistform.controls['edit_account_category']"> 
                   
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                       <label for="proj">Account Name*</label>
-                     <input value="SQL PO" disabled class="form-control"> 
+                     <input value="SQL PO" disabled class="form-control"  [formControl]="holidayeditlistform.controls['edit_account_name']"> 
                     
                     </div>
                   </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Project Name*</label>
-               <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> 
+               <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control" [formControl]="holidayeditlistform.controls['edit_project_name']"> 
               
               </div>
             </div>
             <div class="col-md-6">
               <label for="proj">Year*</label>
-              <input value="2018" disabled class="form-control"> 
+              <input value="2018" disabled class="form-control"  [formControl]="holidayeditlistform.controls['edit_project_year']"> 
             
             </div>
           </div>
@@ -518,13 +544,13 @@
             </div>
           </div>
           <small id="mandatory_fields">* fields are Mandatory</small>
-        </form> 
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Update</button> 
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            
+          </div>
+        </div>
+      </form> 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="saveholidayeditinfo()" >Update</button> 
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        
-      </div>
-    </div>
   </div>
   </div>

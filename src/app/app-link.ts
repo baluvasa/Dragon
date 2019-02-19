@@ -10,7 +10,7 @@ export class AppLink {
         return IMyDpOptions;
     }
  
-    public static get baseURL(): string { return "http://10.56.67.9:8082"; }
+    public static get baseURL(): string { return "http://10.56.67.114:8082"; }
     public static get DTOptions() { 
         let dtOptions = {
             dom: 'Bfrtip<t>ip',

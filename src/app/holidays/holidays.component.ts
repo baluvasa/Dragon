@@ -10,7 +10,7 @@ import { HttpClient } from  "@angular/common/http";
   styleUrls: ['./holidays.component.scss']
 })
 export class HolidaysComponent implements OnInit {
-  error:any;
+  error="";
   list:any;  
   holidayform:FormGroup;
   holidaylistform:FormGroup;
@@ -33,8 +33,10 @@ export class HolidaysComponent implements OnInit {
   results:any;
   holidayslists:any;
   addresult:any;
-  deletemsg="";
   addmsg:any;
+  updatemsg="";
+  deletemsg="";
+
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) { 
   }
   
@@ -157,10 +159,16 @@ export class HolidaysComponent implements OnInit {
       })
     })
     this.holidayeditlistform = new FormGroup({
-      projecteditlist:new FormControl('',{
+      edit_account_category:new FormControl('',{
         validators: [Validators.required]
       }),
-      yeareditlist:new FormControl('',{
+      edit_account_name:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      edit_project_name:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      edit_project_year:new FormControl('',{
         validators: [Validators.required]
       }),
       jan_edit:new FormControl('',{
@@ -202,9 +210,7 @@ export class HolidaysComponent implements OnInit {
     })
    
   }
-  onSubmit(a){
-    console.log(a)
-  }
+
   search_holidays_details(value){  
     //let url=this.ip+'/po/holidays/fetch?accountCategory='+asd+'&accountName='+asd+'&projectName='+asd+'&year='+value.search_account_name;
     let url=this.ip+'/po/holidays/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name+'&projectName='+value.search_project_name+'&year='+value.search_holidays_years;
@@ -217,12 +223,6 @@ export class HolidaysComponent implements OnInit {
     });
   
 
-    // this.list = [
-    //   {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',Year:2018,days:104},
-    //   {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',Year:2019,days:104},
-    //   {account_category:'GE Packaged Power',account_name:'Aero',project_name:'IES_SHOULD COSTING-ES',Year:2018,days:104}      
-    // ];
-    
   }
   errordata() {
     this.error = 'no data found';
@@ -239,27 +239,40 @@ export class HolidaysComponent implements OnInit {
     this.year_default=0;
     // this.holidayform.reset(); 
   }
-//   saveholidayinfo(a)
-//   {
-//  console.log(a);
-//     // this.holidaylistform.reset();
-   
-//     alert("Data Added Successfully")
-//   }
-  saveholidayeditinfo()
-  {
- 
-    this.holidayeditlistform.reset();
-     alert("Data updated Successfully")
+
+  update_holiday_modal_screen(holidaylist){
+
+    this.holidayeditlistform.setValue({
+      edit_account_category:holidaylist.accountCategory,
+      edit_account_name:holidaylist.accountName,
+      edit_project_name:holidaylist.projectName,
+      edit_project_year:holidaylist.year,
+      jan_edit:holidaylist.january,
+      feb_edit:holidaylist.february,
+      mar_edit:holidaylist.march,
+      Apr_edit:holidaylist.april,
+      may_edit:holidaylist.may,
+      jun_edit:holidaylist.june,
+      jul_edit:holidaylist.july,
+      aug_edit:holidaylist.august,
+      sep_edit:holidaylist.september,
+      oct_edit:holidaylist.october,
+      nov_edit:holidaylist.november,
+      dec_edit:holidaylist.december
+    });
   }
 
+  closemsg(){
+    this.addmsg='';
+    this.error='';
+    this.updatemsg='';
+  }
   add_holiday_list_form(addholidaydata){
-    console.log(addholidaydata);
     let holidays={
             accountCategory: addholidaydata.add_account_category,
             accountName: addholidaydata.add_account_name,
-            year: addholidaydata.add_holiday_year,
             projectName:  addholidaydata.add_project_name,
+            year: addholidaydata.add_holiday_year,
             january: addholidaydata.holiday_jan,
             february:  addholidaydata.holiday_feb,
             march: addholidaydata.holiday_mar,
@@ -289,8 +302,8 @@ export class HolidaysComponent implements OnInit {
   }
   delete_hoilday_data(delete_data){
 
-    if (confirm("Do you want to delete the Account Details?")) {    
-      let delurl=this.ip+'/po/holidays/delete?id='+delete_data.id;
+    if (confirm("Do you want to delete the Holiday Details?")) {    
+      let delurl=this.ip+'/po/holidays/delete?accountCategory='+delete_data.accountCategory+'&accountName='+delete_data.accountName+'&projectName='+delete_data.projectName+'&year='+delete_data.year;
       this.httpClient.delete(delurl).subscribe(result => {
         this.addresult=result;
         if(this.addresult.status==200){
@@ -310,6 +323,51 @@ export class HolidaysComponent implements OnInit {
       })
     
     } 
+  }
+
+
+
+  // For Updating Holidays for any selected year
+
+  update_holiday_list_form(update_data)
+  {
+    let modilfyurl=this.ip+'/po/holidays/modify';  
+    let updateholidaylist={
+      accountCategory: update_data.edit_account_category,
+      accountName: update_data.edit_account_name,
+      year:  update_data.edit_project_year,
+      projectName: update_data.edit_project_name,
+      january: update_data.jan_edit,
+      february:  update_data.feb_edit,
+      march: update_data.mar_edit,
+      april:  update_data.Apr_edit,
+      may: update_data.may_edit,
+      june: update_data.jun_edit,
+      july: update_data.jul_edit,
+      august: update_data.aug_edit,
+      september: update_data.sep_edit,
+      october: update_data.oct_edit,
+      november: update_data.nov_edit,
+      december: update_data.dec_edit,
+      modifiedBy: 'admin'
+    };
+     this.httpClient.put(modilfyurl,updateholidaylist).subscribe(result => {
+       this.addresult=result;
+       if(this.addresult.status==200){
+         this.updatemsg=this.addresult.message;
+         let data={
+          search_account_category:'',
+          search_account_name:'',
+          search_project_name:'',
+          search_holidays_years:''
+        };
+         this.search_holidays_details(data);
+       }
+     },
+     error => {
+       this.error = 'Connection Interrupted..'; 
+     });
+ 
   }
 
 }
