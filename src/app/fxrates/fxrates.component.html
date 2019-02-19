@@ -1,171 +1,170 @@
 <div class="row">
-    <div class="container-fluid">
+  <div class="container-fluid">
+    
+    <h2>FX Details</h2>
+    <div class="panel panel-default">
       
-      <h2>FX Details</h2>
-      <div class="panel panel-default">
-        
-        <div class="panel-heading">FX Details
-          <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#fxdetails" style="float:right">
-            &nbsp;&nbsp;Add</button>
-            
-          </div> 
-          <div class="panel-body">
-            <div>
-              <div id="fxdetails" class="modal fade" role="dialog" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Adding FX Details</h4>
-                    </div>
-                    <div class="alert alert-success alert-dismissible" *ngIf="addmsg">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
-                        {{addmsg}}
-                      </div>
-                    <form [formGroup]="addfxform" (ngSubmit)="add_fxdetails(addfxform.value)">
-                      <div class="modal-body">
-                        <div class="form-row">
-                          <label>Currency*</label>
-                          <select class="form-control" [formControl]="addfxform.controls['currency']">
-                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
-                              <option *ngFor="let currency_code of currency_codes" [value]='currency_code.abbreviation'>{{currency_code.abbreviation}} - {{currency_code.currency}}</option>
-                            </select>
-                          
-                          
-                          
-                          <label>Fx Date*</label>
-                          <my-date-picker [options]="myDatePickerOptions" [formControl]="addfxform.controls['fxdate']"></my-date-picker>
-                         
-                          
-                          
-                          <div class="form-row">
-                            <label>Fx Rate*</label>
-                            <input type="text" class="form-control" [formControl]="addfxform.controls['fxrate']"/>
-                            
-                          </div>
-                          
-                          
-                          <small id="mandatory_fields">* fields are Mandatory</small>
-                        
-                        </div>
-                        <div class="modal-footer">
-                          <button type="submit" [disabled]="addfxform.invalid" class="btn btn-primary" data-create="modal">Add</button>
-                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </form>
+      <div class="panel-heading">FX Details
+        <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#fxdetails" style="float:right">
+          &nbsp;&nbsp;Add</button>
+          
+        </div> 
+        <div class="panel-body">
+          <div>
+            <div id="fxdetails" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adding FX Details</h4>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-12" *ngIf="error">
-                <div class="alert alert-danger alert-dismissible fade in">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  {{error}}
-                </div>
-              </div>
-              <form [formGroup]="searchfxform">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label>Currency Code</label>
-                      <select class="form-control" [formControl]="searchfxform.controls['currency']">
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
-                        <option *ngFor="let currency_code of currency_codes" [value]='currency_code.abbreviation'>{{currency_code.abbreviation}} - {{currency_code.currency}}</option>
-                      </select>
+                  <div class="alert alert-success alert-dismissible" *ngIf="addmsg">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{addmsg}}
                     </div>
-                    <div class="col-md-3">
-                      <label>Fx Date</label>
-  
-                      <my-date-picker [options]="myDatePickerOptions" [formControl]="searchfxform.controls['fxdate']"></my-date-picker>
-  
-  
-                      <!-- <input type="date" class="form-control" [formControl]="leaveform.controls['associatesid']" placeholder="Fx rate here.."> -->
+                  <form [formGroup]="addfxform" (ngSubmit)="add_fxdetails(addfxform.value)">
+                    <div class="modal-body">
+                      <div class="form-row">
+                        <label>Currency*</label>
+                        <select class="form-control" [formControl]="addfxform.controls['currency']">
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
+                            <option *ngFor="let currency_code of currency_codes" [value]='currency_code.abbreviation'>{{currency_code.abbreviation}} - {{currency_code.currency}}</option>
+                          </select>
                         
-                      
-                    </div>
-                    
-                    <!-- <div class="col-md-3">
-                      <label>FX Rate</label>
-                      <input class="form-control" [formControl]="leaveform.controls['projectyear']" placeholder="Fx rate here..">
+                        
+                        
+                        <label>Fx Date*</label>
+                        <my-date-picker [options]="myDatePickerOptions" [formControl]="addfxform.controls['fxdate']"></my-date-picker>
                        
-                      
-                    </div> -->
-                  </div>                
-                </div>                
-                <div class="text-center col-md-12">
-                  <button class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchfx_form(searchfxform.value)">Search</button>
-                  <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
-                </div>                
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
-            {{deletemsg}}
-          </div>
-        <div class="panel panel-default" *ngIf="fxlists">
-          <div class="panel-body">
-            <div class="table-responsive">          
-              <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
-                <thead>
-                  <tr>
-                    <th>S. No</th>
-                    <th>Currency Code</th>
-                    <th>FX Date</th>
-                    <th>Fx Rate</th>
-                    <th>Edit/Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let fxlist of fxlists; index as i">
-                    <td>{{i+1}}</td>
-                    <td>{{fxlist.currencyCode}}</td>
-                    <td>{{fxlist.fxDate}}</td>
-                    <td>{{fxlist.fxRate}}</td>
-                    
-                    <td>
-                      <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updatefxdetails" (click)="setupdatemodel(fxlist)" disabled></button>&nbsp;
-                      <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata(fxlist)"></button>
-                      
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div id="updatefxdetails" class="modal fade" role="dialog" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Update Fx Details</h4>
-                    </div>
-                    <form [formGroup]="updatefxform" (ngSubmit)="update_fxdetails(updatefxform.value)">
-                      <div class="modal-body">
+                        
+                        
                         <div class="form-row">
-                          <label>Currency*</label>
-                        <input class="form-control" type="hidden" [formControl]="updatefxform.controls['fxid']" disabled>
-                        <input class="form-control" [formControl]="updatefxform.controls['currency']" disabled>                          
-                          <label>Fx Date*</label>
-                          <input class="form-control"  [formControl]="updatefxform.controls['fxdate']" disabled>
-                          <!-- <input type="date" class="form-control"/> -->
-                          <div class="form-row">
-                            <label>Fx Rate*</label>
-                            <input type="text" class="form-control"  [formControl]="updatefxform.controls['fxrate']"/>
-                                                     </div>
-                          <small id="mandatory_fields">* fields are Mandatory</small>
+                          <label>Fx Rate*</label>
+                          <input type="text" class="form-control" [formControl]="addfxform.controls['fxrate']" required class="form-control" />
+                          <small class="text-danger" *ngIf="addfxform.controls.fxrate.errors && (addfxform.controls.fxrate.dirty || addfxform.controls.fxrate.touched) && !addfxform.controls.fxrate.valid">
+                            <span *ngIf="addfxform.controls.fxrate.errors.required">fxrate is required</span>
+                            <span *ngIf="addfxform.controls.fxrate.errors.minlength">fxrate must be 6 characters long</span>
+                            <span *ngIf="addfxform.controls.fxrate.errors.maxlength">fxrate must be 6 characters long</span>
+                        </small> 
                         </div>
-                        <div class="modal-footer">
-                          <button type="button"  class="btn btn-primary" data-create="modal">Update</button>
-                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
+                        
+                        
+                        <small id="mandatory_fields">* fields are Mandatory</small>
+                      
                       </div>
-                    </form>
-                  </div>
+                      <div class="modal-footer">
+                        <button type="submit" [disabled]="addfxform.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </div>  
-  
-          </div>             
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="error">
+              <div class="alert alert-danger alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{error}}
+              </div>
+            </div>
+            <form [formGroup]="searchfxform">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Currency Code</label>
+                    <select class="form-control" [formControl]="searchfxform.controls['currency']">
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
+                      <option *ngFor="let currency_code of currency_codes" [value]='currency_code.abbreviation'>{{currency_code.abbreviation}} - {{currency_code.currency}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Fx Date</label>
+
+                    <my-date-picker [options]="myDatePickerOptions" [formControl]="searchfxform.controls['fxdate']"></my-date-picker>
+
+
+                  
+                      
+                    
+                  </div>
+                  
+                 
+                </div>                
+              </div>                
+              <div class="text-center col-md-12">
+                <button class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchfx_form(searchfxform.value)">Search</button>
+                <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+              </div>                
+            </form>
+          </div>
         </div>
       </div>
-      
+      <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+          {{deletemsg}}
+        </div>
+      <div class="panel panel-default" *ngIf="fxlists">
+        <div class="panel-body">
+          <div class="table-responsive">          
+            <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th>S. No</th>
+                  <th>Currency Code</th>
+                  <th>FX Date</th>
+                  <th>Fx Rate</th>
+                  <th>Edit/Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fxlist of fxlists; index as i">
+                  <td>{{i+1}}</td>
+                  <td>{{fxlist.currencyCode}}</td>
+                  <td>{{fxlist.fxDate}}</td>
+                  <td>{{fxlist.fxRate}}</td>
+                  
+                  <td>
+                    <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updatefxdetails" (click)="setupdatemodel(fxlist)" disabled></button>&nbsp;
+                    <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata(fxlist)"></button>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="updatefxdetails" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Fx Details</h4>
+                  </div>
+                  <form [formGroup]="updatefxform" (ngSubmit)="update_fxdetails(updatefxform.value)">
+                    <div class="modal-body">
+                      <div class="form-row">
+                        <label>Currency*</label>
+                      <input class="form-control" type="hidden" [formControl]="updatefxform.controls['fxid']" disabled>
+                      <input class="form-control" [formControl]="updatefxform.controls['currency']" disabled>                          
+                        <label>Fx Date*</label>
+                        <input class="form-control"  [formControl]="updatefxform.controls['fxdate']" disabled>
+                        <!-- <input type="date" class="form-control"/> -->
+                        <div class="form-row">
+                          <label>Fx Rate*</label>
+                          <input type="text" class="form-control"  [formControl]="updatefxform.controls['fxrate']"/>
+                                                   </div>
+                        <small id="mandatory_fields">* fields are Mandatory</small>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button"  class="btn btn-primary" data-create="modal">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>  
+
+        </div>             
+      </div>
+    </div>
+    

@@ -46,28 +46,23 @@ export class LoginComponent implements OnInit {
     }
     
     onsignin(data){
-        
-       
-     let user_login={associateId:data.associateId,password:data.password}
-        let url='http://10.56.67.9:8082/po/login/associate';
-        this.httpClient.post(url,user_login).subscribe(result => {
-
-        this.afterlogin=result;
-        console.log("aft",this.afterlogin)
-        if(this.afterlogin.accessDetails.accessType=='admin'){
-          this.appservice.setLogedinfo('admin'); 
-          this.router.navigate(['home']);
-        }
-        else{
-          this.appservice.setLogedinfo('normal'); 
-          this.router.navigate(['fxrates']);
-          
-        }
-        },
-        error => {
-          this.error = 'Incorrect Username/password'; 
-        });
-      } 
+      let user_login={associateId:data.associateId,password:data.password}
+      let url='http://10.56.67.9:8082/po/login/associate';
+      this.httpClient.post(url,user_login).subscribe(result => {
+      this.afterlogin=result;
+      console.log(this.afterlogin);
+      if(this.afterlogin.status==200){
+      this.appservice.setLogedinfo(this.afterlogin.accessDetails.accessType); 
+      this.router.navigate(['home']);
+      }
+      else{
+      this.error = 'Incorrect Username/password'; 
+      }
+      },
+      error => {
+      this.error = 'Incorrect Username/password'; 
+      });
+      } 
 
     }
   

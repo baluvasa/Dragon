@@ -9,9 +9,7 @@ import { HttpClient } from  "@angular/common/http";
   styleUrls: ['./fxrates.component.scss']
 })
 export class FxratesComponent implements OnInit  {
-// Initialized to specific date (09.10.2018).
-//09-10-2019
-//public model: any = { date: { year: 2018, month: 10, day: 9 } };
+
 searchfxform: FormGroup;
   addfxform: FormGroup;
   updatefxform: FormGroup;
@@ -49,7 +47,7 @@ searchfxform: FormGroup;
         validators: [Validators.required]
       }),
       fxrate:new FormControl('',{
-        validators: [Validators.required]
+        validators: [Validators.required,Validators.minLength(2),Validators.maxLength(5)]
       })
     })  
     this.updatefxform = new FormGroup({
