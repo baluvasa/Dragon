@@ -51,9 +51,9 @@ export class LoginComponent implements OnInit {
      let user_login={associateId:data.associateId,password:data.password}
         let url='http://10.56.67.9:8082/po/login/associate';
         this.httpClient.post(url,user_login).subscribe(result => {
-        console.log("------------",result);
+
         this.afterlogin=result;
-        console.log("11111111111111",this.afterlogin.accessDetails.accessType);
+       
         if(this.afterlogin.accessDetails.accessType=='admin'){
           this.appservice.setLogedinfo('admin'); 
           this.router.navigate(['home']);
