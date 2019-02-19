@@ -7,26 +7,28 @@
             <div class="panel-body">
                 <div *ngIf="error" class="alert alert-danger fade in">{{error}}<button type="button" class="close close-alert" data-dismiss="alert" aria-hidden="true">×</button></div>
                 
-                <form [formGroup]="loginform" (ngSubmit)="onSubmit(loginform.value)">
+                <form [formGroup]="loginform">
                     <div class="form-group">
                         <label>Associate ID</label>                        
-                        <input type="text" class="form-control" placeholder="Associate ID" [formControl]="loginform.controls['username']" required autofocus>
-                        <small class="text-danger" *ngIf="loginform.controls.username.errors && (loginform.controls.username.dirty || loginform.controls.username.touched) && !loginform.controls.username.valid">
-                            <span *ngIf="loginform.controls.username.errors.required">Associate ID Required</span>
-                            <span *ngIf="loginform.controls.username.errors.minlength">Name must be 10 characters long</span>
+                        <input type="text" class="form-control" placeholder="Associate ID" [formControl]="loginform.controls['associateId']"  required autofocus>
+                        <small class="text-danger" *ngIf="loginform.controls.associateId.errors && (loginform.controls.associateId.dirty || loginform.controls.associateId.touched) && !loginform.controls.associateId.valid">
+                            <span *ngIf="loginform.controls.associateId.errors.required">Associate ID Required</span>
+                      
+                          <span *ngIf="loginform.controls.associateId.errors.minlength">Name must be 10 characters long</span>
+                          <span *ngIf="loginform.controls.associateId.errors.pattern">Invalid pattern.Pattern Should be SA00587670</span> 
                         </small> 
                     </div>
                     
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" placeholder="Password" [formControl]="loginform.controls['password']" required class="form-control"/>
+                        <input type="password" placeholder="Password" [formControl]="loginform.controls['password']"  required class="form-control" />
                         <small class="text-danger" *ngIf="loginform.controls.password.errors && (loginform.controls.password.dirty || loginform.controls.password.touched) && !loginform.controls.password.valid">
                             <span *ngIf="loginform.controls.password.errors.required">Password is required</span>
                             <span *ngIf="loginform.controls.password.errors.minlength">Password must be 6 characters long</span>
                         </small> 
                     </div>
                     <div class="form-group text-center">
-                        <button [disabled]="loginform.invalid" class="btn btn-primary" type="submit" >Login</button>
+                        <button [disabled]="loginform.invalid" class="btn btn-primary"  (click)="onsignin(user_login)" >Login</button>
                     </div>
                     <br>
                     <div class="form-group">
