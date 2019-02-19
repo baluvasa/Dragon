@@ -13,6 +13,8 @@ export class AccountcategoryComponent implements OnInit  {
   addaccountcategory: FormGroup;
   update_accountcategory: FormGroup;
   error='';
+  adderror='';
+  updateerror='';
   projects:any;
   project_years:any;
   associates:any;
@@ -43,7 +45,8 @@ export class AccountcategoryComponent implements OnInit  {
         validators: [
           Validators.required,
           Validators.maxLength(50),
-          Validators.pattern('^(?! )[a-zA-Z0-9!@#$&()\\-`.+,/\"]*(?<! )$') 
+          Validators.minLength(1),
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
         ]
       }),
       add_account_name:new FormControl('',{
@@ -51,7 +54,7 @@ export class AccountcategoryComponent implements OnInit  {
           Validators.required,
           Validators.maxLength(50),
           Validators.minLength(1),
-          Validators.pattern('^(?! )[a-zA-Z0-9!@#$&()\\-`.+,/\"]*(?<! )$') 
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
         ]
       })
     })
@@ -67,21 +70,21 @@ export class AccountcategoryComponent implements OnInit  {
       update_account_name:new FormControl('',{
         validators: [
           Validators.required,
-          Validators.maxLength(50),
-          Validators.minLength(1),
-          Validators.pattern('^(?! )[a-zA-Z0-9!@#$&()\\-`.+,/\"]*(?<! )$')
-
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
         ]
       })
     });      
   }
-  trim_whitespace(value){
-    return value ? value.replace(/^\s+|\s+$/gm, '') : '';  
-  }
+
   closemsg(){
-    this.addmsg='';
     this.error='';
+    this.deletemsg='';
+    this.addmsg='';
+    this.adderror='';
     this.updatemsg='';
+    this.updateerror='';
   }
 add_account_category_data(addaccountcategory){
   let category={accountCategory:addaccountcategory.add_account_category,accountName:addaccountcategory.add_account_name,createdBy:'admin'};

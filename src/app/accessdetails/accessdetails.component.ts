@@ -38,7 +38,7 @@ export class AccessdetailsComponent implements OnInit {
     }
      this.leaveform = new FormGroup({
       associateid:new FormControl('',{}),
-      associatename:new FormControl('',{}),    
+      associatename:new FormControl('',{}),     
       accesstype:new FormControl('',{}),    
       status:new FormControl('',{})    
     })
@@ -57,12 +57,14 @@ export class AccessdetailsComponent implements OnInit {
       addstatus:new FormControl(null,{validators: [
         Validators.required,
       ]}) ,
-      addassociatename:new FormControl('', Validators.compose([
-        Validators.maxLength(25),
-        Validators.minLength(5),
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9][a-zA-Z0-9 ]*[a-zA-Z0-9_]$'), // <-- Allow letters and numbers only
-      ])),
+      addassociatename:new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
+        ]
+      }),
       
     })  
     this.updateaccessdetails = new FormGroup({
@@ -73,12 +75,14 @@ export class AccessdetailsComponent implements OnInit {
       updatestatus:new FormControl('',{ validators: [
         Validators.required,
       ]}) ,
-      updateassociatename:new FormControl('', Validators.compose([
-        Validators.maxLength(25),
-        Validators.minLength(5),
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9][a-zA-Z0-9 ]*[a-zA-Z0-9_]$'), // <-- Allow letters and numbers only
-      ])),
+      updateassociatename:new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
+        ]
+      }),
       
     })  
   }

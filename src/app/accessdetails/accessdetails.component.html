@@ -68,7 +68,7 @@
               </div>
             </div>
             <div class="col-md-12" *ngIf="error">
-              <div class="alert alert-danger alert-dismissible fade in">
+              <div class="alert alert-danger alert-dismissible">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
                 {{error}}
               </div>
@@ -120,10 +120,10 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
         {{deletemsg}}
       </div>
-      <!-- <div class="alert alert-danger alert-dismissible" *ngIf="delerror">
+      <div class="alert alert-danger alert-dismissible" *ngIf="delerror">
         <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
         {{delerror}}
-      </div> -->
+      </div>
       <div class="panel panel-default" *ngIf="accessdetails">
         <div class="panel-body">
           
@@ -193,10 +193,7 @@
                       <select class="form-control" [formControl]="updateaccessdetails.controls['updatestatus']">
                           <option [value]="null" disabled selected hidden style="color:#a4b2ba;">Select Access Type</option>
                           <option *ngFor="let status of statuses" [value]=status.code>{{status.type}}</option>
-                        </select>
-                      
-                      
-                      
+                        </select>                      
                     </div>
                     <div class="modal-footer">
                       <button type="submit" [disabled]="updateaccessdetails.invalid" class="btn btn-primary" data-create="modal">Update</button>
