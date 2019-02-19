@@ -16,25 +16,30 @@
                       <h4 class="modal-title">Add Account Category Details</h4>                    
                     </div>
                     <div class="alert alert-success alert-dismissible" *ngIf="addmsg">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
-                      {{addmsg}}
-                    </div>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                        {{addmsg}}
+                      </div>
+                      <div class="alert alert-danger alert-dismissible" *ngIf="adderror">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                        {{adderror}}
+                      </div>
                     <form [formGroup]="addaccountcategory" (ngSubmit)="add_account_category_data(addaccountcategory.value)">
                       <div class="modal-body">
                         <div class="form-row">
                           <label>Account Category*</label>
-                          <input class="form-control" placeholder="Account Category" [formControl]="addaccountcategory.controls['add_account_category']" (blur)="whitespace=trim_whitespace($event.target.value)" value="{{whitespace}}">                        
+                          <input class="form-control" placeholder="Account Category" [formControl]="addaccountcategory.controls['add_account_category']" >                        
                           <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_category.errors && (addaccountcategory.controls.add_account_category.dirty || addaccountcategory.controls.add_account_category.touched) && !addaccountcategory.controls.add_account_category.valid">
                             <span *ngIf="addaccountcategory.controls.add_account_category.errors.required">Account Category is required</span>
                             <span *ngIf="addaccountcategory.controls.add_account_category.errors.maxlength">Account Category length should not exceed 50 characters</span>
-                            <span *ngIf="addaccountcategory.controls.add_account_category.errors.pattern">Empty Spaces are not allowed</span> 
+                            <span *ngIf="addaccountcategory.controls.add_account_category.errors.pattern">Empty Spaces are not allowed/Pattern Not match</span> 
                           </div>
                           <div class="form-row">
                             <label>Account Name*</label>
                             <input type="text"  placeholder="Account Name"class="form-control" [formControl]="addaccountcategory.controls['add_account_name']"/>
                             <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_name.errors && (addaccountcategory.controls.add_account_name.dirty || addaccountcategory.controls.add_account_name.touched) && !addaccountcategory.controls.add_account_name.valid">
                               <span *ngIf="addaccountcategory.controls.add_account_name.errors.required">Account Name is required</span>
-                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.pattern">Empty Spaces are not allowed</span>
+                            <span *ngIf="addaccountcategory.controls.add_account_name.errors.maxlength">Account Name length should not exceed 50 characters</span>
+                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.pattern">Empty Spaces are not allowed/Pattern Not match</span>
                               
                             </div>
                           </div>
@@ -50,11 +55,11 @@
                 </div>
               </div>
               <div class="col-md-12" *ngIf="error">
-                <div class="alert alert-danger alert-dismissible fade in">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close"  (click)='closemsg()'>&times;</a>
-                  {{error}}
+                  <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                    {{error}}
+                  </div>
                 </div>
-              </div>
               <form [formGroup]="searchaccountcategory">
                 <div class="form-group">
                   <div class="row">
@@ -72,30 +77,18 @@
                   <button class="btn btn-primary col-md-offset-3 col-md-2" (click)="search_accountcategory(searchaccountcategory.value)">Search</button>
                   <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset"  (click)='closemsg()'>Cancel</button>
                 </div>
-              </form>
-              <!-- <div class="row" style="margin-top:60px;">
-                <table class="col-md-12 text-center">
-                  <tr>
-                    <td>
-                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
-                    </td>
-                    <td>
-                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
-                    </td>
-                    <td>
-                      <button [disabled]="leaveform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
-                    </td>
-                  </tr>
-                </table>
-              </div> -->
-              
+              </form>              
             </div>
           </div>
         </div>
         <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
-          {{deletemsg}}
-        </div>        
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+            {{deletemsg}}
+          </div>
+          <div class="alert alert-danger alert-dismissible" *ngIf="delerror">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+            {{delerror}}
+          </div>       
         <div class="panel panel-default" *ngIf="categorylists">
           <div class="panel-body">
             
@@ -130,31 +123,26 @@
                     <h4 class="modal-title">Update Account Category Details</h4>
                   </div>
                   <div class="alert alert-success alert-dismissible" *ngIf="updatemsg">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
-                    {{updatemsg}}
-                  </div>
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{updatemsg}}
+                    </div>
+                  <div class="alert alert-danger  alert-dismissible" *ngIf="updateerror">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{updateerror}}
+                    </div>
                   <form [formGroup]="update_accountcategory" (ngSubmit)="update_account_category_data(update_accountcategory.value)">
                     <div class="modal-body">
                       <div class="form-row">
                         <label>Account Category*</label>
                         <input type="hidden" class="form-control" [formControl]="update_accountcategory.controls['update_account_category_id']" disabled required>
                         <input type="text" class="form-control" [formControl]="update_accountcategory.controls['update_account_category']" disabled required>
-                        <!-- <select class="form-control" [formControl]="update_accountcategory.controls['update_account_category']" disabled required>
-                          <option value="" selected style="color:#a4b2ba;">GE Appliances</option>
-                          <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option> 
-                          
-                        </select> -->
-                        <small class="text-danger" *ngIf="update_accountcategory.controls.update_account_category.errors && (update_accountcategory.controls.update_account_category.dirty || update_accountcategory.controls.update_account_category.touched) && !update_accountcategory.controls.update_account_category.valid">
-                          <span *ngIf="update_accountcategory.controls.update_account_category.errors.required">Account Category is required</span>
-                        </small>
-                        
-                        
                         <div class="form-row">
                           <label>Account Name*</label>
                           <input type="text" value="GE INDIA EXPORTS PVT LTD" placeholder="Account Name..." class="form-control" [formControl]="update_accountcategory.controls['update_account_name']" />
                           <small class="text-danger" *ngIf="update_accountcategory.controls.update_account_name.errors && (update_accountcategory.controls.update_account_name.dirty || update_accountcategory.controls.update_account_name.touched) && !update_accountcategory.controls.update_account_name.valid">
-                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Name is required</span>                            
-                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.pattern">Empty Spaces are not allowed</span>
+                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Name is required</span>
+                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.maxlength">Account Name length should not exceed 50 characters</span>                            
+                            <span *ngIf="update_accountcategory.controls.update_account_name.errors.pattern">Empty Spaces are not allowed/Pattern Not match</span>
                           </small>
                         </div>
                         
