@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
     logres:any;  
     msg:any; 
     afterlogin:any;
-    user_login:any;
     alogin:any;
     constructor(private formBuilder: FormBuilder,private router:Router,private appservice:AppServicesService,private  httpClient:HttpClient) { }
     
@@ -46,13 +45,12 @@ export class LoginComponent implements OnInit {
         this.error="Bad Request";
     }
     
-    onsignin(user_login){
+    onsignin(data){
         
        
-     this.user_login={associateId:'BV00586358',
-    password:'PO@123456'}
+     let user_login={associateId:data.associateId,password:data.password}
         let url='http://10.56.67.9:8082/po/login/associate';
-        this.httpClient.post(url,this.user_login).subscribe(result => {
+        this.httpClient.post(url,user_login).subscribe(result => {
         console.log("------------",result);
         this.afterlogin=result;
         console.log("11111111111111",this.afterlogin.accessDetails.accessType);
