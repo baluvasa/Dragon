@@ -53,12 +53,13 @@ export class LoginComponent implements OnInit {
         this.httpClient.post(url,user_login).subscribe(result => {
 
         this.afterlogin=result;
+        console.log("aft",this.afterlogin)
         if(this.afterlogin.accessDetails.accessType=='admin'){
           this.appservice.setLogedinfo('admin'); 
           this.router.navigate(['home']);
         }
         else{
-         
+          this.appservice.setLogedinfo('normal'); 
           this.router.navigate(['fxrates']);
           
         }
