@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
       }
       },
       error => {
-      this.error = 'Incorrect Username/password'; 
+      this.error = 'Check your Network Connection '; 
       });
       } 
 

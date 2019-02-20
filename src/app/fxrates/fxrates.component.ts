@@ -47,7 +47,7 @@ searchfxform: FormGroup;
         validators: [Validators.required]
       }),
       fxrate:new FormControl('',{
-        validators: [Validators.required,Validators.minLength(2),Validators.maxLength(5)]
+        validators: [Validators.required,Validators.minLength(2),Validators.maxLength(18),Validators.pattern('^[0-9]+(\.[0-9]{1,9})?$')]
       })
     })  
     this.updatefxform = new FormGroup({
@@ -61,11 +61,11 @@ searchfxform: FormGroup;
         validators: [Validators.required]
       }),
       fxrate:new FormControl('',{
-        validators: [Validators.required]
+        validators: [Validators.required,Validators.minLength(2),Validators.maxLength(18),Validators.pattern('^[0-9]+(\.[0-9]{1,9})?$')]
       })
     })  
   }
-searchfx_form(value){  
+searchfx_form(value){ 
   let url='';    
   if(value.fxdate==''){
     url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date';
