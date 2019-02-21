@@ -10,7 +10,7 @@
                 <form [formGroup]="loginform">
                     <div class="form-group">
                         <label>Associate ID</label>                        
-                        <input type="text" class="form-control" placeholder="Associate ID" [formControl]="loginform.controls['associateId']"  required autofocus>
+                        <input type="text" class="form-control" placeholder="Associate ID" onkeyup="this.value = this.value.toUpperCase();"  [formControl]="loginform.controls['associateId']"  required autofocus>
                         <small class="text-danger" *ngIf="loginform.controls.associateId.errors && (loginform.controls.associateId.dirty || loginform.controls.associateId.touched) && !loginform.controls.associateId.valid">
                             <span *ngIf="loginform.controls.associateId.errors.required">Associate ID Required</span>
                       
