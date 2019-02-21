@@ -28,12 +28,12 @@ export class HolidaysComponent implements OnInit {
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
   role:any;
-  holidaysinfo:any;
   account_names:any;
   results:any;
   holidayslists:any;
   addresult:any;
   addmsg:any;
+  adderrormsg:any;
   updatemsg="";
   deletemsg="";
 
@@ -42,34 +42,7 @@ export class HolidaysComponent implements OnInit {
   
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
-    this.holidaysinfo=[
-      {sno:'1',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Sep',year:'2018',count:'8'},
-      {sno:'2',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Oct',year:'2018',count:'11'},
-      {sno:'3',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Nov',year:'2018',count:'9'},
-      {sno:'4',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Dec',year:'2018',count:'10'},      
-      {sno:'5',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Jan',year:'2019',count:'8'},
-      {sno:'6',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Feb',year:'2019',count:'9'},
-      {sno:'7',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Mar',year:'2019',count:'10'},
-      {sno:'8',projectname:'GE Energy-NPI Support-ICFC Pro',month:'Apr',year:'2019',count:'11'},
-      {sno:'9',projectname:'GE Energy-NPI Support-ICFC Pro',month:'May',year:'2019',count:'9'},
-      {sno:'10',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Jan',year:'2019',count:'8'},
-      {sno:'11',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Feb',year:'2019',count:'9'},
-      {sno:'12',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Mar',year:'2019',count:'10'},
-      {sno:'13',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Apr',year:'2019',count:'11'},
-      {sno:'14',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'May',year:'2019',count:'8'},
-      {sno:'15',projectname:'IES_GE O&G-Vetco Gray Inc-ES',month:'Jun',year:'2019',count:'10'},
-      {sno:'16',projectname:'GE Energy - Industrial',month:'Oct',year:'2018',count:'9'},
-      {sno:'17',projectname:'GE Energy - Industrial',month:'Nov',year:'2018',count:'10'},
-      {sno:'18',projectname:'GE Energy - Industrial',month:'Dec',year:'2018',count:'9'},
-      {sno:'19',projectname:'GE Energy - Industrial',month:'Jan',year:'2019',count:'8'},
-      {sno:'20',projectname:'GE Energy - Industrial',month:'Feb',year:'2019',count:'8'},
-      {sno:'21',projectname:'AVS 6 months',month:'Jan',year:'2019',count:'9'},
-      {sno:'22',projectname:'AVS 6 months',month:'Feb',year:'2019',count:'8'},
-      {sno:'23',projectname:'AVS 6 months',month:'Mar',year:'2019',count:'8'},
-      {sno:'24',projectname:'AVS 6 months',month:'Apr',year:'2019',count:'10'},
-      {sno:'25',projectname:'AVS 6 months',month:'May',year:'2019',count:'11'}
-    ];
-    if(localStorage.getItem('logeduser')=='admin'){
+     if(localStorage.getItem('logeduser')=='admin'){
       this.role=true;
     }
     
@@ -90,7 +63,11 @@ export class HolidaysComponent implements OnInit {
     this.years =[
       {years:"2018"},
       {years:"2019"},
-      {years:"2020"}
+      {years:"2020"},
+      {years:"2021"},
+      {years:"2022"},
+      {years:"2023"},
+      {years:"2024"},
     ];
 
 
@@ -125,7 +102,7 @@ export class HolidaysComponent implements OnInit {
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
       }),
       holiday_feb:new FormControl('',{
-        validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(28)]
+        validators: [Validators.required,Validators.maxLength(1),Validators.min(0)]
       }),
       holiday_mar:new FormControl('',{
         validators: [Validators.required,Validators.maxLength(2),Validators.min(0),Validators.max(31)]
@@ -210,7 +187,26 @@ export class HolidaysComponent implements OnInit {
     })
    
   }
-
+  leap_year(date_value)
+  {
+   //let year=this.holidaylistform[0].add_holiday_year.value;
+   let year=$("#year_val").val();
+   if(date_value!=""){
+    let leap_year_validate=year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+   if(leap_year_validate==true && (date_value<=29)){
+       return true;
+   }
+   else if(leap_year_validate==true && (date_value>29)){
+     return "leap_year";
+ }
+   else if(leap_year_validate==false &&date_value>28 || date_value < 0){
+          return false;
+   }
+   else return ;
+  
+  }
+   }
+  
   search_holidays_details(value){  
     //let url=this.ip+'/po/holidays/fetch?accountCategory='+asd+'&accountName='+asd+'&projectName='+asd+'&year='+value.search_account_name;
     let url=this.ip+'/po/holidays/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name+'&projectName='+value.search_project_name+'&year='+value.search_holidays_years;
@@ -221,28 +217,11 @@ export class HolidaysComponent implements OnInit {
     error => {
       this.error = 'Connection Interrupted..'; 
     });
+  }
   
 
-  }
-  errordata() {
-    this.error = 'no data found';
-  }
-  errorexceptiondata() {
-    this.error = 'Exception has occurred while fetching holiday details';
-  }
-  badrequest() {
-    this.error="Bad Request";
-  }
-  reset()
-  {
-    // this.edit=0;
-    this.year_default=0;
-    // this.holidayform.reset(); 
-  }
-
   update_holiday_modal_screen(holidaylist){
-
-    this.holidayeditlistform.setValue({
+   this.holidayeditlistform.setValue({
       edit_account_category:holidaylist.accountCategory,
       edit_account_name:holidaylist.accountName,
       edit_project_name:holidaylist.projectName,
@@ -265,6 +244,7 @@ export class HolidaysComponent implements OnInit {
   closemsg(){
     this.addmsg='';
     this.error='';
+    this.adderrormsg='';
     this.updatemsg='';
   }
   add_holiday_list_form(addholidaydata){
@@ -292,6 +272,10 @@ export class HolidaysComponent implements OnInit {
       this.addresult=result;
       if(this.addresult.status==201){
         this.addmsg=this.addresult.message;
+        this.holidaylistform.reset();
+      }
+      else if(this.addresult.status==409){
+        this.adderrormsg=this.addresult.message;
         this.holidaylistform.reset();
       }
     },
