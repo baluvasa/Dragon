@@ -33,7 +33,7 @@ export class AccessdetailsComponent implements OnInit {
   
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
-    if(localStorage.getItem('logeduser')=='admin'){
+    if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
      this.leaveform = new FormGroup({
@@ -60,8 +60,8 @@ export class AccessdetailsComponent implements OnInit {
       addassociatename:new FormControl('', {
         validators: [
           Validators.required,
-          Validators.maxLength(10),
-          Validators.minLength(10),
+          Validators.maxLength(50),
+          Validators.minLength(5),
           Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
         ]
       }),
@@ -78,8 +78,8 @@ export class AccessdetailsComponent implements OnInit {
       updateassociatename:new FormControl('', {
         validators: [
           Validators.required,
-          Validators.maxLength(10),
-          Validators.minLength(10),
+          Validators.maxLength(50),
+          Validators.minLength(5),
           Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
         ]
       }),
@@ -87,7 +87,6 @@ export class AccessdetailsComponent implements OnInit {
     })  
   }
   setupdatemodel(accessdetail){
-    console.log(accessdetail)
     this.updateaccessdetails.setValue(
       {updateassociateid:accessdetail.gid,
         updateassociatename:accessdetail.associateName,
@@ -95,13 +94,17 @@ export class AccessdetailsComponent implements OnInit {
         updatestatus:accessdetail.status
       });
   }
-  searchleaves(value){    
-    console.log(value)
-    let url=this.ip+'/po/access/fetch?gid='+value.associateid+'&name='+value.associatename+'&type='+value.accesstype+'&active='+value.status;
-    this.httpClient.get(url).subscribe(result => {    
+  searchleaves(value){
+    let url='';
+    if(value.associateid.length==0 && value.associatename.length==0 && value.accesstype.length==0 && value.status.length==0){
+      url=this.ip+'/po/access/fetch?gid= &name= &type= &active= ';
+    }
+    else{
+      url=this.ip+'/po/access/fetch?gid='+value.associateid+'&name='+value.associatename+'&type='+value.accesstype+'&active='+value.status;
+    }
+       this.httpClient.get(url).subscribe(result => {    
       this.results=result;
       this.accessdetails=this.results.accessdetails;
-      console.log(this.results)
     },
     error => {
       this.error = 'Connection Interrupted..'; 
@@ -110,15 +113,17 @@ export class AccessdetailsComponent implements OnInit {
   add_accessdetails(value){
 let category={gid:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
 console.log(category)
-let url=this.ip+'/1po/access/add';
+let url=this.ip+'/po/access/add';
 this.httpClient.post(url,category).subscribe(result => {
-  console.log(result);
   this.addresult=result;
   if(this.addresult.status==201){
     this.addmsg=this.addresult.message;
     this.addaccessdetails.reset();
     let data={associateid:'',associatename:'',accesstype:'',status:''};
     this.searchleaves(data);
+  }
+  else if(this.addresult.status==409){
+    this.addmsg=this.addresult.message;    
   }
 },
 error => {
@@ -132,8 +137,9 @@ error => {
     this.adderror='';
     this.updatemsg='';
     this.updateerror='';
+    this.addaccessdetails.reset();
   }
- 
+
   deletedata(deletevalue){
     console.log(deletevalue)
     if (confirm("Do you want to delete the Account Details?")) {    

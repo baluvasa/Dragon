@@ -32,7 +32,7 @@ searchfxform: FormGroup;
 
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
-    if(localStorage.getItem('logeduser')=='admin'){
+    if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
     this.searchfxform = new FormGroup({
@@ -73,6 +73,7 @@ searchfx_form(value){
   else{
     url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date='+value.fxdate.formatted;
   }
+  console.log(url)
   this.httpClient.get(url).subscribe(result => {    
     this.results=result;
     this.fxlists=this.results.fxRates;
@@ -89,6 +90,7 @@ closemsg(){
 deletedata(deletevalue){
   if (confirm("Do you want to delete the FX Rate?")) {    
     let delurl=this.ip+'/po/fx_rates/delete?fxId='+deletevalue.fxId;
+    console.log(delurl)
     this.httpClient.delete(delurl).subscribe(result => {
       this.addresult=result;
       if(this.addresult.status==200){
@@ -113,8 +115,9 @@ add_fxdetails(value){
     this.addresult=result;
     if(this.addresult.status==201){
       this.addmsg=this.addresult.message;
-      this.searchfxform.reset();
+      this.addfxform.reset();
       let data={currency:'',fxdate:''};
+      this.searchfx_form(data);
     }
   },
   error => {

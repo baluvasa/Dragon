@@ -33,7 +33,7 @@ export class AccountcategoryComponent implements OnInit  {
   constructor(private eventEmitterService: EventEmitterService,private formBuilder: FormBuilder,private  httpClient:HttpClient) { }
   ngOnInit() {    
     this.eventEmitterService.menuinvokefunction(); 
-    if(localStorage.getItem('logeduser')=='admin'){
+    if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
     this.searchaccountcategory = new FormGroup({
@@ -60,9 +60,7 @@ export class AccountcategoryComponent implements OnInit  {
     })
     this.update_accountcategory = new FormGroup({
       update_account_category_id:new FormControl('',{
-        validators: [
-          Validators.required,
-        ]
+        validators: [Validators.required]
       }),
       update_account_category:new FormControl('',{
         validators: [Validators.required]
@@ -70,8 +68,8 @@ export class AccountcategoryComponent implements OnInit  {
       update_account_name:new FormControl('',{
         validators: [
           Validators.required,
-          Validators.maxLength(10),
-          Validators.minLength(10),
+          Validators.maxLength(50),
+          Validators.minLength(5),
           Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
         ]
       })
