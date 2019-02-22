@@ -36,7 +36,7 @@ export class AccessdetailsComponent implements OnInit {
     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
-     this.leaveform = new FormGroup({
+    this.leaveform = new FormGroup({
       associateid:new FormControl('',{}),
       associatename:new FormControl('',{}),     
       accesstype:new FormControl('',{}),    
@@ -93,93 +93,98 @@ export class AccessdetailsComponent implements OnInit {
         updateaccesstype:accessdetail.accessType,
         updatestatus:accessdetail.status
       });
-  }
-  searchleaves(value){
-    let url='';
-    if(value.associateid.length==0 && value.associatename.length==0 && value.accesstype.length==0 && value.status.length==0){
-      url=this.ip+'/po/access/fetch?gid= &name= &type= &active= ';
     }
-    else{
-      url=this.ip+'/po/access/fetch?gid='+value.associateid+'&name='+value.associatename+'&type='+value.accesstype+'&active='+value.status;
-    }
-       this.httpClient.get(url).subscribe(result => {    
-      this.results=result;
-      this.accessdetails=this.results.accessdetails;
-    },
-    error => {
-      this.error = 'Connection Interrupted..'; 
-    });
-  }
-  add_accessdetails(value){
-let category={gid:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
-console.log(category)
-let url=this.ip+'/po/access/add';
-this.httpClient.post(url,category).subscribe(result => {
-  this.addresult=result;
-  if(this.addresult.status==201){
-    this.addmsg=this.addresult.message;
-    this.addaccessdetails.reset();
-    let data={associateid:'',associatename:'',accesstype:'',status:''};
-    this.searchleaves(data);
-  }
-  else if(this.addresult.status==409){
-    this.addmsg=this.addresult.message;    
-  }
-},
-error => {
-  this.adderror = 'Connection Interrupted..'; 
-});
-  }
-  closemsg(){
-    this.error='';
-    this.deletemsg='';
-    this.addmsg='';
-    this.adderror='';
-    this.updatemsg='';
-    this.updateerror='';
-    this.addaccessdetails.reset();
-  }
-
-  deletedata(deletevalue){
-    console.log(deletevalue)
-    if (confirm("Do you want to delete the Account Details?")) {    
-      let delurl=this.ip+'/po/access/delete?gid='+deletevalue.gid;
-      this.httpClient.delete(delurl).subscribe(result => {
-        this.addresult=result;
-        console.log(this.addresult)
-        if(this.addresult.Status==200){
-          this.deletemsg=this.addresult.message;
-          console.log(this.deletemsg)
-          // alert(this.deletemsg);
-          let data={associateid:'',associatename:'',accesstype:'',status:''};
-          this.searchleaves(data);
-        } 
+    searchleaves(value){
+      console.log(value)
+      let url='';
+      if((value.associateid.length==0 && value.associatename.length==0 && value.accesstype.length==0 && value.status.length==0 ) || 
+      (value.associateid==null && value.associatename==null && value.accesstype==null && value.status==null) ){
+        console.log('in with out value')
+        url=this.ip+'/po/access/fetch?gid=&name=&type=&status=';
+      }
+      else{
+        console.log('in with value')
+        url=this.ip+'/po/access/fetch?gid='+value.associateid+'&name='+value.associatename+'&type='+value.accesstype+'&status='+value.status;
+      }
+      console.log(url)
+      this.httpClient.get(url).subscribe(result => {    
+        this.results=result;
+        this.accessdetails=this.results.accessdetails;
       },
       error => {
         this.error = 'Connection Interrupted..'; 
-      })  
-    } 
-  }
-  update_accessdetails(updateaccessdetails){    
-    let modilfyurl=this.ip+'/po/access/update';
-    let updatecategory={
-      gid :updateaccessdetails.updateassociateid,
-      associateName:updateaccessdetails.updateassociatename,
-      accessType:updateaccessdetails.updateaccesstype,
-      status:updateaccessdetails.updatestatus,
-      modifiedBy:'admin'};
-      console.log(updatecategory)
-    this.httpClient.put(modilfyurl,updatecategory).subscribe(result => {
-      this.addresult=result;
-      console.log(this.addresult)
-      if(this.addresult.status==200){
-        this.updatemsg=this.addresult.message;
-        let data={associateid:'',associatename:'',accesstype:'',status:''};
-        this.searchleaves(data);
+      });
+    }
+    add_accessdetails(value){
+      let category={gid:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
+      console.log(category)
+      let url=this.ip+'/po/access/add';
+      this.httpClient.post(url,category).subscribe(result => {
+        this.addresult=result;
+        if(this.addresult.status==201){
+          this.addmsg=this.addresult.message;
+          let data={associateid:'',associatename:'',accesstype:'',status:''};
+          this.searchleaves(data);
+          this.addaccessdetails.reset();
+        }
+        else if(this.addresult.status==409){
+          this.addmsg=this.addresult.message;    
+        }
+      },
+      error => {
+        this.adderror = 'Connection Interrupted..'; 
+      });
+    }
+    closemsg(){
+      this.error='';
+      this.deletemsg='';
+      this.addmsg='';
+      this.adderror='';
+      this.updatemsg='';
+      this.updateerror='';
+      this.addaccessdetails.reset();
+    }
+    
+    deletedata(deletevalue){
+      console.log(deletevalue)
+      if (confirm("Do you want to delete the Account Details?")) {    
+        let delurl=this.ip+'/po/access/delete?gid='+deletevalue.gid;
+        this.httpClient.delete(delurl).subscribe(result => {
+          this.addresult=result;
+          console.log(this.addresult)
+          if(this.addresult.Status==200){
+            this.deletemsg=this.addresult.message;
+            console.log(this.deletemsg)
+            // alert(this.deletemsg);
+            let data={associateid:'',associatename:'',accesstype:'',status:''};
+            this.searchleaves(data);
+          } 
+        },
+        error => {
+          this.error = 'Connection Interrupted..'; 
+        })  
+      } 
+    }
+    update_accessdetails(updateaccessdetails){    
+      let modilfyurl=this.ip+'/po/access/update';
+      let updatecategory={
+        gid :updateaccessdetails.updateassociateid,
+        associateName:updateaccessdetails.updateassociatename,
+        accessType:updateaccessdetails.updateaccesstype,
+        status:updateaccessdetails.updatestatus,
+        modifiedBy:'admin'};
+        console.log(updatecategory)
+        this.httpClient.put(modilfyurl,updatecategory).subscribe(result => {
+          this.addresult=result;
+          console.log(this.addresult)
+          if(this.addresult.status==200){
+            this.updatemsg=this.addresult.message;
+            let data={associateid:'',associatename:'',accesstype:'',status:''};
+            this.searchleaves(data);
+          }
+        },
+        error => {
+          this.updateerror = 'Connection Interrupted..'; 
+        });
       }
-    },
-    error => {
-      this.updateerror = 'Connection Interrupted..'; 
-    });
-  }
-  }
+    }

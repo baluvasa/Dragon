@@ -92,10 +92,14 @@ add_account_category_data(addaccountcategory){
     if(this.addresult.status==201){
       this.addmsg=this.addresult.message;
       this.addaccountcategory.reset();
+      let data={search_account_category:'',search_account_name:''};
+        this.search_accountcategory(data);
+    }   else if(this.addresult.status==409){
+      this.addmsg=this.addresult.message;    
     }
   },
   error => {
-    this.error = 'Connection Interrupted..'; 
+    this.adderror = 'Connection Interrupted..'; 
   });
 } 
 setupdatemodel(categorylist){
@@ -113,11 +117,20 @@ update_account_category_data(updateaccountcategory){
     }
   },
   error => {
-    this.error = 'Connection Interrupted..'; 
+    this.updateerror = 'Connection Interrupted..'; 
   });
 }
 search_accountcategory(value){ 
-  let url=this.ip+'/po/account_category/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name;
+  console.log(value.search_account_category.length)
+  console.log(value.search_account_name.length)
+  let url='';
+  if((value.search_account_category.length==0 && value.search_account_name.length==0)||(value.search_account_category==null && value.search_account_name==null)){
+    url=this.ip+'/po/account_category/fetch?accountCategory=&accountName=';
+  }
+  else{
+    url=this.ip+'/po/account_category/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name;
+  }
+  console.log(url)
   this.httpClient.get(url).subscribe(result => {    
     this.results=result;
       this.categorylists=this.results.accountCategory;
