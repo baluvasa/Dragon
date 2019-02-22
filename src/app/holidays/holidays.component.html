@@ -166,7 +166,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>January</label></div>
               <div class="col-md-6">
-                <input type="text"  min=0 max=31 name="jan" placeholder=""  pattern="^[0-9]*$" class="form-control"  [formControl]="holidaylistform.controls['holiday_jan']"> 
+                <input type="text"  min=0 max=31 name="jan" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control"  [formControl]="holidaylistform.controls['holiday_jan']"> 
                 
                 
               </div>              
