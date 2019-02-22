@@ -3,7 +3,7 @@
       <h2>Account Category Details</h2>
       <div class="panel panel-default">
         <div class="panel-heading">Search Account Category Details
-          <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#addaccountcategorymodel" style="float:right" (click)='closemsg()'>
+          <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#addaccountcategorymodel" data-backdrop="static" style="float:right" (click)='closemsg()'>
             &nbsp;&nbsp;Add</button>
           </div> 
           <div class="panel-body">
@@ -54,10 +54,14 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-12" *ngIf="error">
-                  <div class="alert alert-danger alert-dismissible">
+              <div class="col-md-12" >
+                  <div class="alert alert-danger alert-dismissible" *ngIf="error">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
                     {{error}}
+                  </div>
+                  <div class="alert alert-success alert-dismissible" *ngIf="searcherror">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                    {{searcherror}}
                   </div>
                 </div>
               <form [formGroup]="searchaccountcategory">
@@ -108,7 +112,7 @@
                     <td>{{categorylist.accountCategory}}</td>
                     <td>{{categorylist.accountName}}</td>                  
                     <td>
-                      <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateaccountcategorymodel" (click)='setupdatemodel(categorylist)'></button>&nbsp;
+                      <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateaccountcategorymodel" data-backdrop="static" (click)='setupdatemodel(categorylist)'></button>&nbsp;
                       <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata(categorylist)"></button>                    
                     </td>
                   </tr>

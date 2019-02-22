@@ -13,6 +13,7 @@ export class AccountcategoryComponent implements OnInit  {
   addaccountcategory: FormGroup;
   update_accountcategory: FormGroup;
   error='';
+  searcherror='';
   adderror='';
   updateerror='';
   projects:any;
@@ -83,10 +84,11 @@ export class AccountcategoryComponent implements OnInit  {
     this.adderror='';
     this.updatemsg='';
     this.updateerror='';
+    this.searcherror='';
   }
 add_account_category_data(addaccountcategory){
   let category={accountCategory:addaccountcategory.add_account_category,accountName:addaccountcategory.add_account_name,createdBy:'admin'};
-  let url=this.ip+'/po/account_category/create';
+  let url=this.ip+'/1po/account_category/create';
   this.httpClient.post(url,category).subscribe(result => {
     this.addresult=result;
     if(this.addresult.status==201){
@@ -130,10 +132,13 @@ search_accountcategory(value){
   else{
     url=this.ip+'/po/account_category/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name;
   }
-  console.log(url)
   this.httpClient.get(url).subscribe(result => {    
     this.results=result;
+    if(this.results.status==200){
       this.categorylists=this.results.accountCategory;
+    }else if(this.results.status==204){
+      this.searcherror=this.results.message;
+    }
   },
   error => {
     this.error = 'Connection Interrupted..'; 
