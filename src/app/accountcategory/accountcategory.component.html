@@ -27,19 +27,20 @@
                       <div class="modal-body">
                         <div class="form-row">
                           <label>Account Category*</label>
-                          <input class="form-control" placeholder="Account Category" [formControl]="addaccountcategory.controls['add_account_category']" >                        
+                          <input class="form-control" onkeyup="this.value = this.value.toUpperCase();" placeholder="Account Category" [formControl]="addaccountcategory.controls['add_account_category']" >                        
                           <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_category.errors && (addaccountcategory.controls.add_account_category.dirty || addaccountcategory.controls.add_account_category.touched) && !addaccountcategory.controls.add_account_category.valid">
                             <span *ngIf="addaccountcategory.controls.add_account_category.errors.required">Account Category is required</span>
                             <span *ngIf="addaccountcategory.controls.add_account_category.errors.maxlength">Account Category length should not exceed 50 characters</span>
-                            <span *ngIf="addaccountcategory.controls.add_account_category.errors.pattern">Empty Spaces are not allowed/Pattern Not match</span> 
+                            <span *ngIf="addaccountcategory.controls.add_account_category.errors.pattern">Pattern Does not match/No Special characters/Numbers not accepted</span> 
                           </div>
+
                           <div class="form-row">
                             <label>Account Name*</label>
-                            <input type="text"  placeholder="Account Name"class="form-control" [formControl]="addaccountcategory.controls['add_account_name']"/>
+                            <input type="text" onkeyup="this.value = this.value.toUpperCase();" placeholder="Account Name"class="form-control" [formControl]="addaccountcategory.controls['add_account_name']"/>
                             <div class="text-danger" *ngIf="addaccountcategory.controls.add_account_name.errors && (addaccountcategory.controls.add_account_name.dirty || addaccountcategory.controls.add_account_name.touched) && !addaccountcategory.controls.add_account_name.valid">
                               <span *ngIf="addaccountcategory.controls.add_account_name.errors.required">Account Name is required</span>
                             <span *ngIf="addaccountcategory.controls.add_account_name.errors.maxlength">Account Name length should not exceed 50 characters</span>
-                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.pattern">Empty Spaces are not allowed/Pattern Not match</span>
+                              <span *ngIf="addaccountcategory.controls.add_account_name.errors.pattern">No Special characters allowed/Numbers not accepted</span>
                               
                             </div>
                           </div>
@@ -73,7 +74,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>Account Name</label>
-                      <input class="form-control" [formControl]="searchaccountcategory.controls['search_account_name']" placeholder="Account Name">
+                      <input onkeyup="this.value = this.value.toUpperCase();" class="form-control" [formControl]="searchaccountcategory.controls['search_account_name']" placeholder="Account Name">
                     </div>
                   </div>
                 </div>
