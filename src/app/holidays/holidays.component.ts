@@ -42,7 +42,7 @@ export class HolidaysComponent implements OnInit {
   
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
-     if(localStorage.getItem('logeduser')=='admin'){
+     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
     
@@ -87,7 +87,7 @@ export class HolidaysComponent implements OnInit {
     })
     this.holidaylistform = new FormGroup({
       add_account_category:new FormControl('',{
-        validators: [Validators.required]
+        validators: [Validators.required],
       }),
       add_account_name:new FormControl('',{
         validators: [Validators.required]
@@ -265,7 +265,7 @@ export class HolidaysComponent implements OnInit {
             october: addholidaydata.holiday_oct,
             november: addholidaydata.holiday_nov,
             december: addholidaydata.holiday_dec,
-            createdBy: 'admin'
+            createdBy: 'ADMIN'
           };
     let url=this.ip+'/po/holidays/add ';
     this.httpClient.post(url,holidays).subscribe(result => {

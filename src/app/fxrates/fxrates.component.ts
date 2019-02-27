@@ -70,10 +70,20 @@ searchfx_form(value){
   if(value.fxdate==''){
     url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date';
   }
-  else{
+  else if(value.currency==null){
+    url=this.ip+'/po/fx_rates/fetch?countryCode='+'&date='+value.fxdate.formatted;
+  }
+  else if(value.fxdate==null){
+    url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date';
+  }
+  else if(value.fxdate==null && value.currency==null ){
+    url=this.ip+'/po/fx_rates/fetch?countryCode='+'&date';
+  }
+   else  {
     url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date='+value.fxdate.formatted;
   }
   console.log(url)
+  console.log("@@@@@@@@@@@@@@",value.fxdate)
   this.httpClient.get(url).subscribe(result => {    
     this.results=result;
     this.fxlists=this.results.fxRates;

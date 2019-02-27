@@ -26,7 +26,7 @@ export class PoapprovalComponent implements OnInit {
   ngOnInit() {
     
     this.eventEmitterService.menuinvokefunction();
-    if(localStorage.getItem('logeduser')=='admin'){
+    if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
 
