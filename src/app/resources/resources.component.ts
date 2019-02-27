@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
+import { HttpClient } from  "@angular/common/http";
 @Component({
   selector: 'app-resources',
   templateUrl: './resources.component.html',
@@ -11,26 +12,37 @@ export class ResourcesComponent implements OnInit {
   searchresourceform:FormGroup;
   updateresourcedetails:FormGroup;
   role:any;
-  error:any;
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
   list:any;
   editerror:any;
+  
   edit=0;
   band:any;
-
+  results:any;
+  resourcelists:any;
+  addresult:any;
+  error:any;
+  adderrormsg='';
+  updateerrormsg='';
+  searcherrormsg='';
+  deleteerrormsg="";
+  addmsg="";
+  updatemsg="";
+  deletemsg="";
+  
   addresourceform:FormGroup;
-  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) { }
-
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) { }
+  
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
-    if(localStorage.getItem('logeduser')=='admin'){
+    if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
-   
-      this.band=[
-        {bandname:'U1'},  {bandname:'U2'},  {bandname:'U3'},  {bandname:'U4'},  {bandname:'P1'},  {bandname:'P2'}
-      ];
+    
+    this.band=[
+      {bandname:'U1'},  {bandname:'U2'},  {bandname:'U3'},  {bandname:'U4'},  {bandname:'P1'},  {bandname:'P2'}
+    ];
     this.searchresourceform = new FormGroup({
       search_associatename:new FormControl('',{
         validators: []
@@ -75,64 +87,165 @@ export class ResourcesComponent implements OnInit {
       editemailid:new FormControl('',{
         validators: [Validators.required]
       }),
-      editcno:new FormControl('',{
+      editcontactnumber:new FormControl('',{
         validators: [Validators.required]
       }),
       editpid:new FormControl('',{
         validators: [Validators.required]
       })
     });
- }
- search_resource_details(a){
-   console.log(a);    
-  this.list = [
-    {sno:1,associatename:'Prashanthi',id:'NP00585716',band:'U3',pid:'02121212'},
-    {sno:2,associatename:'suman',id:'SK00550019',band:'U4',pid:'02121212'},
-    {sno:3,associatename:'srinitha',id:'SR00551505',band:'U2',pid:'02121212'},
+  }
+
+  closemsg(){
+    this.error='';
+    this.deletemsg='';
+    this.addmsg='';
+    this.adderrormsg='';
+    this.updatemsg='';
+    this.updateerrormsg='';
+    this.searcherrormsg='';
+  }
+  search_resource_details(value){   
+    let url=this.ip+'/po/resource/fetch?associateId='+value.search_associateid+'&associateName='+value.search_associatename+'&band='+value.search_band;
+    this.httpClient.get(url).subscribe(result => {  
+      this.results=result;
+      this.resourcelists=this.results.resourcedetails;
+      console.log(this.resourcelists);
+    },
+    error => {
+      this.searcherrormsg = 'Connection Interrupted..'; 
+    });
+    
+  }
+ 
+  add_resource_data(addresourcedata)
+  {
+    let resources={
+      associateId: addresourcedata.addassociateid,
+      associateName: addresourcedata.addassociatename,
+      band:  addresourcedata.addband,
+      pId:addresourcedata.addpid,
+      emailId: addresourcedata.addemailid,
+      contactNumber: addresourcedata.addcontactnumber,
+      createdBy:"admin"
+    };
+    let url=this.ip+'/po/resource/create';
+   this.httpClient.post(url,resources).subscribe(result => { 
   
-  ];
+    this.addresult=result;
+      if(this.addresult.status==201){
+        this.addmsg=this.addresult.message;
+        this.addresourceform.reset();
+      }
+     
+    },
+    error => {
+      if(error.status==409){
+        this.adderrormsg=error.message;
+      }
+      else{
+        this.adderrormsg = 'Connection Interrupted..'; 
+      }
   
-}
-// errordata() {
-//   this.error = 'no data found';
-// }
-// errorexceptiondata() {
-//   this.error = 'Exception has occurred while fetching resource details';
-// }
-// badrequest() {
-//   this.error="Bad Request";
-// }
-add_resource_data(data)
-{
- console.log(data);
- alert("Data Added Successfully.");
- this.addresourceform.reset();
-}
-update_resource_data(data)
-{
-  console.log(data);
-  if(data.editpid==""){
-   let flag= confirm("Associate is Not Mapped to any PID,\nDo you want to update ?");
-    if(flag== true){
-      alert("Data Updated Successfully.");
+    })
+  }
+  
+  
+  
+  updateresourcefields(resourcelist){
+    this.updateresourcedetails.setValue({
+      editassociateid:resourcelist.associateId,
+      editassociatename:resourcelist.associateName,
+      editband:resourcelist.band,
+      editpid:resourcelist.pId,
+      editemailid:resourcelist.emailId,
+      editcontactnumber:resourcelist.contactNumber
+    });
+  }
+  
+  
+  update_resource_data(updateresourcedata)
+  {
+    let modifyurl=this.ip+'/po/resource/update';
+    let updatedata={
+      associateId:updateresourcedata.editassociateid,
+      associateName:updateresourcedata.editassociatename,
+      band: updateresourcedata.editband,
+      pId: updateresourcedata.editpid,
+      emailId: updateresourcedata.editemailid,
+      contactNumber: updateresourcedata.editcontactnumber,
+      modifiedBy:"user"
+    };
+    if(updateresourcedata.editpid==""){
+      let flag= confirm("Associate is Not Mapped to any PID,\nDo you want to update ?");
+      if(flag== true){
+        this.httpClient.put(modifyurl,updatedata).subscribe(result => {
+          this.addresult=result;
+          if(this.addresult.status=200){
+            this.updatemsg=this.addresult.message;
+          let data={
+              search_associateid:'',
+              search_associatename:'',
+              search_band:''
+            };
+            this.search_resource_details(data);
+            this.updateresourcedetails.reset();
+          }
+        },
+        error => {
+          this.updateerrormsg = 'Connection Interrupted..'; 
+        });   
+      }
+      else{
+        alert("Resource Data is not Updated.");
+      }
     }
     else{
-      alert("Data Updation Failed.");
+      this.httpClient.put(modifyurl,updatedata).subscribe(result => {
+        this.addresult=result;
+        if(this.addresult.status=200){
+          this.updatemsg=this.addresult.message;
+        let data={
+            search_associateid:'',
+            search_associatename:'',
+            search_band:''
+          };
+          this.search_resource_details(data);
+          this.updateresourcedetails.reset();
+        }
+      },
+      error => {
+        this.updateerrormsg = 'Connection Interrupted..'; 
+      });
     }
+    
+    // this.updateresourcedetails.reset();
   }
-  else{
-    alert("Data Updated Successfully.");
+  
+  
+  delete_resource_data(resourcelist){
+    if (confirm("Do you want to delete Resource For the Year?")) {    
+      let delurl=this.ip+'/po/resource/delete?associateId='+resourcelist.associateId;
+      this.httpClient.delete(delurl).subscribe(result => {
+        this.addresult=result;
+        if(this.addresult.status==200){
+          this.deletemsg=this.addresult.message;
+          alert(this.deletemsg);
+          let data={
+            search_account_category:'',
+            search_account_name:'',
+            search_project_name:'',
+            search_holidays_years:''
+          };
+          this.search_resource_details(data);
+        } 
+      },
+      error => {
+        this.deleteerrormsg = 'Connection Interrupted..'; 
+      })
+      
+    } 
   }
-
-
-
- // this.updateresourcedetails.reset();
-}
-deletedata(){
-  if (confirm("Do you want to delete Resource For the Year?")) {
-    alert("Resource Details Deleted Successfully.")
-  } 
-}
-
-
+  
+  
 }

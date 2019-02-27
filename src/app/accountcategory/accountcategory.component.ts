@@ -88,7 +88,7 @@ export class AccountcategoryComponent implements OnInit  {
   }
 add_account_category_data(addaccountcategory){
   let category={accountCategory:addaccountcategory.add_account_category,accountName:addaccountcategory.add_account_name,createdBy:'admin'};
-  let url=this.ip+'/1po/account_category/create';
+  let url=this.ip+'/po/account_category/create';
   this.httpClient.post(url,category).subscribe(result => {
     this.addresult=result;
     if(this.addresult.status==201){
