@@ -49,6 +49,14 @@
       </div>
     </div>
   </div>
+<ng-container *ngIf="deletemsg">
+    <div class="col-md-12">
+      <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{deletemsg}}
+      </div>
+    </div>
+  </ng-container>
 </div>
 
 <div class="panel panel-default"*ngIf="resourcelists">
@@ -113,30 +121,48 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="name">Associate ID*</label>
-                <input type="text" class="form-control" placeholder="Associate ID" name="name" [formControl]="addresourceform.controls['addassociateid']" required>
+                <input type="text" class="form-control" placeholder="Associate ID" name="name" [formControl]="addresourceform.controls['addassociateid']">
+                <div class="text-danger" *ngIf="addresourceform.controls.addassociateid.errors && (addresourceform.controls.addassociateid.dirty || addresourceform.controls.addassociateid.touched) && !addresourceform.controls.addassociateid.valid">
+                  <span *ngIf="addresourceform.controls.addassociateid.errors.required">Associate Id is required</span>
+                  <span *ngIf="addresourceform.controls.addassociateid.errors.maxlength">Associate Id length should be 10 characters</span>
+                  <span *ngIf="addresourceform.controls.addassociateid.errors.minlength">Associate Id length should be 10 characters</span>
+                  <span *ngIf="addresourceform.controls.addassociateid.errors.pattern">Empty Spaces are not allowed/Pattern not match</span> 
+                </div>
+              
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="id">Associate Name*</label>
                 <input type="id" class="form-control"  placeholder="Associate Name" name="name" [formControl]="addresourceform.controls['addassociatename']">
+                <div class="text-danger" *ngIf="addresourceform.controls.addassociatename.errors && (addresourceform.controls.addassociatename.dirty || addresourceform.controls.addassociatename.touched) && !addresourceform.controls.addassociatename.valid">
+                  <span *ngIf="addresourceform.controls.addassociatename.errors.required">Associate Name is required</span>
+                  <span *ngIf="addresourceform.controls.addassociatename.errors.maxlength">Associate Name length should not exceed 50 characters</span>
+                  <span *ngIf="addresourceform.controls.addassociatename.errors.pattern">Associate Name is invalid</span> 
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="id">Band*</label>
+                <label for="id">Associate Band*</label>
                 <select class="form-control"  [formControl]="addresourceform.controls['addband']">
-                  <option value="" disabled selected hidden style="color:#a4b2ba;">Select Band</option>
+                  <option value="" disabled selected hidden style="color:#a4b2ba;">Select Associate Band</option>
                   <option *ngFor="let b of band" [value]=b.bandname>{{b.bandname}}</option>
                 </select>
+                <div class="text-danger" *ngIf="addresourceform.controls.addband.errors && (addresourceform.controls.addband.dirty || addresourceform.controls.addband.touched) && !addresourceform.controls.addband.valid">
+                  <span *ngIf="addresourceform.controls.addband.errors.required">Associate Band is required</span>
+                </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="id">Project ID (PID)</label>
                 <input type="text" placeholder="Project ID (PID)" class="form-control" name="name" [formControl]="addresourceform.controls['addpid']">
+                <div class="text-danger" *ngIf="addresourceform.controls.addpid.errors && (addresourceform.controls.addpid.dirty || addresourceform.controls.addpid.touched) && !addresourceform.controls.addpid.valid">
+                  <span *ngIf="addresourceform.controls.addpid.errors.required">Project Id is required</span>
+                </div>
               </div>
             </div>
             
@@ -146,12 +172,21 @@
               <div class="form-group">
                 <label for="id">Email ID*</label>
                 <input type="text" placeholder="Email ID" class="form-control" name="name" [formControl]="addresourceform.controls['addemailid']">
+                <div class="text-danger" *ngIf="addresourceform.controls.addemailid.errors && (addresourceform.controls.addemailid.dirty || addresourceform.controls.addemailid.touched) && !addresourceform.controls.addemailid.valid">
+                  <span *ngIf="addresourceform.controls.addemailid.errors.required">Email ID is required</span>
+                  <span *ngIf="addresourceform.controls.addemailid.errors.pattern">Enter Valid Email Id</span>
+                </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="id">Contact Number*</label>
-                <input type="text" placeholder="Contact Number" class="form-control" name="name" [formControl]="addresourceform.controls['addcontactnumber']">
+                <input type="text" placeholder="Contact Number" class="form-control" name="name" [formControl]="addresourceform.controls['addcontactnumber']"  onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                <div class="text-danger" *ngIf="addresourceform.controls.addcontactnumber.errors && (addresourceform.controls.addcontactnumber.dirty || addresourceform.controls.addcontactnumber.touched) && !addresourceform.controls.addcontactnumber.valid">
+                  <span *ngIf="addresourceform.controls.addcontactnumber.errors.required">Contact Number is required</span>
+                  <span *ngIf="addresourceform.controls.addcontactnumber.errors.minlength">Contact Number should be 10 digits</span>
+                  <span *ngIf="addresourceform.controls.addcontactnumber.errors.maxlength">Contact Number should be 10 digits</span>
+                </div>
               </div>
             </div>  
           </div>
@@ -192,7 +227,10 @@
                 <label for="id">Associate ID</label>
                 <input type="id" class="form-control" placeholder="Associate ID" name="name" [formControl]="updateresourcedetails.controls['editassociateid']" disabled>
                 <small class="text-danger" *ngIf="updateresourcedetails.controls.editassociateid.errors &&(updateresourcedetails.controls.editassociateid.dirty || updateresourcedetails.controls.editassociateid.touched) && !updateresourcedetails.controls.editassociateid.valid">
-                  <span  *ngIf="updateresourcedetails.controls.editassociateid.errors.required">Id is Required</span>
+                  <span *ngIf="updateresourcedetails.controls.editassociateid.errors.required">Associate Id is required</span>
+                  <span *ngIf="updateresourcedetails.controls.editassociateid.errors.maxlength">Associate Id length should be 10 characters</span>
+                  <span *ngIf="updateresourcedetails.controls.editassociateid.errors.minlength">Associate Id length should be 10 characters</span>
+                  <span *ngIf="updateresourcedetails.controls.editassociateid.errors.pattern">Empty Spaces are not allowed/Pattern not match</span> 
                 </small>
               </div>
             </div>
@@ -201,7 +239,10 @@
                 <label for="name">Associate Name</label>
                 <input type="text"  class="form-control"  placeholder="Associate Name" name="name" [formControl]="updateresourcedetails.controls['editassociatename']" >
                 <small class="text-danger" *ngIf="updateresourcedetails.controls.editassociatename.errors &&(updateresourcedetails.controls.editassociatename.dirty || updateresourcedetails.controls.editassociatename.touched) && !updateresourcedetails.controls.editassociatename.valid">
-                  <span  *ngIf="updateresourcedetails.controls.editassociatename.errors.required">Name is Required</span>
+                  <span *ngIf="updateresourcedetails.controls.editassociatename.errors.required">Associate Name is required</span>
+                  <span *ngIf="updateresourcedetails.controls.editassociatename.errors.maxlength">Associate Name length should not exceed 50 characters</span>
+                  <span *ngIf="updateresourcedetails.controls.editassociatename.errors.pattern">Associate Name is invalid</span> 
+                
                 </small>
                 
               </div>
@@ -218,13 +259,18 @@
                     {{b.bandname}}
                   </option>
                 </select>
+                <div class="text-danger" *ngIf="updateresourcedetails.controls.editband.errors && (updateresourcedetails.controls.editband.dirty || updateresourcedetails.controls.editband.touched) && !updateresourcedetails.controls.editband.valid">
+                  <span *ngIf="updateresourcedetails.controls.editband.errors.required">Associate Band is required</span>
+                </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="id">Project ID (PID)</label>
                 <input type="text" class="form-control" placeholder="Project ID" name="name" [formControl]="updateresourcedetails.controls['editpid']">
-                
+                <div class="text-danger" *ngIf="updateresourcedetails.controls.editpid.errors && (updateresourcedetails.controls.editpid.dirty || updateresourcedetails.controls.editpid.touched) && !updateresourcedetails.controls.editpid.valid">
+                  <span *ngIf="updateresourcedetails.controls.editpid.errors.required">Project Id is required</span>
+                </div>
               </div>
             </div>
             
@@ -235,16 +281,19 @@
                 <label for="id">Email ID</label>
                 <input type="text" class="form-control" placeholder="Enter Email" name="name" [formControl]="updateresourcedetails.controls['editemailid']">
                 <small class="text-danger" *ngIf="updateresourcedetails.controls.editemailid.errors &&(updateresourcedetails.controls.editemailid.dirty || updateresourcedetails.controls.editemailid.touched) && !updateresourcedetails.controls.editemailid.valid">
-                  <span  *ngIf="updateresourcedetails.controls.editemailid.errors.required">Email Id is Required</span>
+                  <span *ngIf="updateresourcedetails.controls.editemailid.errors.required">Email ID is required</span>
+                  <span *ngIf="updateresourcedetails.controls.editemailid.errors.pattern">Enter Valid Email Id</span>
                 </small>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="id">Contact Number</label>
-                <input type="text" class="form-control" placeholder="Enter Contact Number" name="name" [formControl]="updateresourcedetails.controls['editcontactnumber']">
+                <input type="text" class="form-control" placeholder="Enter Contact Number" name="name" [formControl]="updateresourcedetails.controls['editcontactnumber']" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
                 <small class="text-danger" *ngIf="updateresourcedetails.controls.editcontactnumber.errors &&(updateresourcedetails.controls.editcontactnumber.dirty || updateresourcedetails.controls.editcontactnumber.touched) && !updateresourcedetails.controls.editcontactnumber.valid">
-                  <span  *ngIf="updateresourcedetails.controls.editcontactnumber.errors.required">Contact No is Required</span>
+                  <span *ngIf="updateresourcedetails.controls.editcontactnumber.errors.required">Contact Number is required</span>
+                  <span *ngIf="updateresourcedetails.controls.editcontactnumber.errors.minlength">Contact Number should be 10 digits</span>
+                  <span *ngIf="updateresourcedetails.controls.editcontactnumber.errors.maxlength">Contact Number should be 10 digits</span>
                 </small>
               </div>
             </div>
@@ -253,12 +302,9 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-success" (click)="update_resource_data(updateresourcedetails.value)">Update</button> 
+        <button type="submit"  [disabled]="updateresourcedetails.invalid"  class="btn btn-success" (click)="update_resource_data(updateresourcedetails.value)">Update</button> 
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-</div> 
-
-
-
+</div>

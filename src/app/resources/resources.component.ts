@@ -16,7 +16,6 @@ export class ResourcesComponent implements OnInit {
   dtOptions = AppLink.DTOptions; 
   list:any;
   editerror:any;
-  
   edit=0;
   band:any;
   results:any;
@@ -56,19 +55,35 @@ export class ResourcesComponent implements OnInit {
     });
     this.addresourceform = new FormGroup({
       addassociatename:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z][a-zA-Z ]*[a-zA-Z]$') 
+        ]
       }),
       addassociateid:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9]*[a-zA-Z0-9]$') 
+        ]
       }),
       addband:new FormControl('',{
         validators: [Validators.required]
       }),
       addemailid:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        ]
       }),
       addcontactnumber:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10) 
+        ]
       }),
       addpid:new FormControl('',{
         validators: [Validators.required]
@@ -76,26 +91,44 @@ export class ResourcesComponent implements OnInit {
     });
     this.updateresourcedetails = new FormGroup({
       editassociatename:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z][a-zA-Z ]*[a-zA-Z]$') 
+        ]
       }),
       editassociateid:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern('^[a-zA-Z][a-zA-Z0-9]*[a-zA-Z0-9]$') 
+        ]
       }),
       editband:new FormControl('',{
         validators: [Validators.required]
       }),
       editemailid:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        ]
       }),
       editcontactnumber:new FormControl('',{
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10) 
+        ]
       }),
       editpid:new FormControl('',{
         validators: [Validators.required]
       })
     });
-  }
 
+    
+  }
+ 
   closemsg(){
     this.error='';
     this.deletemsg='';
@@ -131,22 +164,19 @@ export class ResourcesComponent implements OnInit {
     };
     let url=this.ip+'/po/resource/create';
    this.httpClient.post(url,resources).subscribe(result => { 
-  
+
     this.addresult=result;
       if(this.addresult.status==201){
         this.addmsg=this.addresult.message;
         this.addresourceform.reset();
       }
+      else if(this.addresult.status==409){
+        this.adderrormsg=this.addresult.message;
+      }
      
     },
     error => {
-      if(error.status==409){
-        this.adderrormsg=error.message;
-      }
-      else{
         this.adderrormsg = 'Connection Interrupted..'; 
-      }
-  
     })
   }
   
@@ -230,7 +260,6 @@ export class ResourcesComponent implements OnInit {
         this.addresult=result;
         if(this.addresult.status==200){
           this.deletemsg=this.addresult.message;
-          alert(this.deletemsg);
           let data={
             search_account_category:'',
             search_account_name:'',
