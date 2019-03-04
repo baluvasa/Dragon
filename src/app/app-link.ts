@@ -21,7 +21,7 @@ export class AppLink {
             pagingType: 'full_numbers',
             buttons: [ 
                 { extend: 'pageLength',class:'page_length'},
-                { extend: 'colvis', text: 'Show/Hide Column'},
+                // { extend: 'colvis', text: 'Show/Hide Column'},
                 { extend: 'excel', text: 'Export To Excel' }
             ]
         };

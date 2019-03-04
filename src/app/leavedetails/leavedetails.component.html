@@ -18,39 +18,45 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Adding Leave Details</h4>
                     </div>
-                    <form [formGroup]="addleaveform">
+                    <div class="alert alert-success alert-dismissible" *ngIf="addmsg">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{addmsg}}
+                    </div>
+                    <div class="alert alert-danger alert-dismissible" *ngIf="adderror">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{adderror}}
+                    </div>
+                    <form [formGroup]="addleaveform" >
                       <div class="modal-body">
                         <div class="form-row">
-                          <!-- <label>Project Name</label>
-                          <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
-                            <option>GE Renewables</option>
-                            <option>GE Digital</option>
-                            <option>GE Industrial</option>
-                          </select>
-                          <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
-                            <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Project Name is required</span>
-                          </small> -->
+                        
                           
                           
                           <label>Associate ID*</label>
-                          <input type="text" placeholder="Enter Associate ID" class="form-control"/>
-                          <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
-                            <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
+                          <input type="text" placeholder="Enter Associate ID" class="form-control" [formControl]="addleaveform.controls['addassociateid']"/>
+                          <div class="text-danger" *ngIf="addleaveform.controls.addassociateid.errors && (addleaveform.controls.addassociateid.dirty || addleaveform.controls.addassociateid.touched) && !addleaveform.controls.addassociateid.valid">
+                            <span *ngIf="addleaveform.controls.addassociateid.errors.required">Associate Id is required</span>
+                            <span *ngIf="addleaveform.controls.addassociateid.errors.maxlength">Associate Id length should be 10 characters</span>
+                            <span *ngIf="addleaveform.controls.addassociateid.errors.minlength">Associate Id length should BE 10 characters</span>
+                            <span *ngIf="addleaveform.controls.addassociateid.errors.pattern">Associated ID should be in format/pattern does not match (Ex:SA00587670)</span> 
                           </div>
                           
                           
                           <div class="form-row">
                             <label>Associate Name*</label>
-                            <input type="text" placeholder="Enter Associate Name" class="form-control"/>
-                            <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
-                              <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
+                            <input type="text" placeholder="Enter Associate Name" class="form-control" [formControl]="addleaveform.controls['addassociatename']"/>
+                           
+                            <div class="text-danger" *ngIf="addleaveform.controls.addassociatename.errors && (addleaveform.controls.addassociatename.dirty || addleaveform.controls.addassociatename.touched) && !addleaveform.controls.addassociatename.valid">
+                              <span *ngIf="addleaveform.controls.addassociatename.errors.required">Associate Name is required</span>
+                              <span *ngIf="addleaveform.controls.addassociatename.errors.maxlength">Associate Name length should not exceed 50 characters</span>
+                              <span *ngIf="addleaveform.controls.addassociatename.errors.pattern">Associate Name should be in format...</span> 
                             </div>
                           </div>
                           
                           <div class="form-row">
                             <label>Date*</label>
-                            <input type="date" placeholder="Select Date" class="form-control"/>
+                            <my-date-picker [options]="myDatePickerOptions" [formControl]="addleaveform.controls['adddate']"></my-date-picker>
+                            <!-- <input type="date" data-date-format="YYYY MM DD" placeholder="Select Date" class="form-control" [formControl]="addleaveform.controls['adddate']"/> -->
                             <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
                               <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
                             </div>
@@ -58,12 +64,12 @@
                           
                           <div class="form-group">
                             <label>Remarks*</label><br>
-                            <textarea class="form-control" placeholder="Enter Remarks here..." rows="4"></textarea>
+                            <textarea [formControl]="addleaveform.controls['addremarks']" class="form-control" placeholder="Enter Remarks here..." rows="4"></textarea>
                           </div>
                          <small id="mandatory_fields">* fields are Mandatory</small>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                          <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal" (click)="addleaves(addleaveform.value)">Add</button>
                           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                       </div>
@@ -77,34 +83,24 @@
                   {{error}}
                 </div>
               </div>
-              <form [formGroup]="leaveform" (ngSubmit)="onSubmit(leaveform.value)">
+              <form [formGroup]="leaveform" >
                 <div class="form-group">
                   <div class="row">
-                    <!-- <div class="col-md-6">
-                      <label>Project Name</label>
-                      <select class="form-control" [formControl]="leaveform.controls['projectname']">
-                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
-                        <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
-                      </select>
-                    </div> -->
+                    
                     <div class="col-md-3">
                       <label>Associate ID</label>
-                      <input type="text"  placeholder="Enter GID..." class="form-control" [formControl]="leaveform.controls['associatesid']">
-                        <!-- <option value="" disabled selected hidden style="color:#a4b2ba;">Select Associate ID</option>
-                        <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}&nbsp;( {{id.name}} )</option>
-                      </select> -->
+                      <input type="text"  placeholder="Enter GID..." class="form-control" [formControl]="leaveform.controls['associateid']">
+                      
                     </div>
                     <div class="col-md-3">
                       <label>Associate Name</label>
-                      <input type="text" placeholder="Enter Associate Name..." class="form-control" [formControl]="leaveform.controls['associatesname']">
-                        <!-- <option value="" disabled selected hidden style="color:#a4b2ba;">Select Associate ID</option>
-                        <option *ngFor="let id of associates" [value]='id.associateid'>{{id.associateid}}&nbsp;( {{id.name}} )</option>
-                      </select> -->
+                      <input type="text" placeholder="Enter Associate Name..." class="form-control" [formControl]="leaveform.controls['associatename']">
+                      
                     </div>
                     
                     <div class="col-md-3">
                       <label>Year & Month</label>
-                      <select class="form-control" [formControl]="leaveform.controls['projectyear']" >
+                      <select class="form-control" [formControl]="leaveform.controls['yearmonth']" >
                         <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
                         <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
                       </select>
@@ -115,7 +111,7 @@
                 </div>
                 
                 <div class="text-center col-md-12">
-                  <button [disabled]="leaveform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves()">Search</button>
+                  <button [disabled]="leaveform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves(leaveform.value)">Search</button>
                   <button [disabled]="leaveform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
                 </div>
                 
@@ -141,7 +137,16 @@
             </div>
           </div>
         </div>
-        <div class="panel panel-default" *ngIf="leavelists">
+        <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+          {{deletemsg}}
+        </div>
+        <div class="alert alert-danger alert-dismissible" *ngIf="delerror">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+          {{delerror}}
+        </div>
+        
+        <div class="panel panel-default" *ngIf="searchallleaves">
           <div class="panel-body">
             
             <div class="table-responsive">          
@@ -157,15 +162,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let leavelist of leavelists">
-                    <td>{{leavelist.sno}}</td>
-                    <!-- <td>{{leavelist.name}}</td> -->
-                    <td>{{leavelist.associateid}}</td>
-                    <td>{{leavelist.associatename}}</td>
-                    <td>{{leavelist.date}}</td>
+                  <tr *ngFor="let searchleavelist of searchallleaves; index as i">
+                    <td>{{i+1}}</td>
+                    <!-- <td>{{searchleavelist.name}}</td> -->
+                    <td>{{searchleavelist.associateId}}</td>
+                    <td>{{searchleavelist.associateName}}</td>
+                    <td>{{searchleavelist.leaveDate}}</td>
                     <td>
-                      <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateleavedetails"></button>&nbsp;
-                      <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata()"></button>
+                      <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-pencil" data-toggle="modal" data-target="#updateleavedetails" (click)='setupdatemodel(searchleavelist)'></button>&nbsp;
+                      <button *ngIf="role" type="button" class="btn btn-danger btn-sm fa fa-trash" (click)="deletedata(searchleavelist)"></button>
                       
                     </td>
                   </tr>
@@ -179,55 +184,48 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Update Leave Details</h4>
                     </div>
-                    <form [formGroup]="addleaveform">
+                    <div class="alert alert-success alert-dismissible" *ngIf="updatemsg">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{updatemsg}}
+                    </div>
+                  <div class="alert alert-danger  alert-dismissible" *ngIf="updateerror">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                      {{updateerror}}
+                    </div>
+                    <form [formGroup]="updateleavedetails">
                       <div class="modal-body">
                         <div class="form-row">
-                          <!-- <label>Project Name</label>
-                          <input value="GE Energy-NPI Support-ICFC Pro" disabled class="form-control"> -->
-                          <!-- <select class="form-control" [formControl]="addleaveform.controls['modalprojectname']" required>
-                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
-                            <option>GE Renewables</option>
-                            <option>GE Digital</option>
-                            <option>GE Industrial</option>
-                          </select> -->
-                          <!-- <small class="text-danger" *ngIf="addleaveform.controls.modalprojectname.errors && (addleaveform.controls.modalprojectname.dirty || addleaveform.controls.modalprojectname.touched) && !addleaveform.controls.modalprojectname.valid">
-                            <span *ngIf="addleaveform.controls.modalprojectname.errors.required">Project Name is required</span>
-                          </small> -->
+                      
                           
                           
                           <label>Associate ID*</label>
-                          <input type="text" class="form-control" disabled value="505050"/>
-                          <div *ngIf="submitted && f.modalassociateid.errors" class="invalid-feedback">
-                            <div *ngIf="f.modalassociateid.errors.required">Leave Count is required</div>
-                          </div>
+                          <input type="hidden" [formControl]="updateleavedetails.controls['updleaveid']" class="form-control" disabled />
+                          <input type="text" [formControl]="updateleavedetails.controls['updassociateid']" class="form-control" disabled />
+                         
                           
                           
                           <div class="form-row">
                             <label>Associate Name*</label>
-                            <input type="text" class="form-control" disabled value="Vijay Krishna"/>
-                            <div *ngIf="submitted && f.modalassociatename.errors" class="invalid-feedback">
-                              <div *ngIf="f.modalassociatename.errors.required">Leave Count is required</div>
-                            </div>
+                            <input type="text" [formControl]="updateleavedetails.controls['updassociatename']" class="form-control" disabled />
+                           
                           </div>
                           
                           <div class="form-row">
                             <label>Date*</label>
-                            <input type="text" class="form-control" value="01/07/2019"/>
-                            <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
-                              <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
-                            </div>
+                            <input type="text"  class="form-control" [formControl]="updateleavedetails.controls['upddate']" >
+                           
                           </div>
                           
                           <div class="form-group">
                             <label>Remarks*</label><br>
-                            <textarea class="form-control" placeholder="Enter Remarks here..." rows="4">Not Feeling Well</textarea>
+                            <textarea class="form-control" [formControl]="updateleavedetails.controls['updremark']" placeholder="Enter Remarks here..." rows="4">Not Feeling Well</textarea>
                           </div>
                           <small id="mandatory_fields">* fields are Mandatory</small>
                           
                         </div>
                         <div class="modal-footer">
-                          <button type="button" [disabled]="addleaveform.invalid" class="btn btn-primary" data-create="modal">Update</button>
-                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          <button type="submit" [disabled]="updateleavedetails.invalid" class="btn btn-primary" data-create="modal" (click)=" update_leavedetails(updateleavedetails.value)">Update</button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deletedata(value)">Close</button>
                         </div>
                       </div>
                     </form>
