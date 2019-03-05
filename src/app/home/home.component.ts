@@ -18,12 +18,12 @@ export class HomeComponent implements OnInit {
   
   ngOnInit() {
       this.eventEmitterService.menuinvokefunction(); 
-      let url=this.ip+'/po/resources/fetch';
-      this.httpClient.get(url).subscribe(result => {
-        console.log(result)
-        this.results=result;
-        this.datas=this.results.resources;  
-      }) 
+      // let url=this.ip+'/po/resources/fetch';
+      // this.httpClient.get(url).subscribe(result => {
+      //   console.log(result)
+      //   this.results=result;
+      //   this.datas=this.results.resources;  
+      // }) 
   }
   
 }

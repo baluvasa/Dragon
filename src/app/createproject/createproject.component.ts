@@ -41,7 +41,7 @@ export class CreateprojectComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) {}
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
-    if(localStorage.getItem('logeduser')=='admin'){
+    if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
 
