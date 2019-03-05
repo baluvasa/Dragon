@@ -135,6 +135,9 @@ badrequest(){
     });
   }
   
+  closedmsg(){
+    alert("Do you really want to cancel the operation???")
+  };
 
 addleaves(value){
   {
