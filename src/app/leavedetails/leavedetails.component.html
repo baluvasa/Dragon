@@ -118,7 +118,7 @@
               </form>
               
               
-              <div class="row" style="margin-top:60px;">
+              <!-- <div class="row" style="margin-top:60px;">
                 <table class="col-md-12 text-center">
                   <tr>
                     <td>
@@ -132,12 +132,12 @@
                     </td>
                   </tr>
                 </table>
-              </div>
+              </div> -->
               
             </div>
           </div>
         </div>
-        <div class="alert alert-success alert-dismissible" *ngIf="deletemsg">
+        <div class="alert alert-danger alert-dismissible" *ngIf="deletemsg">
           <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
           {{deletemsg}}
         </div>
