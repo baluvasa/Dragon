@@ -59,8 +59,7 @@ export class PoapprovalComponent implements OnInit {
       }),
       modalprojectname:new FormControl('',{
         validators: []
-      })
-      ,
+      }),
       modalpo_year_month:new FormControl('',{
         validators: []
       })
