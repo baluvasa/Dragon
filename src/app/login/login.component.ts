@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
       this.appservice.setLogedinfo(this.afterlogin.accessDetails.accessType); 
       this.router.navigate(['home']);
       }
-      else{
-      this.error = 'Incorrect Username/password'; 
+      else {
+        this.error =this.afterlogin.message;
       }
       },
       error => {
