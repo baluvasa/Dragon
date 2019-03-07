@@ -65,6 +65,11 @@ searchfxform: FormGroup;
       })
     })  
   }
+  searchreset(){
+    let data={currency:'',fxdate:''};
+
+            this.searchfx_form(data);
+  }
 searchfx_form(value){ 
   let url='';    
   if(value.fxdate==''){

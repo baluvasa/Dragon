@@ -29,6 +29,7 @@ import { Accountcategory1Component } from './accountcategory1/accountcategory1.c
 import { HttpClientModule } from  "@angular/common/http";
 import { CanActivateGuard } from './can-activate.guard';
 import {MyDatePickerModule} from 'mydatepicker';
+import { ProjectinfoMonthlyComponent } from './projectinfo-monthly/projectinfo-monthly.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import {MyDatePickerModule} from 'mydatepicker';
     QuoteComponent,
     AccessdetailsComponent,
     Createproject1Component,
-    Accountcategory1Component
+    Accountcategory1Component,
+    ProjectinfoMonthlyComponent
    
   ],
   imports: [
