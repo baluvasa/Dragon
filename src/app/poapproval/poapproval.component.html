@@ -52,32 +52,37 @@
                         
                         <div class="form-group col-md-4">
                             <label>Account Category</label>
-                            <select class="form-control" [formControl]="addpoform.controls['modalaccountcategory']">
+                            <select class="form-control" [formControl]="addpoform.controls['modalaccountcategory']" (change)="search_all_project_info($event.target.value)" >
                               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
-                              <option>GE Renewables</option>
-                              <option>GE Digital</option>
-                              <option>GE Industrial</option>
-                            </select>
-                            <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
-                              <span *ngIf="addpoform.controls.modalprojectname.errors.required">Account Category is required</span>
+                              <option *ngFor="let account_category_dropdown of account_category_dropdown" [value]='account_category_dropdown'>{{account_category_dropdown}}</option>
+                             </select>
+                            <small class="text-danger" *ngIf="addpoform.controls.modalaccountcategory.errors && (addpoform.controls.modalaccountcategory.dirty || addpoform.controls.modalaccountcategory.touched) && !addpoform.controls.modalaccountcategory.valid">
+                              <span *ngIf="addpoform.controls.modalaccountcategory.errors.required">Account Category is required</span>
                             </small>
+                         </div>
+                         
+                         <div class="form-group col-md-4">
+                           <label>Account Name</label>
+                           <select class="form-control" [formControl]="addpoform.controls['modalaccountname']">
+                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
+                              <option *ngFor="let account_name_dropdown of account_all_project_info" [value]='account_name_dropdown.accountName'>{{account_name_dropdown.accountName}}</option>
+                             </select>
+
                          </div>
 
                         <div class="form-group col-md-4">
                           <label>Project Name</label>
                           <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" >
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
-                            <option>GE Renewables</option>
-                            <option>GE Digital</option>
-                            <option>GE Industrial</option>
+                            <option *ngFor="let project_name_dropdown of account_all_project_info" [value]='account_name_dropdown.accountName'>{{account_name_dropdown.accountName}}</option>
                           </select>
                           <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
                             <span *ngIf="addpoform.controls.modalprojectname.errors.required">Project Name is required</span>
                           </small>
                           </div>
                           
-                          <div class="form-group  col-md-4">
-                              <label>Year & Month</label>
+                          <div class="form-group  col-md-3">
+                              <label>Project Year & Month</label>
                               <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']" [(ngModel)]="month_default">
                                 <option [value]="0" disabled selected >Select Year & Month</option>
                                 <option>Jan-2019</option>
@@ -85,15 +90,7 @@
                                 <option>Oct-2018</option>
                               </select>
                           </div>
-
-                          
-                         <div class="form-group col-md-3">
-                           <label>Account Name</label>
-                           <input type="text" class="form-control" placeholder="Account Name" disabled/>
-                          
-                         </div>
-                          
-                         
+          
                           
                          <div class="form-group col-md-3">
                             <label>Customer Name</label>
@@ -103,13 +100,13 @@
                           
                           <div class="form-group col-md-2">
                            <label>Project Start Date</label>
-                           <input type="text" class="form-control" placeholder="DD/MMM/YYYY" disabled/>
+                           <input type="text" class="form-control" placeholder="DD-MMM-YYYY" disabled/>
                           
                          </div>
                           
                           <div class="form-group col-md-2">
                             <label>Project End Date</label>
-                            <input type="text" class="form-control" placeholder="DD/MMM/YYYY" disabled/>
+                            <input type="text" class="form-control" placeholder="DD-MMM-YYYY" disabled/>
                             
                           </div>
                           
@@ -121,7 +118,7 @@
                          
                           <div class="form-group">
                               <div class="table-responsive">          
-                                  <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="modaldtOptions">
+                                  <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="dtOptions">
                                     <thead>
                                       <tr>
                                           <th rowspan="2">S. No</th>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
+import { HttpClient } from '@angular/common/http'
 @Component({
   selector: 'app-poapproval',
   templateUrl: './poapproval.component.html',
@@ -19,9 +20,18 @@ export class PoapprovalComponent implements OnInit {
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
   role:any;
+  crud_url:any;
   month_default=0;
   currency_default=0;
-  constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService ) { }
+  results:any;
+  account_all_project_info:any;
+  account_category_dropdown:any;
+  account_name_data:any;
+  project_name_data:any;
+  project_year_month:any;
+
+
+  constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService,private httpClient:HttpClient ) { }
 
   ngOnInit() {
     
@@ -57,6 +67,9 @@ export class PoapprovalComponent implements OnInit {
       modalaccountcategory:new FormControl('',{
         validators: []
       }),
+      modalaccountname:new FormControl('',{
+        validators: []
+      }),
       modalprojectname:new FormControl('',{
         validators: []
       }),
@@ -65,9 +78,45 @@ export class PoapprovalComponent implements OnInit {
       })
     })
    
+    this.search_account_category_details();
       
   }
+
+
+  // GET call to get data of account category on Page Load 
+search_account_category_details(){
+  this.crud_url=this.ip+'/po/po_approval/fetch/accountCategory'
+  this.httpClient.get(this.crud_url).subscribe(result => {
+    this.results=result;
+    if(this.results.status==200){
+      this.account_category_dropdown=this.results.accountCategoryList;
+    }
+  },
+  error =>{
+    this.error='Connection Interrupted';
+  });
+}
+
+//Get all data after selecting a value in account category
+
+search_all_project_info(acc_cat_project_info){
+  this.crud_url=this.ip+'/po/po_approval/fetch/projectInfo?accountCategory='+acc_cat_project_info;
+  this.httpClient.get(this.crud_url).subscribe(result => {
+    this.results=result;
+    if(this.results.status==200){
+      this.account_all_project_info=this.results.projectInfoList;
+      console.log(this.account_all_project_info);
+    }
+  },
+  error =>{
+    this.error='Connection Interrupted';
+  });
+}
+
+
+
   nodata(){
+
     this.error="No Data Found";
 }
 exception(){
