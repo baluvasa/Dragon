@@ -30,6 +30,10 @@ export class PoapprovalComponent implements OnInit {
   account_name_data:any;
   project_name_data:any;
   project_year_month:any;
+  project_customer_name:any;
+  project_start_date:any;
+  project_end_date:any;
+  project_billing_cycle:any;
   projectdata:any;
 
 
@@ -113,14 +117,16 @@ search_all_project_info(acc_cat_project_info){
     this.error='Connection Interrupted';
   });
 }
-getprojectinfo(target){
+
+//fetch all project data based on selected account category and account name
+get_all_project_info(target){
   this.projectdata = this.account_all_project_info.filter(t=>t.accountName == target);
-console.log(this.projectdata[0].projectName);
-console.log(this.projectdata[0].customerName);
-console.log(this.projectdata[0].projectStartDate);
-console.log(this.projectdata[0].projectEndDate);
-console.log(this.projectdata[0].billingCurrency);
-console.log(this.month_year(this.projectdata[0].projectStartDate,this.projectdata[0].projectEndDate));
+  this.project_name_data=this.projectdata[0].projectName;
+  this.project_customer_name=this.projectdata[0].customerName;
+  this.project_start_date=this.projectdata[0].projectStartDate;
+  this.project_end_date=this.projectdata[0].projectEndDate;
+  this.project_billing_cycle=this.projectdata[0].billingCurrency;
+  this.project_year_month=this.month_year(this.projectdata[0].projectStartDate,this.projectdata[0].projectEndDate); //calls dateRange method in app-link.ts
 }
 
 

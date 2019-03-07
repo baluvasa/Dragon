@@ -63,7 +63,7 @@
                          
                          <div class="form-group col-md-4">
                            <label>Account Name</label>
-                           <select class="form-control" [formControl]="addpoform.controls['modalaccountname']" (change)="getprojectinfo($event.target.value)">
+                           <select class="form-control" [formControl]="addpoform.controls['modalaccountname']" (change)="get_all_project_info($event.target.value)">
                               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
                               <option *ngFor="let account_name_dropdown of account_all_project_info" value={{account_name_dropdown.accountName}}>{{account_name_dropdown.accountName}}</option>
                              </select>
@@ -72,10 +72,12 @@
 
                         <div class="form-group col-md-4">
                           <label>Project Name</label>
-                          <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" >
+                          <!-- <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" >
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
-                            <option *ngFor="let project_name_dropdown of account_all_project_info" [value]='project_name_dropdown.projectName'>{{project_name_dropdown.projectName}}</option>
-                          </select>
+                            <option  [value]='project_name_data'>{{project_name_data}}</option>
+                          </select> -->
+
+                          <input type="text" class="form-control"  [formControl]="addpoform.controls['modalprojectname']" placeholder="Project Name" value={{project_name_data}} readonly/>
                           <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
                             <span *ngIf="addpoform.controls.modalprojectname.errors.required">Project Name is required</span>
                           </small>
@@ -84,35 +86,33 @@
                           <div class="form-group  col-md-3">
                               <label>Project Year & Month</label>
                               <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']">
-                                <option [value]="0" disabled selected >Select Year & Month</option>
-                                <option>Jan-2019</option>
-                                <option>Feb-2018</option>
-                                <option>Oct-2018</option>
+                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
+                              <option *ngFor="let month_year of project_year_month" value={{month_year}}>{{month_year}}</option>
                               </select>
                           </div>
           
                           
                          <div class="form-group col-md-3">
                             <label>Customer Name</label>
-                            <input type="text" class="form-control" placeholder="Customer Name" disabled/>
+                            <input type="text" class="form-control" placeholder="Customer Name" value={{project_customer_name}} disabled/>
                             
                           </div>
                           
                           <div class="form-group col-md-2">
                            <label>Project Start Date</label>
-                           <input type="text" class="form-control"  placeholder="DD-MMM-YYYY" disabled/>
+                           <input type="text" class="form-control"  placeholder="DD-MMM-YYYY" value={{project_start_date}} disabled/>
                           
                          </div>
                           
                           <div class="form-group col-md-2">
                             <label>Project End Date</label>
-                            <input type="text" class="form-control"  name="ped" placeholder="DD-MMM-YYYY" disabled/>
+                            <input type="text" class="form-control"  name="ped" placeholder="DD-MMM-YYYY" value={{project_end_date}} disabled/>
                             
                           </div>
                           
                           <div class="form-group col-md-2">
                             <label>Project Billing Currency</label>
-                            <input type="text" class="form-control" placeholder="Project Billing Currency" disabled/>
+                            <input type="text" class="form-control" placeholder="Project Billing Currency" value={{project_billing_cycle}} disabled/>
                             
                           </div>
                          
@@ -127,7 +127,7 @@
                                           <th rowspan="2">Band</th>
                                           <th rowspan="2">Associate Start Date</th>
                                           <th rowspan="2">Associate End Date</th>
-                                          <th rowspan="2">Rate</th>
+                                          <th rowspan="2">Fx Rate</th>
                                           <th rowspan="2">Unit Of Measurement (in Hours)</th>
                                           <th colspan="2" class='accruals' style="text-align:center">Accruals</th>
                                           <th colspan="2" class="billed" style="text-align:center">Billed</th>
@@ -401,7 +401,7 @@
                                           <th rowspan="2">Band</th>
                                           <th rowspan="2">Associate Start Date</th>
                                           <th rowspan="2">Associate End Date</th>
-                                          <th rowspan="2">Rate</th>
+                                          <th rowspan="2">Fx Rate</th>
                                           <th rowspan="2">UOM</th>
                                           <th colspan="2"  class='accruals' style="text-align:center">Accruals</th>
                                           <th colspan="2"  class='billed' style="text-align:center">Billed</th>
