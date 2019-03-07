@@ -63,9 +63,9 @@
                          
                          <div class="form-group col-md-4">
                            <label>Account Name</label>
-                           <select class="form-control" [formControl]="addpoform.controls['modalaccountname']">
+                           <select class="form-control" [formControl]="addpoform.controls['modalaccountname']" (change)="getprojectinfo($event.target.value)">
                               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
-                              <option *ngFor="let account_name_dropdown of account_all_project_info" [value]='account_name_dropdown.accountName'>{{account_name_dropdown.accountName}}</option>
+                              <option *ngFor="let account_name_dropdown of account_all_project_info" value={{account_name_dropdown.accountName}}>{{account_name_dropdown.accountName}}</option>
                              </select>
 
                          </div>
@@ -74,7 +74,7 @@
                           <label>Project Name</label>
                           <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" >
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
-                            <option *ngFor="let project_name_dropdown of account_all_project_info" [value]='account_name_dropdown.accountName'>{{account_name_dropdown.accountName}}</option>
+                            <option *ngFor="let project_name_dropdown of account_all_project_info" [value]='project_name_dropdown.projectName'>{{project_name_dropdown.projectName}}</option>
                           </select>
                           <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
                             <span *ngIf="addpoform.controls.modalprojectname.errors.required">Project Name is required</span>
@@ -83,7 +83,7 @@
                           
                           <div class="form-group  col-md-3">
                               <label>Project Year & Month</label>
-                              <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']" [(ngModel)]="month_default">
+                              <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']">
                                 <option [value]="0" disabled selected >Select Year & Month</option>
                                 <option>Jan-2019</option>
                                 <option>Feb-2018</option>
@@ -100,13 +100,13 @@
                           
                           <div class="form-group col-md-2">
                            <label>Project Start Date</label>
-                           <input type="text" class="form-control" placeholder="DD-MMM-YYYY" disabled/>
+                           <input type="text" class="form-control"  placeholder="DD-MMM-YYYY" disabled/>
                           
                          </div>
                           
                           <div class="form-group col-md-2">
                             <label>Project End Date</label>
-                            <input type="text" class="form-control" placeholder="DD-MMM-YYYY" disabled/>
+                            <input type="text" class="form-control"  name="ped" placeholder="DD-MMM-YYYY" disabled/>
                             
                           </div>
                           

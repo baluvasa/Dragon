@@ -18,7 +18,8 @@ export class PoapprovalComponent implements OnInit {
   leavelists:any;
   emplists:any; 
   ip=AppLink.baseURL;
-  dtOptions = AppLink.DTOptions; 
+  dtOptions = AppLink.DTOptions;
+  month_year = AppLink.dateRange;
   role:any;
   crud_url:any;
   month_default=0;
@@ -29,6 +30,7 @@ export class PoapprovalComponent implements OnInit {
   account_name_data:any;
   project_name_data:any;
   project_year_month:any;
+  projectdata:any;
 
 
   constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService,private httpClient:HttpClient ) { }
@@ -105,14 +107,21 @@ search_all_project_info(acc_cat_project_info){
     this.results=result;
     if(this.results.status==200){
       this.account_all_project_info=this.results.projectInfoList;
-      console.log(this.account_all_project_info);
     }
   },
   error =>{
     this.error='Connection Interrupted';
   });
 }
-
+getprojectinfo(target){
+  this.projectdata = this.account_all_project_info.filter(t=>t.accountName == target);
+console.log(this.projectdata[0].projectName);
+console.log(this.projectdata[0].customerName);
+console.log(this.projectdata[0].projectStartDate);
+console.log(this.projectdata[0].projectEndDate);
+console.log(this.projectdata[0].billingCurrency);
+console.log(this.month_year(this.projectdata[0].projectStartDate,this.projectdata[0].projectEndDate));
+}
 
 
   nodata(){
