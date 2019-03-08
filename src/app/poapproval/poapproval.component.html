@@ -50,7 +50,7 @@
                       <div class="modal-body">
                         <div class="form-group">
                         
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>Account Category</label>
                             <select class="form-control" [formControl]="addpoform.controls['modalaccountcategory']" (change)="search_all_project_info($event.target.value)" >
                               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
@@ -61,7 +61,7 @@
                             </small>
                          </div>
                          
-                         <div class="form-group col-md-4">
+                         <div class="form-group col-md-3">
                            <label>Account Name</label>
                            <select class="form-control" [formControl]="addpoform.controls['modalaccountname']" (change)="get_all_project_info($event.target.value)">
                               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
@@ -70,17 +70,18 @@
 
                          </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                           <label>Project Name</label>
                           <!-- <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" >
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
                             <option  [value]='project_name_data'>{{project_name_data}}</option>
                           </select> -->
 
-                          <input type="text" class="form-control"  [formControl]="addpoform.controls['modalprojectname']" placeholder="Project Name" value={{project_name_data}} readonly/>
+                          <input type="text" class="form-control" formControlName="modalprojectname" placeholder="Project Name" [(ngModel)]=project_name_data readonly="readonly"/>
                           <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
                             <span *ngIf="addpoform.controls.modalprojectname.errors.required">Project Name is required</span>
                           </small>
+                          <input type="hidden" class="form-control" formControlName="modalprojectpid" placeholder="Project ID(PID)" [(ngModel)]=project_pid readonly="readonly"/>
                           </div>
                           
                           <div class="form-group  col-md-3">
@@ -94,28 +95,33 @@
                           
                          <div class="form-group col-md-3">
                             <label>Customer Name</label>
-                            <input type="text" class="form-control" placeholder="Customer Name" value={{project_customer_name}} disabled/>
+                            <input type="text" class="form-control" placeholder="Customer Name" formControlName="modalcustomername"  [(ngModel)]="project_customer_name" readonly="readonly"/>
                             
                           </div>
                           
                           <div class="form-group col-md-2">
                            <label>Project Start Date</label>
-                           <input type="text" class="form-control"  placeholder="DD-MMM-YYYY" value={{project_start_date}} disabled/>
+                           <input type="text" class="form-control"  placeholder="DD-MMM-YYYY"   formControlName="modalprojectstartdate" [(ngModel)]=project_start_date readonly="readonly"/>
                           
                          </div>
                           
                           <div class="form-group col-md-2">
                             <label>Project End Date</label>
-                            <input type="text" class="form-control"  name="ped" placeholder="DD-MMM-YYYY" value={{project_end_date}} disabled/>
+                            <input type="text" class="form-control"  placeholder="DD-MMM-YYYY"   formControlName="modalprojectenddate" [(ngModel)]=project_end_date readonly="readonly"/>
                             
                           </div>
                           
                           <div class="form-group col-md-2">
                             <label>Project Billing Currency</label>
-                            <input type="text" class="form-control" placeholder="Project Billing Currency" value={{project_billing_cycle}} disabled/>
-                            
+                            <input type="text" class="form-control" placeholder="Project Billing Currency"  formControlName="modalprojectbilling"  [(ngModel)]=project_billing_cycle readonly="readonly"/>
                           </div>
                          
+
+                          <div class="form-group col-md-3 get_input_search">
+                              <label>&nbsp;</label>
+                            <button type="button"  [disabled]="addpoform.invalid"  class="btn btn-primary " (click)="input_search_po_data(addpoform.value)">Search Project Information</button>
+                          </div>
+
                           <div class="form-group">
                               <div class="table-responsive">          
                                   <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="dtOptions">
@@ -181,7 +187,7 @@
                           
                         </div>
                         <div class="modal-footer">
-                          <button type="button" [disabled]="addpoform.invalid" class="btn btn-primary" data-create="modal">Add</button>
+                          <button type="button" class="btn btn-primary" data-create="modal">Add</button>
                           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                       </div>
@@ -334,7 +340,7 @@
 
                         <div class="form-group col-md-4">
                           <label>Project Name</label>
-                          <input type="text" class="form-control" value="GE Renewables" disabled/>
+                          <input type="text" class="form-control" value="GE Renewables" />
                           <!-- <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" required>
                             <option value="" disabled selected hidden style="color:#a4b2ba;">GE P&W</option>
                             <option>GE Renewables</option>
@@ -369,7 +375,6 @@
                          <div class="form-group col-md-3">
                             <label>Customer Name</label>
                             <input type="text" class="form-control"  value="Industrial Connections & Solutions LLC " placeholder="Customer Name" disabled/>
-                            
                           </div>
                           
                           <div class="form-group col-md-2">
