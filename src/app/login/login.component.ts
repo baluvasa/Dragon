@@ -14,7 +14,7 @@ import { HttpClient } from  "@angular/common/http";
 })
 export class LoginComponent implements OnInit {
     loginform: FormGroup;
-    // ip=AppLink.baseURL;
+    ip=AppLink.baseURL;
     error:any;
     errorinfo:any; 
     logres:any;  
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     
     onsignin(data){
       let user_login={associateId:data.associateId,password:data.password}
-      let url='http://10.56.67.9:8082/po/login/associate';
+      let url=this.ip+'/po/login/associate';
       this.httpClient.post(url,user_login).subscribe(result => {
       this.afterlogin=result;
       console.log(this.afterlogin);

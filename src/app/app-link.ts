@@ -68,7 +68,7 @@ export class AppLink {
             for(var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j+1) {
               var month = j;
               var displayMonth=monthShortNames[month];
-              dates.push([displayMonth,i].join('-'));
+              dates.push([i,displayMonth].join('-'));
             }
           }  
           return dates;

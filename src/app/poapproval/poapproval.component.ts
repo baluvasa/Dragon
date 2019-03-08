@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http'
 export class PoapprovalComponent implements OnInit {
   poapprovalform: FormGroup;
   addpoform: FormGroup;
+  addprojectinfoform:FormGroup
   error:any;
   projects:any;
   project_years:any;
@@ -34,6 +35,7 @@ export class PoapprovalComponent implements OnInit {
   project_start_date:any;
   project_end_date:any;
   project_billing_cycle:any;
+  project_pid:any;
   projectdata:any;
 
 
@@ -71,16 +73,31 @@ export class PoapprovalComponent implements OnInit {
     })
     this.addpoform = new FormGroup({
       modalaccountcategory:new FormControl('',{
-        validators: []
+        validators: [Validators.required]
       }),
       modalaccountname:new FormControl('',{
-        validators: []
+        validators:[Validators.required]
       }),
       modalprojectname:new FormControl('',{
-        validators: []
+        validators: [Validators.required]
+      }),
+      modalcustomername:new FormControl('',{
+        validators:[Validators.required]
       }),
       modalpo_year_month:new FormControl('',{
-        validators: []
+        validators: [Validators.required]
+      }),
+      modalprojectstartdate:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      modalprojectenddate:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      modalprojectbilling:new FormControl('',{
+        validators: [Validators.required]
+      }),
+      modalprojectpid:new FormControl('',{
+        validators: [Validators.required]
       })
     })
    
@@ -121,6 +138,7 @@ search_all_project_info(acc_cat_project_info){
 //fetch all project data based on selected account category and account name
 get_all_project_info(target){
   this.projectdata = this.account_all_project_info.filter(t=>t.accountName == target);
+  this.project_pid=this.projectdata[0].pid;
   this.project_name_data=this.projectdata[0].projectName;
   this.project_customer_name=this.projectdata[0].customerName;
   this.project_start_date=this.projectdata[0].projectStartDate;
@@ -163,6 +181,11 @@ searchpodata(){
     {sno:'1',associatename:'GE Ticketless', associateid:"GE P&W-A",band:'P2',sdate:'10-Jan-2019', edate:"09-Oct-2021",rate:'0.01423',uom:'8',nod1:'21',amount1:'45,000.33',nod2:'18',amount2:'43,600.33'},
   ];
 }
+
+input_search_po_data(addprojectinfo){
+  console.log(addprojectinfo);
+}
+
 deletedata(){
   if (confirm("Do you want to delete the PO Approval Details?")) {
   alert("PO Approval Deleted Successfully.")
