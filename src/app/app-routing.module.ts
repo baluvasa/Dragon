@@ -19,7 +19,8 @@ import { AccessdetailsComponent } from './accessdetails/accessdetails.component'
 // import {  Createproject1Component} from './createproject1/createproject1.component'; 
 // import { Accountcategory1Component } from './accountcategory1/accountcategory1.component';
 import { CanActivateGuard } from './can-activate.guard'; 
-
+import { PronovComponent } from './pronov/pronov.component';
+import { ProdecComponent } from './prodec/prodec.component';
 import { ProjectinfoMonthlyComponent } from './projectinfo-monthly/projectinfo-monthly.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -42,6 +43,8 @@ const routes: Routes = [
   { path: 'quote', component:  QuoteComponent,canActivate:[CanActivateGuard]},
   { path: 'accessdetails', component:  AccessdetailsComponent,canActivate:[CanActivateGuard]},
   { path: 'projectinfo-monthly', component:  ProjectinfoMonthlyComponent,canActivate:[CanActivateGuard]},
+  { path: 'pronov', component:  PronovComponent,canActivate:[CanActivateGuard]},
+  { path: 'prodec', component:  ProdecComponent,canActivate:[CanActivateGuard]},
   // { path: 'accountcategory1', component:  Accountcategory1Component}
       
 ];

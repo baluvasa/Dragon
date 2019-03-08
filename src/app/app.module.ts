@@ -30,6 +30,8 @@ import { HttpClientModule } from  "@angular/common/http";
 import { CanActivateGuard } from './can-activate.guard';
 import {MyDatePickerModule} from 'mydatepicker';
 import { ProjectinfoMonthlyComponent } from './projectinfo-monthly/projectinfo-monthly.component';
+import { PronovComponent } from './pronov/pronov.component';
+import { ProdecComponent } from './prodec/prodec.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,9 @@ import { ProjectinfoMonthlyComponent } from './projectinfo-monthly/projectinfo-m
     AccessdetailsComponent,
     Createproject1Component,
     Accountcategory1Component,
-    ProjectinfoMonthlyComponent
+    ProjectinfoMonthlyComponent,
+    PronovComponent,
+    ProdecComponent
    
   ],
   imports: [

@@ -2,21 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 @Component({
-  selector: 'app-projectinfo-monthly',
-  templateUrl: './projectinfo-monthly.component.html',
-  styleUrls: ['./projectinfo-monthly.component.scss']
+  selector: 'app-pronov',
+  templateUrl: './pronov.component.html',
+  styleUrls: ['./pronov.component.scss']
 })
-export class ProjectinfoMonthlyComponent implements OnInit {
+export class PronovComponent implements OnInit {
   role:any;
-
   constructor(private eventEmitterService: EventEmitterService) { }
+  
 
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction(); 
     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
+    }
   }
 
-
-  }
 }
