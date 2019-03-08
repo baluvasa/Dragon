@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
-
+import { HttpClient } from  "@angular/common/http";
 @Component({
   selector: 'app-createproject',
   templateUrl: './createproject.component.html',
@@ -15,8 +15,8 @@ export class CreateprojectComponent implements OnInit {
   projectcreateform: FormGroup;
   categories:any;
   projects:any;
-  types:any;
-  statuses:any;
+  // types:any;
+  // statuses:any;
   error:any;
   acc_category_default=0;
   project_name_default=0;
@@ -28,17 +28,26 @@ export class CreateprojectComponent implements OnInit {
   type_default=0;
   status_default=0;
   type_default1=0;
-  status_default1=0;
+  status_default1='ACTIVE';
   role:any;
   projectlists:any;
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
-  approvalmethods:any;
-  currency_modes:any;
+  approvalmethods = AppLink.approvalmethods; 
+  submisson_modes = AppLink.submitionmodes; 
+  types = AppLink.projectTypes; 
+  currency_modes = AppLink.billingcurrency; 
+  statuses = AppLink.status; 
+  myDatePickerOptions=AppLink.myDatePickerOptions;
+  catlists:any;
+  acnames:any;
+  results:any;
+  // approvalmethods:any;
+  // currency_modes:any;
   resources:any;
   categories_names:any;
-  submisson_modes:any;
-  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService) {}
+  // submisson_modes:any;
+  constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) {}
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='ADMIN'){
@@ -46,46 +55,21 @@ export class CreateprojectComponent implements OnInit {
     }
 
     // this.categories=[
-    //   {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl"},
-    //   {acc_category:"GE Industrial - US India",code:"giui"},
-    //   {acc_category:"GE Oil & Gas",code:"gog"},
-    //   {acc_category:"GE Packaged Power",code:"gpp"},
-    //   {acc_category:"GE Power & Water",code:"gpw"},
-    //   {acc_category:"Amphenol",code:"amp"}
+    //   {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl",acc_name:'Bhaskar V PO',acc_name_code:'bvp'},
+    //   {acc_category:"GE Industrial - US India",code:"giui",acc_name:'HTC (Jul18)',acc_name_code:'htc'},
+    //   {acc_category:"GE Oil & Gas",code:"gog",acc_name:'Patrick Old',acc_name_code:'patold'},
+    //   {acc_category:"GE Packaged Power",code:"gpp",acc_name:'Aero',acc_name_code:'aero'},
+    //   {acc_category:"GE Power & Water",code:"gpw",acc_name:'Ommi Gopi',acc_name_code:'ommi'},
+    //   {acc_category:"Amphenol",code:"amp",acc_name:'AVS__1st half',acc_name_code:'avs1st'}
     // ];
-    this.categories=[
-      {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl",acc_name:'Bhaskar V PO',acc_name_code:'bvp'},
-      {acc_category:"GE Industrial - US India",code:"giui",acc_name:'HTC (Jul18)',acc_name_code:'htc'},
-      {acc_category:"GE Oil & Gas",code:"gog",acc_name:'Patrick Old',acc_name_code:'patold'},
-      {acc_category:"GE Packaged Power",code:"gpp",acc_name:'Aero',acc_name_code:'aero'},
-      {acc_category:"GE Power & Water",code:"gpw",acc_name:'Ommi Gopi',acc_name_code:'ommi'},
-      {acc_category:"Amphenol",code:"amp",acc_name:'AVS__1st half',acc_name_code:'avs1st'}
-    ];
-    this.projects =[
-      {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
-      {projectname:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
-      {projectname:'GE Energy - Industrial',pid:'12004711'},
-      {projectname:'AVS 6 months',pid:'000000000029578'}
-    ];
-    this.types=[
-      {type:'Time & Meterial',code:'tm'},
-      {type:'Fixed Price',code:'fp'}
-    ];
-    this.statuses=[
-      {status:'In Active',code:'iac'},
-      {status:'Active',code:'ac'}
-    ];
-    this.approvalmethods=[
-      {status:'Customer Mail',code:'CM'}
-    ];
-    this.submisson_modes=[
-      {status:'EMail',code:'email'},{status:'EMail/Hard Copy',code:'ehcopy'},{status:'NA',code:'na'}
-    ];
-    this.currency_modes=[      
-      {name:'USD',country:'US Dollar'},
-      {name:'JPY',country:'Yen'},
-      {name:'EUR',country:'Euro'},
-    ];
+    // this.projects =[
+    //   {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
+    //   {projectname:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
+    //   {projectname:'GE Energy - Industrial',pid:'12004711'},
+    //   {projectname:'AVS 6 months',pid:'000000000029578'}
+    // ];
+    
+    
     this.resources=[      
       {id:'MK00123456',name:'Venkatesh',band:'U1',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
       {id:'SP00234567',name:'Swayam',band:'U2',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
@@ -167,8 +151,20 @@ export class CreateprojectComponent implements OnInit {
       po_id:new FormControl('',{
         validators: []
       })
-    })
+    });
+    this.getcategories();
   }  
+  getcategories(){
+    let caturl=this.ip+'/po/account_category/categories';
+     
+    this.httpClient.get(caturl).subscribe(result => {    
+      this.results=result;
+      this.categories=this.results.accountCategories;
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+  }
   errordata() {
     this.error = 'no data found';
   }
@@ -187,7 +183,14 @@ export class CreateprojectComponent implements OnInit {
     } 
     } 
     onChange(a){
-console.log(this.acc_category_default1)
+      let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+a;
+      this.httpClient.get(catnameurl).subscribe(result => {    
+        this.results=result;
+        this.acnames=this.results.accountNames;
+      },
+      error => {
+        this.error = 'Connection Interrupted..'; 
+      });
     }
   getData(){
     this.projectlists=[
