@@ -15,34 +15,24 @@
               </div>
             </div>
           </ng-container>
-          <form [formGroup]="projectsearchform" (ngSubmit)="onSubmit(projectsearchform.value)">
+          <form [formGroup]="projectsearchform" (ngSubmit)="search_project_data(projectsearchform.value)">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Account Category</label>
                 <input type="text" class="form-control" placeholder="Account Category" [formControl]="projectsearchform.controls['acc_category']">
-                <!-- <select class="form-control"  [formControl]="projectsearchform.controls['acc_category']" [(ngModel)]="acc_category_default">
-                  <option [value]="0" disabled selected>Select Account Category</option>
-                  <option *ngFor="let category of categories" [value]=category.code >
-                    {{category.acc_category}}
-                  </option>
-                </select> -->
+              
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Project Name</label>
                 <input type="text" class="form-control" placeholder="Project Name" [formControl]="projectsearchform.controls['project_name']">
-                <!-- <select class="form-control"  [formControl]="projectsearchform.controls['project_name']" [(ngModel)]="project_name_default">
-                  <option [value]="0" disabled selected>Select Project</option>
-                  <option *ngFor="let project of projects" [value]=project.projectname >
-                    {{project.projectname}}
-                  </option>
-                </select> -->
+              
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="year">Type</label>
+                <label for="year">Project Type</label>
                 <select class="form-control" id="year"  [formControl]="projectsearchform.controls['type']" [(ngModel)]="type_default">
                   <option [value]="0" disabled selected>Select Type</option>
                   <option *ngFor="let type of types" [value]=type.type >
@@ -63,25 +53,10 @@
               </div>
             </div>
             <div class="text-center col-md-12">
-              <button [disabled]="projectsearchform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="getData()">Search</button>
+              <button [disabled]="projectsearchform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit">Search</button>
               <button [disabled]="projectsearchform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
             </div>
           </form>
-          <!-- <div class="row" style="margin-top:60px;">
-            <table class="col-md-12 text-center">
-              <tr>
-                <td>
-                  <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="errordata()()">No Data Found</button>
-                </td>
-                <td>
-                  <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="errorexceptiondata()">Exception</button>
-                </td>
-                <td>
-                  <button [disabled]="projectsearchform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
-                </td>
-              </tr>
-            </table>
-          </div> -->
         </div>
       </div>
     </div>
@@ -129,21 +104,37 @@
         </div>
       </div>             
     </div>
+
+
+
+
+
+
+
+                                                <!-- Create New Project -->
+
+
+
+
+
+
+
+
     <div id="createprojectmodel" class="modal fade" role="dialog" tabindex="-1">
-      <div class="modal-dialog" style="width:75%">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Creating Project</h4>
+            <h4 class="modal-title">Add Project Details</h4>
           </div>
-          <form [formGroup]="projectcreateform">
+          <form [formGroup]="projectcreateform" (ngSubmit)="add_project_details(projectcreateform.value)">
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="proj">Account Category</label>
-                    <select class="form-control" [(ngModel)]="acc_category_default1" (change)="onChange($event.target.value)" [formControl]="projectcreateform.controls['acc_category']">
-                      <option [value]="0" disabled selected>Select Account Name</option>
+                    <select class="form-control"[formControl]="projectcreateform.controls['acc_category']"  (change)="search_account_category($event.target.value)">
+                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
                       <option *ngFor="let category of categories" [value]=category >
                         {{category}}
                       </option>
@@ -152,12 +143,9 @@
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Account Name</label>
-                  <!-- <input type="text" class="form-control" [formControl]="projectcreateform.controls['acc_name']"> -->
-                  <select class="form-control" [(ngModel)]="acc_category_default2" [formControl]="projectcreateform.controls['acc_name']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
-                      <option *ngFor="let acname of acnames" [value]=acname >
-                        {{acname}}
-                      </option>
+                  <select class="form-control" [formControl]="projectcreateform.controls['acc_name']">
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
+                      <option *ngFor="let acname of acnames" [value]=acname >{{acname}}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -178,7 +166,7 @@
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Approval Method</label>
-                  <select class="form-control" [(ngModel)]="approval_default" [formControl]="projectcreateform.controls['approval_method']">
+                  <select class="form-control" [formControl]="projectcreateform.controls['approval_method']">
                     <option [value]="0" disabled selected>Select Approval Method</option>
                     <option *ngFor="let approvalmethod of approvalmethods" [value]='approvalmethod.code' >
                       {{approvalmethod.type}}
@@ -191,7 +179,7 @@
                   <div class="form-group">
                     <label for="proj">Submission Mode</label>
                     <!-- <input type='text' class="form-control" [formControl]="projectcreateform.controls['submission_mode']"> -->
-                    <select class="form-control" [(ngModel)]="submission_default" [formControl]="projectcreateform.controls['submission_mode']">
+                    <select class="form-control" [formControl]="projectcreateform.controls['submission_mode']">
                       <option [value]="0" disabled selected>Select Submission Mode</option>
                       <option *ngFor="let submisson_mode of submisson_modes" [value]=submisson_mode.code >
                         {{submisson_mode.type}}
@@ -201,7 +189,7 @@
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Project Type</label>
-                  <select class="form-control" id="year"  [(ngModel)]="type_default1" [formControl]="projectcreateform.controls['project_type']">
+                  <select class="form-control" id="year" [formControl]="projectcreateform.controls['project_type']">
                     <option [value]="0" disabled selected>Select Type</option>
                     <option *ngFor="let type of types" [value]=type.type >
                       {{type.type}}
@@ -264,93 +252,112 @@
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">Quote#</label>
+                  <label for="proj">Quote</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['quote_id']">
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">Contract#</label>
+                  <label for="proj">Contract</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['contract_id']">
                 </div>
                 <div class="col-md-3">
-                  <label for="proj">PO#</label>
+                  <label for="proj">PO #</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['po_id']">
                 </div>
               </div>
               <div class="row">
                 <h4>Resource Mapping Details</h4>
                 <ul class="nav nav-tabs">
-                  <li class="active"><a data-toggle="tab" href="#mapped">PID Wise Resource</a></li>
-                  <li><a data-toggle="tab" href="#nonmapped">Contract Wise Resource</a></li>
+                  <li class="active"><a data-toggle="tab" href="#mapped">Project ID(PID) Allocated Resources</a></li>
+                  <li><a data-toggle="tab" href="#nonmapped">Contract Allocated Resources</a></li>
                 </ul>
 
                 <div class="tab-content">
                   <div id="mapped" class="tab-pane fade in active">
-                    <!-- <h3>PID Wise Resource</h3> -->
-                      <table border="1" class="table">
-                        <!-- <thead>
-                          <tr>
-                            <th>Associate ID</th><th>	Associate Name</th><th>Designation</th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor='let resource of resources'>
-                            <td>{{resource.id}}</td><td>{{resource.name}}</td><td>{{resource.band}}</td><td>      
-                              <select>
-                                <option>Select Option</option>
-                                <option>Onsite</option>
-                                <option>Offshore</option>
-                              </select>
-                            </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
-                              <input type="text" class="form-control">
-                            </td><td>
-                              <input type="checkbox" checked>
-                            </td>
-                          </tr>
-                        </tbody> -->
-                        <thead>
-                          <tr>
-                            <th>Associate Details<br>
-                            <h6>Associate Name (Associate ID - BAND)</h6></th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor='let resource of resources'>
-                            <td>{{resource.name}}(<small> {{resource.id}} - {{resource.band}} </small>)</td><td>      
-                              <select>
-                                <option>Select Option</option>
-                                <option>Onsite</option>
-                                <option>Offshore</option>
-                              </select>
-                            </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
-                              <input type="text" class="form-control">
-                            </td><td>
-                              <input type="checkbox" checked>
-                            </td>
-                          </tr>
-                        </tbody> 
-                      </table>
-                    
 
-                  </div>
-                  <div id="nonmapped" class="tab-pane fade">
-                    <!-- <h3>Contract Wise Resources</h3> -->
-                    <table border="1" class="table">
+                      <table border="1" class="table" id="resources_data">
                       <thead>
                         <tr>
-                          <th>Associate ID</th><th>	Associate Name</th><th>Designation</th><th>	Onsite/Offshore</th><th>	Associate Start Date</th><th>	Associate End Date</th><th>	Rate Per Hour</th><th>	Select</th>
+                          <th>Associate ID</th>
+                          <th>Associate Name</th>
+                          <th>Band</th>
+                          <th>Onsite/Offshore</th>
+                          <th>Associate Start Date</th>
+                          <th>Associate End Date</th>
+                          <th>Rate Per Hour</th>
+                          <th>Select</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor='let resource of resources'>
-                          <td>{{resource.id}}</td><td>{{resource.name}}</td><td>{{resource.band}}</td><td>      
-                            <select>
+                          <td>{{resource.id}}</td>
+                          <td>{{resource.name}}</td>
+                          <td>{{resource.band}}</td>
+                          <td>      
+                            <select id="abcdef">
+                              <option>Select Resource Location</option>
+                              <option value="ONSITE">ONSITE</option>
+                              <option value="OFFSHORE">OFFSHORE</option>
+                            </select>
+                          </td>
+                          <td>
+                            <!-- {{resource.start_date}} -->
+                            <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                          </td>
+                          <td>
+                            <!-- {{resource.end_date}} -->
+                            <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>     
+                  </div>
+                  <div id="nonmapped" class="tab-pane fade">
+                    <table border="1" class="table">
+                      <thead>
+                        <tr>
+                          <th>Associate ID</th>
+                          <th>Associate Name</th>
+                          <th>Designation</th>
+                          <th>Onsite/Offshore</th>
+                          <th>Associate Start Date</th>
+                          <th>Associate End Date</th>
+                          <th>Rate Per Hour</th>
+                          <th>Select</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor='let resource of resources'>
+                          <td>{{resource.id}}</td>
+                          <td>{{resource.name}}</td>
+                          <td>{{resource.band}}</td>
+                          <td>      
+                            <select class="form-control">
                               <option>Select Option</option>
                               <option>Onsite</option>
                               <option>Offshore</option>
                             </select>
-                          </td><td>{{resource.start_date}}</td><td>{{resource.end_date}}</td><td>
+                          </td>
+                          <td>
+                              <!-- {{resource.start_date}} -->
+                              <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                            </td>
+                            <td>
+                              <!-- {{resource.end_date}} -->
+                              <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                            </td>
+                            <td>
+                              <input type="text" class="form-control">
+                            </td>
+                          <td>
                             <input type="text" class="form-control">
-                          </td><td>
+                          </td>
+                          <td>
                             <input type="checkbox">
                           </td>
                         </tr>
@@ -361,9 +368,8 @@
                 </div>
               </div>
 
-              
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-create="modal">Add</button>
+                <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
             </div>
@@ -373,7 +379,7 @@
     </div>
     
     <div id="updateprojectmodel" class="modal fade" role="dialog" tabindex="-1">
-      <div class="modal-dialog" style="width:75%">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
