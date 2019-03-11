@@ -61,7 +61,7 @@ export class AccessdetailsComponent implements OnInit {
         validators: [
           Validators.required,
           Validators.maxLength(50),
-          Validators.minLength(5),
+          Validators.minLength(3),
           Validators.pattern('^[a-zA-Z][a-zA-Z ]*[a-zA-Z0-9]$') 
         ]
       }),
@@ -79,7 +79,7 @@ export class AccessdetailsComponent implements OnInit {
         validators: [
           Validators.required,
           Validators.maxLength(50),
-          Validators.minLength(5),
+          Validators.minLength(3),
           Validators.pattern('^[a-zA-Z][a-zA-Z ]*[a-zA-Z0-9]$') 
         ]
       }),
@@ -110,7 +110,7 @@ export class AccessdetailsComponent implements OnInit {
       }
       console.log(url)
       this.httpClient.get(url).subscribe(result => {
-        this.closemsg();
+        // this.closemsg();
         this.results=result;
         if(this.results.status==200) {
           this.accessdetails=[];
@@ -133,9 +133,9 @@ export class AccessdetailsComponent implements OnInit {
         this.addresult=result;
         if(this.addresult.status==201){
           this.addmsg=this.addresult.message;
+          this.addaccessdetails.reset();
           let data={associateid:'',associatename:'',accesstype:'',status:''};
           this.searchleaves(data);
-          this.addaccessdetails.reset();
         }
         else if(this.addresult.status==409){
           this.addmsg=this.addresult.message;    

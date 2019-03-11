@@ -142,6 +142,7 @@ export class ResourcesComponent implements OnInit {
     this.searcherrormsg='';
   }
   search_resource_details(value){   
+    console.log(value)
     let url=this.ip+'/po/resource/fetch?associateId='+value.search_associateid+'&associateName='+value.search_associatename+'&band='+value.search_band;
     this.httpClient.get(url).subscribe(result => {  
       this.results=result;
@@ -264,10 +265,9 @@ export class ResourcesComponent implements OnInit {
         if(this.addresult.status==200){
           this.deletemsg=this.addresult.message;
           let data={
-            search_account_category:'',
-            search_account_name:'',
-            search_project_name:'',
-            search_holidays_years:''
+            search_associatename:'',
+            search_associateid:'',
+            search_band:''
           };
           this.search_resource_details(data);
         } 

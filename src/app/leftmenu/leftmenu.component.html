@@ -1,30 +1,20 @@
 <div class="nav-side-menu col-lg-3 col-md-3">
   <div class="brand">Purchase Order</div>
   <span *ngIf="logedas">
-    
-    
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-    
-    <div class="menu-list">
-      
+    <div class="menu-list">      
       <ul id="menu-content" class="menu-content collapse out">
         <li routerLinkActive="active" routerLink="/home">
           <i class="fa fa-dashboard fa-lg"></i> Dashboard          
         </li>
-        <li routerLinkActive="active" routerLink="/createproject">          
-          <i class="fa fa-book fa-lg"></i> Create Project
-        </li>
-        <!-- <li routerLinkActive="active" routerLink="/createproject1">
-          <i class="fa fa-book fa-lg"></i> Create Project-1
-        </li> -->
         <li routerLinkActive="active" routerLink="/accountcategory">
           <i class="fa fa-cogs fa-lg"></i> Account Category
         </li>
-        <!-- <li routerLinkActive="active" routerLink="/accountcategory1">
-          <i class="fa fa-cog fa-lg"></i> Account Category-1
-        </li> -->
-        <li routerLinkActive="active" routerLink="/fxrates">
-          <i class="fa fa-calculator fa-lg"></i> FX Rates
+        <li routerLinkActive="active" routerLink="/accessdetails">
+          <i class="fa fa-calculator fa-lg"></i> Access Details
+        </li> 
+        <li routerLinkActive="active" routerLink="/resources">
+          <i class="fa fa-users"></i> Resources
         </li>
         <li routerLinkActive="active" routerLink="/leavedetails">
           <i class="fa fa-calendar fa-lg"></i> Leave Details
@@ -32,8 +22,11 @@
         <li routerLinkActive="active" routerLink="/holidays">
           <i class="fa fa-calendar fa-lg"></i> Holidays
         </li>
-        <li routerLinkActive="active" routerLink="/resources">
-          <i class="fa fa-users"></i> Resources
+        <li routerLinkActive="active" routerLink="/fxrates">
+          <i class="fa fa-calculator fa-lg"></i> FX Rates
+        </li>
+        <li routerLinkActive="active" routerLink="/createproject">          
+          <i class="fa fa-book fa-lg"></i> Create Project
         </li>
         <li data-toggle="collapse" data-target="#colla" class="collapsed" routerLinkActive="active" routerLink="/poapproval">
           <i class="fa fa-check-square-o"></i> Project Information
@@ -49,9 +42,7 @@
         <!-- <li routerLinkActive="active" routerLink="/quote">
           <i class="fa fa-pencil-square-o fa-lg"></i>Quote
         </li> -->
-        <li routerLinkActive="active" routerLink="/accessdetails">
-          <i class="fa fa-calculator fa-lg"></i> Access Details
-        </li>                
+                     
         <li  data-toggle="collapse" data-target="#profile" class="collapsed">
           <i class="fa fa-user fa-lg"></i> Profile <span class="arrow"></span>
         </li>

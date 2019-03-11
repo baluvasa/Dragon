@@ -282,6 +282,7 @@ export class HolidaysComponent implements OnInit {
             december: addholidaydata.holiday_dec,
             createdBy: 'ADMIN'
           };
+          console.log(holidays)
     let url=this.ip+'/po/holidays/add ';
     this.httpClient.post(url,holidays).subscribe(result => {
       this.addresult=result;
