@@ -112,7 +112,7 @@
                 
                 <div class="text-center col-md-12">
                   <button [disabled]="leaveform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves(leaveform.value)">Search</button>
-                  <button [disabled]="leaveform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+                  <button [disabled]="leaveform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="button" (click)="searchreset()">Cancel</button>
                 </div>
                 
               </form>

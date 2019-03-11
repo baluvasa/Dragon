@@ -80,7 +80,7 @@
                 </div>
                 <div class="text-center col-md-12">
                   <button class="btn btn-primary col-md-offset-3 col-md-2" (click)="search_accountcategory(searchaccountcategory.value)">Search</button>
-                  <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset"  (click)='closemsg()'>Cancel</button>
+                  <button class="btn btn-danger col-md-offset-2 col-md-2" type="button"  (click)="[searchreset(),closemsg()]">Cancel</button>
                 </div>
               </form>              
             </div>
@@ -143,7 +143,7 @@
                         <input type="text" class="form-control" [formControl]="update_accountcategory.controls['update_account_category']" disabled required>
                         <div class="form-row">
                           <label>Account Name*</label>
-                          <input type="text" value="GE INDIA EXPORTS PVT LTD" placeholder="Account Name..." class="form-control" [formControl]="update_accountcategory.controls['update_account_name']" />
+                          <input type="text" value="GE INDIA EXPORTS PVT LTD" onkeyup="this.value = this.value.toUpperCase();" placeholder="Account Name..." class="form-control" [formControl]="update_accountcategory.controls['update_account_name']" />
                           <div class="text-danger" *ngIf="update_accountcategory.controls.update_account_name.errors && (update_accountcategory.controls.update_account_name.dirty || update_accountcategory.controls.update_account_name.touched) && !update_accountcategory.controls.update_account_name.valid">
                               <span *ngIf="update_accountcategory.controls.update_account_name.errors.required">Account Name is required</span>
                               <span *ngIf="update_accountcategory.controls.update_account_name.errors.minlength">Account Name length should be 5 characters</span>

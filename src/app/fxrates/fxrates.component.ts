@@ -66,23 +66,22 @@ searchfxform: FormGroup;
     })  
   }
   searchreset(){
-    let data={currency:'',fxdate:''};
-
-            this.searchfx_form(data);
+    this.searchfxform.reset({ currency: '', fxdate: '' });
   }
 searchfx_form(value){ 
+  this.closemsg();
   let url='';    
-  if(value.fxdate==''){
+  if(value.fxdate=='' || value.fxdate==null){
     url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date';
   }
-  else if(value.currency==null){
+  else if(value.currency=='' ||value.currency==null){
     url=this.ip+'/po/fx_rates/fetch?countryCode='+'&date='+value.fxdate.formatted;
   }
-  else if(value.fxdate==null){
-    url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date';
-  }
+  // else if(value.fxdate==null){
+  //   url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date';
+  // }
   else if(value.fxdate==null && value.currency==null ){
-    url=this.ip+'/po/fx_rates/fetch?countryCode='+'&date';
+    url=this.ip+'/po/fx_rates/fetch?countryCode='+'&date=';
   }
    else  {
     url=this.ip+'/po/fx_rates/fetch?countryCode='+value.currency+'&date='+value.fxdate.formatted;
@@ -91,7 +90,13 @@ searchfx_form(value){
   console.log("@@@@@@@@@@@@@@",value.fxdate)
   this.httpClient.get(url).subscribe(result => {    
     this.results=result;
-    this.fxlists=this.results.fxRates;
+    if(this.results.status==200){
+      this.fxlists=[];
+      this.fxlists=this.results.fxRates;
+    }else{
+      this.fxlists=[];
+      this.error=this.results.message;
+    }
   },
   error => {
     this.error = 'Connection Interrupted..'; 
@@ -121,19 +126,21 @@ deletedata(deletevalue){
   } 
 }
 add_fxdetails(value){
-  console.log(value);
+  // console.log(value);
   let category={currencyCode:value.currency,fxDate:value.fxdate.formatted,fxRate:value.fxrate,createdBy:'admin'};
-  console.log(category)
+  // console.log(category)
   let url=this.ip+'/po/fx_rates/create';
   this.httpClient.post(url,category).subscribe(result => {
-    console.log(result)
     this.addresult=result;
-    if(this.addresult.status==201){
-      this.addmsg=this.addresult.message;
-      this.addfxform.reset();
-      let data={currency:'',fxdate:''};
-      this.searchfx_form(data);
+    console.log(this.addresult)
+    this.addmsg="Fx Reate Added Successfully.";
+    if(this.addresult.status == 201){
+      this.addmsg="Fx Reate Added Successfully.";
+      this.addfxform.reset({ fxrate: '', fxdate: '' });
     }
+      // this.addfxform.reset();
+      // let data={currency:'',fxdate:''};
+      // this.searchfx_form(data);
   },
   error => {
     this.error = 'Connection Interrupted..'; 

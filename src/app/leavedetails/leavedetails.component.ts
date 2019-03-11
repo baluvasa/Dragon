@@ -60,7 +60,7 @@ export class LeavedetailsComponent implements OnInit {
       associatename:new FormControl('',{}),    
       yearmonth:  new FormControl('',{})  
     })
-
+  
     this.updateleavedetails = new FormGroup({
       updleaveid:new FormControl('',{}),
       updassociateid:new FormControl('',{}),
@@ -98,15 +98,18 @@ export class LeavedetailsComponent implements OnInit {
       }) ,
     })  
   }
-  nodata(){
-    this.error="No Data Found";
-}
-exception(){
-    this.error="Exception has occurred while Fetching the Data";
-}
-badrequest(){
-    this.error="Bad Request";
-}
+  searchreset(){
+    this.leaveform.reset({ associateid: '', associatename: '',yearmonth:'' });
+  }
+//   nodata(){
+//     this.error="No Data Found";
+// }
+// exception(){
+//     this.error="Exception has occurred while Fetching the Data";
+// }
+// badrequest(){
+//     this.error="Bad Request";
+// }
 
   searchleaves(value){
     console.log(value)

@@ -41,7 +41,7 @@
             </div>
             <div class="text-center col-md-12">
               <button [disabled]="searchresourceform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="search_resource_details(searchresourceform.value)">Search</button>
-              <button [disabled]="searchresourceform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+              <button [disabled]="searchresourceform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="button" (click)="searchreset()">Cancel</button>
             </div>
           </form>
         

@@ -38,17 +38,18 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="year">Year</label>
-              <select class="form-control" [formControl]="holidayform.controls['search_holidays_years']">
+              <input type="text" placeholder="Select Year" class="form-control" [formControl]="holidayform.controls['search_holidays_years']">
+              <!-- <select class="form-control" [formControl]="holidayform.controls['search_holidays_years']">
                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year</option>
                 <option *ngFor="let year of years" [value]=year.years>
                   {{year.years}}
                 </option>
-              </select>                  
+              </select>                   -->
             </div>
           </div>
           <div class="text-center col-md-12">
             <button  class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="search_holidays_details(holidayform.value)">Search</button>
-            <button  class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
+            <button  class="btn btn-danger col-md-offset-2 col-md-2" type="button" (click)="searchreset()">Cancel</button>
           </div>
         </form>
       </div>
@@ -356,6 +357,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Account Category*</label>
+                <input type="hidden" class="form-control" [formControl]="holidayeditlistform.controls['edit_holiday_id']"> 
                 <input disabled class="form-control" [formControl]="holidayeditlistform.controls['edit_account_category']"> 
                 
               </div>
@@ -540,7 +542,7 @@
           <small id="mandatory_fields">* fields are Mandatory</small>
           <div class="modal-footer">
             <button type="submit"  [disabled]="holidayeditlistform.invalid"   class="btn btn-success">Update</button> 
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)='closemsg()'>Close</button>
             
           </div>
         </div>

@@ -86,6 +86,9 @@ export class AccountcategoryComponent implements OnInit  {
     this.updateerror='';
     this.searcherror='';
   }
+  searchreset(){
+    this.searchaccountcategory.reset({ search_account_category: '', search_account_name: ''});
+  }
 add_account_category_data(addaccountcategory){
   let category={accountCategory:addaccountcategory.add_account_category,accountName:addaccountcategory.add_account_name,createdBy:'admin'};
   let url=this.ip+'/po/account_category/create';
@@ -93,7 +96,7 @@ add_account_category_data(addaccountcategory){
     this.addresult=result;
     if(this.addresult.status==201){
       this.addmsg=this.addresult.message;
-      this.addaccountcategory.reset();
+      // this.addaccountcategory.reset();
       let data={search_account_category:'',search_account_name:''};
         this.search_accountcategory(data);
     }   else if(this.addresult.status==409){
@@ -123,8 +126,6 @@ update_account_category_data(updateaccountcategory){
   });
 }
 search_accountcategory(value){ 
-  console.log(value.search_account_category.length)
-  console.log(value.search_account_name.length)
   let url='';
   if((value.search_account_category.length==0 && value.search_account_name.length==0)||(value.search_account_category==null && value.search_account_name==null)){
     url=this.ip+'/po/account_category/fetch?accountCategory=&accountName=';
@@ -132,6 +133,7 @@ search_accountcategory(value){
   else{
     url=this.ip+'/po/account_category/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name;
   }
+  console.log(url)
   this.httpClient.get(url).subscribe(result => {    
     this.results=result;
     if(this.results.status==200){

@@ -62,7 +62,7 @@ export class AccessdetailsComponent implements OnInit {
           Validators.required,
           Validators.maxLength(50),
           Validators.minLength(5),
-          Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
+          Validators.pattern('^[a-zA-Z][a-zA-Z ]*[a-zA-Z0-9]$') 
         ]
       }),
       
@@ -80,11 +80,14 @@ export class AccessdetailsComponent implements OnInit {
           Validators.required,
           Validators.maxLength(50),
           Validators.minLength(5),
-          Validators.pattern('^[a-zA-Z][a-zA-Z0-9 ]*[a-zA-Z0-9]$') 
+          Validators.pattern('^[a-zA-Z][a-zA-Z ]*[a-zA-Z0-9]$') 
         ]
       }),
       
     })  
+  }
+  searchreset(){
+    this.leaveform.reset({ associateid: '', associatename: '',accesstype:'',status:'' });
   }
   setupdatemodel(accessdetail){
     this.updateaccessdetails.setValue(
@@ -95,21 +98,28 @@ export class AccessdetailsComponent implements OnInit {
       });
     }
     searchleaves(value){
-      console.log(value)
       let url='';
       if((value.associateid.length==0 && value.associatename.length==0 && value.accesstype.length==0 && value.status.length==0 ) || 
       (value.associateid==null && value.associatename==null && value.accesstype==null && value.status==null) ){
-        console.log('in with out value')
+        // console.log('in with out value')
         url=this.ip+'/po/access/fetch?gid=&name=&type=&status=';
       }
       else{
-        console.log('in with value')
+        // console.log('in with value')
         url=this.ip+'/po/access/fetch?gid='+value.associateid+'&name='+value.associatename+'&type='+value.accesstype+'&status='+value.status;
       }
       console.log(url)
-      this.httpClient.get(url).subscribe(result => {    
+      this.httpClient.get(url).subscribe(result => {
+        this.closemsg();
         this.results=result;
-        this.accessdetails=this.results.accessdetails;
+        if(this.results.status==200) {
+          this.accessdetails=[];
+          this.accessdetails=this.results.accessdetails;
+        }   
+        else{
+          this.accessdetails=[];
+          this.error=this.results.message;
+        }
       },
       error => {
         this.error = 'Connection Interrupted..'; 

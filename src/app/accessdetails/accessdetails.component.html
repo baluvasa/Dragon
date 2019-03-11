@@ -109,7 +109,7 @@
               
               <div class="text-center col-md-12">
                 <button class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchleaves(leaveform.value)">Search</button>
-                <button class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)='closemsg()'>Cancel</button>
+                <button class="btn btn-danger col-md-offset-2 col-md-2"  type="button" (click)="[searchreset(),closemsg()]">Cancel</button>
               </div>
               
             </form>

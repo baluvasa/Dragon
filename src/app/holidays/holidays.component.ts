@@ -85,6 +85,7 @@ export class HolidaysComponent implements OnInit {
         validators: []
       })
     })
+ 
     this.holidaylistform = new FormGroup({
       add_account_category:new FormControl('',{
         validators: [Validators.required],
@@ -136,6 +137,9 @@ export class HolidaysComponent implements OnInit {
       })
     })
     this.holidayeditlistform = new FormGroup({
+      edit_holiday_id:new FormControl('',{
+        validators: [Validators.required]
+      }),
       edit_account_category:new FormControl('',{
         validators: [Validators.required]
       }),
@@ -187,6 +191,9 @@ export class HolidaysComponent implements OnInit {
     })
    
   }
+  searchreset(){
+    this.holidayform.reset({ search_account_category: '', search_account_name: '',search_project_name: '', search_holidays_years: '' });
+  }
   leap_year(date_value)
   {
    //let year=this.holidaylistform[0].add_holiday_year.value;
@@ -212,7 +219,14 @@ export class HolidaysComponent implements OnInit {
     let url=this.ip+'/po/holidays/fetch?accountCategory='+value.search_account_category+'&accountName='+value.search_account_name+'&projectName='+value.search_project_name+'&year='+value.search_holidays_years;
     this.httpClient.get(url).subscribe(result => {    
         this.results=result;
+        if(this.results.status==200){
+          this.holidayslists=[];
         this.holidayslists=this.results.holidaysDetails;
+      }
+      else{
+        this.holidayslists=[];
+        this.error=this.results.message;
+      }
     },
     error => {
       this.error = 'Connection Interrupted..'; 
@@ -222,6 +236,7 @@ export class HolidaysComponent implements OnInit {
 
   update_holiday_modal_screen(holidaylist){
    this.holidayeditlistform.setValue({
+    edit_holiday_id:holidaylist.holidayId,
       edit_account_category:holidaylist.accountCategory,
       edit_account_name:holidaylist.accountName,
       edit_project_name:holidaylist.projectName,
@@ -315,8 +330,10 @@ export class HolidaysComponent implements OnInit {
 
   update_holiday_list_form(update_data)
   {
+    console.log(update_data)
     let modilfyurl=this.ip+'/po/holidays/modify';  
     let updateholidaylist={
+      holidayId: update_data.edit_holiday_id,
       accountCategory: update_data.edit_account_category,
       accountName: update_data.edit_account_name,
       year:  update_data.edit_project_year,
