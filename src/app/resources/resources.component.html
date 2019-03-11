@@ -212,14 +212,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <ng-container *ngIf="editerror">
           <div class="col-md-12">
-            <div class="alert alert-danger alert-dismissible fade in">
+              <div class="alert alert-success alert-dismissible" *ngIf="updatemsg">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
+                  {{updatemsg}}
+                </div>
+            <div class="alert alert-danger alert-dismissible" *ngIf="updateerrormsg">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-              {{editerror}}
+              {{updateerrormsg}}
             </div>
           </div>
-        </ng-container>
         <form [formGroup]="updateresourcedetails">
           <div class="row">
             <div class="col-md-6">
