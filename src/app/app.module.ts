@@ -32,6 +32,7 @@ import {MyDatePickerModule} from 'mydatepicker';
 import { ProjectinfoMonthlyComponent } from './projectinfo-monthly/projectinfo-monthly.component';
 import { PronovComponent } from './pronov/pronov.component';
 import { ProdecComponent } from './prodec/prodec.component';
+import { PoappComponent } from './poapp/poapp.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { ProdecComponent } from './prodec/prodec.component';
     Accountcategory1Component,
     ProjectinfoMonthlyComponent,
     PronovComponent,
-    ProdecComponent
+    ProdecComponent,
+    PoappComponent
    
   ],
   imports: [

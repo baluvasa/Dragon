@@ -5,10 +5,10 @@ import { AppLink } from '../app-link';
 import { HttpClient } from '@angular/common/http'
 @Component({
   selector: 'app-poapproval',
-  templateUrl: './poapproval.component.html',
-  styleUrls: ['./poapproval.component.scss']
+  templateUrl: './poapp.component.html',
+  styleUrls: ['./poapp.component.scss']
 })
-export class PoapprovalComponent implements OnInit {
+export class PoappComponent implements OnInit {
   poapprovalform: FormGroup;
   addpoform: FormGroup;
   addprojectinfoform:FormGroup
@@ -172,13 +172,7 @@ searchpodata(){
   ];
   this.emplists=[
     {sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-{sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-{sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-{sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-{sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
+   
   ];
 }
 

@@ -1,0 +1,528 @@
+<script>
+  $(document).ready(function() {
+    var row = 0,
+      col = 0,
+      ncol = 0;
+    var sum;
+   
+    // sum by col
+    for (col = 1; col < ncol + 1; col++) {
+      console.log("column: " + col);
+      sum = 0;
+      $("tr").each(function(rowindex) {
+        $(this).find("td:nth-child(" + col + ")").each(function(rowindex) {
+          newval = $(this).find("input").val();
+          console.log(newval);
+          if (isNaN(newval)) {
+            $(this).html(sum);
+          } else {
+            sum += parseInt(newval);
+          }
+        });
+      });
+    }
+  });
+  </script>
+  
+
+
+<div class="row">
+  <div class="container-fluid">
+    
+      <h2>Project Information Details</h2>
+    <div class="panel panel-default">
+      
+      <div class="panel-heading">Search Project Information Details
+        <button *ngIf="role" type="button" class="btn btn-success fa fa-plus-circle" data-toggle="modal" data-target="#poapprovaldetails" style="float:right"  (click)="searchpodata()">
+          &nbsp;&nbsp;Add</button>
+          
+        </div> 
+        <div class="panel-body">
+          <div>
+            <div id="poapprovaldetails" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Project Information</h4>
+                  </div>
+                  <form [formGroup]="addpoform">
+                    <div class="modal-body">
+                      <div class="form-group">
+                      
+                      <div class="form-group col-md-3">
+                          <label>Account Category</label>
+                          <select class="form-control" [formControl]="addpoform.controls['modalaccountcategory']" (change)="search_all_project_info($event.target.value)" >
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
+                            <option *ngFor="let account_category_dropdown of account_category_dropdown" [value]='account_category_dropdown'>{{account_category_dropdown}}</option>
+                           </select>
+                          <small class="text-danger" *ngIf="addpoform.controls.modalaccountcategory.errors && (addpoform.controls.modalaccountcategory.dirty || addpoform.controls.modalaccountcategory.touched) && !addpoform.controls.modalaccountcategory.valid">
+                            <span *ngIf="addpoform.controls.modalaccountcategory.errors.required">Account Category is required</span>
+                          </small>
+                       </div>
+                       
+                       <div class="form-group col-md-3">
+                         <label>Account Name</label>
+                         <select class="form-control" [formControl]="addpoform.controls['modalaccountname']" (change)="get_all_project_info($event.target.value)">
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
+                            <option *ngFor="let account_name_dropdown of account_all_project_info" value={{account_name_dropdown.accountName}}>{{account_name_dropdown.accountName}}</option>
+                           </select>
+
+                       </div>
+
+                      <div class="form-group col-md-3">
+                        <label>Project Name</label>
+                        <!-- <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" >
+                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project</option>
+                          <option  [value]='project_name_data'>{{project_name_data}}</option>
+                        </select> -->
+
+                        <input type="text" class="form-control" formControlName="modalprojectname" placeholder="Project Name" [(ngModel)]=project_name_data readonly="readonly"/>
+                        <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
+                          <span *ngIf="addpoform.controls.modalprojectname.errors.required">Project Name is required</span>
+                        </small>
+                        <input type="hidden" class="form-control" formControlName="modalprojectpid" placeholder="Project ID(PID)" [(ngModel)]=project_pid readonly="readonly"/>
+                        </div>
+                        
+                        <div class="form-group  col-md-3">
+                            <label>Project Year & Month</label>
+                            <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']">
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
+                            <option *ngFor="let month_year of project_year_month" value={{month_year}}>{{month_year}}</option>
+                            </select>
+                        </div>
+        
+                        
+                       <div class="form-group col-md-3">
+                          <label>Customer Name</label>
+                          <input type="text" class="form-control" placeholder="Customer Name" formControlName="modalcustomername"  [(ngModel)]="project_customer_name" readonly="readonly"/>
+                          
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                         <label>Project Start Date</label>
+                         <input type="text" class="form-control"  placeholder="DD-MMM-YYYY"   formControlName="modalprojectstartdate" [(ngModel)]=project_start_date readonly="readonly"/>
+                        
+                       </div>
+                        
+                        <div class="form-group col-md-2">
+                          <label>Project End Date</label>
+                          <input type="text" class="form-control"  placeholder="DD-MMM-YYYY"   formControlName="modalprojectenddate" [(ngModel)]=project_end_date readonly="readonly"/>
+                          
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                          <label>Project Billing Currency</label>
+                          <input type="text" class="form-control" placeholder="Project Billing Currency"  formControlName="modalprojectbilling"  [(ngModel)]=project_billing_cycle readonly="readonly"/>
+                        </div>
+                       
+
+                        <div class="form-group col-md-3 get_input_search">
+                            <label>&nbsp;</label>
+                          <button type="button"  [disabled]="addpoform.invalid"  class="btn btn-primary " (click)="input_search_po_data(addpoform.value)">Search Project Information</button>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="table-responsive">          
+                                <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="dtOptions">
+                                  <thead>
+                                    <tr>
+                                        <th rowspan="2">S. No</th>
+                                        <th rowspan="2">Associate ID</th>
+                                        <th rowspan="2">Associate Name</th>
+                                        <th rowspan="2">Band</th>
+                                        <th rowspan="2">Associate Start Date</th>
+                                        <th rowspan="2">Associate End Date</th>
+                                        <th rowspan="2">Fx Rate</th>
+                                        <th rowspan="2">Unit Of Measurement (in Hours)</th>
+                                        <th colspan="2" class='accruals' style="text-align:center">Accruals</th>
+                                        <th colspan="2" class="billed" style="text-align:center">Billed</th>
+                                        <th rowspan="2">Remarks</th>                                       
+                                    </tr>
+                                    <tr>
+                                      <th class='accruals'>No. Of Hours</th>
+                                      <th class='accruals'>Amount</th>
+                                      <th class="billed" >No. Of Hours</th>
+                                      <th class="billed" >Amount</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let emplist of emplists; index as i">
+                                      <td>{{i+1}}</td>
+                                      <td>{{emplist.associateid}}</td>
+                                      <td>{{emplist.associatename}}</td>
+                                      <td>{{emplist.band}}</td>
+                                      <td>{{emplist.sdate}}</td>
+                                      <td>{{emplist.edate}}</td>
+                                      <td>{{emplist.rate}}</td>
+                                      <td>{{emplist.uom}}</td>
+                                      <td contenteditable='true' class='accruals'>{{emplist.nod1}}</td>
+                                      <td contenteditable='true'>{{emplist.amount1}}</td>
+                                      <td contenteditable='true' class="billed">{{emplist.nod2}}</td>
+                                      <td contenteditable='true'>{{emplist.amount2}}</td>
+                                      <td ><textarea></textarea></td>
+                                    
+                                    </tr>
+                                  </tbody>
+                                  <tfoot>
+                                      <tr>
+                                        <td><b>Total</b></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class='sum accruals'><b>192</b></td>
+                                        <td class='accruals'><b>3,60,002.64</b></td>
+                                        <td class='billed'><b>144</b></td>
+                                        <td class='billed'><b>348802.64</b></td>
+                                        
+                                      </tr>
+                                    </tfoot>
+                                </table>
+                              </div>
+                        </div>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-create="modal">Add</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="error">
+              <div class="alert alert-danger alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{error}}
+              </div>
+            </div>
+            <form [formGroup]="poapprovalform" (ngSubmit)="onSubmit(poapprovalform.value)">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Account Category</label>
+                    <input type="text" class="form-control" placeholder="Account Category..." />
+                    <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
+                      <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
+                    </select> -->
+                  </div>
+
+                  <div class="col-md-6">
+                    <label>Account Name</label>
+                    <input type="text" class="form-control" placeholder="Account Name..." />
+                    <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
+                      <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
+                    </select> -->
+                  </div>
+
+                  <div class="col-md-6">
+                    <label>Project Name</label>
+                    <input type="text" class="form-control" placeholder="Project Name..." />
+                    <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
+                      <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
+                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
+                    </select> -->
+                  </div>
+
+                  <div class="col-md-3">
+                    <label>Project Billing Currency</label>
+                    <select class="form-control" >
+                      <option value="" disabled selected>Select Currency</option>
+                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.country}} )</option>
+                    </select>
+                  </div>
+                 
+                  
+                  <div class="col-md-3">
+                    <label>Year & Month</label>
+                    <select class="form-control" [formControl]="poapprovalform.controls['projectyear']" >
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
+                      <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
+                    </select>
+                  </div>
+                </div>
+                
+                
+              </div>
+              
+              <div class="text-center col-md-12">
+                <button [disabled]="poapprovalform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="searchpodata()">Search</button>
+                <button [disabled]="poapprovalform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
+              </div>
+              
+            </form>
+            
+            
+            <div class="row" style="margin-top:60px;">
+              <table class="col-md-12 text-center">
+                <tr>
+                  <td>
+                    <button [disabled]="poapprovalform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
+                  </td>
+                  <td>
+                    <button [disabled]="poapprovalform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
+                  </td>
+                  <td>
+                    <button [disabled]="poapprovalform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" *ngIf="emplists">
+        <div class="panel-body">
+          
+        
+            <div class="table-responsive">          
+                <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="dtOptions">
+                  <thead>
+                    <tr>
+                      <th>SNO</th>
+                      <th>Account
+                        </th>
+                      <th>Customer Name
+                        </th>
+                      <th>PID
+                        </th>
+                      <th>Quote
+                        </th>
+                      <th>Contract
+                        </th>
+                      <th>Start Date
+                        </th>
+                      <th>End Date
+                        </th>
+                      
+                                        
+                       
+                    </tr>
+                    
+                  </thead>
+                  <tbody>
+                    <!-- <tr> -->
+                        <tr *ngFor="let emplist of emplists; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{emplist.account}}</td>
+                        <td>{{emplist.customer_name}}</td>
+                        <td>{{emplist.pid}}</td>
+                        <td>{{emplist.quote}}</td>
+                        <td>{{emplist.contract}}</td>
+                        <td>{{emplist.sdate}}</td>
+                        <td>{{emplist.enddate}}</td>
+                        
+                       
+                    
+                    </tr>
+                   
+                  </tbody>
+                  <!-- <tfoot>
+                      <tr>
+                        <td><b>Total</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                        
+                      </tr>
+                    </tfoot> -->
+                </table>
+              </div>
+      
+           <div id="poapprovaldetailsupdate" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Project Information</h4>
+                  </div>
+                  <form [formGroup]="addpoform">
+                    <div class="modal-body">
+                      <div class="form-group">
+                      
+                      <div class="form-group col-md-4">
+                          <label>Account Category</label>
+                          <input type="text" class="form-control" value="GE Renewables" disabled/>
+                          <!-- <select class="form-control" [formControl]="addpoform.controls['modalaccountcategory']" required>
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">GE Renewables</option>
+                            <option></option>
+                            <option>GE Digital</option>
+                            <option>GE Industrial</option>
+                          </select> -->
+                          <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
+                            <span *ngIf="addpoform.controls.modalprojectname.errors.required">Account Category is required</span>
+                          </small>
+                       </div>
+
+                      <div class="form-group col-md-4">
+                        <label>Project Name</label>
+                        <input type="text" class="form-control" value="GE Renewables" />
+                        <!-- <select class="form-control" [formControl]="addpoform.controls['modalprojectname']" required>
+                          <option value="" disabled selected hidden style="color:#a4b2ba;">GE P&W</option>
+                          <option>GE Renewables</option>
+                          <option>GE Digital</option>
+                          <option>GE Industrial</option>
+                        </select> -->
+                        <small class="text-danger" *ngIf="addpoform.controls.modalprojectname.errors && (addpoform.controls.modalprojectname.dirty || addpoform.controls.modalprojectname.touched) && !addpoform.controls.modalprojectname.valid">
+                          <span *ngIf="addpoform.controls.modalprojectname.errors.required">Project Name is required</span>
+                        </small>
+                        </div>
+                        
+                        <div class="form-group  col-md-4">
+                            <label>Year & Month</label>
+                            <input type="text" class="form-control" value="Jan-2019" disabled/>
+                            <!-- <select class="form-control" [formControl]="addpoform.controls['modalpo_year_month']" required>
+                              <option value="" disabled selected hidden style="color:#a4b2ba;">Jan-2019</option>
+                              <option>Jan-2019</option>
+                              <option>Feb-2018</option>
+                              <option>Oct-2018</option>
+                            </select> -->
+                        </div>
+
+                        
+                       <div class="form-group col-md-3">
+                         <label>Account Name</label>
+                         <input type="text" class="form-control" value="GE Ticketless" placeholder="Account Name" disabled/>
+                        
+                       </div>
+                        
+                       
+                        
+                       <div class="form-group col-md-3">
+                          <label>Customer Name</label>
+                          <input type="text" class="form-control"  value="Industrial Connections & Solutions LLC " placeholder="Customer Name" disabled/>
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                         <label>Project Start Date</label>
+                         <input type="text" class="form-control" value="10-Jan-2018" placeholder="DD/MMM/YYYY" disabled/>
+                        
+                       </div>
+                        
+                        <div class="form-group col-md-2">
+                          <label>Project End Date</label>
+                          <input type="text" class="form-control" value="09-Jan-2019" placeholder="DD/MMM/YYYY" disabled/>
+                          
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                          <label>Project Billing Currency</label>
+                          <input type="text" class="form-control"  value="USD-(US Dollar)" placeholder="Project Billing Currency" disabled/>
+                          
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="table-responsive">          
+                                <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="dtOptions">
+                                  <thead>
+                                    <tr>
+                                      <th>SNO</th>
+                                      <th>Account
+                                        </th>
+                                      <th>Customer Name
+                                        </th>
+                                      <th>PID
+                                        </th>
+                                      <th>Quote
+                                        </th>
+                                      <th>Contract
+                                        </th>
+                                      <th>Start Date
+                                        </th>
+                                      <th>End Date
+                                        </th>
+                                      
+                                                        
+                                       
+                                    </tr>
+                                    
+                                  </thead>
+                                  <tbody>
+                                    <!-- <tr> -->
+                                        <tr *ngFor="let emplist of emplists; index as i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{emplist.account}}</td>
+                                        <td>{{emplist.customer_name}}</td>
+                                        <td>{{emplist.pid}}</td>
+                                        <td>{{emplist.quote}}</td>
+                                        <td>{{emplist.contract}}</td>
+                                        <td>{{emplist.sdate}}</td>
+                                        <td>{{emplist.enddate}}</td>
+                                        
+                                       
+                                    
+                                    </tr>
+                                   
+                                  </tbody>
+                                  <!-- <tfoot>
+                                      <tr>
+                                        <td><b>Total</b></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td ></td>
+                                        <td ></td>
+                                        <td ></td>
+                                        <td ></td>
+                                        <td ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        
+                                        
+                                      </tr>
+                                    </tfoot> -->
+                                </table>
+                              </div>
+                        </div>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" [disabled]="addpoform.invalid" class="btn btn-primary" data-create="modal">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div> 
+
+        </div>             
+      </div>
+    </div>
+    

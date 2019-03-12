@@ -397,48 +397,100 @@
                          
                           <div class="form-group">
                               <div class="table-responsive">          
-                                  <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="modaldtOptions">
+                                  <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="dtOptions">
                                     <thead>
                                       <tr>
-                                          <th rowspan="2">S. No</th>
-                                          <th rowspan="2">Associate ID</th>
-                                          <th rowspan="2">Associate Name</th>
-                                          <th rowspan="2">Band</th>
-                                          <th rowspan="2">Associate Start Date</th>
-                                          <th rowspan="2">Associate End Date</th>
-                                          <th rowspan="2">Fx Rate</th>
-                                          <th rowspan="2">UOM</th>
-                                          <th colspan="2"  class='accruals' style="text-align:center">Accruals</th>
-                                          <th colspan="2"  class='billed' style="text-align:center">Billed</th>
-                                          <th rowspan="2">Remarks</th>
+                                        <th>SNO</th>
+                                        <th>Account
+                                          </th>
+                                        <th>Customer Name
+                                          </th>
+                                        <th>PID
+                                          </th>
+                                        <th>Quote
+                                          </th>
+                                        <th>Contract
+                                          </th>
+                                        <th>Start Date
+                                          </th>
+                                        <th>End Date
+                                          </th>
+                                        <th>Days Left
+                                          </th>
+                                        <th>PO#
+                                          </th>
+                                        <th>Balance (Final)
+                                          </th>
+                                        <th>Avg. Billing
+                                          </th>
+                                        <th>Months Consmd.
+                                          </th>
+                                          <th>GID
+
+                                            </th>
+                                            <th>Associate Name
+
+
+                                              </th>
+                                              <th>Asso. Start Date
+
+
+                                                </th>
+                                                <th>Asso. last Date
+
+
+                                                  </th>
+                                                  <th>Releasing in
+
+
+                                                    </th>
+                                                    <th>Band
+
+
+                                                      </th>
+                                                      <th>UOM
+
+
+                                                        </th>
+                                                        <th>Rates
+
+
+                                                          </th>
+                                                          
+                                         
                                       </tr>
-                                      <tr>
-                                        <th class='accruals'>No. Of Hours</th>
-                                        <th class='accruals'>Amount</th>
-                                        <th class='billed'>No. Of Hours</th>
-                                        <th class='billed'>Amount</th>
-                                      </tr>
+                                      
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let emplist of emplists; index as i">
-                                        <td>{{i+1}}</td>
-                                        <td>{{emplist.associateid}}</td>
-                                        <td>{{emplist.associatename}}</td>
-                                        <td>{{emplist.band}}</td>
-                                        <td>{{emplist.sdate}}</td>
-                                        <td>{{emplist.edate}}</td>
-                                        <td>{{emplist.rate}}</td>
-                                        <td>{{emplist.uom}}</td>
-                                        <td contenteditable='true' class='accruals'>{{emplist.nod1}}</td>
-                                        <td contenteditable='true'>{{emplist.amount1}}</td>
-                                        <td contenteditable='true' class='billed'>{{emplist.nod2}}</td>
-                                        <td contenteditable='true'>{{emplist.amount2}}</td>
-                                        <td><textarea></textarea></td>
+                                      <!-- <tr> -->
+                                          <tr *ngFor="let emplist of emplists; index as i">
+                                          <td>{{i+1}}</td>
+                                          <td>{{emplist.account}}</td>
+                                          <td>{{emplist.customer_name}}</td>
+                                          <td>{{emplist.pid}}</td>
+                                          <td>{{emplist.quote}}</td>
+                                          <td>{{emplist.contract}}</td>
+                                          <td>{{emplist.sdate}}</td>
+                                          <td>{{emplist.enddate}}</td>
+                                          <td>{{emplist.daysleft}}</td>
+                                          <td>{{emplist.po}}</td>
+                                          <td>{{emplist.balance}}</td>
+                                          <td>{{emplist.avgbilling}}</td>
+                                          <td>{{emplist.monthscons}}</td>
+                                          <td>{{emplist.gid}}</td>
+                                          <td>{{emplist.name}}</td>
+                                          <td>{{emplist.assosdate}}</td>
+                                          <td>{{emplist.assoedate}}</td>
+                                          <td>{{emplist.releasingin}}</td>
+                                          <td>{{emplist.uom}}</td>
+                                          <td>{{emplist.band}}</td>
+                                          <td>{{emplist.rates}}</td>
+                                         
                                       
                                       </tr>
                                      
                                     </tbody>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr>
                                           <td><b>Total</b></td>
                                           <td></td>
@@ -448,13 +500,23 @@
                                           <td></td>
                                           <td></td>
                                           <td></td>
-                                          <td  class="sum accruals"><b>192</b></td>
-                                          <td class='accruals'><b>3,60,002.64</b></td>
-                                          <td class='billed'><b>144</b></td>
-                                          <td class='billed'><b>348802.64</b></td>
+                                          <td ></td>
+                                          <td ></td>
+                                          <td ></td>
+                                          <td ></td>
+                                          <td ></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          
                                           
                                         </tr>
-                                      </tfoot>
+                                      </tfoot> -->
                                   </table>
                                 </div>
                           </div>
