@@ -18,6 +18,10 @@ export class CreateprojectComponent implements OnInit {
   // types:any;
   // statuses:any;
   error:any;
+  addresult:any;
+  addmsg:any;
+  deletemsg:any;
+  updatemsg:any;
   acc_category_default=0;
   project_name_default=0;
   acc_category_default1=0;
@@ -53,7 +57,7 @@ export class CreateprojectComponent implements OnInit {
     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
-
+    
     // this.categories=[
     //   {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl",acc_name:'Bhaskar V PO',acc_name_code:'bvp'},
     //   {acc_category:"GE Industrial - US India",code:"giui",acc_name:'HTC (Jul18)',acc_name_code:'htc'},
@@ -156,7 +160,7 @@ export class CreateprojectComponent implements OnInit {
   }  
   getcategories(){
     let caturl=this.ip+'/po/account_category/categories';
-     
+    
     this.httpClient.get(caturl).subscribe(result => {    
       this.results=result;
       this.categories=this.results.accountCategories;
@@ -175,57 +179,118 @@ export class CreateprojectComponent implements OnInit {
     this.error="Bad Request";
   }
   search_project_data(project_data){
-      console.log(project_data);
-      let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.projectType+'&status='+project_data.status;
-      this.httpClient.get(searchprojecturl).subscribe(result => {    
-        this.results=result;
-        this.projectlists=this.results.projectDetailsList;
-      },
-      error => {
-        this.error = 'Connection Interrupted..'; 
-      });
-
-
+    console.log(project_data);
+    let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.projectType+'&status='+project_data.status;
+    this.httpClient.get(searchprojecturl).subscribe(result => {    
+      this.results=result;
+      this.projectlists=this.results.projectDetailsList;
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+    
+    
   }
   deletedata(){
     if (confirm("Do you want to delete the Project Details?")) {
-    alert("Project Details Deleted Successfully.");
+      alert("Project Details Deleted Successfully.");
     } 
-    } 
-
-  search_account_category(acc_cat){
-      let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;
-      this.httpClient.get(catnameurl).subscribe(result => {    
-        this.results=result;
-        this.acnames=this.results.accountNames;
-      },
-      error => {
-        this.error = 'Connection Interrupted..'; 
-      });
-    }
-
-
-
-// Create A New Project 
-
-add_project_details(project_data){
-  let resources_data=$("#resources_data"); 
-  for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
-  if($('#'+k+'linked').prop("checked") == true){
-  let rph=$('#'+k+'text').val();
-  let sd=$('#'+k+'startdate').val();
-  let ed=$('#'+k+'enddate').val();
-  let linked=$('#'+k+'location option:selected').text();
-  console.log(resources_data[0].lastChild.childNodes[i].childNodes[0].textContent)
-  console.log(resources_data[0].lastChild.childNodes[i].childNodes[1].textContent)
-  console.log(resources_data[0].lastChild.childNodes[i].childNodes[2].textContent)
-  console.log(sd)
-  console.log(ed)
-  console.log(rph) 
-  console.log(linked)
-  }
-  // }
-  }
   } 
+  
+  search_account_category(acc_cat){
+    let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;
+    this.httpClient.get(catnameurl).subscribe(result => {    
+      this.results=result;
+      this.acnames=this.results.accountNames;
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+  }
+  
+  
+  
+  // Create A New Project 
+  
+  add_project_details(project_data){
+    let resources_data=$("#resources_data"); 
+    let contract_data_resources_data=$("#contract_resources_data"); 
+    console.log(contract_data_resources_data)
+    let all_resources=[];
+    for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
+      let resource={};
+      if($('#'+k+'linked').prop("checked") == true){
+        resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
+        resource["location"]=$('#'+k+'location option:selected').text();
+        resource["associateStartDate"]=$('#'+k+'startdate').val();
+        resource["associateEndDate"]=$('#'+k+'enddate').val();
+        resource["ratePerHour"]=$('#'+k+'text').val();
+        resource["linked"]='Y';        
+        resource["pId"]=project_data.pid;        
+        all_resources.push(resource);      
+      }
+    }
+    for(let i=1,k=0;i<=contract_data_resources_data[0].lastChild.childNodes.length;i++,k++){
+      let resource={};
+      if($('#'+k+'linked1').prop("checked") == true){
+        resource["associateId"]=contract_data_resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
+        resource["location"]=$('#'+k+'location1 option:selected').text();
+        resource["associateStartDate"]=$('#'+k+'startdate1').val();
+        resource["associateEndDate"]=$('#'+k+'enddate1').val();
+        resource["ratePerHour"]=$('#'+k+'text1').val();
+        resource["linked"]='Y';        
+        resource["pId"]=project_data.pid;        
+        all_resources.push(resource);      
+      }
+    }
+    console.log(all_resources);
 
+   let all_project_data={
+    accountCategory:project_data.acc_category,
+    accountName:project_data.acc_name,
+    projectName:project_data.project_name,
+    customerName:project_data.customer_name,
+    customerSpoc:project_data.customer_spoc,
+    approvalMethod:project_data.approval_method,
+    submissionMode:project_data.submission_mode,
+    projectType:project_data.project_type,
+    billingCurrency:project_data.billing_currency,
+    poAmount:project_data.po_amount,
+    status:project_data.status,
+    projectStartDate:project_data.start_date.formatted,
+    projectEndDate:project_data.end_date.formatted,
+    deliverySpoc:project_data.delivery_spoc,
+    effortSpoc:project_data.effort_spoc,
+    pid:project_data.pid,
+    po:project_data.po_id,
+    quote:project_data.quote_id,
+    contract:project_data.contract_id,
+    createdBy:"ADMIN",
+    resources:all_resources
+   }
+   console.log(all_project_data)
+   let url=this.ip+'/po/project/create';
+   this.httpClient.post(url,all_project_data).subscribe(result => {
+     this.addresult=result;
+     console.log(this.addresult)
+     if(this.addresult.status == 201){
+       this.addmsg=this.addresult.message;
+      
+     }
+      
+   },
+   error => {
+     this.error = 'Connection Interrupted..'; 
+   });
+
+
+
+
+
+
+
+
+
+  } 
+  
 }

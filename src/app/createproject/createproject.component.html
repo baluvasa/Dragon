@@ -308,7 +308,7 @@
                                 <input type="text"  id="{{i}}startdate" 
                                        placeholder="Datepicker"
                                        class="form-control"
-                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
+                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
                               
                           </td>
                           <td>
@@ -317,7 +317,7 @@
                             <input type="text"  id="{{i}}enddate" 
                             placeholder="Datepicker"
                             class="form-control"
-                            bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
+                            bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
                           </td>
                           <td>
                             <input type="text" id="{{i}}text" class="form-control">
@@ -330,7 +330,7 @@
                     </table>     
                   </div>
                   <div id="nonmapped" class="tab-pane fade">
-                    <table border="1" class="table">
+                    <table border="1" class="table" id="contract_resources_data">
                       <thead>
                         <tr>
                           <th>Associate ID</th>
@@ -344,12 +344,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor='let resource of resources'>
+                        <tr *ngFor='let resource of resources;index as i'>
                           <td>{{resource.id}}</td>
                           <td>{{resource.name}}</td>
                           <td>{{resource.band}}</td>
                           <td>      
-                            <select class="form-control">
+                            <select class="form-control" id="{{i}}location1" >
                               <option>Select Option</option>
                               <option>Onsite</option>
                               <option>Offshore</option>
@@ -357,18 +357,24 @@
                           </td>
                           <td>
                               <!-- {{resource.start_date}} -->
-                              <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                              <input type="text"  id="{{i}}startdate1" 
+                                       placeholder="Datepicker"
+                                       class="form-control"
+                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
                             </td>
                             <td>
                               <!-- {{resource.end_date}} -->
-                              <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                              <input type="text"  id="{{i}}enddate1" 
+                                       placeholder="Datepicker"
+                                       class="form-control"
+                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
                             </td>
                             <td>
-                              <input type="text" class="form-control">
+                              <input type="text" class="form-control" id="{{i}}text1" >
                             </td>
                           
                           <td>
-                            <input type="checkbox">
+                            <input type="checkbox" id="{{i}}linked1" >
                           </td>
                         </tr>
                       </tbody>
