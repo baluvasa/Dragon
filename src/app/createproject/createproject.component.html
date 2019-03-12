@@ -33,9 +33,9 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="year">Project Type</label>
-                <select class="form-control" id="year"  [formControl]="projectsearchform.controls['type']" [(ngModel)]="type_default">
-                  <option [value]="0" disabled selected>Select Type</option>
-                  <option *ngFor="let type of types" [value]=type.type >
+                <select class="form-control" id="year"  [formControl]="projectsearchform.controls['type']" >
+                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Type</option>
+                    <option *ngFor="let type of types" [value]=type.type >
                     {{type.type}}
                   </option>
                 </select>                  
@@ -44,8 +44,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="year">Status</label>
-                <select class="form-control" id="year"  [formControl]="projectsearchform.controls['status']" [(ngModel)]="status_default">
-                  <option [value]="0" disabled selected>Select Status</option>
+                <select class="form-control" id="year"  [formControl]="projectsearchform.controls['status']" >
+                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
                   <option *ngFor="let status of statuses" [value]=status.code >
                     {{status.status}}
                   </option>
@@ -72,7 +72,7 @@
                 <th>Account Name</th>
                 <th>Project Name</th>
                 <th>Start Date</th>
-                <th>End  Date</th>
+                <th>End Date</th>
                 <th>Resource Count</th>
                 <th>PO Amount</th>
                 <!-- <th>Currency</th> -->
@@ -84,15 +84,15 @@
             <tbody>
               <tr *ngFor="let projectlist of projectlists; index as i">
                 <td>{{i+1}}</td>
-                <td>{{projectlist.account_category}}</td>
-                <td>{{projectlist.account_name}}</td>
-                <td>{{projectlist.project_name}}</td>
-                <td>{{projectlist.start_date}}</td>
-                <td>{{projectlist.end_date}}</td>
+                <td>{{projectlist.accountCategory}}</td>
+                <td>{{projectlist.accountName}}</td>
+                <td>{{projectlist.projectName}}</td>
+                <td>{{projectlist.projectStartDate}}</td>
+                <td>{{projectlist.projectEndDate}}</td>
                 <td>{{projectlist.resource_count}}</td>
-                <td>{{projectlist.po_amount| currency:projectlist.currency:true:'1.2'}}</td>
+                <td>{{projectlist.poAmount| currency:projectlist.billingCurrency:true:'1.2'}}</td>
                 <!-- <td>{{projectlist.currency }}</td> -->
-                <td>{{projectlist.type}}</td>
+                <td>{{projectlist.projectType}}</td>
                 <td>{{projectlist.status}}</td>
                 <td>
                   <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updateprojectmodel"></button>&nbsp;
@@ -293,7 +293,7 @@
                           <td>{{resource.name}}</td>
                           <td>{{resource.band}}</td>
                           <td>      
-                            <select id="abcdef">
+                            <select class="form-control">
                               <option>Select Resource Location</option>
                               <option value="ONSITE">ONSITE</option>
                               <option value="OFFSHORE">OFFSHORE</option>
@@ -323,7 +323,7 @@
                         <tr>
                           <th>Associate ID</th>
                           <th>Associate Name</th>
-                          <th>Designation</th>
+                          <th>Band</th>
                           <th>Onsite/Offshore</th>
                           <th>Associate Start Date</th>
                           <th>Associate End Date</th>
@@ -354,9 +354,7 @@
                             <td>
                               <input type="text" class="form-control">
                             </td>
-                          <td>
-                            <input type="text" class="form-control">
-                          </td>
+                          
                           <td>
                             <input type="checkbox">
                           </td>

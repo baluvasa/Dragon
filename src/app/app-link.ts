@@ -53,7 +53,7 @@ export class AppLink {
     }
     
     public static get projectTypes() { 
-        let project_types = [{type:'Time & Meterial',code:'tm'},{type:'Fixed Price',code:'fp'}];
+        let project_types = [{type:'Time & Material',code:'tm'},{type:'Fixed Price',code:'fp'}];
         return project_types; 
     }
     public static get billingcurrency() { 

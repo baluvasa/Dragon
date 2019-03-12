@@ -176,17 +176,14 @@ export class CreateprojectComponent implements OnInit {
   }
   search_project_data(project_data){
       console.log(project_data);
-      let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data+'&status='+project_data.status;
+      let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.projectType+'&status='+project_data.status;
       this.httpClient.get(searchprojecturl).subscribe(result => {    
         this.results=result;
-        this.acnames=this.results.accountNames;
+        this.projectlists=this.results.projectDetailsList;
       },
       error => {
         this.error = 'Connection Interrupted..'; 
       });
-
-
-
 
 
   }
@@ -212,28 +209,8 @@ export class CreateprojectComponent implements OnInit {
 
 add_project_details(project_data){
   let resources_data=$("#resources_data");
-  console.log(resources_data);
+  console.log(resources_data.find("td:eq(0) input[type='text']").val());
   console.log(project_data);
 }
 
-// search_project_data(){
-//     this.projectlists=[
-//       {account_category:'GE India Exports Pvt. Ltd.',account_name:'SQL PO',project_name:'GE Energy-NPI Support-ICFC Pro',start_date:'16-Jul-2018',end_date:'13-Aug-2018',resource_count:'8',po_amount:'184800',currency:'INR',type:'TIME & MATERIAL',status:'In Active'
-//     },
-//       {account_category:'GE Oil & Gas',account_name:'Patrick Old',project_name:'HYDRIL USA Distribution LLC',start_date:'23-Oct-2017',end_date:'22-Apr-2018',resource_count:'1',po_amount:'65877.50000000',currency:'EUR',type:'TIME & MATERIAL',status:'In Active'
-//     },
-//       {account_category:'GE Packaged Power',account_name:'Aero',project_name:'IES_SHOULD COSTING-ES',start_date:'1-Jan-18',end_date:'30-Jun-18',resource_count:'10',po_amount:'170000.00',currency:'JPY',type:'FIXED PRICE',status:'In Active'
-//     }
-//   ];
-
-//   let searchprojecturl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;
-//   this.httpClient.get(catnameurl).subscribe(result => {    
-//     this.results=result;
-//     this.acnames=this.results.accountNames;
-//   },
-//   error => {
-//     this.error = 'Connection Interrupted..'; 
-//   });
-
-// }
 }
