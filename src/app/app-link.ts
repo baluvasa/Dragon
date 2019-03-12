@@ -14,6 +14,7 @@ export class AppLink {
     public static get DTOptions() { 
         let dtOptions = {
             dom: 'Bfrtip<t>ip',
+            autowidth:true,
             lengthMenu: [
                 [ 10, 25, 50, -1 ],
                 [ '10 Rows/Page', '25 Rows/Page', '50 Rows/Page', 'Show all' ]
