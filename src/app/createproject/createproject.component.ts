@@ -189,10 +189,11 @@ export class CreateprojectComponent implements OnInit {
   }
   deletedata(){
     if (confirm("Do you want to delete the Project Details?")) {
-    alert("Project Details Deleted Successfully.")
+    alert("Project Details Deleted Successfully.");
     } 
     } 
-    search_account_category(acc_cat){
+
+  search_account_category(acc_cat){
       let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;
       this.httpClient.get(catnameurl).subscribe(result => {    
         this.results=result;
@@ -208,9 +209,23 @@ export class CreateprojectComponent implements OnInit {
 // Create A New Project 
 
 add_project_details(project_data){
-  let resources_data=$("#resources_data");
-  console.log(resources_data.find("td:eq(0) input[type='text']").val());
-  console.log(project_data);
-}
+  let resources_data=$("#resources_data"); 
+  for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
+  if($('#'+k+'linked').prop("checked") == true){
+  let rph=$('#'+k+'text').val();
+  let sd=$('#'+k+'startdate').val();
+  let ed=$('#'+k+'enddate').val();
+  let linked=$('#'+k+'location option:selected').text();
+  console.log(resources_data[0].lastChild.childNodes[i].childNodes[0].textContent)
+  console.log(resources_data[0].lastChild.childNodes[i].childNodes[1].textContent)
+  console.log(resources_data[0].lastChild.childNodes[i].childNodes[2].textContent)
+  console.log(sd)
+  console.log(ed)
+  console.log(rph) 
+  console.log(linked)
+  }
+  // }
+  }
+  } 
 
 }

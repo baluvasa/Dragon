@@ -15,12 +15,14 @@
               </div>
             </div>
           </ng-container>
+          <div class="row">
+   
           <form [formGroup]="projectsearchform" (ngSubmit)="search_project_data(projectsearchform.value)">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="proj">Account Category</label>
                 <input type="text" class="form-control" placeholder="Account Category" [formControl]="projectsearchform.controls['acc_category']">
-              
+               
               </div>
             </div>
             <div class="col-md-6">
@@ -288,12 +290,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor='let resource of resources'>
+                        <tr *ngFor='let resource of resources;index as i'>
                           <td>{{resource.id}}</td>
                           <td>{{resource.name}}</td>
                           <td>{{resource.band}}</td>
                           <td>      
-                            <select class="form-control">
+                            <select class="form-control" id="{{i}}location">
                               <option>Select Resource Location</option>
                               <option value="ONSITE">ONSITE</option>
                               <option value="OFFSHORE">OFFSHORE</option>
@@ -301,17 +303,27 @@
                           </td>
                           <td>
                             <!-- {{resource.start_date}} -->
-                            <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                            <!-- <my-date-picker [options]="myDatePickerOptions"></my-date-picker> -->
+                            
+                                <input type="text"  id="{{i}}startdate" 
+                                       placeholder="Datepicker"
+                                       class="form-control"
+                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
+                              
                           </td>
                           <td>
                             <!-- {{resource.end_date}} -->
-                            <my-date-picker [options]="myDatePickerOptions"></my-date-picker>
+                            <!-- <my-date-picker [options]="myDatePickerOptions"></my-date-picker> -->
+                            <input type="text"  id="{{i}}enddate" 
+                            placeholder="Datepicker"
+                            class="form-control"
+                            bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
                           </td>
                           <td>
-                            <input type="text" class="form-control">
+                            <input type="text" id="{{i}}text" class="form-control">
                           </td>
                           <td>
-                            <input type="checkbox">
+                            <input type="checkbox"  id="{{i}}linked" > 
                           </td>
                         </tr>
                       </tbody>

@@ -14,7 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateprojectComponent } from './createproject/createproject.component';
 import { ProjectinfoComponent } from './projectinfo/projectinfo.component';
 import { FormGroup, FormArray, FormBuilder,Validators,ReactiveFormsModule,FormsModule  } from '@angular/forms';
-import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule,NgbPaginationModule, NgbAlertModule, NgbDatepicker, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { LeavedetailsComponent } from './leavedetails/leavedetails.component'; 
 import { AppServicesService } from './app-services.service';
 import { HolidaysComponent } from './holidays/holidays.component';
@@ -33,6 +33,8 @@ import { ProjectinfoMonthlyComponent } from './projectinfo-monthly/projectinfo-m
 import { PronovComponent } from './pronov/pronov.component';
 import { ProdecComponent } from './prodec/prodec.component';
 import { PoappComponent } from './poapp/poapp.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +73,8 @@ import { PoappComponent } from './poapp/poapp.component';
     NgbAlertModule,
     DataTablesModule,
     HttpClientModule,
-    MyDatePickerModule  
+    MyDatePickerModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [AppServicesService,CanActivateGuard],
   bootstrap: [AppComponent]
