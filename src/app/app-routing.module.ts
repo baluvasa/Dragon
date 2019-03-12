@@ -18,6 +18,7 @@ import { QuoteComponent } from './quote/quote.component';
 import { AccessdetailsComponent } from './accessdetails/accessdetails.component'; 
 // import {  Createproject1Component} from './createproject1/createproject1.component'; 
 // import { Accountcategory1Component } from './accountcategory1/accountcategory1.component';
+import { PoappComponent } from './poapp/poapp.component';
 import { CanActivateGuard } from './can-activate.guard'; 
 import { PronovComponent } from './pronov/pronov.component';
 import { ProdecComponent } from './prodec/prodec.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'projectinfo-monthly', component:  ProjectinfoMonthlyComponent,canActivate:[CanActivateGuard]},
   { path: 'pronov', component:  PronovComponent,canActivate:[CanActivateGuard]},
   { path: 'prodec', component:  ProdecComponent,canActivate:[CanActivateGuard]},
+   { path: 'poapp', component:  PoappComponent,canActivate:[CanActivateGuard]},
   // { path: 'accountcategory1', component:  Accountcategory1Component}
       
 ];
