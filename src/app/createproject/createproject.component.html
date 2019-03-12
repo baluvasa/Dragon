@@ -49,7 +49,7 @@
                 <select class="form-control" id="year"  [formControl]="projectsearchform.controls['status']" >
                     <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
                   <option *ngFor="let status of statuses" [value]=status.code >
-                    {{status.status}}
+                    {{status.type}}
                   </option>
                 </select>                  
               </div>
@@ -216,17 +216,18 @@
                 <div class="col-md-4">
                   <label for="proj">Project Start Date</label>
                   <!-- <input type="date" class="form-control" [formControl]="projectcreateform.controls['start_date']"> -->
-                  <my-date-picker [options]="myDatePickerOptions" [formControl]="projectcreateform.controls['start_date']"></my-date-picker>
+                  <!-- <my-date-picker [options]="myDatePickerOptions" [formControl]="projectcreateform.controls['start_date']"></my-date-picker> -->
+                  <input type="text"  [formControl]="projectcreateform.controls['start_date']" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
                 </div>
                 <div class="col-md-4">
                   <label for="proj">Project End Date</label>
                   <!-- <input type="date" class="form-control" [formControl]="projectcreateform.controls['end_date']"> -->
-                  <my-date-picker [options]="myDatePickerOptions" [formControl]="projectcreateform.controls['end_date']"></my-date-picker>
-                
+                  <!-- <my-date-picker [options]="myDatePickerOptions" [formControl]="projectcreateform.controls['end_date']"></my-date-picker> -->
+                  <input type="text"  [formControl]="projectcreateform.controls['end_date']" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label for="proj">Status</label>
                     <select class="form-control" id="year" [(ngModel)]="status_default1" [formControl]="projectcreateform.controls['status']">
@@ -237,13 +238,17 @@
                     </select> 
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label for="proj">Delivery SPOC</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['delivery_spoc']">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label for="proj">Effort SPOC</label>
                   <input type="text" class="form-control" [formControl]="projectcreateform.controls['effort_spoc']">
+                </div>
+                <div class="col-md-3">
+                  <label for="proj">Unit Of Measurement(UOM)</label>
+                  <input type="number" class="form-control" [formControl]="projectcreateform.controls['unit_of_measurement']">
                 </div>
               </div>
               <div class="row">
@@ -296,28 +301,18 @@
                           <td>{{resource.band}}</td>
                           <td>      
                             <select class="form-control" id="{{i}}location">
-                              <option>Select Resource Location</option>
-                              <option value="ONSITE">ONSITE</option>
-                              <option value="OFFSHORE">OFFSHORE</option>
+                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
+                                <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
+                                </option>
                             </select>
                           </td>
                           <td>
-                            <!-- {{resource.start_date}} -->
-                            <!-- <my-date-picker [options]="myDatePickerOptions"></my-date-picker> -->
-                            
-                                <input type="text"  id="{{i}}startdate" 
-                                       placeholder="Datepicker"
-                                       class="form-control"
-                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
-                              
+                            <input type="text"  id="{{i}}startdate" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly> 
                           </td>
                           <td>
-                            <!-- {{resource.end_date}} -->
-                            <!-- <my-date-picker [options]="myDatePickerOptions"></my-date-picker> -->
-                            <input type="text"  id="{{i}}enddate" 
-                            placeholder="Datepicker"
-                            class="form-control"
-                            bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
+
+
+                            <input type="text"  id="{{i}}enddate" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
                           </td>
                           <td>
                             <input type="text" id="{{i}}text" class="form-control">
@@ -350,24 +345,18 @@
                           <td>{{resource.band}}</td>
                           <td>      
                             <select class="form-control" id="{{i}}location1" >
-                              <option>Select Option</option>
-                              <option>Onsite</option>
-                              <option>Offshore</option>
+                              <<option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
+                              <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
+                              </option>
                             </select>
                           </td>
                           <td>
                               <!-- {{resource.start_date}} -->
-                              <input type="text"  id="{{i}}startdate1" 
-                                       placeholder="Datepicker"
-                                       class="form-control"
-                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
+                              <input type="text"  id="{{i}}startdate1" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [readonly]="isReadOnly">
                             </td>
                             <td>
                               <!-- {{resource.end_date}} -->
-                              <input type="text"  id="{{i}}enddate1" 
-                                       placeholder="Datepicker"
-                                       class="form-control"
-                                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly>
+                              <input type="text"  id="{{i}}enddate1" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [readonly]="isReadOnly">
                             </td>
                             <td>
                               <input type="text" class="form-control" id="{{i}}text1" >

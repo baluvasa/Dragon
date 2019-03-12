@@ -37,7 +37,7 @@ export class AppLink {
         return bands; 
     }
     public static get location() { 
-        let locations = [{code:'ofs',type:'Offshore'},{code:'os',type:'OnSite'}];
+        let locations = [{code:'ONSITE',type:'ONSITE'},{code:'OFFSHORE',type:'OFFSHORE'}];
         return locations; 
     }
     public static get approvalmethods() { 

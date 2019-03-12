@@ -15,8 +15,6 @@ export class CreateprojectComponent implements OnInit {
   projectcreateform: FormGroup;
   categories:any;
   projects:any;
-  // types:any;
-  // statuses:any;
   error:any;
   addresult:any;
   addmsg:any;
@@ -41,7 +39,8 @@ export class CreateprojectComponent implements OnInit {
   submisson_modes = AppLink.submitionmodes; 
   types = AppLink.projectTypes; 
   currency_modes = AppLink.billingcurrency; 
-  statuses = AppLink.status; 
+  statuses = AppLink.status;
+  location_status=AppLink.location;
   myDatePickerOptions=AppLink.myDatePickerOptions;
   catlists:any;
   acnames:any;
@@ -58,21 +57,7 @@ export class CreateprojectComponent implements OnInit {
       this.role=true;
     }
     
-    // this.categories=[
-    //   {acc_category:"GE India Exports Pvt. Ltd.",code:"giepl",acc_name:'Bhaskar V PO',acc_name_code:'bvp'},
-    //   {acc_category:"GE Industrial - US India",code:"giui",acc_name:'HTC (Jul18)',acc_name_code:'htc'},
-    //   {acc_category:"GE Oil & Gas",code:"gog",acc_name:'Patrick Old',acc_name_code:'patold'},
-    //   {acc_category:"GE Packaged Power",code:"gpp",acc_name:'Aero',acc_name_code:'aero'},
-    //   {acc_category:"GE Power & Water",code:"gpw",acc_name:'Ommi Gopi',acc_name_code:'ommi'},
-    //   {acc_category:"Amphenol",code:"amp",acc_name:'AVS__1st half',acc_name_code:'avs1st'}
-    // ];
-    // this.projects =[
-    //   {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
-    //   {projectname:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
-    //   {projectname:'GE Energy - Industrial',pid:'12004711'},
-    //   {projectname:'AVS 6 months',pid:'000000000029578'}
-    // ];
-    
+   
     
     this.resources=[      
       {id:'MK00123456',name:'Venkatesh',band:'U1',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
@@ -129,6 +114,9 @@ export class CreateprojectComponent implements OnInit {
         validators: []
       }),
       end_date:new FormControl('',{
+        validators: []
+      }),
+      unit_of_measurement:new FormControl('',{
         validators: []
       }),
       status:new FormControl('',{
@@ -257,12 +245,13 @@ export class CreateprojectComponent implements OnInit {
     billingCurrency:project_data.billing_currency,
     poAmount:project_data.po_amount,
     status:project_data.status,
-    projectStartDate:project_data.start_date.formatted,
-    projectEndDate:project_data.end_date.formatted,
+    projectStartDate:project_data.start_date,
+    projectEndDate:project_data.end_date,
     deliverySpoc:project_data.delivery_spoc,
     effortSpoc:project_data.effort_spoc,
     pid:project_data.pid,
     po:project_data.po_id,
+    unitOfMeasurement:project_data.unit_of_measurement,
     quote:project_data.quote_id,
     contract:project_data.contract_id,
     createdBy:"ADMIN",
@@ -277,7 +266,6 @@ export class CreateprojectComponent implements OnInit {
        this.addmsg=this.addresult.message;
       
      }
-      
    },
    error => {
      this.error = 'Connection Interrupted..'; 
