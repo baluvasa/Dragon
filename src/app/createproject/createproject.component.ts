@@ -225,6 +225,7 @@ export class CreateprojectComponent implements OnInit {
     let resources_data=$("#resources_data"); 
     let contract_data_resources_data=$("#contract_resources_data"); 
     let all_resources=[];
+    let contract_resources=[];
     for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
       let resource={};
       if($('#'+k+'linked').prop("checked") == true){
@@ -239,7 +240,7 @@ export class CreateprojectComponent implements OnInit {
       }
     }
     for(let i=1,k=0;i<=contract_data_resources_data[0].lastChild.childNodes.length;i++,k++){
-      let resource={};
+      let resource={};      
       if($('#'+k+'linked1').prop("checked") == true){
         resource["associateId"]=contract_data_resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
         resource["location"]=$('#'+k+'location1 option:selected').text();
@@ -248,7 +249,9 @@ export class CreateprojectComponent implements OnInit {
         resource["ratePerHour"]=$('#'+k+'text1').val();
         resource["linked"]='Y';        
         resource["pId"]=project_data.pid;        
+
         all_resources.push(resource);      
+        contract_resources.push(resource);
       }
     }
     let project_start_date:any,
@@ -279,7 +282,8 @@ export class CreateprojectComponent implements OnInit {
       quote:project_data.quote_id,
       contract:project_data.contract_id,
       createdBy:"ADMIN",
-      resources:all_resources
+      resources:all_resources,
+      contractToPid:contract_resources
     }
     console.log(all_project_data);
     let url=this.ip+'/po/project/create';
