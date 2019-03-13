@@ -4,19 +4,21 @@ import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from '@angular/common/http'
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+
 @Component({
   selector: 'app-poapproval',
   templateUrl: './poapp.component.html',
   styleUrls: ['./poapp.component.scss']
 })
 export class PoappComponent implements OnInit {
+  // public static get categorysearch(){ };
   poapprovalform: FormGroup;
   addpoform: FormGroup;
   addprojectinfoform:FormGroup;
   adderror:any;
 addresult:any;
 addmsg:any;
-
+acnames:any;
   error:any;
   projects:any;
   project_years:any;
@@ -44,7 +46,7 @@ addmsg:any;
   projectdata:any;
   emplistexpand:any;
   resourcelist:any;
-
+  categories:any;
 
   constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService,private httpClient:HttpClient ) { }
 
@@ -58,6 +60,7 @@ addmsg:any;
     this.projects=[
       {name:'Time&Material'},
       {name:'Fixed'},
+      {name:'Test'},
    
      
     ];
@@ -77,7 +80,11 @@ addmsg:any;
       associatesid:new FormControl('',{}),
       associatesname:new FormControl('',{}),    
       projectyear:new FormControl('',{}),
-     accountCategory:new FormControl('',{}),   
+     accountcategory:new FormControl('',{}),   
+     accountname:new FormControl('',{}),   
+     proname:new FormControl('',{}), 
+     protype:new FormControl('',{}),   
+   
       
     })
     this.addpoform = new FormGroup({
@@ -110,17 +117,20 @@ addmsg:any;
       })
     })
    
-  
-      
+  this.getcategories();
+   
   }
 
   // GET call to get data of account category on Page Load 
 search_account_category_details(value){
-  this.crud_url=this.ip+'/po/po_approval/fetch';
+  this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?accountcategory='+value.accountCategory+'&projectName='+value.accountname+'&yyyyMMM='+value.projectyear+'&customerName='+value.customername+'&projectStartDate='+value.projectsdate+'&projectEndDate='+value.proedate+'&currency='+value.currencycode+'&pId='+value.pid;
   this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
     if(this.results.status==200){
       this.account_category_dropdown=this.results.accountCategoryList;
+    console.log( "Account cat drop",this.account_category_dropdown);
+    console.log("@@@@@", this.results);
+
     }
   },
   error =>{
@@ -129,15 +139,37 @@ search_account_category_details(value){
 }
 
 //Get all data after selecting a value in account category
-
-search_all_project_info(acc_cat_project_info){
-  this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?accountCategory=GE Industrial - US India';
+getcategories(){
+  let caturl=this.ip+'/po/account_category/categories';
+  
+  this.httpClient.get(caturl).subscribe(result => {    
+    this.results=result;
+    console.log("%%%",this.results)
+    this.categories=this.results.accountCategories;
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
+}
+search_account_category(accountcategory){
+  let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+accountcategory;
+  this.httpClient.get(catnameurl).subscribe(result => {    
+    this.results=result;
+    this.acnames=this.results.accountNames;
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
+}
+search_all_project_info(value){
+  this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
   this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
-    console.log("resulttttttt",this.results);
-    console.log("resulttttttt",this.crud_url);
+    console.log("@@@@@", this.results)
+    
     if(this.results.status==200){
       this.account_all_project_info=this.results.projectInfoList;
+      console.log("!!!!!!!!!!!!!!!",this.account_all_project_info)
     }
   },
   error =>{

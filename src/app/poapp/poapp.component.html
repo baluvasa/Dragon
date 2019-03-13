@@ -332,16 +332,22 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label>Account Category</label>
-                    <input type="text" [formControl]="poapprovalform.controls['projectname']" class="form-control" placeholder="Account Category..." />
-                    <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
-                      <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
-                      <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
-                    </select> -->
+                    <select class="form-control"[formControl]="poapprovalform.controls['accountcategory']" >
+                      <option value="" disabled selected hidden style="color:#a4b2ba;" (change)="search_account_category($event.target.value)">Select Account Category</option>
+                      <option *ngFor="let category of categories" [value]=category >
+                        {{category}}
+                      
+                    </select>
+                   
                   </div>
 
                   <div class="col-md-6">
                     <label>Account Name</label>
-                    <input type="text" class="form-control" [formControl]="poapprovalform.controls['accountCategory']" placeholder="Account Name..." />
+                    <select class="form-control" [formControl]="poapprovalform.controls['accountname']" >
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
+                      <option *ngFor="let acname of acnames" [value]=acname >{{acname}}</option>
+                    </select>
+                    <!-- <input type="text" class="form-control" [formControl]="poapprovalform.controls['accountname']" placeholder="Account Name..." /> -->
                     <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
                       <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
                       <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
@@ -350,7 +356,7 @@
 
                   <div class="col-md-6">
                     <label>Project Name</label>
-                    <input type="text" class="form-control" placeholder="Project Name..." />
+                    <input type="text" class="form-control" [formControl]="poapprovalform.controls['proname']" placeholder="Project Name..." />
                     <!-- <select class="form-control" [formControl]="poapprovalform.controls['projectname']">
                       <option value=""  selected hidden style="color:#a4b2ba;">Select Project</option>
                       <option *ngFor="let project of projects" [value]='project.name'>{{project.name}} - ( {{project.pid}} )</option>
@@ -359,7 +365,7 @@
 
                   <div class="col-md-3">
                     <label>Project Type</label>
-                    <select class="form-control" [formControl]="poapprovalform.controls['project_type']" >
+                    <select class="form-control" [formControl]="poapprovalform.controls['protype']" >
                       <option value="" disabled selected>Select Project Type</option>
                       <option *ngFor="let project of projects" [value]='project.name'>{{project.name}}</option>
                     </select>
@@ -370,7 +376,9 @@
                     <label>Year & Month</label>
                     <select class="form-control" [formControl]="poapprovalform.controls['projectyear']" >
                       <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
-                      <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
+                      <option >2019-Feb</option>
+                      <option >2018-Mar</option>
+                      <option >2020-April</option>
                     </select>
                   </div>
                 </div>
@@ -379,7 +387,7 @@
               </div>
               
               <div class="text-center col-md-12">
-                <button [disabled]="poapprovalform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="search_all_project_info()">Search</button>
+                <button [disabled]="poapprovalform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit" (click)="search_all_project_info(poapprovalform.value)">Search</button>
                 <button [disabled]="poapprovalform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset">Cancel</button>
               </div>
               
