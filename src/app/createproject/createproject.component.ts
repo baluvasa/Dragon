@@ -10,7 +10,8 @@ import { HttpClient } from  "@angular/common/http";
 })
 
 export class CreateprojectComponent implements OnInit {  
-  
+  maxdate=null;
+mindate=null;
   projectsearchform: FormGroup;
   projectcreateform: FormGroup;
   categories:any;
@@ -184,7 +185,18 @@ export class CreateprojectComponent implements OnInit {
       alert("Project Details Deleted Successfully.");
     } 
   } 
-  
+  setmaxdate(a){
+
+    this.maxdate=a;
+    
+    }
+    
+    setmindate(a){
+    
+    this.mindate=a;
+    
+    }
+    
   search_account_category(acc_cat){
     let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;
     this.httpClient.get(catnameurl).subscribe(result => {    
