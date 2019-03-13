@@ -164,7 +164,7 @@ export class CreateprojectComponent implements OnInit {
       this.error = 'Connection Interrupted..'; 
     });
   }
- 
+  
   search_project_data(project_data){
     let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.projectType+'&status='+project_data.status;
     this.httpClient.get(searchprojecturl).subscribe(result => {    
@@ -254,10 +254,10 @@ export class CreateprojectComponent implements OnInit {
       }
     }
     let project_start_date:any,
-        project_end_date:any;
-
-        project_start_date=formatDate(project_data.start_date, 'dd-MMM-yyyy', 'en');   
-        project_end_date=formatDate(project_data.end_date, 'dd-MMM-yyyy', 'en');   
+    project_end_date:any;
+    
+    project_start_date=formatDate(project_data.start_date, 'dd-MMM-yyyy', 'en');   
+    project_end_date=formatDate(project_data.end_date, 'dd-MMM-yyyy', 'en');   
     
     let all_project_data={
       accountCategory:project_data.acc_category,
@@ -293,6 +293,9 @@ export class CreateprojectComponent implements OnInit {
       console.log(this.addresult)
       if(this.addresult.status == 201){
         this.addmsg=this.addresult.message; 
+        this.projectcreateform.reset();
+        this.resources=[];
+        this.cresources=[]; 
       }
     },
     error => {

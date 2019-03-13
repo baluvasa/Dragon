@@ -29,7 +29,7 @@ export class AppLink {
         return dtOptions;
     }
     public static get access_type() { 
-        let accessTypes = [{role:'ADMIN',type:'Administrator'},{role:'USER',type:'USER'}];
+        let accessTypes = [{role:'ADMIN',type:'ADMINISTRATOR'},{role:'USER',type:'USER'}];
         return accessTypes; 
     }
     public static get band() { 

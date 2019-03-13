@@ -9,7 +9,7 @@
         <div class="row">
           <ng-container *ngIf="error">
             <div class="col-md-12">
-              <div class="alert alert-danger alert-dismissible fade in">
+              <div class="alert alert-danger alert-dismissible">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 {{error}}
               </div>
@@ -129,6 +129,12 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title">Add Project Details</h4>
             </div>
+            <div class="col-md-12" *ngIf="addmsg">
+              <div class="alert alert-success alert-dismissible">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{addmsg}}
+              </div>
+              </div> 
             <form [formGroup]="projectcreateform" (ngSubmit)="add_project_details(projectcreateform.value)">
               <div class="modal-body">
                 <div class="row">
@@ -408,8 +414,9 @@
                             </td>
                             
                             <td>
-                              <input type="radio" name="resourcelinked" id="{{i}}linked1"> Linked
-                              <input type="radio" name="resourcelinked" id="{{i}}linked1"> Not Linked
+                              <!-- <input type="radio" name="resourcelinked" id="{{i}}linked1"> Linked
+                              <input type="radio" name="resourcelinked" id="{{i}}linked1"> Not Linked -->
+                              <input type="checkbox" id="{{i}}linked1" class="form-control">
                             </td>
                           </tr>
                         </tbody>
