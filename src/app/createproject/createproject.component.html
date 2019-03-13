@@ -62,7 +62,12 @@
           </div>
         </div>
       </div>
-      
+      <div class="col-md-12" *ngIf="deletemsg">
+        <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{deletemsg}}
+        </div>
+        </div> 
       <div class="panel panel-default" *ngIf='projectlists'>
         <div class="panel-body">
           <div class="table-responsive">          
@@ -97,8 +102,8 @@
                   <td>{{projectlist.projectType}}</td>
                   <td>{{projectlist.status}}</td>
                   <td>
-                    <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updateprojectmodel"></button>&nbsp;
-                    <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="deletedata()"></button>
+                    <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updateprojectmodel" (click)='update_data_model(projectlist)'></button>&nbsp;
+                    <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="delete_project_data(projectlist)"></button> 
                   </td>
                 </tr>
               </tbody>
@@ -277,20 +282,22 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label for="proj">PID</label>
-                      <input type='text' class="form-control" [formControl]="projectcreateform.controls['pid']" (change)='getResourceData($event.target.value)' id="pidbox">
+                      <label for="proj">Project ID (PID)</label>
+                      <input type='text' class="form-control" [formControl]="projectcreateform.controls['pid']" [ngStyle]="currentStyles" (change)='getResourceData($event.target.value)' id="pidbox">
+                      <small class="text-danger">{{resourceerror}}</small>
+                       
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <label for="proj">Quote</label>
+                    <label for="proj">Quote ID</label>
                     <input type="text" class="form-control" [formControl]="projectcreateform.controls['quote_id']">
                   </div>
                   <div class="col-md-3">
-                    <label for="proj">Contract</label>
+                    <label for="proj">Contract ID</label>
                     <input type="text" class="form-control" [formControl]="projectcreateform.controls['contract_id']">
                   </div>
                   <div class="col-md-3">
-                    <label for="proj">PO #</label>
+                    <label for="proj">PO ID</label>
                     <input type="text" class="form-control" [formControl]="projectcreateform.controls['po_id']">
                   </div>
                 </div>
