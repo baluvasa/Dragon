@@ -47,10 +47,12 @@ export class CreateprojectComponent implements OnInit {
   catlists:any;
   acnames:any;
   results:any;
+  cresources:any;
   // approvalmethods:any;
   // currency_modes:any;
   resources:any;
   categories_names:any;
+  resourceerror:any;
   // submisson_modes:any;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) {}
   ngOnInit() {
@@ -58,15 +60,6 @@ export class CreateprojectComponent implements OnInit {
     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
-    
-    
-    
-    this.resources=[      
-      {id:'MK00123456',name:'Venkatesh',band:'U1',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
-      {id:'SP00234567',name:'Swayam',band:'U2',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
-      {id:'GC00345678',name:'Chandra',band:'U3',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
-      {id:'KM00456789',name:'Krishna',band:'U4',start_date:'01-Jan-2019',end_date:'29-Feb-2019'}
-    ];
     this.projectsearchform = new FormGroup({
       acc_category:new FormControl('',{
         validators: []
@@ -147,7 +140,19 @@ export class CreateprojectComponent implements OnInit {
       })
     });
     this.getcategories();
+    this.getcresourcedetails();
   }  
+  getcresourcedetails(){
+    let cresourcesurl=this.ip+'/po/project/fetch/cresources';
+    
+    this.httpClient.get(cresourcesurl).subscribe(result => {    
+      this.results=result;
+      this.cresources=this.results.cresourceDetails;
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+  }
   getcategories(){
     let caturl=this.ip+'/po/account_category/categories';
     
@@ -159,15 +164,7 @@ export class CreateprojectComponent implements OnInit {
       this.error = 'Connection Interrupted..'; 
     });
   }
-  errordata() {
-    this.error = 'no data found';
-  }
-  errorexceptiondata() {
-    this.error = 'Exception has occurred while fetching Project details';
-  }
-  badrequest() {
-    this.error="Bad Request";
-  }
+ 
   search_project_data(project_data){
     let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.projectType+'&status='+project_data.status;
     this.httpClient.get(searchprojecturl).subscribe(result => {    
@@ -202,7 +199,24 @@ export class CreateprojectComponent implements OnInit {
       this.error = 'Connection Interrupted..'; 
     });
   }
-  
+  getResourceData(pid){
+    let curl=this.ip+'/po/project/fetch/resources?pId='+pid;
+    this.httpClient.get(curl).subscribe(result => {    
+      this.results=result;
+      if(this.results.status==200){
+        this.resources=this.results.resourceDetails;
+      }
+      else{
+        this.resourceerror =this.results.message;
+        this.resources=[];
+        alert(this.resourceerror);
+        $("#pidbox").focus();
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+  }
   
   
   // Create A New Project 
@@ -268,27 +282,16 @@ export class CreateprojectComponent implements OnInit {
       resources:all_resources
     }
     console.log(all_project_data);
-    // let url=this.ip+'/po/project/create';
-    // this.httpClient.post(url,all_project_data).subscribe(result => {
-    //   this.addresult=result;
-    //   console.log(this.addresult)
-    //   if(this.addresult.status == 201){
-    //     this.addmsg=this.addresult.message;
-        
-    //   }
-    // },
-    // error => {
-    //   this.error = 'Connection Interrupted..'; 
-    // });
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    let url=this.ip+'/po/project/create';
+    this.httpClient.post(url,all_project_data).subscribe(result => {
+      this.addresult=result;
+      console.log(this.addresult)
+      if(this.addresult.status == 201){
+        this.addmsg=this.addresult.message; 
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
   } 
-  
 }

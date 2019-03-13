@@ -274,7 +274,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="proj">PID</label>
-                      <input type='text' class="form-control" [formControl]="projectcreateform.controls['pid']">
+                      <input type='text' class="form-control" [formControl]="projectcreateform.controls['pid']" (change)='getResourceData($event.target.value)' id="pidbox">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -315,9 +315,9 @@
                         </thead>
                         <tbody>
                           <tr *ngFor='let resource of resources;index as i'>
-                            <td>{{resource.id}}</td>
-                            <td>{{resource.name}}</td>
-                            <td>{{resource.band}}</td>
+                              <td>{{resource.associateId}}</td>
+                              <td>{{resource.associateName}}</td>
+                              <td>{{resource.band}}</td>
                             <td>      
                               <select class="form-control" id="{{i}}location">
                                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
@@ -372,10 +372,10 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor='let resource of resources;index as i'>
-                            <td>{{resource.id}}</td>
-                            <td>{{resource.name}}</td>
-                            <td>{{resource.band}}</td>
+                            <tr *ngFor='let cresource of cresources;index as i'>
+                                <td>{{cresource.associateId}}</td>
+                                <td>{{cresource.associateName}}</td>
+                                <td>{{cresource.band}}</td>
                             <td>      
                               <select class="form-control" id="{{i}}location1" >
                                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
