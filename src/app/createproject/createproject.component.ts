@@ -22,6 +22,7 @@ export class CreateprojectComponent implements OnInit {
   addmsg:any;
   deletemsg:any;
   updatemsg:any;
+  currentStyles:any;
   acc_category_default=0;
   project_name_default=0;
   acc_category_default1=0;
@@ -166,7 +167,7 @@ export class CreateprojectComponent implements OnInit {
   }
   
   search_project_data(project_data){
-    let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.projectType+'&status='+project_data.status;
+    let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.type+'&status='+project_data.status;
     this.httpClient.get(searchprojecturl).subscribe(result => {    
       this.results=result;
       this.projectlists=this.results.projectDetailsList;
@@ -177,11 +178,25 @@ export class CreateprojectComponent implements OnInit {
     
     
   }
-  deletedata(){
-    if (confirm("Do you want to delete the Project Details?")) {
-      alert("Project Details Deleted Successfully.");
+  delete_project_data(deletevalue){
+    if (confirm("Do you want to delete the Account Details?")) { 
+    let delurl=this.ip+'/po/project/delete?pId='+deletevalue.id;
+    this.httpClient.delete(delurl).subscribe(result => {
+    this.addresult=result;
+    console.log(this.addresult)
+    if(this.addresult.Status==200){
+    this.deletemsg=this.addresult.message;
+    console.log(this.deletemsg)
+    // alert(this.deletemsg);
+    // let data={associateid:'',associatename:'',accesstype:'',status:''};
+    // this.searchleaves(data);
     } 
-  } 
+    },
+    error => {
+    this.error = 'Connection Interrupted..'; 
+    }) 
+    } 
+    }  
   setmaxdate(data){
     this.maxdate=data;
   }
@@ -200,22 +215,33 @@ export class CreateprojectComponent implements OnInit {
     });
   }
   getResourceData(pid){
-    let curl=this.ip+'/po/project/fetch/resources?pId='+pid;
-    this.httpClient.get(curl).subscribe(result => {    
-      this.results=result;
-      if(this.results.status==200){
-        this.resources=this.results.resourceDetails;
-      }
-      else{
-        this.resourceerror =this.results.message;
-        this.resources=[];
-        alert(this.resourceerror);
-        $("#pidbox").focus();
-      }
-    },
-    error => {
-      this.error = 'Connection Interrupted..'; 
-    });
+    if(pid!=""){
+      let curl=this.ip+'/po/project/fetch/resources?pId='+pid;
+      this.httpClient.get(curl).subscribe(result => {    
+        this.results=result;
+        if(this.results.status==200){
+          this.resources=this.results.resourceDetails;
+          
+        }
+        else if(this.results.status==204){
+          this.resourceerror =this.results.message;
+          this.currentStyles= { 'border-color': '' };  
+        }
+        else{
+          this.resourceerror =this.results.message;
+          this.currentStyles= { 'border-color': 'red' };
+          this.resources=[];
+          $("#pidbox").focus();
+        }
+      },
+      error => {
+        this.error = 'Connection Interrupted..'; 
+      });
+    }
+    else{
+      this.resourceerror="";
+      this.currentStyles= { 'border-color': '' };
+    }
   }
   
   
@@ -301,5 +327,11 @@ export class CreateprojectComponent implements OnInit {
     error => {
       this.error = 'Connection Interrupted..'; 
     });
-  } 
+  }
+  
+  update_data_model(projectlist){
+        console.log(projectlist);
+  }
+
+
 }
