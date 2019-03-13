@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
@@ -11,7 +12,7 @@ import { HttpClient } from  "@angular/common/http";
 
 export class CreateprojectComponent implements OnInit {  
   maxdate=null;
-mindate=null;
+  mindate=null;
   projectsearchform: FormGroup;
   projectcreateform: FormGroup;
   categories:any;
@@ -58,7 +59,7 @@ mindate=null;
       this.role=true;
     }
     
-   
+    
     
     this.resources=[      
       {id:'MK00123456',name:'Venkatesh',band:'U1',start_date:'01-Jan-2019',end_date:'29-Feb-2019'},
@@ -168,7 +169,6 @@ mindate=null;
     this.error="Bad Request";
   }
   search_project_data(project_data){
-    console.log(project_data);
     let searchprojecturl=this.ip+'/po/project/fetch?accountCategory='+project_data.acc_category+'&projectName='+project_data.project_name+'&projectType='+project_data.projectType+'&status='+project_data.status;
     this.httpClient.get(searchprojecturl).subscribe(result => {    
       this.results=result;
@@ -185,18 +185,13 @@ mindate=null;
       alert("Project Details Deleted Successfully.");
     } 
   } 
-  setmaxdate(a){
-
-    this.maxdate=a;
-    
-    }
-    
-    setmindate(a){
-    
-    this.mindate=a;
-    
-    }
-    
+  setmaxdate(data){
+    this.maxdate=data;
+  }
+  setmindate(data){
+    this.mindate=data;
+  }
+  
   search_account_category(acc_cat){
     let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;
     this.httpClient.get(catnameurl).subscribe(result => {    
@@ -215,7 +210,6 @@ mindate=null;
   add_project_details(project_data){
     let resources_data=$("#resources_data"); 
     let contract_data_resources_data=$("#contract_resources_data"); 
-    console.log(contract_data_resources_data)
     let all_resources=[];
     for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
       let resource={};
@@ -243,54 +237,58 @@ mindate=null;
         all_resources.push(resource);      
       }
     }
-    console.log(all_resources);
+    let project_start_date:any,
+        project_end_date:any;
 
-   let all_project_data={
-    accountCategory:project_data.acc_category,
-    accountName:project_data.acc_name,
-    projectName:project_data.project_name,
-    customerName:project_data.customer_name,
-    customerSpoc:project_data.customer_spoc,
-    approvalMethod:project_data.approval_method,
-    submissionMode:project_data.submission_mode,
-    projectType:project_data.project_type,
-    billingCurrency:project_data.billing_currency,
-    poAmount:project_data.po_amount,
-    status:project_data.status,
-    projectStartDate:project_data.start_date,
-    projectEndDate:project_data.end_date,
-    deliverySpoc:project_data.delivery_spoc,
-    effortSpoc:project_data.effort_spoc,
-    pid:project_data.pid,
-    po:project_data.po_id,
-    unitOfMeasurement:project_data.unit_of_measurement,
-    quote:project_data.quote_id,
-    contract:project_data.contract_id,
-    createdBy:"ADMIN",
-    resources:all_resources
-   }
-   console.log(all_project_data)
-   let url=this.ip+'/po/project/create';
-   this.httpClient.post(url,all_project_data).subscribe(result => {
-     this.addresult=result;
-     console.log(this.addresult)
-     if(this.addresult.status == 201){
-       this.addmsg=this.addresult.message;
-      
-     }
-   },
-   error => {
-     this.error = 'Connection Interrupted..'; 
-   });
-
-
-
-
-
-
-
-
-
+        project_start_date=formatDate(project_data.start_date, 'dd-MMM-yyyy', 'en');   
+        project_end_date=formatDate(project_data.end_date, 'dd-MMM-yyyy', 'en');   
+    
+    let all_project_data={
+      accountCategory:project_data.acc_category,
+      accountName:project_data.acc_name,
+      projectName:project_data.project_name,
+      customerName:project_data.customer_name,
+      customerSpoc:project_data.customer_spoc,
+      approvalMethod:project_data.approval_method,
+      submissionMode:project_data.submission_mode,
+      projectType:project_data.project_type,
+      billingCurrency:project_data.billing_currency,
+      poAmount:project_data.po_amount,
+      status:project_data.status,
+      projectStartDate:project_start_date,
+      projectEndDate:project_end_date,
+      deliverySpoc:project_data.delivery_spoc,
+      effortSpoc:project_data.effort_spoc,
+      pid:project_data.pid,
+      po:project_data.po_id,
+      unitOfMeasurement:project_data.unit_of_measurement,
+      quote:project_data.quote_id,
+      contract:project_data.contract_id,
+      createdBy:"ADMIN",
+      resources:all_resources
+    }
+    console.log(all_project_data);
+    // let url=this.ip+'/po/project/create';
+    // this.httpClient.post(url,all_project_data).subscribe(result => {
+    //   this.addresult=result;
+    //   console.log(this.addresult)
+    //   if(this.addresult.status == 201){
+    //     this.addmsg=this.addresult.message;
+        
+    //   }
+    // },
+    // error => {
+    //   this.error = 'Connection Interrupted..'; 
+    // });
+    
+    
+    
+    
+    
+    
+    
+    
+    
   } 
   
 }

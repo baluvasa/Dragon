@@ -29,7 +29,7 @@ export class AppLink {
         return dtOptions;
     }
     public static get access_type() { 
-        let accessTypes = [{role:'ADMIN',type:'Admin User'},{role:'NORMAL',type:'Normal User'}];
+        let accessTypes = [{role:'ADMIN',type:'Administrator'},{role:'USER',type:'USER'}];
         return accessTypes; 
     }
     public static get band() { 
@@ -41,11 +41,11 @@ export class AppLink {
         return locations; 
     }
     public static get approvalmethods() { 
-        let approvalMethods = [{code:'cm',type:'Customer Mail'}];
+        let approvalMethods = [{code:'Customer Mail',type:'Customer Mail'}];
         return approvalMethods; 
     }
     public static get submitionmodes() { 
-        let submitionModes = [{code:'email',type:'EMail'},{code:'ehc',type:'Email/Hard Copy'},{code:'na',type:'NA'}];
+        let submitionModes = [{code:'Email',type:'Email'},{code:'Email/Hard Copy',type:'Email/Hard Copy'},{code:'NA',type:'NA'}];
         return submitionModes; 
     }
     public static get status() { 
@@ -54,7 +54,7 @@ export class AppLink {
     }
     
     public static get projectTypes() { 
-        let project_types = [{type:'Time & Material',code:'tm'},{type:'Fixed Price',code:'fp'}];
+        let project_types = [{type:'Time & Material',code:'Time & Material'},{type:'Fixed Price',code:'Fixed Price'}];
         return project_types; 
     }
     public static get billingcurrency() { 
