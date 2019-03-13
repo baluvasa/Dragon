@@ -91,7 +91,7 @@
                   <td>{{projectlist.projectName}}</td>
                   <td>{{projectlist.projectStartDate}}</td>
                   <td>{{projectlist.projectEndDate}}</td>
-                  <td>{{projectlist.resource_count}}</td>
+                  <td>{{projectlist.resourceCount}}</td>
                   <td>{{projectlist.poAmount| currency:projectlist.billingCurrency:true:'1.2'}}</td>
                   <!-- <td>{{projectlist.currency }}</td> -->
                   <td>{{projectlist.projectType}}</td>
@@ -226,7 +226,6 @@
                     bsDatepicker [maxDate]="mindate"
                     (bsValueChange)="setmaxdate($event)"
                     [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                    placement="auto"
                     readonly>
                   </div>
                   <div class="col-md-4">
@@ -241,7 +240,6 @@
                     bsDatepicker [minDate]="maxdate"
                     (bsValueChange)="setmindate($event)"
                     [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                    placement="auto"
                     readonly>                    
                   </div>
                 </div>
@@ -330,7 +328,7 @@
                                id="{{i}}startdate" 
                                placeholder="Datepicker" 
                                class="form-control" 
-                               bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                               bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
                                (bsValueChange)="setmaxdate($event)"
                                placement="top" 
                                readonly> 
@@ -342,7 +340,7 @@
                               id="{{i}}enddate" 
                               placeholder="Datepicker" 
                               class="form-control" 
-                              bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
+                              bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
                               (bsValueChange)="setmindate($event)"
                               placement="top" 
                               readonly>
@@ -389,8 +387,9 @@
                                id="{{i}}startdate1" 
                                placeholder="Project Start Date" 
                                class="form-control" 
-                               bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                               bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
                                (bsValueChange)="setmaxdate($event)"
+                               placement="top" 
                                readonly>
                             </td>
                             <td>
@@ -399,8 +398,9 @@
                               id="{{i}}enddate1" 
                               placeholder="Project End Date" 
                               class="form-control" 
-                              bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
+                              bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
                               (bsValueChange)="setmindate($event)"
+                              placement="top" 
                               readonly>
                             </td>
                             <td>
@@ -408,7 +408,8 @@
                             </td>
                             
                             <td>
-                              <input type="checkbox" id="{{i}}linked1" class="form-control">
+                              <input type="radio" name="resourcelinked" id="{{i}}linked1"> Linked
+                              <input type="radio" name="resourcelinked" id="{{i}}linked1"> Not Linked
                             </td>
                           </tr>
                         </tbody>

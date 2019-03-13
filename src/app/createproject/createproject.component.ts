@@ -249,7 +249,6 @@ export class CreateprojectComponent implements OnInit {
         resource["ratePerHour"]=$('#'+k+'text1').val();
         resource["linked"]='Y';        
         resource["pId"]=project_data.pid;        
-
         all_resources.push(resource);      
         contract_resources.push(resource);
       }
@@ -283,9 +282,11 @@ export class CreateprojectComponent implements OnInit {
       contract:project_data.contract_id,
       createdBy:"ADMIN",
       resources:all_resources,
+      resourceCount:all_resources.length,
       contractToPid:contract_resources
     }
     console.log(all_project_data);
+    
     let url=this.ip+'/po/project/create';
     this.httpClient.post(url,all_project_data).subscribe(result => {
       this.addresult=result;
