@@ -15,6 +15,7 @@ export class CreateprojectComponent implements OnInit {
   mindate=null;
   projectsearchform: FormGroup;
   projectcreateform: FormGroup;
+  projectupdateform: FormGroup;
   categories:any;
   projects:any;
   error:any;
@@ -76,6 +77,71 @@ export class CreateprojectComponent implements OnInit {
       })
     })
     this.projectcreateform = new FormGroup({
+      acc_category:new FormControl('',{
+        validators: []
+      }),
+      acc_name:new FormControl('',{
+        validators: []
+      }),
+      project_name:new FormControl('',{
+        validators: []
+      }),
+      customer_name:new FormControl('',{
+        validators: []
+      }),
+      customer_spoc:new FormControl('',{
+        validators: []
+      }),
+      approval_method:new FormControl('',{
+        validators: []
+      }),
+      submission_mode:new FormControl('',{
+        validators: []
+      }),
+      project_type:new FormControl('',{
+        validators: []
+      }),
+      billing_currency:new FormControl('',{
+        validators: []
+      }),
+      po_amount:new FormControl('',{
+        validators: []
+      }),
+      start_date:new FormControl('',{
+        validators: []
+      }),
+      end_date:new FormControl('',{
+        validators: []
+      }),
+      unit_of_measurement:new FormControl('',{
+        validators: []
+      }),
+      status:new FormControl('',{
+        validators: []
+      }),
+      delivery_spoc:new FormControl('',{
+        validators: []
+      }),
+      effort_spoc:new FormControl('',{
+        validators: []
+      }),
+      pid:new FormControl('',{
+        validators: []
+      }),
+      quote_id:new FormControl('',{
+        validators: []
+      }),
+      contract_id:new FormControl('',{
+        validators: []
+      }),
+      po_id:new FormControl('',{
+        validators: []
+      }),
+      po_resource_table:new FormControl('',{
+        validators: []
+      })
+    });
+    this.projectupdateform = new FormGroup({
       acc_category:new FormControl('',{
         validators: []
       }),

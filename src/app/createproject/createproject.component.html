@@ -450,130 +450,134 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title">Update Project Details</h4>
             </div>
-            <form [formGroup]="projectcreateform">
+            <form [formGroup]="projectupdateform">
               <div class="modal-body">
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Account Category</label>
-                      <!-- <select class="form-control" [(ngModel)]="acc_category_default1" [formControl]="projectcreateform.controls['acc_category']">
+                      <!-- <select class="form-control" [(ngModel)]="acc_category_default1" [formControl]="projectupdateform.controls['acc_category']">
                         <option [value]="0" disabled selected>Select Account Category</option>
                         <option *ngFor="let category of categories" [value]=category.code >
                           {{category.acc_category}}
                         </option>
                       </select> -->
-                      <input type="text" class="form-control" placeholder="GE India Exports Pvt. Ltd." disabled>
+                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['acc_category']" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Account Name</label>
-                    <input type="text" class="form-control" placeholder="SQL PO" disabled >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['acc_name']" disabled >
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Project Name</label>
-                    <input type="text" class="form-control" placeholder="GE Energy-NPI Support-ICFC Pro" disabled >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['project_name']" disabled >
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Customer Name</label>
-                      <input type='text' class="form-control" placeholder="GE India Industrial Pvt Limited" disabled>
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['customer_name']" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Customer SPOC</label>
-                    <input type="text" class="form-control" >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['customer_spoc']">
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Approval Method</label>
-                    <!-- <select class="form-control" [(ngModel)]="approval_default" placeholder='Customer Mail' [formControl]="projectcreateform.controls['approval_method']">
+                    <select class="form-control" [formControl]="projectupdateform.controls['approval_method']">
                       <option [value]="0" disabled selected>Select Approval Method</option>
                       <option *ngFor="let approvalmethod of approvalmethods" [value]=approvalmethod.code >
                         {{approvalmethod.status}}
                       </option>
-                    </select> -->
-                    <input type="text" class="form-control" placeholder="Customer Mail">
+                    </select>
+                    <!-- <input type="text" class="form-control" placeholder="Customer Mail"> -->
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Submission Mode</label>
-                      <input type='text' class="form-control" placeholder="Email / Hard Copy" >
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['submission_mode']">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Project Type</label>
-                    <!-- <select class="form-control" id="year" placeholder="TIME & MATERIAL" [(ngModel)]="type_default1" [formControl]="projectcreateform.controls['project_type']">
+                    <select class="form-control" id="year" placeholder="TIME & MATERIAL" [formControl]="projectupdateform.controls['project_type']">
                       <option [value]="0" disabled selected>Select Type</option>
                       <option *ngFor="let type of types" [value]=type.type >
                         {{type.type}}
                       </option>
-                    </select>  -->
-                    <input type="text" class="form-control" placeholder="TIME & MATERIAL">
+                    </select> 
+                    <!-- <input type="text" class="form-control" placeholder="TIME & MATERIAL"> -->
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Project Billing Currency</label>
-                    <input type="text" class="form-control" placeholder="INR" >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['billing_currency']">
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <label for="proj">PO Amount</label>
-                      <input type='text' class="form-control" placeholder="184800" >
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['po_amount']">
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label for="proj">Project Start Date</label>
-                    <input type="date" class="form-control" placeholder="16-Jul-2018" >
+                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['start_date']">
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label for="proj">Project End Date</label>
-                    <input type="date" class="form-control" placeholder="13-Aug-2018" >
+                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['end_date']">
                   </div>
+                  <div class="col-md-3">
+                      <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
+                      <input type="number" class="form-control" [formControl]="projectupdateform.controls['unit_of_measurement']">
+                    </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Status</label>
-                      <!-- <select class="form-control" id="year" placeholder="In Active" [(ngModel)]="status_default1" [formControl]="projectcreateform.controls['status']">
+                      <select class="form-control" id="year" placeholder="In Active" [formControl]="projectupdateform.controls['status']">
                         <option [value]="0" disabled selected>Select Status</option>
                         <option *ngFor="let status of statuses" [value]=status.code >
                           {{status.status}}
                         </option>
-                      </select>  -->
-                      <input type="text" class="form-control" placeholder="In Active">
+                      </select> 
+                      <!-- <input type="text" class="form-control" placeholder="In Active"> -->
                     </div>
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Delivery SPOC</label>
-                    <input type="text" class="form-control" placeholder="RUDRARAJU,PRABHAKARRAJU" >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['delivery_spoc']">
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Effort SPOC</label>
-                    <input type="text" class="form-control" placeholder="Reddy,Ashanna Sridhar" >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['effort_spoc']">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="proj">PID</label>
-                      <input type='text' class="form-control" placeholder="000000000029531" >
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['pid']" disabled>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">Quote#</label>
-                    <input type="text" class="form-control" placeholder="QMS0100917" >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['quote_id']" disabled>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">Contract#</label>
-                    <input type="text" class="form-control" placeholder="TML206945" >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['contract_id']" disabled>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">PO#</label>
-                    <input type="text" class="form-control" placeholder="232130187">
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['po_id']" disabled>
                   </div>
                 </div>
                 
