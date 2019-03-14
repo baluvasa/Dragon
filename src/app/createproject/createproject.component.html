@@ -97,8 +97,7 @@
                   <td>{{projectlist.projectStartDate}}</td>
                   <td>{{projectlist.projectEndDate}}</td>
                   <td>{{projectlist.resourceCount}}</td>
-                  <td>{{projectlist.poAmount| currency:projectlist.billingCurrency:true:'1.2'}}</td>
-                  <!-- <td>{{projectlist.currency }}</td> -->
+                  <td>{{projectlist.poAmount | currency:projectlist.billingCurrency:true:'1.2'}}</td>
                   <td>{{projectlist.projectType}}</td>
                   <td>{{projectlist.status}}</td>
                   <td>
@@ -443,6 +442,8 @@
         </div>
       </div>
       
+
+
       <div id="updateprojectmodel" class="modal fade" role="dialog" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -456,39 +457,33 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Account Category</label>
-                      <!-- <select class="form-control" [(ngModel)]="acc_category_default1" [formControl]="projectupdateform.controls['acc_category']">
-                        <option [value]="0" disabled selected>Select Account Category</option>
-                        <option *ngFor="let category of categories" [value]=category.code >
-                          {{category.acc_category}}
-                        </option>
-                      </select> -->
-                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['acc_category']" disabled>
+                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_acc_category']" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Account Name</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['acc_name']" disabled >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_acc_name']" disabled >
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Project Name</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['project_name']" disabled >
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_project_name']" disabled >
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Customer Name</label>
-                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['customer_name']" disabled>
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_customer_name']" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Customer SPOC</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['customer_spoc']">
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_customer_spoc']">
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Approval Method</label>
-                    <select class="form-control" [formControl]="projectupdateform.controls['approval_method']">
-                      <option [value]="0" disabled selected>Select Approval Method</option>
+                    <select class="form-control" [formControl]="projectupdateform.controls['update_approval_method']">
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Approval Method</option>
                       <option *ngFor="let approvalmethod of approvalmethods" [value]=approvalmethod.code >
                         {{approvalmethod.status}}
                       </option>
@@ -500,49 +495,48 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Submission Mode</label>
-                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['submission_mode']">
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_submission_mode']">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Project Type</label>
-                    <select class="form-control" id="year" placeholder="TIME & MATERIAL" [formControl]="projectupdateform.controls['project_type']">
+                    <select class="form-control" id="year" placeholder="TIME & MATERIAL" [formControl]="projectupdateform.controls['update_project_type']">
                       <option [value]="0" disabled selected>Select Type</option>
                       <option *ngFor="let type of types" [value]=type.type >
                         {{type.type}}
                       </option>
                     </select> 
-                    <!-- <input type="text" class="form-control" placeholder="TIME & MATERIAL"> -->
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Project Billing Currency</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['billing_currency']">
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_billing_currency']">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="proj">PO Amount</label>
-                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['po_amount']">
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_po_amount']">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">Project Start Date</label>
-                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['start_date']">
+                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['update_start_date']">
                   </div>
                   <div class="col-md-3">
                     <label for="proj">Project End Date</label>
-                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['end_date']">
+                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['update_end_date']">
                   </div>
                   <div class="col-md-3">
                       <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
-                      <input type="number" class="form-control" [formControl]="projectupdateform.controls['unit_of_measurement']">
+                      <input type="number" class="form-control" [formControl]="projectupdateform.controls['update_unit_of_measurement']">
                     </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Status</label>
-                      <select class="form-control" id="year" placeholder="In Active" [formControl]="projectupdateform.controls['status']">
+                      <select class="form-control" id="year" placeholder="In Active" [formControl]="projectupdateform.controls['update_status']">
                         <option [value]="0" disabled selected>Select Status</option>
                         <option *ngFor="let status of statuses" [value]=status.code >
                           {{status.status}}
@@ -553,31 +547,31 @@
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Delivery SPOC</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['delivery_spoc']">
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_delivery_spoc']">
                   </div>
                   <div class="col-md-4">
                     <label for="proj">Effort SPOC</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['effort_spoc']">
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_effort_spoc']">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="proj">PID</label>
-                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['pid']" disabled>
+                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_pid']" disabled>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">Quote#</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['quote_id']" disabled>
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_quote_id']" disabled>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">Contract#</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['contract_id']" disabled>
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_contract_id']" disabled>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">PO#</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['po_id']" disabled>
+                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_po_id']" disabled>
                   </div>
                 </div>
                 

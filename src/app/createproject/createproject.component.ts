@@ -142,67 +142,64 @@ export class CreateprojectComponent implements OnInit {
       })
     });
     this.projectupdateform = new FormGroup({
-      acc_category:new FormControl('',{
+      update_acc_category:new FormControl('',{
         validators: []
       }),
-      acc_name:new FormControl('',{
+      update_acc_name:new FormControl('',{
         validators: []
       }),
-      project_name:new FormControl('',{
+      update_project_name:new FormControl('',{
         validators: []
       }),
-      customer_name:new FormControl('',{
+      update_customer_name:new FormControl('',{
         validators: []
       }),
-      customer_spoc:new FormControl('',{
+      update_customer_spoc:new FormControl('',{
         validators: []
       }),
-      approval_method:new FormControl('',{
+      update_approval_method:new FormControl('',{
         validators: []
       }),
-      submission_mode:new FormControl('',{
+      update_submission_mode:new FormControl('',{
         validators: []
       }),
-      project_type:new FormControl('',{
+      update_project_type:new FormControl('',{
         validators: []
       }),
-      billing_currency:new FormControl('',{
+      update_billing_currency:new FormControl('',{
         validators: []
       }),
-      po_amount:new FormControl('',{
+      update_po_amount:new FormControl('',{
         validators: []
       }),
-      start_date:new FormControl('',{
+      update_start_date:new FormControl('',{
         validators: []
       }),
-      end_date:new FormControl('',{
+      update_end_date:new FormControl('',{
         validators: []
       }),
-      unit_of_measurement:new FormControl('',{
+      update_unit_of_measurement:new FormControl('',{
         validators: []
       }),
-      status:new FormControl('',{
+      update_status:new FormControl('',{
         validators: []
       }),
-      delivery_spoc:new FormControl('',{
+      update_delivery_spoc:new FormControl('',{
         validators: []
       }),
-      effort_spoc:new FormControl('',{
+      update_effort_spoc:new FormControl('',{
         validators: []
       }),
-      pid:new FormControl('',{
+      update_pid:new FormControl('',{
         validators: []
       }),
-      quote_id:new FormControl('',{
+      update_quote_id:new FormControl('',{
         validators: []
       }),
-      contract_id:new FormControl('',{
+      update_contract_id:new FormControl('',{
         validators: []
       }),
-      po_id:new FormControl('',{
-        validators: []
-      }),
-      po_resource_table:new FormControl('',{
+      update_po_id:new FormControl('',{
         validators: []
       })
     });
