@@ -15,11 +15,13 @@ export class PoappComponent implements OnInit {
   poapprovalform: FormGroup;
   addpoform: FormGroup;
   addprojectinfoform:FormGroup;
+  detailexpand:FormGroup;
   adderror:any;
 addresult:any;
 addmsg:any;
 acnames:any;
   error:any;
+  errtable:any;
   projects:any;
   project_years:any;
   associates:any;
@@ -47,6 +49,7 @@ acnames:any;
   emplistexpand:any;
   resourcelist:any;
   categories:any;
+  detailproinfo:any;
 
   constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService,private httpClient:HttpClient ) { }
 
@@ -87,6 +90,21 @@ acnames:any;
    
       
     })
+    this.detailexpand = new FormGroup({
+      updaccountcat:new FormControl('',{}),    
+      updpsdate:new FormControl('',{}),
+      updprojectname:new FormControl('',{}),
+      updaccountname:new FormControl('',{}),
+
+      updcustname:new FormControl('',{}),
+      // updbillingcurrency:new FormControl('',{}),
+      // updcontract:new FormControl('',{}),
+      // updpid:new FormControl('',{}),
+      // updpo:new FormControl('',{}),
+      // updyearmonth:new FormControl('',{}),
+  
+  
+    })
     this.addpoform = new FormGroup({
       modalaccountcategory:new FormControl('',{
         validators: [Validators.required]
@@ -120,7 +138,41 @@ acnames:any;
   this.getcategories();
    
   }
-
+  setupdatemodel(emplist){
+    this.detailexpand.setValue({
+        updaccountcat:emplist.accountCategory,
+        updpsdate:emplist.projectEndDate,
+        updaccountname:emplist.accountName,
+        updprojectname:emplist.projectName,
+        updcustname:emplist.customerName,
+        // updprojectsdate:emplist.projectStartDate,
+        // updprojectedate:emplist.projectEndDate,
+        // updbillingcurrency:emplist.billingCurrency,
+        // updcontract:emplist.contract,
+        // updpid:emplist.pid,
+        // updpo:emplist.po,
+        // updquote:emplist.quote,
+        // updyearmonth:emplist.yyyyMM,
+       
+      });
+      console.log("vals",emplist);
+    }
+    // setdetailedinfo(detailproinfo){
+    //   let detailedinfor={
+    //     accountCategory :detailproinfo.updaccountcat,
+    //     accountName:detailproinfo.updaccountname,
+    //     projectName:detailproinfo.updprojectname,
+    //     projectStartDate:detailproinfo.updprojectsdate,
+    //     projectEndDate:detailproinfo.updprojectedate,
+    //     billingCurrency:detailproinfo.updbillingcurrency,
+    //     contract:detailproinfo.updcontract,
+    //     pid:detailproinfo.updpid,
+    //     po:detailproinfo.updpo,
+    //     quote:detailproinfo.updquote,
+    //     yyyyMM:detailproinfo.updyearmonth,
+       
+    //     modifiedBy:'admin'};
+    // };
   // GET call to get data of account category on Page Load 
 search_account_category_details(value){
   this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?accountcategory='+value.accountCategory+'&projectName='+value.accountname+'&yyyyMMM='+value.projectyear+'&customerName='+value.customername+'&projectStartDate='+value.projectsdate+'&projectEndDate='+value.proedate+'&currency='+value.currencycode+'&pId='+value.pid;
@@ -140,36 +192,53 @@ search_account_category_details(value){
 
 //Get all data after selecting a value in account category
 getcategories(){
-  let caturl=this.ip+'/po/account_category/categories';
+  let caturl=this.ip+'/po/po_approval/fetch/accountCategory';
   
   this.httpClient.get(caturl).subscribe(result => {    
     this.results=result;
     console.log("%%%",this.results)
-    this.categories=this.results.accountCategories;
+    this.categories=this.results.accountCategoryList;
   },
   error => {
     this.error = 'Connection Interrupted..'; 
   });
 }
 search_account_category(accountcategory){
-  let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+accountcategory;
+  
+
+  let catnameurl=this.ip+'/po/po_approval/fetch/projectInfo?accountCategory='+accountcategory;
   this.httpClient.get(catnameurl).subscribe(result => {    
+    
     this.results=result;
-    this.acnames=this.results.accountNames;
+ 
+    this.acnames=this.results.projectInfoList;
+    console.log("res",this.acnames);
   },
   error => {
     this.error = 'Connection Interrupted..'; 
   });
 }
 search_all_project_info(value){
-  this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
-  this.httpClient.get(this.crud_url).subscribe(result => {
+  console.log(value.proname);
+  
+  if(value.accountcategory==null || value.accountname==null  || value.protype==null  || value.yyyyMM==null) {
+  this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
+   console.log("@@@@@", this.crud_url); }  
+  else {
+    this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
+  }
+ this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
-    console.log("@@@@@", this.results)
+    console.log("@@@@@", this.crud_url);
+    console.log("@@@@@", this.results);
     
     if(this.results.status==200){
-      this.account_all_project_info=this.results.projectInfoList;
+      this.account_all_project_info=this.results.projectDetails;
+
       console.log("!!!!!!!!!!!!!!!",this.account_all_project_info)
+    }
+    else{
+      this.errtable=this.results.message
     }
   },
   error =>{
@@ -179,8 +248,9 @@ search_all_project_info(value){
 
 //fetch all project data based on selected account category and account name
 get_all_project_info(target){
-  this.projectdata = this.account_all_project_info.filter(t=>t.accountName == target);
-  this.project_pid=this.projectdata[0].pid;
+  this.projectdata = this.acnames.filter(t=>t.accountName == target);
+  console.log("log",this.projectdata);
+  // this.project_pid=this.projectdata[0].pid;
   this.project_name_data=this.projectdata[0].projectName;
   this.project_customer_name=this.projectdata[0].customerName;
   this.project_start_date=this.projectdata[0].projectStartDate;
