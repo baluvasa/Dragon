@@ -142,6 +142,10 @@ export class CreateprojectComponent implements OnInit {
       })
     });
     this.projectupdateform = new FormGroup({
+
+      update_id:new FormControl('',{
+        validators: []
+      }),
       update_acc_category:new FormControl('',{
         validators: []
       }),
@@ -391,9 +395,31 @@ export class CreateprojectComponent implements OnInit {
       this.error = 'Connection Interrupted..'; 
     });
   }
-  
-  update_data_model(projectlist){
-        console.log(projectlist);
+  update_data_model(projectlist){       
+    this.projectupdateform.setValue({
+      update_id:projectlist.id,
+      update_acc_category:projectlist.accountCategory,
+      update_acc_name:projectlist.accountName,
+      update_project_name:projectlist.projectName,
+      update_customer_name:projectlist.customerName,
+      update_customer_spoc:projectlist.customerSpoc,
+      update_approval_method:projectlist.approvalMethod,
+      update_submission_mode:projectlist.submissionMode,
+      update_project_type:projectlist.projectType,
+      update_billing_currency:projectlist.billingCurrency,
+      update_po_amount:projectlist.poAmount,
+      update_start_date:projectlist.projectStartDate,
+      update_end_date:projectlist.projectEndDate,
+      update_unit_of_measurement:projectlist.unitOfMeasurement,
+      update_status:projectlist.status,
+      update_delivery_spoc:projectlist.deliverySpoc,
+      update_effort_spoc:projectlist.effortSpoc,
+      update_pid:projectlist.pid,
+      update_quote_id:projectlist.quote,
+      update_contract_id:projectlist.contract,
+      update_po_id:projectlist.po
+    });
+    console.log(this.projectupdateform);
   }
 
 

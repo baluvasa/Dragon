@@ -457,6 +457,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="proj">Account Category</label>
+                      <input type="hidden" class="form-control" [formControl]="projectupdateform.controls['update_id']" disabled>
                       <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_acc_category']" disabled>
                     </div>
                   </div>
@@ -483,19 +484,23 @@
                   <div class="col-md-4">
                     <label for="proj">Approval Method</label>
                     <select class="form-control" [formControl]="projectupdateform.controls['update_approval_method']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Approval Method</option>
-                      <option *ngFor="let approvalmethod of approvalmethods" [value]=approvalmethod.code >
-                        {{approvalmethod.status}}
+                      <option [value]="0" disabled selected>Select Approval Method</option>
+                      <option *ngFor="let approvalmethod of approvalmethods" [value]='approvalmethod.code' >
+                        {{approvalmethod.type}}
                       </option>
                     </select>
-                    <!-- <input type="text" class="form-control" placeholder="Customer Mail"> -->
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="proj">Submission Mode</label>
-                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_submission_mode']">
+                      <label for="proj">Submission Mode</label>                      
+                      <select class="form-control" [formControl]="projectupdateform.controls['update_submission_mode']">
+                        <option [value]="0" disabled selected>Select Submission Mode</option>
+                        <option *ngFor="let submisson_mode of submisson_modes" [value]=submisson_mode.code >
+                          {{submisson_mode.type}}
+                        </option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -508,8 +513,11 @@
                     </select> 
                   </div>
                   <div class="col-md-4">
-                    <label for="proj">Project Billing Currency</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_billing_currency']">
+                    <label for="proj">Project Billing Currency</label>                    
+                    <select class="form-control" [formControl]="projectupdateform.controls['update_billing_currency']">
+                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
+                      <option *ngFor="let currency_mode of currency_modes" [value]='currency_mode.abbreviation'>{{currency_mode.currency}} - {{currency_mode.abbreviation}}</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row">
@@ -520,13 +528,28 @@
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <label for="proj">Project Start Date</label>
-                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['update_start_date']">
+                    <label for="proj">Project Start Date</label>                    
+                    <input 
+                    type="text" 
+                    [formControl]="projectupdateform.controls['update_start_date']"
+                    placeholder="Datepicker"
+                    class="form-control"
+                    bsDatepicker [maxDate]="mindate"
+                    (bsValueChange)="setmaxdate($event)"
+                    [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                    readonly>
                   </div>
                   <div class="col-md-3">
                     <label for="proj">Project End Date</label>
-                    <input type="date" class="form-control" [formControl]="projectupdateform.controls['update_end_date']">
-                  </div>
+                    <input 
+                    type="text" 
+                    [formControl]="projectupdateform.controls['update_end_date']"
+                    placeholder="Datepicker"
+                    class="form-control"
+                    bsDatepicker [maxDate]="mindate"
+                    (bsValueChange)="setmaxdate($event)"
+                    [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                    readonly></div>
                   <div class="col-md-3">
                       <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
                       <input type="number" class="form-control" [formControl]="projectupdateform.controls['update_unit_of_measurement']">
@@ -537,11 +560,11 @@
                     <div class="form-group">
                       <label for="proj">Status</label>
                       <select class="form-control" id="year" placeholder="In Active" [formControl]="projectupdateform.controls['update_status']">
-                        <option [value]="0" disabled selected>Select Status</option>
-                        <option *ngFor="let status of statuses" [value]=status.code >
-                          {{status.status}}
-                        </option>
-                      </select> 
+                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
+                          <option *ngFor="let status of statuses" [value]=status.code >
+                            {{status.type}}
+                          </option>
+                        </select> 
                       <!-- <input type="text" class="form-control" placeholder="In Active"> -->
                     </div>
                   </div>
