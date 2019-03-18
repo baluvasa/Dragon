@@ -50,6 +50,7 @@ export class CreateprojectComponent implements OnInit {
   acnames:any;
   results:any;
   cresources:any;
+  grresources:any;
   // approvalmethods:any;
   // currency_modes:any;
   resources:any;
@@ -216,6 +217,7 @@ export class CreateprojectComponent implements OnInit {
     this.httpClient.get(cresourcesurl).subscribe(result => {    
       this.results=result;
       this.cresources=this.results.cresourceDetails;
+      console.log(this.cresources)
     },
     error => {
       this.error = 'Connection Interrupted..'; 
@@ -419,8 +421,29 @@ export class CreateprojectComponent implements OnInit {
       update_contract_id:projectlist.contract,
       update_po_id:projectlist.po
     });
-    console.log(this.projectupdateform);
+    this.getResourceDataonupdate(projectlist.pid);
+    this.getcresourcedetails();
   }
-
+  getResourceDataonupdate(pid){
+console.log(pid)
+let curl=this.ip+'/po/project/fetch/resourcesonupdate?pId='+pid;
+this.httpClient.get(curl).subscribe(result => {    
+  this.results=result;
+  if(this.results.status==200){
+    this.grresources=this.results.cresourceDetails;  
+    console.log(this.grresources)  
+  }
+  else if(this.results.status==204){
+    this.resourceerror =this.results.message;
+    this.currentStyles= { 'border-color': '' };  
+  }
+  else{
+    this.error = 'Connection Interrupted..';
+  }
+},
+error => {
+  this.error = 'Connection Interrupted..'; 
+});
+  }
 
 }
