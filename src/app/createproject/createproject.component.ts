@@ -431,7 +431,7 @@ this.httpClient.get(curl).subscribe(result => {
   this.results=result;
   if(this.results.status==200){
     this.grresources=this.results.cresourceDetails;  
-    console.log(this.grresources)  
+    // console.log(this.grresources)  
   }
   else if(this.results.status==204){
     this.resourceerror =this.results.message;
