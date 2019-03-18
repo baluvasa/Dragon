@@ -50,6 +50,7 @@ export class Createproject1Component implements OnInit {
   myDatePickerOptions=AppLink.myDatePickerOptions;
   catlists:any;
   acnames:any;
+  contracts:any;
   results:any;
   cresources:any;
   addcontmsg:any;
@@ -316,13 +317,16 @@ export class Createproject1Component implements OnInit {
         this.results=result;
         if(this.results.status==200){
           this.resources=this.results.resourceDetails;
+          this.resourceerror="";
+          this.currentStyles= { 'border-color': '' };
           
         }
         else if(this.results.status==204){
+          this.resources=[];
           this.resourceerror =this.results.message;
           this.currentStyles= { 'border-color': '' };  
         }
-        else{
+        else {
           this.resourceerror =this.results.message;
           this.currentStyles= { 'border-color': 'red' };
           this.resources=[];
@@ -332,6 +336,22 @@ export class Createproject1Component implements OnInit {
       error => {
         this.error = 'Connection Interrupted..'; 
       });
+
+      let contracts_data=this.ip+'/po/contract/fetch/contractsinfo?pid='+pid;
+      this.httpClient.get(contracts_data).subscribe(result => { 
+      this.results=result;
+      if(this.results.status==200){
+      this.contracts=this.results.contractdetails;
+      }
+      else{
+      this.resourceerror =this.results.message;
+      this.contracts=[]; 
+
+      }
+      },
+      error => {
+      this.error = 'Connection Interrupted..'; 
+      }); 
     }
     else{
       this.resourceerror="";
@@ -497,10 +517,33 @@ error => {
 });
   }
   
-  add_resource_details(projectresourceform){
-    console.log(projectresourceform);
+add_resource_details(projectresourceform){
+  console.log(projectresourceform);
 
+}
+
+
+check_pid(value){
+  let curl=this.ip+'/po/project/fetch/checkpid?pid='+value;
+  this.httpClient.get(curl).subscribe(result => { 
+  this.results=result;
+  if(this.results.status==200){
+  this.resources=this.results.resourceDetails;
+  this.resourceerror =this.results.message;
+  this.currentStyles= { 'border-color': 'red' };
+  $("#pidbox").focus(); 
   }
+  else if(this.results.status==204){
+  this.resourceerror ='';
+  this.currentStyles= { 'border-color': '' }; 
+  }
+  else{
+  }
+  },
+  error => {
+  this.error = 'Connection Interrupted..'; 
+  });
+  } 
 
 
 }

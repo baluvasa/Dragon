@@ -3,9 +3,9 @@
       <h2>Project Details</h2>
       <div class="panel panel-default">
         <div class="panel-heading">Search Project Details
+          <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createresourcemodel">&nbsp;&nbsp;Add Resource Details</button>
           <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createcontractmodel">&nbsp;&nbsp;Add Contract</button>
           <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createprojectmodel">&nbsp;&nbsp;Add Project</button>
-          <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createresourcemodel">&nbsp;&nbsp;Add Resource Details</button>
         </div>
         <div class="panel-body">
           <div class="row">
@@ -200,14 +200,19 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label for="proj">Contract ID</label>
-                          <input type="text" class="form-control" [formControl]="projectresourceform.controls['contract_id']">
+                          <select class="form-control" id="year" [formControl]="projectresourceform.controls['contract_id']" >
+                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
+                              <option *ngFor="let contract of contracts" [value]=contract.contractNumber >
+                              {{contract.contractNumber}}
+                              </option>
+                              </select>
                         </div>
                       </div>
 
                       <div class="col-md-2">
                         <div class="form-group">
                          <br>
-                            <button type="submit" class="btn btn-primary">Search Resources</button>
+                            <!-- <button type="submit" class="btn btn-primary">Search Resources</button> -->
                         </div>
                       </div>
                       
@@ -529,7 +534,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="proj">Project ID (PID)</label>
-                        <input type='text' class="form-control" [formControl]="projectcreateform.controls['pid']" [ngStyle]="currentStyles" (change)='getResourceData($event.target.value)' id="pidbox">
+                        <input type='text' class="form-control" [formControl]="projectcreateform.controls['pid']" [ngStyle]="currentStyles" (change)='check_pid($event.target.value)' id="pidbox">
                         <small class="text-danger">{{resourceerror}}</small>
                         
                       </div>
