@@ -138,29 +138,54 @@
                           </div>
                         </div> 
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label for="proj">Project ID (PID)</label>
                           <input type='text' class="form-control" [formControl]="projectcontractform.controls['pid']">                        
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label for="proj">Quote ID</label>
                           <input type="text" class="form-control" [formControl]="projectcontractform.controls['quote_id']">
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label for="proj">Contract ID</label>
                           <input type="text" class="form-control" [formControl]="projectcontractform.controls['contract_id']">
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label for="proj">PO ID</label>
                           <input type="text" class="form-control" [formControl]="projectcontractform.controls['po_id']">
                         </div> 
+                      </div> 
+                      <div class="col-md-4">
+                              <label for="proj">Contract Start Date</label>
+                              <input 
+                              type="text" 
+                              [formControl]="projectcontractform.controls['start_date']"
+                              placeholder="Contract Start Date"
+                              class="form-control"
+                              bsDatepicker [maxDate]="mindate"
+                              (bsValueChange)="setmaxdate($event)"
+                              [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                              readonly>
+
+                      </div> 
+                      <div class="col-md-4">
+                          <label for="proj">Contact End Date</label>
+                          <input 
+                          type="text" 
+                          [formControl]="projectcontractform.controls['end_date']"
+                          placeholder="Contract Start Date"
+                          class="form-control"
+                          bsDatepicker [minDate]="maxdate"
+                          (bsValueChange)="setmindate($event)"
+                          [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                          readonly>
                       </div> 
                     </div>
                   </div>
@@ -183,7 +208,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Add Resource  Details</h4>
+                  <h4 class="modal-title">Add Resource Details</h4>
                 </div>
                 <form [formGroup]="projectresourceform" (ngSubmit)="add_resource_details(projectresourceform.value)">
                 <div class="modal-body">
@@ -201,7 +226,7 @@
                         <div class="form-group">
                           <label for="proj">Contract ID</label>
                           <select class="form-control" id="year" [formControl]="projectresourceform.controls['contract_id']" >
-                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
+                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Contract ID</option>
                               <option *ngFor="let contract of contracts" [value]=contract.contractNumber >
                               {{contract.contractNumber}}
                               </option>
