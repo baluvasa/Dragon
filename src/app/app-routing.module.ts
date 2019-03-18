@@ -16,7 +16,7 @@ import { AccountcategoryComponent } from './accountcategory/accountcategory.comp
 import { PoapprovalComponent } from './poapproval/poapproval.component';
 import { QuoteComponent } from './quote/quote.component'; 
 import { AccessdetailsComponent } from './accessdetails/accessdetails.component'; 
-// import {  Createproject1Component} from './createproject1/createproject1.component'; 
+ import {  Createproject1Component} from './createproject1/createproject1.component'; 
 // import { Accountcategory1Component } from './accountcategory1/accountcategory1.component';
 import { PoappComponent } from './poapp/poapp.component';
 import { CanActivateGuard } from './can-activate.guard'; 
@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   // { path: 'changepassowrd', component: ChangepasswordComponent },
   { path: 'createproject', component: CreateprojectComponent,canActivate:[CanActivateGuard]  },    
-  // { path: 'createproject1', component: Createproject1Component },    
+   { path: 'createproject1', component: Createproject1Component },    
   { path: 'projectinfo', component: ProjectinfoComponent }, 
   { path: 'leavedetails', component: LeavedetailsComponent,canActivate:[CanActivateGuard] },
   {path:'holidays', component:HolidaysComponent,canActivate:[CanActivateGuard]} ,
