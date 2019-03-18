@@ -14,6 +14,7 @@ export class Createproject1Component implements OnInit {
   maxdate=null;
   mindate=null;
   projectsearchform: FormGroup;
+  projectresourceform: FormGroup;
   projectcreateform: FormGroup;
   projectupdateform: FormGroup;
   projectcontractform: FormGroup;
@@ -157,6 +158,14 @@ export class Createproject1Component implements OnInit {
         validators: []
       }),
       po_id:new FormControl('',{
+        validators: []
+      })
+    });
+    this.projectresourceform = new FormGroup({
+      pid:new FormControl('',{
+        validators: []
+      }),
+      contract_id:new FormControl('',{
         validators: []
       })
     });
@@ -469,7 +478,7 @@ export class Createproject1Component implements OnInit {
     this.getonupdateResourceData(projectlist.pid);
     console.log(this.projectupdateform);
   }
-  add_contract_details(projectcontractform){
+add_contract_details(projectcontractform){
 console.log(projectcontractform)
 let url=this.ip+'/po/contract/create';
 this.httpClient.post(url,projectcontractform).subscribe(result => {
@@ -488,5 +497,10 @@ error => {
 });
   }
   
+  add_resource_details(projectresourceform){
+    console.log(projectresourceform);
+
+  }
+
 
 }
