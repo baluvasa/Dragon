@@ -16,7 +16,6 @@ export class CreateprojectComponent implements OnInit {
   projectsearchform: FormGroup;
   projectcreateform: FormGroup;
   projectupdateform: FormGroup;
-  projectcontractform: FormGroup;
   categories:any;
   projects:any;
   error:any;
@@ -51,15 +50,11 @@ export class CreateprojectComponent implements OnInit {
   acnames:any;
   results:any;
   cresources:any;
-  addcontmsg:any;
-  addconterror:any;
   // approvalmethods:any;
   // currency_modes:any;
   resources:any;
-  uresources:any;
   categories_names:any;
   resourceerror:any;
-  uresourceerror:any;
   // submisson_modes:any;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) {}
   ngOnInit() {
@@ -133,23 +128,6 @@ export class CreateprojectComponent implements OnInit {
       pid:new FormControl('',{
         validators: []
       }),
-      // quote_id:new FormControl('',{
-      //   validators: []
-      // }),
-      // contract_id:new FormControl('',{
-      //   validators: []
-      // }),
-      // po_id:new FormControl('',{
-      //   validators: []
-      // }),
-      // po_resource_table:new FormControl('',{
-      //   validators: []
-      // })
-    });
-    this.projectcontractform = new FormGroup({
-      pid:new FormControl('',{
-        validators: []
-      }),
       quote_id:new FormControl('',{
         validators: []
       }),
@@ -157,6 +135,9 @@ export class CreateprojectComponent implements OnInit {
         validators: []
       }),
       po_id:new FormControl('',{
+        validators: []
+      }),
+      po_resource_table:new FormControl('',{
         validators: []
       })
     });
@@ -329,35 +310,7 @@ export class CreateprojectComponent implements OnInit {
       this.currentStyles= { 'border-color': '' };
     }
   }
-  getonupdateResourceData(pid){
-    if(pid!=""){
-      let curl=this.ip+'/po/project/fetch/resources?pId='+pid;
-      this.httpClient.get(curl).subscribe(result => {    
-        this.results=result;
-        if(this.results.status==200){
-          this.uresources=this.results.resourceDetails;
-          
-        }
-        else if(this.results.status==204){
-          this.uresourceerror =this.results.message;
-          this.currentStyles= { 'border-color': '' };  
-        }
-        else{
-          this.uresourceerror =this.results.message;
-          this.currentStyles= { 'border-color': 'red' };
-          this.uresources=[];
-          $("#upidbox").focus();
-        }
-      },
-      error => {
-        this.error = 'Connection Interrupted..'; 
-      });
-    }
-    else{
-      this.resourceerror="";
-      this.currentStyles= { 'border-color': '' };
-    }
-  }
+  
   
   // Create A New Project 
   
@@ -466,27 +419,8 @@ export class CreateprojectComponent implements OnInit {
       update_contract_id:projectlist.contract,
       update_po_id:projectlist.po
     });
-    this.getonupdateResourceData(projectlist.pid);
     console.log(this.projectupdateform);
   }
-  add_contract_details(projectcontractform){
-console.log(projectcontractform)
-let url=this.ip+'/po/contract/create';
-this.httpClient.post(url,projectcontractform).subscribe(result => {
-  this.addresult=result;
-  console.log(this.addresult)
-  if(this.addresult.status == 201){
-    this.addcontmsg=this.addresult.message; 
-    this.projectcontractform.reset();
-  }
-  else{
-    this.addconterror=this.addresult.message;     
-  }
-},
-error => {
-  this.error = 'Connection Interrupted..'; 
-});
-  }
-  
+
 
 }
