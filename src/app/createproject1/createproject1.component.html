@@ -1,423 +1,423 @@
 <div class="row">
-    <div class="container-fluid">    
-      <h2>Project Details</h2>
-      <div class="panel panel-default">
-        <div class="panel-heading">Search Project Details
-          <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createresourcemodel">&nbsp;&nbsp;Add Resource Details</button>
-          <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createcontractmodel">&nbsp;&nbsp;Add Contract</button>
-          <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createprojectmodel">&nbsp;&nbsp;Add Project</button>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <ng-container *ngIf="error">
-              <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissible">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  {{error}}
-                </div>
+  <div class="container-fluid">    
+    <h2>Project Details</h2>
+    <div class="panel panel-default">
+      <div class="panel-heading">Search Project Details
+        <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createresourcemodel">&nbsp;&nbsp;Add Resource Details</button>
+        <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createcontractmodel">&nbsp;&nbsp;Add Contract</button>
+        <button type="button" class="btn btn-success fa fa-plus-circle  pull-right" data-toggle="modal" data-target="#createprojectmodel">&nbsp;&nbsp;Add Project</button>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <ng-container *ngIf="error">
+            <div class="col-md-12">
+              <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{error}}
               </div>
-            </ng-container>
-            <form [formGroup]="projectsearchform" (ngSubmit)="search_project_data(projectsearchform.value)">
-            <div class="form-row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="proj">Account Category</label>
-                    <input type="text" class="form-control" placeholder="Account Category" [formControl]="projectsearchform.controls['acc_category']">
-                    
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="proj">Project Name</label>
-                    <input type="text" class="form-control" placeholder="Project Name" [formControl]="projectsearchform.controls['project_name']">
-                    
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="year">Project Type</label>
-                    <select class="form-control" id="year"  [formControl]="projectsearchform.controls['type']" >
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Type</option>
-                      <option *ngFor="let type of types" [value]=type.type >
-                        {{type.type}}
-                      </option>
-                    </select>                  
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="year">Status</label>
-                    <select class="form-control" id="year"  [formControl]="projectsearchform.controls['status']" >
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
-                      <option *ngFor="let status of statuses" [value]=status.code >
-                        {{status.type}}
-                      </option>
-                    </select>                  
-                  </div>
-                </div>
-                <div class="text-center col-md-12">
-                  <button [disabled]="projectsearchform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit">Search</button>
-                  <button [disabled]="projectsearchform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
-                </div>
-              </div>
-              </form>
-          </div>
-        </div>
-        <div class="col-md-12" *ngIf="deletemsg">
-          <div class="alert alert-success alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{deletemsg}}
-          </div>
-        </div> 
-        <div class="panel panel-default" *ngIf='projectlists'>
-          <div class="panel-body">
-            <div class="table-responsive">          
-              <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Account Category</th>
-                    <th>Account Name</th>
-                    <th>Project Name</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Resource Count</th>
-                    <th>PO Amount</th>
-                    <!-- <th>Currency</th> -->
-                    <th>Type</th>
-                    <th>Status</th>            
-                    <th>Edit/Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let projectlist of projectlists; index as i">
-                    <td>{{i+1}}</td>
-                    <td>{{projectlist.accountCategory}}</td>
-                    <td>{{projectlist.accountName}}</td>
-                    <td>{{projectlist.projectName}}</td>
-                    <td>{{projectlist.projectStartDate}}</td>
-                    <td>{{projectlist.projectEndDate}}</td>
-                    <td>{{projectlist.resourceCount}}</td>
-                    <td>{{projectlist.poAmount | currency:projectlist.billingCurrency:true:'1.2'}}</td>
-                    <td>{{projectlist.projectType}}</td>
-                    <td>{{projectlist.status}}</td>
-                    <td>
-                      <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updateprojectmodel" (click)='update_data_model(projectlist)'></button>&nbsp;
-                      <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="delete_project_data(projectlist)"></button> 
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
-          </div>             
-        </div>
-        
-        
-        <!--contract create begin-->
-        <div id="createcontractmodel" class="modal fade" role="dialog" tabindex="-1">
-          <div class="modal-dialog-add">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Contract Details</h4>
+          </ng-container>
+          <form [formGroup]="projectsearchform" (ngSubmit)="search_project_data(projectsearchform.value)">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="proj">Account Category</label>
+                  <input type="text" class="form-control" placeholder="Account Category" [formControl]="projectsearchform.controls['acc_category']">
+                  
+                </div>
               </div>
-              <form [formGroup]="projectcontractform" (ngSubmit)="add_contract_details(projectcontractform.value)">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="proj">Project Name</label>
+                  <input type="text" class="form-control" placeholder="Project Name" [formControl]="projectsearchform.controls['project_name']">
+                  
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="year">Project Type</label>
+                  <select class="form-control" id="year"  [formControl]="projectsearchform.controls['type']" >
+                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Type</option>
+                    <option *ngFor="let type of types" [value]=type.type >
+                      {{type.type}}
+                    </option>
+                  </select>                  
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="year">Status</label>
+                  <select class="form-control" id="year"  [formControl]="projectsearchform.controls['status']" >
+                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
+                    <option *ngFor="let status of statuses" [value]=status.code >
+                      {{status.type}}
+                    </option>
+                  </select>                  
+                </div>
+              </div>
+              <div class="text-center col-md-12">
+                <button [disabled]="projectsearchform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit">Search</button>
+                <button [disabled]="projectsearchform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-12" *ngIf="deletemsg">
+        <div class="alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{deletemsg}}
+        </div>
+      </div> 
+      <div class="panel panel-default" *ngIf='projectlists'>
+        <div class="panel-body">
+          <div class="table-responsive">          
+            <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Account Category</th>
+                  <th>Account Name</th>
+                  <th>Project Name</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Resource Count</th>
+                  <th>PO Amount</th>
+                  <!-- <th>Currency</th> -->
+                  <th>Type</th>
+                  <th>Status</th>            
+                  <th>Edit/Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let projectlist of projectlists; index as i">
+                  <td>{{i+1}}</td>
+                  <td>{{projectlist.accountCategory}}</td>
+                  <td>{{projectlist.accountName}}</td>
+                  <td>{{projectlist.projectName}}</td>
+                  <td>{{projectlist.projectStartDate}}</td>
+                  <td>{{projectlist.projectEndDate}}</td>
+                  <td>{{projectlist.resourceCount}}</td>
+                  <td>{{projectlist.poAmount | currency:projectlist.billingCurrency:true:'1.2'}}</td>
+                  <td>{{projectlist.projectType}}</td>
+                  <td>{{projectlist.status}}</td>
+                  <td>
+                    <button *ngIf="role" type="button" class="btn btn-info fa fa-pencil" data-toggle="modal" data-target="#updateprojectmodel" (click)='update_data_model(projectlist)'></button>&nbsp;
+                    <button *ngIf="role" type="button" class="btn btn-danger fa fa-trash" (click)="delete_project_data(projectlist)"></button> 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>             
+      </div>
+      
+      
+      <!--contract create begin-->
+      <div id="createcontractmodel" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog-add">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Contract Details</h4>
+            </div>
+            <form [formGroup]="projectcontractform" (ngSubmit)="add_contract_details(projectcontractform.value)">
               <div class="modal-body">
                 <div class="form-row">
-                    <div class="col-md-12" *ngIf="addcontmsg">
-                        <div class="alert alert-success alert-dismissible">
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                          {{addcontmsg}}
-                        </div>
+                  <div class="col-md-12" *ngIf="addcontmsg">
+                    <div class="alert alert-success alert-dismissible">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      {{addcontmsg}}
+                    </div>
+                  </div> 
+                  <div class="col-md-12" *ngIf="addconterror">
+                    <div class="alert alert-danger alert-dismissible">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      {{addconterror}}
+                    </div>
+                  </div> 
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="proj">Project ID (PID)</label> <small class="text-danger">{{piderror}}</small> 
+                        <input type='text' class="form-control" [formControl]="projectcontractform.controls['pid']"  [ngStyle]="currentStyles"  (blur)="get_project_dates($event.target.value)">                        
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="proj">Quote ID</label>
+                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['quote_id']">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="proj">PO #</label>
+                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['po_id']">
                       </div> 
-                      <div class="col-md-12" *ngIf="addconterror">
-                          <div class="alert alert-danger alert-dismissible">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            {{addconterror}}
-                          </div>
-                        </div> 
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="form-group">
-                          <label for="proj">Project ID (PID)</label> <small class="text-danger">{{piderror}}</small> 
-                          <input type='text' class="form-control" [formControl]="projectcontractform.controls['pid']"  [ngStyle]="currentStyles"  (blur)="get_project_dates($event.target.value)">                        
-                                    
-                        </div>
+                    </div> 
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="proj">Contract ID</label>
+                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['contract_id']">
                       </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                      <label for="proj">Contract Start Date</label>
+                      <input 
+                      type="text" 
+                      [formControl]="projectcontractform.controls['start_date']"
+                      placeholder="Contract Start Date"
+                      class="form-control"
+                      bsDatepicker  [minDate]="c_maxdate"
+                      [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                      readonly>
                       
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="proj">Quote ID</label>
-                          <input type="text" class="form-control" [formControl]="projectcontractform.controls['quote_id']">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="proj">PO #</label>
-                          <input type="text" class="form-control" [formControl]="projectcontractform.controls['po_id']">
-                        </div> 
-                        </div> 
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="proj">Contract ID</label>
-                          <input type="text" class="form-control" [formControl]="projectcontractform.controls['contract_id']">
-                        </div>
-                      </div>
+                    </div> 
+                    <div class="col-md-3">
+                      <label for="proj">Contact End Date</label>
+                      <input 
+                      type="text" 
+                      [formControl]="projectcontractform.controls['end_date']"
+                      placeholder="Contract Start Date"
+                      class="form-control"
+                      bsDatepicker [maxDate]="c_mindate"
+                      [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                      readonly>
+                    </div> 
+                    
+                    <div class="col-md-3">
+                      <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
+                      <input type="number" min=0 class="form-control" [formControl]="projectcontractform.controls['unit_of_measurement']">
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--contract create end-->
+      
+      
+      <!--Resource create start-->
+      
+      <div id="createresourcemodel" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog-add">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Resource Details</h4>
+            </div>
+            <div class="form-row">
+              <!-- <h4>Resource Mapping Details</h4> -->
+              <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="tab" href="#searchresources">Search Resource Details</a></li>
+                <li><a data-toggle="tab" href="#addresources">Add Resource Details</a></li>
+              </ul>
+              
+              <div class="tab-content">
+                <div id="searchresources" class="tab-pane fade in active">
+                  
+                </div>
+                <div id="addresources" class="tab-pane fade">
+                  
+                </div>
+              </div>
+              
+              
+            </div>
+            
+            
+            <form [formGroup]="projectresourceform" (ngSubmit)="add_resource_details(projectresourceform.value)">
+              <div class="modal-body">
+                
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <label for="proj">Project ID (PID)</label>
+                      <input type='text' class="form-control" placeholder="Enter PID to search..." [formControl]="projectresourceform.controls['pid']" [ngStyle]="currentStyles" (change)='[get_project_dates($event.target.value),getResourceData($event.target.value)]' id="pidbox">
+                      <small class="text-danger">{{resourceerror}}</small>                      
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <label for="proj">Contract ID</label>
+                      <select class="form-control" id="year" [formControl]="projectresourceform.controls['contract_id']" >
+                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Contract ID</option>
+                        <option *ngFor="let contract of contracts" [value]=contract.contractNumber >
+                          {{contract.contractNumber}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <br>
+                      <!-- <button type="submit" class="btn btn-primary">Search Resources</button> -->
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <div class="row">
+                  <h4>Resource Mapping Details</h4>
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#mapped">Project ID(PID) Allocated Resources</a></li>
+                    <li><a data-toggle="tab" href="#nonmapped">Contract Allocated Resources</a></li>
+                  </ul>
+                  
+                  <div class="tab-content">
+                    <div id="mapped" class="tab-pane fade in active">
                       
-                      <div class="col-md-3">
-                        <label for="proj">Contract Start Date</label>
-                        <input 
-                              type="text" 
-                              [formControl]="projectcontractform.controls['start_date']"
-                              placeholder="Contract Start Date"
-                              class="form-control"
-                              bsDatepicker  [minDate]="c_maxdate"
-                              [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
-                              readonly>
+                      <table border="1" class="table resources_data" id="resources_data">
+                        <thead>
+                          <tr>
+                            <th>Associate ID</th>
+                            <th>Associate Name</th>
+                            <th>Band</th>
+                            <th>Onsite/Offshore</th>
+                            <th>Associate Start Date</th>
+                            <th>Associate End Date</th>
+                            <th>Rate Per Hour <small>(in {{currency_mode}})</small> </th>
+                            <th>Select</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor='let resource of resources;index as i'>
+                            <td>{{resource.associateId}}</td>
+                            <td>{{resource.associateName}}</td>
+                            <td>{{resource.band}}</td>
+                            <td>      
+                              <select class="form-control" id="{{i}}location">
+                                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
+                                <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <input type="text"
+                              id="{{i}}startdate" 
+                              placeholder="Resource Start Date" 
+                              class="form-control" 
+                              bsDatepicker  [minDate]="c_maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                              (bsValueChange)="setmaxdate($event)"
+                              placement="top" 
+                              readonly> 
+                            </td>
+                            <td>
                               
-                            </div> 
-                            <div class="col-md-3">
-                              <label for="proj">Contact End Date</label>
-                              <input 
-                              type="text" 
-                              [formControl]="projectcontractform.controls['end_date']"
-                              placeholder="Contract Start Date"
-                              class="form-control"
-                              bsDatepicker [maxDate]="c_mindate"
-                              [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                              
+                              <input type="text" 
+                              id="{{i}}enddate" 
+                              placeholder="Resource End Date" 
+                              class="form-control" 
+                              bsDatepicker [maxDate]="c_mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
+                              (bsValueChange)="setmindate($event)"
+                              placement="top" 
                               readonly>
-                            </div> 
-
-                            <div class="col-md-3">
-                                <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
-                                <input type="number" min=0 class="form-control" [formControl]="projectcontractform.controls['unit_of_measurement']">
-                            </div>
-
+                            </td>
+                            <td>
+                              <input type="text" id="{{i}}text"  class="form-control">
+                            </td>
+                            <td>
+                              <input type="checkbox"  id="{{i}}linked" class="form-control">
+                            </td>
+                          </tr>
+                          
+                        </tbody>
+                      </table>     
+                    </div>
+                    <div id="nonmapped" class="tab-pane fade">
+                      <table border="1" class="table" id="contract_resources_data">
+                        <thead>
+                          <tr>
+                            <th>Associate ID</th>
+                            <th>Associate Name</th>
+                            <th>Band</th>
+                            <th>Onsite/Offshore</th>
+                            <th>Associate Start Date</th>
+                            <th>Associate End Date</th>
+                            <th>Rate Per Hour<small>(in {{currency_mode}})</small></th>
+                            <th>Select</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor='let cresource of cresources;index as i'>
+                            <td>{{cresource.associateId}}</td>
+                            <td>{{cresource.associateName}}</td>
+                            <td>{{cresource.band}}</td>
+                            <td>      
+                              <select class="form-control" id="{{i}}location1" >
+                                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
+                                <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <!-- {{resource.start_date}} -->
+                              <input type="text" 
+                              id="{{i}}startdate1" 
+                              placeholder="Project Start Date" 
+                              class="form-control" 
+                              bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                              (bsValueChange)="setmaxdate($event)"
+                              placement="top" 
+                              readonly>
+                            </td>
+                            <td>
+                              <!-- {{resource.end_date}} -->
+                              <input type="text" 
+                              id="{{i}}enddate1" 
+                              placeholder="Project End Date" 
+                              class="form-control" 
+                              bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
+                              (bsValueChange)="setmindate($event)"
+                              placement="top" 
+                              readonly>
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" id="{{i}}text1" >
+                            </td>
+                            
+                            <td>
+                              <!-- <input type="radio" name="resourcelinked" id="{{i}}linked1"> Linked
+                                <input type="radio" name="resourcelinked" id="{{i}}linked1"> Not Linked -->
+                                <input type="checkbox" id="{{i}}linked1" class="form-control">
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        
                       </div>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-        <!--contract create end-->
-
-
-        <!--Resource create start-->
-
-        <div id="createresourcemodel" class="modal fade" role="dialog" tabindex="-1">
-            <div class="modal-dialog-add">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Resource Details</h4>
-                </div>
-                <div class="form-row">
-                    <!-- <h4>Resource Mapping Details</h4> -->
-                    <ul class="nav nav-tabs nav-justified">
-                      <li class="active"><a data-toggle="tab" href="#searchresources">Search Resource Details</a></li>
-                      <li><a data-toggle="tab" href="#addresources">Add Resource Details</a></li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div id="searchresources" class="tab-pane fade in active">
-                              
-                        </div>
-                        <div id="addresources" class="tab-pane fade">
-                          
-                        </div>
-                      </div>
-
-
-                </div>
-
-
-                <form [formGroup]="projectresourceform" (ngSubmit)="add_resource_details(projectresourceform.value)">
-                <div class="modal-body">
-                  
-                     <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label for="proj">Project ID (PID)</label>
-                          <input type='text' class="form-control" [formControl]="projectresourceform.controls['pid']" [ngStyle]="currentStyles" (change)='getResourceData($event.target.value)' id="pidbox">
-                          <small class="text-danger">{{resourceerror}}</small>                      
-                        </div>
-                      </div>
-                     
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label for="proj">Contract ID</label>
-                          <select class="form-control" id="year" [formControl]="projectresourceform.controls['contract_id']" >
-                              <option value="" disabled selected hidden style="color:#a4b2ba;">Select Contract ID</option>
-                              <option *ngFor="let contract of contracts" [value]=contract.contractNumber >
-                              {{contract.contractNumber}}
-                              </option>
-                              </select>
-                        </div>
-                      </div>
-
-                      <div class="col-md-2">
-                        <div class="form-group">
-                         <br>
-                            <!-- <button type="submit" class="btn btn-primary">Search Resources</button> -->
-                        </div>
-                      </div>
-                      
-                    </div>
-
-                    <div class="row">
-                        <h4>Resource Mapping Details</h4>
-                        <ul class="nav nav-tabs">
-                          <li class="active"><a data-toggle="tab" href="#mapped">Project ID(PID) Allocated Resources</a></li>
-                          <li><a data-toggle="tab" href="#nonmapped">Contract Allocated Resources</a></li>
-                        </ul>
-  
-                    <div class="tab-content">
-                        <div id="mapped" class="tab-pane fade in active">
-                          
-                          <table border="1" class="table resources_data" id="resources_data">
-                            <thead>
-                              <tr>
-                                <th>Associate ID</th>
-                                <th>Associate Name</th>
-                                <th>Band</th>
-                                <th>Onsite/Offshore</th>
-                                <th>Associate Start Date</th>
-                                <th>Associate End Date</th>
-                                <th>Rate Per Hour</th>
-                                <th>Select</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr *ngFor='let resource of resources;index as i'>
-                                  <td>{{resource.associateId}}</td>
-                                  <td>{{resource.associateName}}</td>
-                                  <td>{{resource.band}}</td>
-                                <td>      
-                                  <select class="form-control" id="{{i}}location">
-                                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
-                                    <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
-                                    </option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <input type="text"
-                                   id="{{i}}startdate" 
-                                   placeholder="Datepicker" 
-                                   class="form-control" 
-                                   bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
-                                   (bsValueChange)="setmaxdate($event)"
-                                   placement="top" 
-                                   readonly> 
-                                </td>
-                                <td>
-                                  
-                                  
-                                  <input type="text" 
-                                  id="{{i}}enddate" 
-                                  placeholder="Datepicker" 
-                                  class="form-control" 
-                                  bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
-                                  (bsValueChange)="setmindate($event)"
-                                  placement="top" 
-                                  readonly>
-                                </td>
-                                <td>
-                                  <input type="text" id="{{i}}text" class="form-control">
-                                </td>
-                                <td>
-                                  <input type="checkbox"  id="{{i}}linked" class="form-control">
-                                </td>
-                              </tr>
-                              
-                            </tbody>
-                          </table>     
-                        </div>
-                        <div id="nonmapped" class="tab-pane fade">
-                          <table border="1" class="table" id="contract_resources_data">
-                            <thead>
-                              <tr>
-                                <th>Associate ID</th>
-                                <th>Associate Name</th>
-                                <th>Band</th>
-                                <th>Onsite/Offshore</th>
-                                <th>Associate Start Date</th>
-                                <th>Associate End Date</th>
-                                <th>Rate Per Hour</th>
-                                <th>Select</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor='let cresource of cresources;index as i'>
-                                    <td>{{cresource.associateId}}</td>
-                                    <td>{{cresource.associateName}}</td>
-                                    <td>{{cresource.band}}</td>
-                                <td>      
-                                  <select class="form-control" id="{{i}}location1" >
-                                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
-                                    <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
-                                    </option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <!-- {{resource.start_date}} -->
-                                  <input type="text" 
-                                   id="{{i}}startdate1" 
-                                   placeholder="Project Start Date" 
-                                   class="form-control" 
-                                   bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                                   (bsValueChange)="setmaxdate($event)"
-                                   placement="top" 
-                                   readonly>
-                                </td>
-                                <td>
-                                  <!-- {{resource.end_date}} -->
-                                  <input type="text" 
-                                  id="{{i}}enddate1" 
-                                  placeholder="Project End Date" 
-                                  class="form-control" 
-                                  bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
-                                  (bsValueChange)="setmindate($event)"
-                                  placement="top" 
-                                  readonly>
-                                </td>
-                                <td>
-                                  <input type="text" class="form-control" id="{{i}}text1" >
-                                </td>
-                                
-                                <td>
-                                  <!-- <input type="radio" name="resourcelinked" id="{{i}}linked1"> Linked
-                                  <input type="radio" name="resourcelinked" id="{{i}}linked1"> Not Linked -->
-                                  <input type="checkbox" id="{{i}}linked1" class="form-control">
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
+        
         
         <!--Resource create end-->
         
-
-
-
-
+        
+        
+        
+        
         
         <!-- Create New Project -->
         
@@ -578,7 +578,7 @@
                     
                   </div>
                   <div class="row">
-                  
+                    
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="proj">Project ID (PID)</label>
@@ -587,315 +587,315 @@
                         
                       </div>
                     </div>
-                   
+                    
                   </div>
-                 
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      
-      
-      
-      <div id="updateprojectmodel" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Update Project Details</h4>
-            </div>
-            <form [formGroup]="projectupdateform">
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="proj">Account Category</label>
-                      <input type="hidden" class="form-control" [formControl]="projectupdateform.controls['update_id']" disabled>
-                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_acc_category']" disabled>
+        
+        
+        
+        <div id="updateprojectmodel" class="modal fade" role="dialog" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Project Details</h4>
+              </div>
+              <form [formGroup]="projectupdateform">
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="proj">Account Category</label>
+                        <input type="hidden" class="form-control" [formControl]="projectupdateform.controls['update_id']" disabled>
+                        <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_acc_category']" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="proj">Account Name</label>
+                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_acc_name']" disabled >
+                    </div>
+                    <div class="col-md-4">
+                      <label for="proj">Project Name</label>
+                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_project_name']" disabled >
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <label for="proj">Account Name</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_acc_name']" disabled >
-                  </div>
-                  <div class="col-md-4">
-                    <label for="proj">Project Name</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_project_name']" disabled >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="proj">Customer Name</label>
-                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_customer_name']" disabled>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="proj">Customer Name</label>
+                        <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_customer_name']" disabled>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <label for="proj">Customer SPOC</label>
-                    <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_customer_spoc']">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="proj">Approval Method</label>
-                    <select class="form-control" [formControl]="projectupdateform.controls['update_approval_method']">
-                      <option [value]="0" disabled selected>Select Approval Method</option>
-                      <option *ngFor="let approvalmethod of approvalmethods" [value]='approvalmethod.code' >
-                        {{approvalmethod.type}}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="proj">Submission Mode</label>                      
-                      <select class="form-control" [formControl]="projectupdateform.controls['update_submission_mode']">
-                        <option [value]="0" disabled selected>Select Submission Mode</option>
-                        <option *ngFor="let submisson_mode of submisson_modes" [value]=submisson_mode.code >
-                          {{submisson_mode.type}}
+                    <div class="col-md-4">
+                      <label for="proj">Customer SPOC</label>
+                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_customer_spoc']">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="proj">Approval Method</label>
+                      <select class="form-control" [formControl]="projectupdateform.controls['update_approval_method']">
+                        <option [value]="0" disabled selected>Select Approval Method</option>
+                        <option *ngFor="let approvalmethod of approvalmethods" [value]='approvalmethod.code' >
+                          {{approvalmethod.type}}
                         </option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <label for="proj">Project Type</label>
-                    <select class="form-control" id="year" placeholder="TIME & MATERIAL" [formControl]="projectupdateform.controls['update_project_type']">
-                      <option [value]="0" disabled selected>Select Type</option>
-                      <option *ngFor="let type of types" [value]=type.type >
-                        {{type.type}}
-                      </option>
-                    </select> 
-                  </div>
-                  <div class="col-md-4">
-                    <label for="proj">Project Billing Currency</label>                    
-                    <select class="form-control" [formControl]="projectupdateform.controls['update_billing_currency']">
-                      <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
-                      <option *ngFor="let currency_mode of currency_modes" [value]='currency_mode.abbreviation'>{{currency_mode.currency}} - {{currency_mode.abbreviation}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="proj">PO Amount</label>
-                      <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_po_amount']">
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="proj">Project Start Date</label>                    
-                    <input 
-                    type="text" 
-                    [formControl]="projectupdateform.controls['update_start_date']"
-                    placeholder="Datepicker"
-                    class="form-control"
-                    bsDatepicker [maxDate]="mindate"
-                    (bsValueChange)="setmaxdate($event)"
-                    [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                    readonly>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="proj">Project End Date</label>
-                    <input 
-                    type="text" 
-                    [formControl]="projectupdateform.controls['update_end_date']"
-                    placeholder="Datepicker"
-                    class="form-control"
-                    bsDatepicker [maxDate]="mindate"
-                    (bsValueChange)="setmaxdate($event)"
-                    [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                    readonly></div>
-                    <div class="col-md-3">
-                      <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
-                      <input type="number" class="form-control" [formControl]="projectupdateform.controls['update_unit_of_measurement']">
-                    </div>
-                  </div>
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label for="proj">Status</label>
-                        <select class="form-control" id="year" placeholder="In Active" [formControl]="projectupdateform.controls['update_status']">
-                          <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
-                          <option *ngFor="let status of statuses" [value]=status.code >
-                            {{status.type}}
+                        <label for="proj">Submission Mode</label>                      
+                        <select class="form-control" [formControl]="projectupdateform.controls['update_submission_mode']">
+                          <option [value]="0" disabled selected>Select Submission Mode</option>
+                          <option *ngFor="let submisson_mode of submisson_modes" [value]=submisson_mode.code >
+                            {{submisson_mode.type}}
                           </option>
-                        </select> 
-                        <!-- <input type="text" class="form-control" placeholder="In Active"> -->
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <label for="proj">Delivery SPOC</label>
-                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_delivery_spoc']">
+                      <label for="proj">Project Type</label>
+                      <select class="form-control" id="year" placeholder="TIME & MATERIAL" [formControl]="projectupdateform.controls['update_project_type']">
+                        <option [value]="0" disabled selected>Select Type</option>
+                        <option *ngFor="let type of types" [value]=type.type >
+                          {{type.type}}
+                        </option>
+                      </select> 
                     </div>
                     <div class="col-md-4">
-                      <label for="proj">Effort SPOC</label>
-                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_effort_spoc']">
+                      <label for="proj">Project Billing Currency</label>                    
+                      <select class="form-control" [formControl]="projectupdateform.controls['update_billing_currency']">
+                        <option value="" disabled selected hidden style="color:#a4b2ba;">Select Currency Code</option>
+                        <option *ngFor="let currency_mode of currency_modes" [value]='currency_mode.abbreviation'>{{currency_mode.currency}} - {{currency_mode.abbreviation}}</option>
+                      </select>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label for="proj">PID</label>
-                        <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_pid']" disabled>
-                        <small class="text-danger">{{uresourceerror}}</small>
+                        <label for="proj">PO Amount</label>
+                        <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_po_amount']">
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <label for="proj">Quote#</label>
-                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_quote_id']" disabled>
+                      <label for="proj">Project Start Date</label>                    
+                      <input 
+                      type="text" 
+                      [formControl]="projectupdateform.controls['update_start_date']"
+                      placeholder="Datepicker"
+                      class="form-control"
+                      bsDatepicker [maxDate]="mindate"
+                      (bsValueChange)="setmaxdate($event)"
+                      [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                      readonly>
                     </div>
                     <div class="col-md-3">
-                      <label for="proj">Contract#</label>
-                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_contract_id']" disabled>
+                      <label for="proj">Project End Date</label>
+                      <input 
+                      type="text" 
+                      [formControl]="projectupdateform.controls['update_end_date']"
+                      placeholder="Datepicker"
+                      class="form-control"
+                      bsDatepicker [maxDate]="mindate"
+                      (bsValueChange)="setmaxdate($event)"
+                      [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                      readonly></div>
+                      <div class="col-md-3">
+                        <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
+                        <input type="number" class="form-control" [formControl]="projectupdateform.controls['update_unit_of_measurement']">
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <label for="proj">PO#</label>
-                      <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_po_id']" disabled>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="proj">Status</label>
+                          <select class="form-control" id="year" placeholder="In Active" [formControl]="projectupdateform.controls['update_status']">
+                            <option value="" disabled selected hidden style="color:#a4b2ba;">Select Status</option>
+                            <option *ngFor="let status of statuses" [value]=status.code >
+                              {{status.type}}
+                            </option>
+                          </select> 
+                          <!-- <input type="text" class="form-control" placeholder="In Active"> -->
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="proj">Delivery SPOC</label>
+                        <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_delivery_spoc']">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="proj">Effort SPOC</label>
+                        <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_effort_spoc']">
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div class="row">
-                    <h4>Resource Mapping Details</h4>
-                    <ul class="nav nav-tabs">
-                      <li class="active"><a data-toggle="tab" href="#mapped">Project ID(PID) Allocated Resources</a></li>
-                      <li><a data-toggle="tab" href="#nonmapped">Contract Allocated Resources</a></li>
-                    </ul>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="proj">PID</label>
+                          <input type='text' class="form-control" [formControl]="projectupdateform.controls['update_pid']" disabled>
+                          <small class="text-danger">{{uresourceerror}}</small>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="proj">Quote#</label>
+                        <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_quote_id']" disabled>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="proj">Contract#</label>
+                        <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_contract_id']" disabled>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="proj">PO#</label>
+                        <input type="text" class="form-control" [formControl]="projectupdateform.controls['update_po_id']" disabled>
+                      </div>
+                    </div>
                     
-                    <div class="tab-content">
-                      <div id="mapped" class="tab-pane fade in active">
-                        
-                        <table border="1" class="table" id="resources_data">
-                          <thead>
-                            <tr>
-                              <th>Associate ID</th>
-                              <th>Associate Name</th>
-                              <th>Band</th>
-                              <th>Onsite/Offshore</th>
-                              <th>Associate Start Date</th>
-                              <th>Associate End Date</th>
-                              <th>Rate Per Hour</th>
-                              <th>Select</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor='let resource of uresources;index as i'>
-                              <td>{{resource.associateId}}</td>
-                              <td>{{resource.associateName}}</td>
-                              <td>{{resource.band}}</td>
-                              <td>      
-                                <select class="form-control" id="{{i}}location">
-                                  <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
-                                  <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
-                                  </option>
-                                </select>
-                              </td>
-                              <td>
-                                <input type="text"
-                                id="{{i}}startdate" 
-                                placeholder="Datepicker" 
-                                class="form-control" 
-                                bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
-                                (bsValueChange)="setmaxdate($event)"
-                                placement="top" 
-                                readonly> 
-                              </td>
-                              <td>
-                                
-                                
-                                <input type="text" 
-                                id="{{i}}enddate" 
-                                placeholder="Datepicker" 
-                                class="form-control" 
-                                bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
-                                (bsValueChange)="setmindate($event)"
-                                placement="top" 
-                                readonly>
-                              </td>
-                              <td>
-                                <input type="text" id="{{i}}text" class="form-control">
-                              </td>
-                              <td>
-                                <input type="checkbox"  id="{{i}}linked" class="form-control">
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>     
-                      </div>
-                      <div id="nonmapped" class="tab-pane fade">
-                        <table border="1" class="table" id="contract_resources_data">
-                          <thead>
-                            <tr>
-                              <th>Associate ID</th>
-                              <th>Associate Name</th>
-                              <th>Band</th>
-                              <th>Onsite/Offshore</th>
-                              <th>Associate Start Date</th>
-                              <th>Associate End Date</th>
-                              <th>Rate Per Hour</th>
-                              <th>Select</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor='let cresource of cresources;index as i'>
-                              <td>{{cresource.associateId}}</td>
-                              <td>{{cresource.associateName}}</td>
-                              <td>{{cresource.band}}</td>
-                              <td>      
-                                <select class="form-control" id="{{i}}location1" >
-                                  <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
-                                  <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
-                                  </option>
-                                </select>
-                              </td>
-                              <td>
-                                <!-- {{resource.start_date}} -->
-                                <input type="text" 
-                                id="{{i}}startdate1" 
-                                placeholder="Project Start Date" 
-                                class="form-control" 
-                                bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                                (bsValueChange)="setmaxdate($event)"
-                                placement="top" 
-                                readonly>
-                              </td>
-                              <td>
-                                <!-- {{resource.end_date}} -->
-                                <input type="text" 
-                                id="{{i}}enddate1" 
-                                placeholder="Project End Date" 
-                                class="form-control" 
-                                bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
-                                (bsValueChange)="setmindate($event)"
-                                placement="top" 
-                                readonly>
-                              </td>
-                              <td>
-                                <input type="text" class="form-control" id="{{i}}text1" >
-                              </td>
-                              
-                              <td>
-                                <!-- <input type="radio" name="resourcelinked" id="{{i}}linked1"> Linked
-                                  <input type="radio" name="resourcelinked" id="{{i}}linked1"> Not Linked -->
-                                  <input type="checkbox" id="{{i}}linked1" class="form-control">
+                    <div class="row">
+                      <h4>Resource Mapping Details</h4>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#mapped">Project ID(PID) Allocated Resources</a></li>
+                        <li><a data-toggle="tab" href="#nonmapped">Contract Allocated Resources</a></li>
+                      </ul>
+                      
+                      <div class="tab-content">
+                        <div id="mapped" class="tab-pane fade in active">
+                          
+                          <table border="1" class="table" id="resources_data">
+                            <thead>
+                              <tr>
+                                <th>Associate ID</th>
+                                <th>Associate Name</th>
+                                <th>Band</th>
+                                <th>Onsite/Offshore</th>
+                                <th>Associate Start Date</th>
+                                <th>Associate End Date</th>
+                                <th>Rate Per Hour</th>
+                                <th>Select</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor='let resource of uresources;index as i'>
+                                <td>{{resource.associateId}}</td>
+                                <td>{{resource.associateName}}</td>
+                                <td>{{resource.band}}</td>
+                                <td>      
+                                  <select class="form-control" id="{{i}}location">
+                                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
+                                    <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
+                                    </option>
+                                  </select>
+                                </td>
+                                <td>
+                                  <input type="text"
+                                  id="{{i}}startdate" 
+                                  placeholder="Datepicker" 
+                                  class="form-control" 
+                                  bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                                  (bsValueChange)="setmaxdate($event)"
+                                  placement="top" 
+                                  readonly> 
+                                </td>
+                                <td>
+                                  
+                                  
+                                  <input type="text" 
+                                  id="{{i}}enddate" 
+                                  placeholder="Datepicker" 
+                                  class="form-control" 
+                                  bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
+                                  (bsValueChange)="setmindate($event)"
+                                  placement="top" 
+                                  readonly>
+                                </td>
+                                <td>
+                                  <input type="text" id="{{i}}text" class="form-control">
+                                </td>
+                                <td>
+                                  <input type="checkbox"  id="{{i}}linked" class="form-control">
                                 </td>
                               </tr>
                             </tbody>
-                          </table>
-                          
+                          </table>     
+                        </div>
+                        <div id="nonmapped" class="tab-pane fade">
+                          <table border="1" class="table" id="contract_resources_data">
+                            <thead>
+                              <tr>
+                                <th>Associate ID</th>
+                                <th>Associate Name</th>
+                                <th>Band</th>
+                                <th>Onsite/Offshore</th>
+                                <th>Associate Start Date</th>
+                                <th>Associate End Date</th>
+                                <th>Rate Per Hour</th>
+                                <th>Select</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor='let cresource of cresources;index as i'>
+                                <td>{{cresource.associateId}}</td>
+                                <td>{{cresource.associateName}}</td>
+                                <td>{{cresource.band}}</td>
+                                <td>      
+                                  <select class="form-control" id="{{i}}location1" >
+                                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
+                                    <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
+                                    </option>
+                                  </select>
+                                </td>
+                                <td>
+                                  <!-- {{resource.start_date}} -->
+                                  <input type="text" 
+                                  id="{{i}}startdate1" 
+                                  placeholder="Project Start Date" 
+                                  class="form-control" 
+                                  bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                  (bsValueChange)="setmaxdate($event)"
+                                  placement="top" 
+                                  readonly>
+                                </td>
+                                <td>
+                                  <!-- {{resource.end_date}} -->
+                                  <input type="text" 
+                                  id="{{i}}enddate1" 
+                                  placeholder="Project End Date" 
+                                  class="form-control" 
+                                  bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
+                                  (bsValueChange)="setmindate($event)"
+                                  placement="top" 
+                                  readonly>
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" id="{{i}}text1" >
+                                </td>
+                                
+                                <td>
+                                  <!-- <input type="radio" name="resourcelinked" id="{{i}}linked1"> Linked
+                                    <input type="radio" name="resourcelinked" id="{{i}}linked1"> Not Linked -->
+                                    <input type="checkbox" id="{{i}}linked1" class="form-control">
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            
+                          </div>
                         </div>
                       </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-create="modal">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-create="modal">Update</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>

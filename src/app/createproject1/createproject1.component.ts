@@ -25,7 +25,6 @@ export class Createproject1Component implements OnInit {
   error:any;
   addresult:any;
   addmsg:any;
-  dates:any;
   deletemsg:any;
   updatemsg:any;
   piderror:any;
@@ -44,6 +43,7 @@ export class Createproject1Component implements OnInit {
   type_default1=0;
   status_default1='ACTIVE';
   role:any;
+  currency_mode:any;
   projectlists:any;
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
@@ -497,29 +497,26 @@ export class Createproject1Component implements OnInit {
   }
   get_project_dates(date_val){
     let date_url=this.ip+'/po/project/fetch/piddates?pid='+date_val; 
-    
-    
+   
+      this.httpClient.get(date_url).subscribe(result => { 
+        this.results=result;
+        if(this.results.status==200){
+        this.projectmaxdate(this.results.startdate);
+        this.projectmindate(this.results.enddate);
+        this.currency_mode=this.results.currency;
+        this.currentStyles= { 'border-color': '' };
+        this.piderror="";
 
-this.httpClient.get(date_url).subscribe(result => { 
-  this.results=result;
-  if(this.results.status==200){
-  this.dates=this.results.piddates;
-  this.projectmaxdate(this.dates.projectStartDate);
-  this.projectmindate(this.dates.projectEndDate);
-  this.currentStyles= { 'border-color': '' };
-  this.piderror="";
-  this.contract_start_date=this.dates.projectStartDate;
-  this.contract_end_date=this.dates.projectEndDate;
-  }
-  else if(this.results.status==204){
-    this.piderror=this.results.message;
-    this.currentStyles= { 'border-color': 'red' };
-  }
+        }
+        else if(this.results.status==204){
+          this.piderror=this.results.message;
+          this.currentStyles= { 'border-color': 'red' };
+        }
 
-  },
-  error => {
-  this.error = 'Connection Interrupted..'; 
-  });
+        },
+        error => {
+        this.error = 'Connection Interrupted..'; 
+        });
 
   }
   update_data_model(projectlist){       
@@ -552,7 +549,7 @@ this.httpClient.get(date_url).subscribe(result => { 
 add_contract_details(projectcontractform){
 console.log(projectcontractform)
 
-let start_date:any,
+  let start_date:any,
     end_date:any;
     
     start_date=formatDate(projectcontractform.start_date, 'dd-MMM-yyyy', 'en');   
@@ -622,10 +619,26 @@ add_resource_details(projectresourceform){
       contract_resources.push(resource);
     }
   }
-  console.log(projectresourceform);
-  console.log(all_resources)
-}
 
+  let resource_link={
+    resources:all_resources,
+    contractToPid:contract_resources
+  }
+  console.log(resource_link)
+  let url=this.ip+'/po/resourcemap/add';
+  this.httpClient.post(url,resource_link).subscribe(result => {
+    this.addresult=result;
+    console.log(this.addresult)
+    if(this.addresult.status == 201){
+      this.addmsg=this.addresult.message; 
+      console.log(this.addmsg)
+    }
+  },
+  error => {
+    this.error = 'Connection Interrupted..'; 
+  });
+
+}
 
 check_pid(value){
   let curl=this.ip+'/po/project/fetch/checkpid?pid='+value;
