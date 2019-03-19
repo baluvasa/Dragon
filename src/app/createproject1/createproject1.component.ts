@@ -13,6 +13,8 @@ import { HttpClient } from  "@angular/common/http";
 export class Createproject1Component implements OnInit {  
   maxdate=null;
   mindate=null;
+  c_maxdate=null;
+  c_mindate=null;
   projectsearchform: FormGroup;
   projectresourceform: FormGroup;
   projectcreateform: FormGroup;
@@ -23,8 +25,12 @@ export class Createproject1Component implements OnInit {
   error:any;
   addresult:any;
   addmsg:any;
+  dates:any;
   deletemsg:any;
   updatemsg:any;
+  piderror:any;
+  contract_start_date:any;
+  contract_end_date:any;
   currentStyles:any;
   acc_category_default=0;
   project_name_default=0;
@@ -85,7 +91,9 @@ export class Createproject1Component implements OnInit {
     })
     this.projectcreateform = new FormGroup({
       acc_category:new FormControl('',{
-        validators: []
+        validators: [
+          
+        ]
       }),
       acc_name:new FormControl('',{
         validators: []
@@ -118,9 +126,6 @@ export class Createproject1Component implements OnInit {
         validators: []
       }),
       end_date:new FormControl('',{
-        validators: []
-      }),
-      unit_of_measurement:new FormControl('',{
         validators: []
       }),
       status:new FormControl('',{
@@ -156,6 +161,9 @@ export class Createproject1Component implements OnInit {
         validators: []
       }),
       contract_id:new FormControl('',{
+        validators: []
+      }),
+      unit_of_measurement:new FormControl('',{
         validators: []
       }),
       po_id:new FormControl('',{
@@ -305,6 +313,15 @@ export class Createproject1Component implements OnInit {
   }
   setmindate(data){
     this.mindate=data;
+  }
+  projectmaxdate(max){
+
+      this.c_maxdate=new Date(max);
+    console.log(this.c_maxdate)
+  }
+  projectmindate(min){
+    this.c_mindate=new Date(min);
+    console.log(this.c_mindate)
   }
   
   search_account_category(acc_cat){
@@ -478,6 +495,33 @@ export class Createproject1Component implements OnInit {
       this.error = 'Connection Interrupted..'; 
     });
   }
+  get_project_dates(date_val){
+    let date_url=this.ip+'/po/project/fetch/piddates?pid='+date_val; 
+    
+    
+
+this.httpClient.get(date_url).subscribe(result => { 
+  this.results=result;
+  if(this.results.status==200){
+  this.dates=this.results.piddates;
+  this.projectmaxdate(this.dates.projectStartDate);
+  this.projectmindate(this.dates.projectEndDate);
+  this.currentStyles= { 'border-color': '' };
+  this.piderror="";
+  this.contract_start_date=this.dates.projectStartDate;
+  this.contract_end_date=this.dates.projectEndDate;
+  }
+  else if(this.results.status==204){
+    this.piderror=this.results.message;
+    this.currentStyles= { 'border-color': 'red' };
+  }
+
+  },
+  error => {
+  this.error = 'Connection Interrupted..'; 
+  });
+
+  }
   update_data_model(projectlist){       
     this.projectupdateform.setValue({
       update_id:projectlist.id,
@@ -507,8 +551,28 @@ export class Createproject1Component implements OnInit {
   }
 add_contract_details(projectcontractform){
 console.log(projectcontractform)
-let url=this.ip+'/po/contract/create';
-this.httpClient.post(url,projectcontractform).subscribe(result => {
+
+let start_date:any,
+    end_date:any;
+    
+    start_date=formatDate(projectcontractform.start_date, 'dd-MMM-yyyy', 'en');   
+    end_date=formatDate(projectcontractform.end_date, 'dd-MMM-yyyy', 'en'); 
+
+let project_contract_data={ 
+    contractNumber:projectcontractform.contract_id,
+    pid:projectcontractform.pid,
+    contractStartDate:start_date,
+    contractEndDate:end_date,
+    quote:projectcontractform.quote_id,
+    po:projectcontractform.po_id,
+    uom:projectcontractform.unit_of_measurement,
+    createdBy:"ADMIN"
+}
+
+console.log(project_contract_data)
+
+let url=this.ip+'/po/contract/add';
+this.httpClient.post(url,project_contract_data).subscribe(result => {
   this.addresult=result;
   console.log(this.addresult)
   if(this.addresult.status == 201){

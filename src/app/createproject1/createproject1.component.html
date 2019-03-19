@@ -17,9 +17,8 @@
                 </div>
               </div>
             </ng-container>
-            <div class="row">
-              
-              <form [formGroup]="projectsearchform" (ngSubmit)="search_project_data(projectsearchform.value)">
+            <form [formGroup]="projectsearchform" (ngSubmit)="search_project_data(projectsearchform.value)">
+            <div class="form-row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="proj">Account Category</label>
@@ -60,8 +59,8 @@
                   <button [disabled]="projectsearchform.invalid" class="btn btn-primary col-md-offset-3 col-md-2" type="submit">Search</button>
                   <button [disabled]="projectsearchform.invalid" class="btn btn-danger col-md-offset-2 col-md-2" type="reset" (click)="reset()">Cancel</button>
                 </div>
+              </div>
               </form>
-            </div>
           </div>
         </div>
         <div class="col-md-12" *ngIf="deletemsg">
@@ -137,13 +136,15 @@
                             {{addconterror}}
                           </div>
                         </div> 
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="proj">Project ID (PID)</label>
-                          <input type='text' class="form-control" [formControl]="projectcontractform.controls['pid']">                        
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                          <label for="proj">Project ID (PID)</label> <small class="text-danger">{{piderror}}</small> 
+                          <input type='text' class="form-control" [formControl]="projectcontractform.controls['pid']"  [ngStyle]="currentStyles"  (blur)="get_project_dates($event.target.value)">                        
+                                    
                         </div>
                       </div>
+                      
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="proj">Quote ID</label>
@@ -152,47 +153,52 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
+                          <label for="proj">PO #</label>
+                          <input type="text" class="form-control" [formControl]="projectcontractform.controls['po_id']">
+                        </div> 
+                        </div> 
+                      <div class="col-md-3">
+                        <div class="form-group">
                           <label for="proj">Contract ID</label>
                           <input type="text" class="form-control" [formControl]="projectcontractform.controls['contract_id']">
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="proj">PO ID</label>
-                          <input type="text" class="form-control" [formControl]="projectcontractform.controls['po_id']">
-                        </div> 
-                      </div> 
-                      <div class="col-md-4">
-                              <label for="proj">Contract Start Date</label>
-                              <input 
+                      
+                      <div class="col-md-3">
+                        <label for="proj">Contract Start Date</label>
+                        <input 
                               type="text" 
                               [formControl]="projectcontractform.controls['start_date']"
                               placeholder="Contract Start Date"
                               class="form-control"
-                              bsDatepicker [maxDate]="mindate"
-                              (bsValueChange)="setmaxdate($event)"
-                              [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                              bsDatepicker  [minDate]="c_maxdate"
+                              [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
                               readonly>
+                              
+                            </div> 
+                            <div class="col-md-3">
+                              <label for="proj">Contact End Date</label>
+                              <input 
+                              type="text" 
+                              [formControl]="projectcontractform.controls['end_date']"
+                              placeholder="Contract Start Date"
+                              class="form-control"
+                              bsDatepicker [maxDate]="c_mindate"
+                              [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                              readonly>
+                            </div> 
 
-                      </div> 
-                      <div class="col-md-4">
-                          <label for="proj">Contact End Date</label>
-                          <input 
-                          type="text" 
-                          [formControl]="projectcontractform.controls['end_date']"
-                          placeholder="Contract Start Date"
-                          class="form-control"
-                          bsDatepicker [minDate]="maxdate"
-                          (bsValueChange)="setmindate($event)"
-                          [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                          readonly>
-                      </div> 
+                            <div class="col-md-3">
+                                <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
+                                <input type="number" min=0 class="form-control" [formControl]="projectcontractform.controls['unit_of_measurement']">
+                            </div>
+
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </form>
             </div>
@@ -208,8 +214,28 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Add Resource Details</h4>
+                  <h4 class="modal-title">Resource Details</h4>
                 </div>
+                <div class="form-row">
+                    <!-- <h4>Resource Mapping Details</h4> -->
+                    <ul class="nav nav-tabs nav-justified">
+                      <li class="active"><a data-toggle="tab" href="#searchresources">Search Resource Details</a></li>
+                      <li><a data-toggle="tab" href="#addresources">Add Resource Details</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="searchresources" class="tab-pane fade in active">
+                              
+                        </div>
+                        <div id="addresources" class="tab-pane fade">
+                          
+                        </div>
+                      </div>
+
+
+                </div>
+
+
                 <form [formGroup]="projectresourceform" (ngSubmit)="add_resource_details(projectresourceform.value)">
                 <div class="modal-body">
                   
@@ -552,10 +578,7 @@
                     
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
-                      <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
-                      <input type="number" class="form-control" [formControl]="projectcreateform.controls['unit_of_measurement']">
-                    </div>
+                  
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="proj">Project ID (PID)</label>
@@ -564,149 +587,9 @@
                         
                       </div>
                     </div>
-                    <!-- <div class="col-md-3">
-                      <label for="proj">Quote ID</label>
-                      <input type="text" class="form-control" [formControl]="projectcreateform.controls['quote_id']">
-                    </div>
-                    <div class="col-md-3">
-                      <label for="proj">Contract ID</label>
-                      <input type="text" class="form-control" [formControl]="projectcreateform.controls['contract_id']">
-                    </div>
-                    <div class="col-md-3">
-                      <label for="proj">PO ID</label>
-                      <input type="text" class="form-control" [formControl]="projectcreateform.controls['po_id']">
-                    </div> -->
+                   
                   </div>
-                  <!-- <div class="row">
-                    <h4>Resource Mapping Details</h4>
-                    <ul class="nav nav-tabs">
-                      <li class="active"><a data-toggle="tab" href="#mapped">Project ID(PID) Allocated Resources</a></li>
-                      <li><a data-toggle="tab" href="#nonmapped">Contract Allocated Resources</a></li>
-                    </ul>
-                    
-                    <div class="tab-content">
-                      <div id="mapped" class="tab-pane fade in active">
-                        
-                        <table border="1" class="table" id="resources_data">
-                          <thead>
-                            <tr>
-                              <th>Associate ID</th>
-                              <th>Associate Name</th>
-                              <th>Band</th>
-                              <th>Onsite/Offshore</th>
-                              <th>Associate Start Date</th>
-                              <th>Associate End Date</th>
-                              <th>Rate Per Hour</th>
-                              <th>Select</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor='let resource of resources;index as i'>
-                              <td>{{resource.associateId}}</td>
-                              <td>{{resource.associateName}}</td>
-                              <td>{{resource.band}}</td>
-                              <td>      
-                                <select class="form-control" id="{{i}}location">
-                                  <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
-                                  <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
-                                  </option>
-                                </select>
-                              </td>
-                              <td>
-                                <input type="text"
-                                id="{{i}}startdate" 
-                                placeholder="Datepicker" 
-                                class="form-control" 
-                                bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
-                                (bsValueChange)="setmaxdate($event)"
-                                placement="top" 
-                                readonly> 
-                              </td>
-                              <td>
-                                
-                                
-                                <input type="text" 
-                                id="{{i}}enddate" 
-                                placeholder="Datepicker" 
-                                class="form-control" 
-                                bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
-                                (bsValueChange)="setmindate($event)"
-                                placement="top" 
-                                readonly>
-                              </td>
-                              <td>
-                                <input type="text" id="{{i}}text" class="form-control">
-                              </td>
-                              <td>
-                                <input type="checkbox"  id="{{i}}linked" class="form-control">
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>     
-                      </div>
-                      <div id="nonmapped" class="tab-pane fade">
-                        <table border="1" class="table" id="contract_resources_data">
-                          <thead>
-                            <tr>
-                              <th>Associate ID</th>
-                              <th>Associate Name</th>
-                              <th>Band</th>
-                              <th>Onsite/Offshore</th>
-                              <th>Associate Start Date</th>
-                              <th>Associate End Date</th>
-                              <th>Rate Per Hour</th>
-                              <th>Select</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor='let cresource of cresources;index as i'>
-                              <td>{{cresource.associateId}}</td>
-                              <td>{{cresource.associateName}}</td>
-                              <td>{{cresource.band}}</td>
-                              <td>      
-                                <select class="form-control" id="{{i}}location1" >
-                                  <option value="" disabled selected hidden style="color:#a4b2ba;">Select Resource Location</option>
-                                  <option *ngFor="let location of location_status" [value]=location.code>{{location.type}}
-                                  </option>
-                                </select>
-                              </td>
-                              <td>
-                                
-                                <input type="text" 
-                                id="{{i}}startdate1" 
-                                placeholder="Project Start Date" 
-                                class="form-control" 
-                                bsDatepicker [maxDate]="mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
-                                (bsValueChange)="setmaxdate($event)"
-                                placement="top" 
-                                readonly>
-                              </td>
-                              <td>
-                                <input type="text" 
-                                id="{{i}}enddate1" 
-                                placeholder="Project End Date" 
-                                class="form-control" 
-                                bsDatepicker [minDate]="maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 
-                                (bsValueChange)="setmindate($event)"
-                                placement="top" 
-                                readonly>
-                              </td>
-                              <td>
-                                <input type="text" class="form-control" id="{{i}}text1" >
-                              </td>
-                              
-                              <td>
-                                
-                                <input type="checkbox" id="{{i}}linked1" class="form-control">
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        
-                      </div>
-                    </div>
-                  </div>
-                -->
+                 
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
