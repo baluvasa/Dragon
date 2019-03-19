@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms'
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from  "@angular/common/http";
+declare var $: any;
 @Component({
   selector: 'app-createproject1',
   templateUrl: './createproject1.component.html',
@@ -22,9 +23,11 @@ export class Createproject1Component implements OnInit {
   projectcontractform: FormGroup;
   categories:any;
   projects:any;
+  projectpidlist:any;
   error:any;
   addresult:any;
   addmsg:any;
+  addresourcemsg:any;
   deletemsg:any;
   updatemsg:any;
   piderror:any;
@@ -92,97 +95,133 @@ export class Createproject1Component implements OnInit {
     this.projectcreateform = new FormGroup({
       acc_category:new FormControl('',{
         validators: [
-          
+          Validators.required
         ]
       }),
       acc_name:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       project_name:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       customer_name:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       customer_spoc:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       approval_method:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       submission_mode:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       project_type:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       billing_currency:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       po_amount:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       start_date:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       end_date:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       status:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       delivery_spoc:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       effort_spoc:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       pid:new FormControl('',{
-        validators: []
-      }),
-      // quote_id:new FormControl('',{
-      //   validators: []
-      // }),
-      // contract_id:new FormControl('',{
-      //   validators: []
-      // }),
-      // po_id:new FormControl('',{
-      //   validators: []
-      // }),
-      // po_resource_table:new FormControl('',{
-      //   validators: []
-      // })
+        validators: [
+          Validators.required
+        ]
+      })      
     });
     this.projectcontractform = new FormGroup({
       pid:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       quote_id:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       contract_id:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       unit_of_measurement:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       po_id:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       start_date:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       end_date:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       })
 
     });
     this.projectresourceform = new FormGroup({
       pid:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       }),
       contract_id:new FormControl('',{
-        validators: []
+        validators: [
+          Validators.required
+        ]
       })
     });
     this.projectupdateform = new FormGroup({
@@ -251,9 +290,35 @@ export class Createproject1Component implements OnInit {
         validators: []
       })
     });
+
+    
+    // On Load Methods
+    this.all_project_pids();
     this.getcategories();
     this.getcresourcedetails();
   }  
+  
+  all_project_pids(){
+
+    
+    let allpids=this.ip+'/po/project/fetch/pidlist';
+    
+    this.httpClient.get(allpids).subscribe(result => {    
+      this.results=result;
+      this.projectpidlist=this.results.pidList;
+      
+      console.log(this.projectpidlist)
+        $('#contract_add_pid').autocomplete({
+          source: this.projectpidlist
+        });
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+
+
+  }
+
   getcresourcedetails(){
     let cresourcesurl=this.ip+'/po/project/fetch/cresources';
     
@@ -630,8 +695,10 @@ add_resource_details(projectresourceform){
     this.addresult=result;
     console.log(this.addresult)
     if(this.addresult.status == 201){
-      this.addmsg=this.addresult.message; 
-      console.log(this.addmsg)
+      this.addresourcemsg=this.addresult.message; 
+      console.log(this.addresourcemsg);
+      this.projectresourceform.reset();
+
     }
   },
   error => {

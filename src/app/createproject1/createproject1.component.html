@@ -140,7 +140,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="proj">Project ID (PID)</label> <small class="text-danger">{{piderror}}</small> 
-                        <input type='text' class="form-control" [formControl]="projectcontractform.controls['pid']"  [ngStyle]="currentStyles"  (blur)="get_project_dates($event.target.value)">                        
+                        <input type='text' class="form-control" id="contract_add_pid" [formControl]="projectcontractform.controls['pid']"  [ngStyle]="currentStyles"  (blur)="get_project_dates($event.target.value)">                        
                         
                       </div>
                     </div>
@@ -197,7 +197,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
+                <button type="submit" class="btn btn-primary" [disabled]="projectcontractform.invalid" data-create="modal">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
             </form>
@@ -216,6 +216,9 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title">Resource Details</h4>
             </div>
+            
+
+
             <div class="form-row">
               <!-- <h4>Resource Mapping Details</h4> -->
               <ul class="nav nav-tabs nav-justified">
@@ -270,6 +273,12 @@
                 </div>
                 
                 <div class="row">
+                    <div class="col-md-12" *ngIf="addresourcemsg">
+                        <div class="alert alert-danger alert-dismissible">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          {{addresourcemsg}}
+                        </div>
+                      </div>
                   <h4>Resource Mapping Details</h4>
                   <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#mapped">Project ID(PID) Allocated Resources</a></li>
@@ -403,7 +412,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
+                  <button type="submit" [disabled]="projectresourceform.invalid" class="btn btn-primary" data-create="modal">Add</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </form>
@@ -527,9 +536,6 @@
                     </div>
                     <div class="col-md-4">
                       <label for="proj">Project Start Date</label>
-                      <!-- <input type="date" class="form-control" [formControl]="projectcreateform.controls['start_date']"> -->
-                      <!-- <my-date-picker [options]="myDatePickerOptions" [formControl]="projectcreateform.controls['start_date']"></my-date-picker> -->
-                      <!-- <input type="text"  [formControl]="projectcreateform.controls['start_date']" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" readonly> -->
                       <input 
                       type="text" 
                       [formControl]="projectcreateform.controls['start_date']"
@@ -542,8 +548,6 @@
                     </div>
                     <div class="col-md-4">
                       <label for="proj">Project End Date</label>
-                      <!-- <input type="date" class="form-control" [formControl]="projectcreateform.controls['end_date']"> -->
-                      <!-- <my-date-picker [options]="myDatePickerOptions" [formControl]="projectcreateform.controls['end_date']"></my-date-picker> -->
                       <input 
                       type="text" 
                       [formControl]="projectcreateform.controls['end_date']"
@@ -591,7 +595,7 @@
                   </div>
                   
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-create="modal">Add</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="projectcreateform.invalid" data-create="modal">Add</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                   </div>
                 </div>
