@@ -12,6 +12,7 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 export class PoappComponent implements OnInit {
   // public static get categorysearch(){ };
+  a:any;
   poapprovalform: FormGroup;
   addpoform: FormGroup;
   addprojectinfoform:FormGroup;
@@ -20,6 +21,7 @@ export class PoappComponent implements OnInit {
 addresult:any;
 addmsg:any;
 acnames:any;
+associateslist:any;
   error:any;
   errtable:any;
   projects:any;
@@ -97,11 +99,22 @@ acnames:any;
       updaccountname:new FormControl('',{}),
 
       updcustname:new FormControl('',{}),
+      // updaccount:new FormControl('',{}),
+      // updquote:new FormControl('',{}),
+      // updcustname:new FormControl('',{}),
+      // updcustname:new FormControl('',{}),
+      // updcustname:new FormControl('',{}),
+      // updcustname:new FormControl('',{}),
+      // updcustname:new FormControl('',{}),
       // updbillingcurrency:new FormControl('',{}),
-      // updcontract:new FormControl('',{}),
-      // updpid:new FormControl('',{}),
+      updquote:new FormControl('',{}),
+      updpid:new FormControl('',{}),
+      updpo:new FormControl('',{}),
+      updcontract:new FormControl('',{}),
+      updprojectsdate:new FormControl('',{}),
+      updprojectedate:new FormControl('',{}),
       // updpo:new FormControl('',{}),
-      // updyearmonth:new FormControl('',{}),
+      modalpo_year_month:new FormControl('',{}),
   
   
     })
@@ -136,26 +149,34 @@ acnames:any;
     })
    
   this.getcategories();
-   
+  // this.searchassociates(value)
   }
   setupdatemodel(emplist){
+    //console.log("vals",emplist);
+    // this.get_all_project_info();
     this.detailexpand.setValue({
         updaccountcat:emplist.accountCategory,
         updpsdate:emplist.projectEndDate,
         updaccountname:emplist.accountName,
         updprojectname:emplist.projectName,
         updcustname:emplist.customerName,
-        // updprojectsdate:emplist.projectStartDate,
-        // updprojectedate:emplist.projectEndDate,
+        // updaccount:emplistes.accountName,
+        updquote:emplist.quote,
+        // // updpid:empliste.quote,
+        // // updcontract:empliste.contract,
+        updprojectsdate:emplist.projectStartDate,
+        updprojectedate:emplist.projectEndDate,
         // updbillingcurrency:emplist.billingCurrency,
-        // updcontract:emplist.contract,
-        // updpid:emplist.pid,
-        // updpo:emplist.po,
-        // updquote:emplist.quote,
-        // updyearmonth:emplist.yyyyMM,
-       
+        updcontract:emplist.contract,
+        updpid:emplist.pid,
+        updpo:emplist.po,
+     
+        modalpo_year_month:emplist.projectEndDate,
       });
-      console.log("vals",emplist);
+      //console.log("vals",emplist);
+
+       this.get_all_project_info(emplist);
+      
     }
     // setdetailedinfo(detailproinfo){
     //   let detailedinfor={
@@ -189,7 +210,37 @@ search_account_category_details(value){
     this.error='Connection Interrupted';
   });
 }
+searchassociates(value){
+  console.log(value);
 
+
+
+this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?customerName='+value.updcustname+'&pId='+value.updpid+'&contract='+value.updcontract+'&quote='+value.updquote+'&yyyyMM='+value.modalpo_year_month;
+
+
+
+ this.httpClient.get(this.crud_url).subscribe(result => {
+    this.results=result;
+    this.associateslist= this.results.projectInfoList;
+    // console.log("@@@@@", this.crud_url);
+    console.log("@@@@@", this.results);
+    
+    // if(this.results.status==200){
+    //   this.account_all_project_info=this.results.projectDetails;
+
+    //   console.log("!!!!!!!!!!!!!!!",this.account_all_project_info)
+    // }
+    // else{
+    //   this.errtable=this.results.message
+    // }
+  },
+  error =>{
+    this.error='Connection Interrupted';
+  });
+}
+close(){
+  this.associateslist={};
+}
 //Get all data after selecting a value in account category
 getcategories(){
   let caturl=this.ip+'/po/po_approval/fetch/accountCategory';
@@ -223,19 +274,20 @@ search_all_project_info(value){
   
   if(value.accountcategory==null || value.accountname==null  || value.protype==null  || value.yyyyMM==null) {
   this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
-   console.log("@@@@@", this.crud_url); }  
+   //console.log("@@@@@", this.crud_url); 
+  }  
   else {
     this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
   }
  this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
-    console.log("@@@@@", this.crud_url);
-    console.log("@@@@@", this.results);
+    // console.log("@@@@@", this.crud_url);
+    // console.log("@@@@@", this.results);
     
     if(this.results.status==200){
       this.account_all_project_info=this.results.projectDetails;
 
-      console.log("!!!!!!!!!!!!!!!",this.account_all_project_info)
+       console.log("!!!!!!!!!!!!!!!",this.account_all_project_info)
     }
     else{
       this.errtable=this.results.message
@@ -248,15 +300,22 @@ search_all_project_info(value){
 
 //fetch all project data based on selected account category and account name
 get_all_project_info(target){
-  this.projectdata = this.acnames.filter(t=>t.accountName == target);
-  console.log("log",this.projectdata);
-  // this.project_pid=this.projectdata[0].pid;
-  this.project_name_data=this.projectdata[0].projectName;
-  this.project_customer_name=this.projectdata[0].customerName;
-  this.project_start_date=this.projectdata[0].projectStartDate;
-  this.project_end_date=this.projectdata[0].projectEndDate;
-  this.project_billing_cycle=this.projectdata[0].billingCurrency;
-  this.project_year_month=this.month_year(this.projectdata[0].projectStartDate,this.projectdata[0].projectEndDate); //calls dateRange method in app-link.ts
+
+  console.log("log",target);
+  //console.log("listofall",this.acnames);
+   //this.projectdata =this.acnames.filter(t=>t.accountName == target.accountName);
+  // console.log("log",this.projectdata);
+  // // this.project_pid=this.projectdata[0].pid;
+  // this.project_name_data=this.acnames[0].projectName;
+  // this.project_customer_name=this.projectdata[0].customerName;
+  // this.project_start_date=this.projectdata[0].projectStartDate;
+  // this.project_end_date=this.projectdata[0].projectEndDate;
+  // this.project_billing_cycle=this.projectdata[0].billingCurrency;
+  this.a=target;
+  console.log("aaaaaa",this.a);
+  this.project_billing_cycle=target.quote;
+  this.project_year_month=this.month_year(this.a.projectStartDate,this.a.projectEndDate); 
+  console.log( this.project_year_month)//calls dateRange method in app-link.ts
 }
 
 
