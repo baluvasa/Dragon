@@ -34,6 +34,7 @@ import { PronovComponent } from './pronov/pronov.component';
 import { ProdecComponent } from './prodec/prodec.component';
 import { PoappComponent } from './poapp/poapp.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     DataTablesModule,
     HttpClientModule,
     MyDatePickerModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    NgSelectModule,
+    FormsModule
   ],
   providers: [AppServicesService,CanActivateGuard],
   bootstrap: [AppComponent]

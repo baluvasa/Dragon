@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms'
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from  "@angular/common/http";
-declare var $: any;
+
+
 @Component({
   selector: 'app-createproject1',
   templateUrl: './createproject1.component.html',
@@ -307,10 +308,7 @@ export class Createproject1Component implements OnInit {
       this.results=result;
       this.projectpidlist=this.results.pidList;
       
-      console.log(this.projectpidlist)
-        $('#contract_add_pid').autocomplete({
-          source: this.projectpidlist
-        });
+     
     },
     error => {
       this.error = 'Connection Interrupted..'; 
@@ -319,12 +317,19 @@ export class Createproject1Component implements OnInit {
 
   }
 
+  convertdate(associateStartDate){
+    console.log(associateStartDate)
+    let newdate= new Date(associateStartDate);
+return newdate;
+  }
+
   getcresourcedetails(){
     let cresourcesurl=this.ip+'/po/project/fetch/cresources';
     
     this.httpClient.get(cresourcesurl).subscribe(result => {    
       this.results=result;
       this.cresources=this.results.cresourceDetails;
+      console.log(this.cresources)
     },
     error => {
       this.error = 'Connection Interrupted..'; 
@@ -382,11 +387,10 @@ export class Createproject1Component implements OnInit {
   projectmaxdate(max){
 
       this.c_maxdate=new Date(max);
-    console.log(this.c_maxdate)
   }
   projectmindate(min){
     this.c_mindate=new Date(min);
-    console.log(this.c_mindate)
+
   }
   
   search_account_category(acc_cat){
@@ -405,7 +409,8 @@ export class Createproject1Component implements OnInit {
       this.httpClient.get(curl).subscribe(result => {    
         this.results=result;
         if(this.results.status==200){
-          this.resources=this.results.resourceDetails;
+          this.resources=this.results.resourceLinkedDetails;
+          console.log(this.resources);
           this.resourceerror="";
           this.currentStyles= { 'border-color': '' };
           
@@ -417,7 +422,7 @@ export class Createproject1Component implements OnInit {
         }
         else {
           this.resourceerror =this.results.message;
-          this.currentStyles= { 'border-color': 'red' };
+          this.currentStyles= { 'border-color': 'red'};
           this.resources=[];
           $("#pidbox").focus();
         }
@@ -453,7 +458,7 @@ export class Createproject1Component implements OnInit {
       this.httpClient.get(curl).subscribe(result => {    
         this.results=result;
         if(this.results.status==200){
-          this.uresources=this.results.resourceDetails;
+          this.uresources=this.results.resourceLinkedDetails;
           
         }
         else if(this.results.status==204){
@@ -561,7 +566,9 @@ export class Createproject1Component implements OnInit {
     });
   }
   get_project_dates(date_val){
-    let date_url=this.ip+'/po/project/fetch/piddates?pid='+date_val; 
+
+    if(date_val!=""){
+      let date_url=this.ip+'/po/project/fetch/piddates?pid='+date_val; 
    
       this.httpClient.get(date_url).subscribe(result => { 
         this.results=result;
@@ -582,6 +589,11 @@ export class Createproject1Component implements OnInit {
         error => {
         this.error = 'Connection Interrupted..'; 
         });
+    }
+  else{
+    this.currentStyles= { 'border-color': '' };
+        this.piderror="Enter PID to search";
+  }
 
   }
   update_data_model(projectlist){       
