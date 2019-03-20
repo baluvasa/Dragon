@@ -22,9 +22,9 @@
                       <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
                       {{addmsg}}
                     </div>
-                    <div class="alert alert-danger alert-dismissible" *ngIf="adderror">
+                    <div class="alert alert-danger alert-dismissible" *ngIf="adderrormsg">
                       <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
-                      {{adderror}}
+                      {{adderrormsg}}
                     </div>
                     <form [formGroup]="addleaveform" >
                       <div class="modal-body">
