@@ -155,7 +155,7 @@ addleaves(value){
         this.addleaveform.reset();
       }
       else if(this.addresult.status==409){
-        // this.addleaveform.reset();
+        this.addleaveform.reset();
         this.adderrormsg=this.addresult.message;
       }
     },
