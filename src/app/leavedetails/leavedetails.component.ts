@@ -84,7 +84,7 @@ export class LeavedetailsComponent implements OnInit {
         validators: [
           Validators.required,
           Validators.maxLength(50),
-          Validators.minLength(5),
+          Validators.minLength(3),
           Validators.pattern('^[a-zA-Z ]+[a-zA-Z]{1,20}$'),
         ]
       }),
