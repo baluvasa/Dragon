@@ -33,8 +33,8 @@
                 <label for="id">Band</label>
                 <select class="form-control" [formControl]="searchresourceform.controls['search_band']">
                   <option value="" disabled selected hidden style="color:#a4b2ba;">Select Band</option>
-                  <option *ngFor="let b of band" [value]=b.bandname>
-                    {{b.bandname}}
+                  <option *ngFor="let b of band" [value]=b.code>
+                    {{b.type}}
                   </option>
                 </select>
               </div>
@@ -149,7 +149,7 @@
                 <label for="id">Associate Band*</label>
                 <select class="form-control"  [formControl]="addresourceform.controls['addband']">
                   <option value="" disabled selected hidden style="color:#a4b2ba;">Select Associate Band</option>
-                  <option *ngFor="let b of band" [value]=b.bandname>{{b.bandname}}</option>
+                  <option *ngFor="let b of band" [value]=b.code>{{b.type}}</option>
                 </select>
                 <div class="text-danger" *ngIf="addresourceform.controls.addband.errors && (addresourceform.controls.addband.dirty || addresourceform.controls.addband.touched) && !addresourceform.controls.addband.valid">
                   <span *ngIf="addresourceform.controls.addband.errors.required">Associate Band is required</span>
@@ -158,7 +158,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="id">Project ID (PID)</label>
+                <label for="id">Project ID (PID)*</label>
                 <input type="text" placeholder="Project ID (PID)" class="form-control" name="name" [formControl]="addresourceform.controls['addpid']">
                 <div class="text-danger" *ngIf="addresourceform.controls.addpid.errors && (addresourceform.controls.addpid.dirty || addresourceform.controls.addpid.touched) && !addresourceform.controls.addpid.valid">
                   <span *ngIf="addresourceform.controls.addpid.errors.required">Project Id is required</span>
@@ -180,11 +180,10 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="id">Contact Number*</label>
+                <label for="id">Contact Number</label>
                 <input type="text" placeholder="Contact Number" class="form-control" name="name" [formControl]="addresourceform.controls['addcontactnumber']"  onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
                 <div class="text-danger" *ngIf="addresourceform.controls.addcontactnumber.errors && (addresourceform.controls.addcontactnumber.dirty || addresourceform.controls.addcontactnumber.touched) && !addresourceform.controls.addcontactnumber.valid">
-                  <span *ngIf="addresourceform.controls.addcontactnumber.errors.required">Contact Number is required</span>
-                  <span *ngIf="addresourceform.controls.addcontactnumber.errors.minlength">Contact Number should be 10 digits</span>
+                 <span *ngIf="addresourceform.controls.addcontactnumber.errors.minlength">Contact Number should be 10 digits</span>
                   <span *ngIf="addresourceform.controls.addcontactnumber.errors.maxlength">Contact Number should be 10 digits</span>
                 </div>
               </div>
@@ -257,8 +256,8 @@
                 <label for="id">Band</label>
                 <select class="form-control"  [formControl]="updateresourcedetails.controls['editband']">
                   <option [value]="0" disabled selected>Select Band</option>
-                  <option *ngFor="let b of band" [value]=b.bandname>
-                    {{b.bandname}}
+                  <option *ngFor="let b of band" [value]=b.code>
+                    {{b.type}}
                   </option>
                 </select>
                 <div class="text-danger" *ngIf="updateresourcedetails.controls.editband.errors && (updateresourcedetails.controls.editband.dirty || updateresourcedetails.controls.editband.touched) && !updateresourcedetails.controls.editband.valid">
@@ -293,7 +292,6 @@
                 <label for="id">Contact Number</label>
                 <input type="text" class="form-control" placeholder="Enter Contact Number" name="name" [formControl]="updateresourcedetails.controls['editcontactnumber']" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
                 <small class="text-danger" *ngIf="updateresourcedetails.controls.editcontactnumber.errors &&(updateresourcedetails.controls.editcontactnumber.dirty || updateresourcedetails.controls.editcontactnumber.touched) && !updateresourcedetails.controls.editcontactnumber.valid">
-                  <span *ngIf="updateresourcedetails.controls.editcontactnumber.errors.required">Contact Number is required</span>
                   <span *ngIf="updateresourcedetails.controls.editcontactnumber.errors.minlength">Contact Number should be 10 digits</span>
                   <span *ngIf="updateresourcedetails.controls.editcontactnumber.errors.maxlength">Contact Number should be 10 digits</span>
                 </small>

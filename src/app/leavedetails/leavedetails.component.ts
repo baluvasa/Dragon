@@ -4,6 +4,8 @@ import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from  "@angular/common/http";
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { formatDate } from '@angular/common';
+import { AstMemoryEfficientTransformer } from '@angular/compiler';
 
 @Component({
   selector: 'app-leavedetails',
@@ -17,7 +19,8 @@ export class LeavedetailsComponent implements OnInit {
   adderrormsg:any;
   // projects:any;
   searchallleaves:any;
-  
+  msg='';
+  errormsg_search='';
   valuedelete:any;
   results:any;
   updatemsg:any;
@@ -39,7 +42,7 @@ export class LeavedetailsComponent implements OnInit {
     this.eventEmitterService.menuinvokefunction();
     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
-      console.log("role",this.role)
+      // console.log("role",this.role)
     }
 
     
@@ -58,7 +61,9 @@ export class LeavedetailsComponent implements OnInit {
     this.leaveform = new FormGroup({
       associateid:new FormControl('',{}),
       associatename:new FormControl('',{}),    
-      yearmonth:  new FormControl('',{})  
+      yearmonth:  new FormControl('',{     validators: [
+        Validators.pattern('^[A-Z]{3}-[0-9]{4}$'),
+      ]})  
     })
   
     this.updateleavedetails = new FormGroup({
@@ -141,10 +146,38 @@ export class LeavedetailsComponent implements OnInit {
   closedmsg(){
     alert("Do you really want to cancel the operation???")
   };
+  checkid(id){
+    console.log(id)
+    let gurl=this.ip+'/po/resource/show-one-resource?associateId='+id;
+    this.httpClient.get(gurl).subscribe(result => {
+      this.addresult=result;
+      console.log(this.addresult);
+      if(this.addresult.status==200){
+        this.errormsg_search='';        
+        this.addleaveform.patchValue(
+          {
+            addassociatename:this.addresult.resource.associateName
+          });
+      } 
+      else if(this.addresult.status==204){
+        this.errormsg_search=this.addresult.message;
+        this.addleaveform.patchValue(
+          {
+            addassociatename:''
+          });
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    }) 
 
+  }
 addleaves(value){
   {
-    let leaveadd={associateId:value.addassociateid,associateName:value.addassociatename,leaveDate:value.adddate.formatted,remarks:value.addremarks,createdBy:'admin'};
+    console.log(value)
+    let leave_date:any;
+    leave_date=formatDate(value.adddate, 'dd-MMM-yyyy', 'en');
+    let leaveadd={associateId:value.addassociateid,associateName:value.addassociatename,leaveDate:leave_date,remarks:value.addremarks,createdBy:'admin'};
     console.log("++++++",leaveadd)
     let url=this.ip+'/po/leaves/create ';
     this.httpClient.post(url,leaveadd).subscribe(result => {
@@ -180,11 +213,14 @@ setupdatemodel(searchleavelist){
   }
   update_leavedetails(updateleavedetails){    
     let modilfyurl=this.ip+'/po/leaves/update';
+    let upddate:any;
+    
+    upddate=formatDate(updateleavedetails.upddate, 'dd-MMM-yyyy', 'en');   
     let updateleavedata={
       leaveId :updateleavedetails.updleaveid,
       associateId :updateleavedetails.updassociateid,
       associateName:updateleavedetails.updassociatename,
-      leaveDate:updateleavedetails.upddate,
+      leaveDate:upddate,
       remarks:updateleavedetails.updremark,
       modifiedBy:'admin'};
       console.log(updateleavedata)
