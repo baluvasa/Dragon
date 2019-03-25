@@ -359,21 +359,21 @@ export class HolidaysComponent implements OnInit {
       createdBy: 'ADMIN'
     };
     console.log(holidays)
-    // let url=this.ip+'/po/holidays/add ';
-    // this.httpClient.post(url,holidays).subscribe(result => {
-    //   this.addresult=result;
-    //   if(this.addresult.status==201){
-    //     this.addmsg=this.addresult.message;
-    //     this.holidaylistform.reset();
-    //   }
-    //   else if(this.addresult.status==409){
-    //     this.adderrormsg=this.addresult.message;
-    //     this.holidaylistform.reset();
-    //   }
-    // },
-    // error => {
-    //   this.error = 'Connection Interrupted..'; 
-    // });
+    let url=this.ip+'/po/holidays/add ';
+    this.httpClient.post(url,holidays).subscribe(result => {
+      this.addresult=result;
+      if(this.addresult.status==201){
+        this.addmsg=this.addresult.message;
+        this.holidaylistform.reset();
+      }
+      else if(this.addresult.status==409){
+        this.adderrormsg=this.addresult.message;
+        this.holidaylistform.reset();
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
     
   }
   delete_hoilday_data(delete_data){

@@ -261,7 +261,7 @@
                     <div class="col-md-5">
                       <div class="form-group">
                         <label for="proj">Contract ID</label>
-                        <select class="form-control" id="year" [formControl]="projectresourceform.controls['contract_id']" >
+                        <select class="form-control" id="year" [(ngModel)]="selectedcontract" [formControl]="projectresourceform.controls['contract_id']" >
                           <option value="" disabled selected hidden style="color:#a4b2ba;">Select Contract ID</option>
                           <option *ngFor="let contract of contracts" [value]=contract.contractNumber >
                             {{contract.contractNumber}}
@@ -346,7 +346,7 @@
                                 <input type="text" id="{{i}}text"  class="form-control" [value]=resource.ratePerHour>
                               </td>
                               <td>
-                                <input type="checkbox"  id="{{i}}linked" class="form-control"  [checked]="resource.linked == 'Y' ">
+                                <input type="checkbox"  id="{{i}}linked" class="form-control"  [checked]="resource.linked == 'Y' && selectedcontract== resource.contractId">
                               </td>
                             </tr>
                             
