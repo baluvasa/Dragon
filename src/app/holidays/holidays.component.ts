@@ -15,7 +15,7 @@ export class HolidaysComponent implements OnInit {
   holidayform:FormGroup;
   holidaylistform:FormGroup;
   holidayeditlistform:FormGroup;
-  projects:any;
+  categories:any;
   years:any;
   year:any;
   project=null;
@@ -36,22 +36,55 @@ export class HolidaysComponent implements OnInit {
   adderrormsg:any;
   updatemsg="";
   deletemsg="";
-
+  acnames:any;
+  projectslists:any;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) { 
   }
-  
+  getcategories(){
+    let caturl=this.ip+'/po/account_category/categories';
+    
+    this.httpClient.get(caturl).subscribe(result => {    
+      this.results=result;
+      this.categories=this.results.accountCategories;
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+  }
+  search_account_name(category,name){
+let catnameurl=this.ip+'/po/project/fetch/projectinfo?accountcategory='+category+'&accountname='+name;
+this.httpClient.get(catnameurl).subscribe(result => {    
+  this.results=result;
+  this.projectslists=this.results.projectDetailsList;
+},
+error => {
+  this.error = 'Connection Interrupted..'; 
+});
+  }
+  getprojectDetails(projectslist){
+    let as=$(this.projectslists).filter(function (i,n){return n["projectName"]===projectslist});
+console.log(as[0])
+  }
+  search_account_category(acc_cat){
+    let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;
+    this.httpClient.get(catnameurl).subscribe(result => {    
+      this.results=result;
+      this.acnames=this.results.accountNames;
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+  }
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction();
      if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
+      
     }
+    this.getcategories();
     
-    this.projects =[
-      {projectname:'GE Energy-NPI Support-ICFC Pro',pid:'000000000029531'},
-      {projectname:'IES_GE O&G-Vetco Gray Inc-ES',pid:'C02000013006600'},
-      {projectname:'GE Energy - Industrial',pid:'12004711'},
-      {projectname:'AVS 6 months',pid:'000000000029578'}
-    ];
+
+
     this.account_names=[
       {acc_name:'Bhaskar V PO',acc_name_code:'bvp'},
       {acc_name:'HTC (Jul18)',acc_name_code:'htc'},

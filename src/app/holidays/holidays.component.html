@@ -118,10 +118,10 @@
           <div class="row">
             <div class="col-md-6"><div class="form-group">
               <label for="proj">Account Category*</label>
-              <select class="form-control"  [formControl]="holidaylistform.controls['add_account_category']">
+              <select class="form-control" [(ngModel)]="myModel"  [formControl]="holidaylistform.controls['add_account_category']" (change)="search_account_category($event.target.value)">
                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
-                <option *ngFor="let project of projects" [value]=project.projectname >
-                  {{project.projectname}}
+                <option *ngFor="let categorie of categories" [value]=categorie >
+                  {{categorie}}
                 </option>
               </select>
             </div> 
@@ -129,10 +129,10 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="year">Account Name*</label>             
-              <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_account_name']">
+              <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_account_name']" (change)="search_account_name(myModel,$event.target.value)">
                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
-                <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
-                  {{account_name.acc_name}}
+                <option *ngFor="let acname of acnames" [value]=acname >
+                  {{acname}}
                 </option>
               </select>
               <div class="text-danger" *ngIf="holidaylistform.controls.add_account_name.errors && (holidaylistform.controls.add_account_name.errors.dirty || holidaylistform.controls.add_account_name.errors.touched) && !holidaylistform.controls.add_account_name.errors.valid">
@@ -143,10 +143,10 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="proj">Project Name*</label>
-              <select class="form-control" id="year" [formControl]="holidaylistform.controls['add_project_name']">
+              <select class="form-control" id="year" [formControl]="holidaylistform.controls['add_project_name']" (change)="getprojectDetails($event.target.value)">
                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Project Name</option>
-                <option *ngFor="let account_name of account_names" [value]=account_name.acc_name_code >
-                  {{account_name.acc_name}}
+                <option *ngFor="let projectslist of projectslists" [value]=projectslist.projectName >
+                  {{projectslist.projectName}}
                 </option>
               </select>
             </div>
