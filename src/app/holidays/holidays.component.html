@@ -155,8 +155,8 @@
             <label for="proj">Year*</label>
             <select class="form-control" id="year_val"  [formControl]="holidaylistform.controls['add_holiday_year']" >
               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year</option>
-              <option *ngFor="let year of years">
-                {{year.years}}
+              <option *ngFor="let year of project_years">
+                {{year}}
               </option>
             </select> 
           </div>

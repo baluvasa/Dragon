@@ -31,6 +31,7 @@ export class HolidaysComponent implements OnInit {
   account_names:any;
   results:any;
   holidayslists:any;
+  dateRangeyears=AppLink.dateRangeyears;
   addresult:any;
   addmsg:any;
   adderrormsg:any;
@@ -38,6 +39,8 @@ export class HolidaysComponent implements OnInit {
   deletemsg="";
   acnames:any;
   projectslists:any;
+  project_years:any;
+  as:any;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) { 
   }
   getcategories(){
@@ -56,14 +59,17 @@ let catnameurl=this.ip+'/po/project/fetch/projectinfo?accountcategory='+category
 this.httpClient.get(catnameurl).subscribe(result => {    
   this.results=result;
   this.projectslists=this.results.projectDetailsList;
+
 },
 error => {
   this.error = 'Connection Interrupted..'; 
 });
   }
   getprojectDetails(projectslist){
-    let as=$(this.projectslists).filter(function (i,n){return n["projectName"]===projectslist});
-console.log(as[0])
+  this.as=$(this.projectslists).filter(function (i,n){return n["projectName"]===projectslist});
+console.log(this.as[0].projectStartDate)
+this.project_years=this.dateRangeyears(this.as[0].projectStartDate,this.as[0].projectEndDate); 
+console.log( this.project_years)
   }
   search_account_category(acc_cat){
     let catnameurl=this.ip+'/po/account_category/category/names?accountCategory='+acc_cat;

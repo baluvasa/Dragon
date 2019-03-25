@@ -79,5 +79,15 @@ export class AppLink {
           }  
           return dates;
         }
-        
+        public static dateRangeyears(startDate, endDate) {
+              var start      = startDate.split('-');
+              var end        = endDate.split('-');
+              var startYear  = parseInt(start[2]);
+              var endYear    = parseInt(end[2]);
+              var years      = [];
+              for(var i = startYear; i <= endYear; i++) {
+                years.push(i)
+              }  
+              return years;
+            }
 }
