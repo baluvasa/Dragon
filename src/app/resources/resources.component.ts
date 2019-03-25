@@ -14,10 +14,10 @@ export class ResourcesComponent implements OnInit {
   role:any;
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions; 
+  band= AppLink.band; 
   list:any;
   editerror:any;
   edit=0;
-  band:any;
   results:any;
   resourcelists:any;
   addresult:any;
@@ -39,9 +39,7 @@ export class ResourcesComponent implements OnInit {
       this.role=true;
     }
     
-    this.band=[
-      {bandname:'U1'},  {bandname:'U2'},  {bandname:'U3'},  {bandname:'U4'},  {bandname:'P1'},  {bandname:'P2'}
-    ];
+  
     this.searchresourceform = new FormGroup({
       search_associatename:new FormControl('',{
         validators: []
@@ -81,7 +79,6 @@ export class ResourcesComponent implements OnInit {
       }),
       addcontactnumber:new FormControl('',{
         validators: [
-          Validators.required,
           Validators.minLength(10),
           Validators.maxLength(10) 
         ]
@@ -117,7 +114,6 @@ export class ResourcesComponent implements OnInit {
       }),
       editcontactnumber:new FormControl('',{
         validators: [
-          Validators.required,
           Validators.minLength(10),
           Validators.maxLength(10) 
         ]
@@ -163,7 +159,7 @@ export class ResourcesComponent implements OnInit {
       band:  addresourcedata.addband,
       pId:addresourcedata.addpid,
       emailId: addresourcedata.addemailid,
-      contactNumber: addresourcedata.addcontactnumber,
+      contactNumber: addresourcedata.addcontactnumber||'',
       createdBy:"admin"
     };
     let url=this.ip+'/po/resource/create';
@@ -193,7 +189,7 @@ export class ResourcesComponent implements OnInit {
       editband:resourcelist.band,
       editpid:resourcelist.pId,
       editemailid:resourcelist.emailId,
-      editcontactnumber:resourcelist.contactNumber
+      editcontactnumber:resourcelist.contactNumber||''
     });
   }
   

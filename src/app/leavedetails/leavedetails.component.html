@@ -33,7 +33,8 @@
                           
                           
                           <label>Associate ID*</label>
-                          <input type="text" placeholder="Enter Associate ID" class="form-control" [formControl]="addleaveform.controls['addassociateid']"/>
+                          <span *ngIf="errormsg_search" class="text-danger">{{errormsg_search}}</span>
+                          <input type="text" placeholder="Enter Associate ID" class="form-control" [formControl]="addleaveform.controls['addassociateid']" (blur)="checkid($event.target.value)"/>
                           <div class="text-danger" *ngIf="addleaveform.controls.addassociateid.errors && (addleaveform.controls.addassociateid.dirty || addleaveform.controls.addassociateid.touched) && !addleaveform.controls.addassociateid.valid">
                             <span *ngIf="addleaveform.controls.addassociateid.errors.required">Associate Id is required</span>
                             <span *ngIf="addleaveform.controls.addassociateid.errors.maxlength">Associate Id length should be 10 characters</span>
@@ -44,19 +45,26 @@
                           
                           <div class="form-row">
                             <label>Associate Name*</label>
-                            <input type="text" placeholder="Enter Associate Name" class="form-control" [formControl]="addleaveform.controls['addassociatename']"/>
+                            <input type="text" placeholder="Enter Associate Name" class="form-control" [formControl]="addleaveform.controls['addassociatename']" disabled/>
                            
-                            <div class="text-danger" *ngIf="addleaveform.controls.addassociatename.errors && (addleaveform.controls.addassociatename.dirty || addleaveform.controls.addassociatename.touched) && !addleaveform.controls.addassociatename.valid">
+                            <!-- <div class="text-danger" *ngIf="addleaveform.controls.addassociatename.errors && (addleaveform.controls.addassociatename.dirty || addleaveform.controls.addassociatename.touched) && !addleaveform.controls.addassociatename.valid">
                               <span *ngIf="addleaveform.controls.addassociatename.errors.required">Associate Name is required</span>
                               <span *ngIf="addleaveform.controls.addassociatename.errors.maxlength">Associate Name length should not exceed 50 characters</span>
                               <span *ngIf="addleaveform.controls.addassociatename.errors.pattern">Associate Name should be in format...</span> 
-                            </div>
+                            </div> -->
                           </div>
                           
                           <div class="form-row">
                             <label>Date*</label>
-                            <my-date-picker [options]="myDatePickerOptions" [formControl]="addleaveform.controls['adddate']"></my-date-picker>
+                            <!-- <my-date-picker [options]="myDatePickerOptions" [formControl]="addleaveform.controls['adddate']"></my-date-picker> -->
                             <!-- <input type="date" data-date-format="YYYY MM DD" placeholder="Select Date" class="form-control" [formControl]="addleaveform.controls['adddate']"/> -->
+                            <input 
+                            type="text" 
+                            [formControl]="addleaveform.controls['adddate']"
+                            class="form-control"
+                            bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                            readonly>
                             <div *ngIf="submitted && f.modalleavecount.errors" class="invalid-feedback">
                               <div *ngIf="f.modalleavecount.errors.required">Leave Count is required</div>
                             </div>
@@ -100,10 +108,14 @@
                     
                     <div class="col-md-3">
                       <label>Year & Month</label>
-                      <select class="form-control" [formControl]="leaveform.controls['yearmonth']" >
+                      <input type="text" class="form-control" [formControl]="leaveform.controls['yearmonth']" placeholder="MMM-YYYY">
+                      <!-- <select class="form-control" [formControl]="leaveform.controls['yearmonth']" >
                         <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
                         <option *ngFor="let project_year of project_years" [value]='project_year.year_month'>{{project_year.year_month}}</option>
-                      </select>
+                      </select> -->
+                      <div class="text-danger" *ngIf="leaveform.controls.yearmonth.errors && (leaveform.controls.yearmonth.dirty || leaveform.controls.yearmonth.touched) && !leaveform.controls.yearmonth.valid">
+                        <span *ngIf="leaveform.controls.yearmonth.errors.pattern">Year Month should be in (MMM-YYY) format</span> 
+                      </div>
                     </div>
                   </div>
                   
@@ -211,8 +223,14 @@
                           </div>
                           
                           <div class="form-row">
-                            <label>Date*</label>
-                            <input type="text"  class="form-control" [formControl]="updateleavedetails.controls['upddate']" >
+                            <label>Date*</label>                         
+                            <input 
+                            type="text" 
+                            [formControl]="updateleavedetails.controls['upddate']"
+                            class="form-control"
+                            bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
+                            readonly>
                            
                           </div>
                           
