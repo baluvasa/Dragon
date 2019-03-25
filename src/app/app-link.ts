@@ -10,11 +10,14 @@ export class AppLink {
         return IMyDpOptions;
     }
  
-    public static get baseURL(): string { return "http://10.56.66.247:8082"; }
+    public static get baseURL(): string { return "http://10.56.67.9:8082"; }
     public static get DTOptions() { 
         let dtOptions = {
             dom: 'Bfrtip<t>ip',
             autowidth:true,
+            language: {
+                emptyTable: " "
+              },
             lengthMenu: [
                 [ 10, 25, 50, -1 ],
                 [ '10 Rows/Page', '25 Rows/Page', '50 Rows/Page', 'Show all' ]
@@ -90,4 +93,22 @@ export class AppLink {
               }  
               return years;
             }
+            public static dateRanges(startDate, endDate) {
+                var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  var start      = startDate.split('-');
+                  var end        = endDate.split('-');
+                  var startYear  = parseInt(start[2]);
+                  var endYear    = parseInt(end[2]);
+                  var dates      = [];
+                  for(var i = startYear; i <= endYear; i++) {
+                    var endMonth = i != endYear ? 11 :monthShortNames.indexOf(end[1]);
+                    var startMon = i === startYear ? monthShortNames.indexOf(start[1]): 0;
+                    for(var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j+1) {
+                      var month = j;
+                      var displayMonth=monthShortNames[month];
+                      dates.push([i,displayMonth].join('-'));
+                    }
+                  }  
+                  return dates;
+                }
 }

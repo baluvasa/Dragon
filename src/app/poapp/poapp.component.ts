@@ -4,6 +4,7 @@ import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from '@angular/common/http'
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-poapproval',
@@ -19,6 +20,7 @@ export class PoappComponent implements OnInit {
   detailexpand:FormGroup;
   adderror:any;
 addresult:any;
+project_year_monthz:any;
 addmsg:any;
 acnames:any;
 associateslist:any;
@@ -32,6 +34,7 @@ associateslist:any;
   ip=AppLink.baseURL;
   dtOptions = AppLink.DTOptions;
   month_year = AppLink.dateRange;
+  month_years = AppLink.dateRanges;
   role:any;
   crud_url:any;
   month_default=0;
@@ -52,6 +55,8 @@ associateslist:any;
   resourcelist:any;
   categories:any;
   detailproinfo:any;
+  project_name_datas:any;
+  project_types=AppLink.projectTypes;
 
   constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService,private httpClient:HttpClient ) { }
 
@@ -89,7 +94,7 @@ associateslist:any;
      accountname:new FormControl('',{}),   
      proname:new FormControl('',{}), 
      protype:new FormControl('',{}),   
-   
+     modalpo_year_month:new FormControl('',{}),
       
     })
     this.detailexpand = new FormGroup({
@@ -99,14 +104,7 @@ associateslist:any;
       updaccountname:new FormControl('',{}),
 
       updcustname:new FormControl('',{}),
-      // updaccount:new FormControl('',{}),
-      // updquote:new FormControl('',{}),
-      // updcustname:new FormControl('',{}),
-      // updcustname:new FormControl('',{}),
-      // updcustname:new FormControl('',{}),
-      // updcustname:new FormControl('',{}),
-      // updcustname:new FormControl('',{}),
-      // updbillingcurrency:new FormControl('',{}),
+     
       updquote:new FormControl('',{}),
       updpid:new FormControl('',{}),
       updpo:new FormControl('',{}),
@@ -149,6 +147,7 @@ associateslist:any;
     })
    
   this.getcategories();
+  
   // this.searchassociates(value)
   }
   setupdatemodel(emplist){
@@ -172,29 +171,14 @@ associateslist:any;
         updpo:emplist.po,
      
         modalpo_year_month:emplist.projectEndDate,
+       
       });
       //console.log("vals",emplist);
-
-       this.get_all_project_info(emplist);
-      
+     
+      this.get_all_project_info(emplist);
+ 
     }
-    // setdetailedinfo(detailproinfo){
-    //   let detailedinfor={
-    //     accountCategory :detailproinfo.updaccountcat,
-    //     accountName:detailproinfo.updaccountname,
-    //     projectName:detailproinfo.updprojectname,
-    //     projectStartDate:detailproinfo.updprojectsdate,
-    //     projectEndDate:detailproinfo.updprojectedate,
-    //     billingCurrency:detailproinfo.updbillingcurrency,
-    //     contract:detailproinfo.updcontract,
-    //     pid:detailproinfo.updpid,
-    //     po:detailproinfo.updpo,
-    //     quote:detailproinfo.updquote,
-    //     yyyyMM:detailproinfo.updyearmonth,
-       
-    //     modifiedBy:'admin'};
-    // };
-  // GET call to get data of account category on Page Load 
+  
 search_account_category_details(value){
   this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?accountcategory='+value.accountCategory+'&projectName='+value.accountname+'&yyyyMMM='+value.projectyear+'&customerName='+value.customername+'&projectStartDate='+value.projectsdate+'&projectEndDate='+value.proedate+'&currency='+value.currencycode+'&pId='+value.pid;
   this.httpClient.get(this.crud_url).subscribe(result => {
@@ -222,24 +206,17 @@ this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?customerName='+valu
  this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
     this.associateslist= this.results.projectInfoList;
-    // console.log("@@@@@", this.crud_url);
+    
     console.log("@@@@@", this.results);
     
-    // if(this.results.status==200){
-    //   this.account_all_project_info=this.results.projectDetails;
 
-    //   console.log("!!!!!!!!!!!!!!!",this.account_all_project_info)
-    // }
-    // else{
-    //   this.errtable=this.results.message
-    // }
   },
   error =>{
-    this.error='Connection Interrupted';
+    this.error='No data available';
   });
 }
 close(){
-  this.associateslist={};
+  this.associateslist==undefined;
 }
 //Get all data after selecting a value in account category
 getcategories(){
@@ -272,25 +249,25 @@ search_account_category(accountcategory){
 search_all_project_info(value){
   console.log(value.proname);
   
-  if(value.accountcategory==null || value.accountname==null  || value.protype==null  || value.yyyyMM==null) {
-  this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
+  if(value.accountcategory==null || value.accountname==null  || value.protype==null  || value.yyyyMM==null || value.proname==undefined) {
+  this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.modalpo_year_month;
    //console.log("@@@@@", this.crud_url); 
   }  
   else {
-    this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.projectyear;
+    this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.modalpo_year_month;
   }
  this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
-    // console.log("@@@@@", this.crud_url);
-    // console.log("@@@@@", this.results);
+    console.log("@@@@@", this.crud_url);
+    console.log("@@@@@", this.results);
     
     if(this.results.status==200){
       this.account_all_project_info=this.results.projectDetails;
 
        console.log("!!!!!!!!!!!!!!!",this.account_all_project_info)
     }
-    else{
-      this.errtable=this.results.message
+    else if(this.results.status==204){
+      this.errtable=this.results.message;
     }
   },
   error =>{
@@ -300,24 +277,32 @@ search_all_project_info(value){
 
 //fetch all project data based on selected account category and account name
 get_all_project_info(target){
-
   console.log("log",target);
-  //console.log("listofall",this.acnames);
-   //this.projectdata =this.acnames.filter(t=>t.accountName == target.accountName);
-  // console.log("log",this.projectdata);
-  // // this.project_pid=this.projectdata[0].pid;
-  // this.project_name_data=this.acnames[0].projectName;
-  // this.project_customer_name=this.projectdata[0].customerName;
-  // this.project_start_date=this.projectdata[0].projectStartDate;
-  // this.project_end_date=this.projectdata[0].projectEndDate;
-  // this.project_billing_cycle=this.projectdata[0].billingCurrency;
-  this.a=target;
-  console.log("aaaaaa",this.a);
-  this.project_billing_cycle=target.quote;
-  this.project_year_month=this.month_year(this.a.projectStartDate,this.a.projectEndDate); 
-  console.log( this.project_year_month)//calls dateRange method in app-link.ts
-}
+  console.log(target.projectStartDate)
+  console.log(target.projectEndDate)
+  this.project_year_month=this.month_year(target.projectStartDate,target.projectEndDate);
+  console.log(this.project_year_month)
+  
 
+  this.a=target;
+
+  
+}
+get_all_project_infolist(target){
+
+   this.projectdata =this.acnames.filter(t=>t.accountName == target);
+  //  console.log( "222222",this.projectdata);
+
+  this.a=target;
+ 
+  this.project_name_data=this.projectdata[0].projectName;
+
+  this.project_year_monthz=this.month_year(this.projectdata[0].projectStartDate,this.projectdata[0].projectEndDate);
+  // console.log("1111111" ,this.project_year_month)//calls dateRange method in app-link.ts
+  
+  console.log( "222222",this.project_year_monthz);
+  
+}
 
   nodata(){
 
@@ -329,41 +314,6 @@ exception(){
 badrequest(){
     this.error="Bad Request";
 }
-searchpodata(){
- 
-  this.leavelists=[
-    {sno:'1',associateid:'GE Appliances', associatename:"GE INDIA EXPORTS PVT LTD",pname:'GE P&W-A', pbc:"EUR",yearmonth:'Jan-2018',pcurr:'6,66,000.23'},
-    {sno:'1',associateid:'GE Industrial', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Feb-2019",pcurr:'6,66,000.23'},
-    {sno:'1',associateid:'GE P&W', associatename:"GE P&W-A",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Feb-2018",pcurr:'6,66,000.23'},
-    {sno:'1',associateid:'GE Industrial', associatename:"GE Amphenol",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Jan-2015",pcurr:'6,66,000.23'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Aug-2009",pcurr:'6,66,000.23'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'JPY', yearmonth:"Oct-2018",pcurr:'6,66,000.23'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'USD', yearmonth:"Dec-2019",pcurr:'6,66,000.23'},
-    {sno:'1',associateid:'GE Appliances', associatename:"GE Oil & Gas",pname:'GE P&W-A',pbc:'EUR', yearmonth:"Nov-2016",pcurr:'6,66,000.23'},
-  ];
-  this.emplists=[
-    {sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:"1-Jan-19",enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'Aero', customer_name:"General Electric Company",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:"1-Jan-19",daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'SUEZ', customer_name:"SUEZ WTS Solutions USA, Inc.",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:"1-Jan-19",daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'RM&D_Sustaining (IGEN)', customer_name:"General Electric Company",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:"1-Jan-19",daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'Osmonics - Jan 2018', customer_name:"GE Osmonics, Inc.",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:"1-Jan-19",daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'GEPC 2018 (Long)', customer_name:"GE Energy Power Conversion USA Inc",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:"1-Jan-19",daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-    {sno:'1',account:'HTC', customer_name:"GE India Industrial Pvt Limited",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:"1-Jan-19",daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5',gid:'MK00601667',name:'Sharath Babu',assosdate:'12-06-2016',assoedate:'18-06-2019',releasingin:'220 days',uom:'U2',band:'8',rates:' ₹ 1,205.00',rate:' ₹ xx,205.00'},
-  ];
-  this.emplistexpand=[
-    {sno:'1',account:'AVS 2019', customer_name:"Amphenol Interconnect India Private Lt",pid:'000000000029578',quote:'QMS0107575',contract:"TML220210",sdate:'1-Jan-19',enddate:'1-Dec-19',daysleft:'124',po:'0048900',balance:' ₹ 3,726,520.00 ',avgbilling:' ₹ 248,500.00 ',monthscons:'5'},
-   
-  ];
-  this.resourcelist=[
-    {sno:'1',GID:'VG00466174', associate_name:"Vishal Gaurav",Assosdate:"03-06-2016",Assoedate:'03-09-2019',rel:"110",band:'U3',uom:'8',rates:' ₹ 1,205.00'},
-    {sno:'2',GID:'SA00587674', associate_name:"SD IMRAN AKHIL",Assosdate:"03-06-2016",Assoedate:'03-09-2019',rel:"180",band:'U3',uom:'8',rates:' ₹ 1,805.00'},
-    {sno:'3',GID:'MB00406123', associate_name:"MANI BANDARI",Assosdate:"03-06-2016",Assoedate:'03-09-2019',rel:"230",band:'U3',uom:'8',rates:' ₹ 2,805.00'},
-     {sno:'4',GID:'BV00586358', associate_name:"BALA KRISHANA V",Assosdate:"03-06-2016",Assoedate:'03-09-2019',rel:"720",band:'U3',uom:'8',rates:' ₹ 3,805.00'},
-      {sno:'5',GID:'AD00145654', associate_name:"ADDALA DHARMA",Assosdate:"03-06-2016",Assoedate:'03-09-2019',rel:"1120",band:'U3',uom:'8',rates:' ₹ 4,805.00'},
-    
-   
-  ];
-}
 
 input_search_po_data (value){
   let category={gid:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
@@ -373,9 +323,7 @@ input_search_po_data (value){
     this.addresult=result;
     if(this.addresult.status==201){
       this.addmsg=this.addresult.message;
-      // this.addaccessdetails.reset();
-      // let data={associateid:'',associatename:'',accesstype:'',status:''};
-      // this.searchleaves(data);
+   
     }
     else if(this.addresult.status==409){
       this.addmsg=this.addresult.message;    

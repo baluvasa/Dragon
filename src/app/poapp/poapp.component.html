@@ -45,16 +45,16 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Project Information</h4>
+                    <h4 class="modal-title"></h4>
                   </div>
                  
                 </div>
               </div>
             </div>
-            <div class="col-md-12" *ngIf="error">
-              <div class="alert alert-danger alert-dismissible fade in">
+            <div class="col-md-12" *ngIf="errtable">
+              <div class="alert alert-danger alert-dismissible">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{error}}
+                {{errtable}}
               </div>
             </div>
             <form [formGroup]="poapprovalform">
@@ -73,7 +73,7 @@
 
                   <div class="col-md-6">
                     <label>Account Name</label>
-                    <select class="form-control" [formControl]="poapprovalform.controls['accountname']" (change)="get_all_project_info($event.target.value)">
+                    <select class="form-control" [formControl]="poapprovalform.controls['accountname']" (change)="get_all_project_infolist($event.target.value)">
                       <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
                       <option *ngFor="let acname of acnames" [value]=acname.accountName>{{acname.accountName}}</option>
                     </select>
@@ -90,26 +90,21 @@
                     <label>Project Type</label>
                     <select class="form-control" [formControl]="poapprovalform.controls['protype']" selected>
                       <option value="" disabled selected>Select Project Type</option>
-                      <option *ngFor="let acname of acnames " [value]='acname.projectType'>{{acname.projectType}}</option>
+                      <option *ngFor="let acnam of project_types " [value]='acnam.type'>{{acnam.type}}</option>
                     </select>
                   </div>
                  
                   <div class="col-md-3">
-                    <label>Project Year & Month</label>
-                    <select class="form-control" [formControl]="detailexpand.controls['modalpo_year_month']">
-                    <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
-                    <option *ngFor="let month_year of yearmonth" value={{month_year}}>{{month_year}}</option>
-                    </select>
-                </div>
-                  <!-- <div class="col-md-3">
-                    <label>Year & Month</label>
-                    <select class="form-control" [formControl]="poapprovalform.controls['projectyear']" >
+                      <label>Project Year & Month</label>
+                     
+                      <select class="form-control" [formControl]="poapprovalform.controls['modalpo_year_month']">
                       <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
-                      <option >2019-Feb</option>
-                      <option >2018-Mar</option>
-                      <option >2020-April</option>
+                      <option *ngFor="let month_year of project_year_monthz" value={{month_year}}>{{month_year}}</option>
+                 
                     </select>
-                  </div> -->
+                  
+                  </div> 
+               
                 </div>
                 
                 
@@ -121,26 +116,8 @@
               </div>
               
             </form>
-            <div class="col-md-12" *ngIf="errtable">
-              <div class="alert alert-danger alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{errtable}}
-              </div>
-            <!-- <div class="row" style="margin-top:60px;">
-              <table class="col-md-12 text-center">
-                <tr>
-                  <td>
-                    <button [disabled]="poapprovalform.invalid" class="btn btn-primary" type="button" (click)="nodata()">No Data Found</button>
-                  </td>
-                  <td>
-                    <button [disabled]="poapprovalform.invalid" class="btn btn-primary" type="button" (click)="exception()">Exception</button>
-                  </td>
-                  <td>
-                    <button [disabled]="poapprovalform.invalid" class="btn btn-primary" type="button" (click)="badrequest()">Bad Request </button>
-                  </td>
-                </tr>
-              </table>
-            </div> -->
+           
+
             
           </div>
         </div>
@@ -180,12 +157,12 @@
                         <tr *ngFor="let emplist of account_all_project_info; index as i">
                         <td>{{i+1}}</td>
                         <td>{{emplist.accountName}}</td>
-                        <td>{{emplist.customer_name}}</td>
+                        <td>{{emplist.customerName}}</td>
                         <td>{{emplist.pid}}</td>
                         <td>{{emplist.quote}}</td>
                         <td>{{emplist.contract}}</td>
-                        <td>{{emplist.sdate}}</td>
-                        <td>{{emplist.enddate}}</td>
+                        <td>{{emplist.projectStartDate}}</td>
+                        <td>{{emplist.projectEndDate}}</td>
                         <td> <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-expand" data-toggle="modal" data-target="#addpoformexpand" (click)='[setupdatemodel(emplist),search_account_category(emplist.accountCategory)]'></button>&nbsp;
                           <button type="button" class="btn btn-success" routerLink="/projectinfo-monthly" data-dismiss="modal">Monthly Info</button>
                        
@@ -211,7 +188,7 @@
                       
                       <div class="form-group col-md-4">
                           <label>Account Category</label>
-                          <input type="text" class="form-control"  [formControl]="detailexpand.controls['updaccountcat']" disabled/>
+                          <input type="text" class="form-control"   [formControl]="detailexpand.controls['updaccountcat']" disabled/>
                           
                           <!-- <small class="text-danger" *ngIf="detailexpand.controls.updaccountcat.errors && (detailexpand.controls.updaccountcat.dirty || detailexpand.controls.updaccountcat.touched) && !detailexpand.controls.updaccountcat.valid">
                             <span *ngIf="detailexpand.controls.updaccountcat.errors.required">Account Category is required</span>
@@ -225,7 +202,7 @@
 
                       <div class="form-group col-md-4">
                         <label>Project Name</label>
-                        <input type="text" class="form-control" [formControl]="detailexpand.controls['updaccountname']" />
+                        <input type="text" class="form-control" [formControl]="detailexpand.controls['updprojectname']" />
 <!--                       
                         <small class="text-danger" *ngIf="detailexpand.controls.updaccountname.errors && (detailexpand.controls.updaccountname.dirty || detailexpand.controls.updaccountname.touched) && !detailexpand.controls.updaccountname.valid">
                           <span *ngIf="detailexpand.controls.updaccountname.errors.required">Project Name is required</span>
@@ -266,16 +243,29 @@
                         </div>
                         <div class="form-group  col-md-3">
                             <label>Project Year & Month</label>
+                           
                             <select class="form-control" [formControl]="detailexpand.controls['modalpo_year_month']">
                             <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
-                            <option *ngFor="let month_year of project_year_month" value={{month_year}}>{{month_year}}</option>
-                            </select>
+                            <option *ngFor="let month_years of project_year_month" value={{month_years}}>{{month_years}}</option>
+                       
+                          </select>
+                        
+                        </div> 
+                        <!-- <div class="form-group  col-md-3">
+                            <label>Project Associates</label>
+                           
+                        </div> -->
+                      
+                      
+                        <div class="form-group col-md-3 get_input_search">
+                            <label>&nbsp;&nbsp;</label>
+                            <button type="button" class="btn-primary" (click)="searchassociates(detailexpand.value)">Associates Search</button>
                         </div>
                         <div class="panel panel-default">
 					
                             <div class="panel-body">
                         <div class="form-group">
-                            <button type="button" class="btn-primary" (click)="searchassociates(detailexpand.value)">Advance Search</button>
+                           
                             <div class="table-responsive">          
                                 <table class="display row-border hover modaldatatable" style="width:100%" datatable [dtOptions]="dtOptions">
                                   <thead>
@@ -317,18 +307,19 @@
                                   </thead>
                                   <tbody *ngIf="a">
                                     <!-- <tr> -->
-                                        <tr>
+                                      <tr>
                                         <td>1</td>
                                         <!-- <td><input name="acb" [(ngModel)]="a.acoountName"><input></td> -->
-                                        <!-- <td>{{a.approvalMethod}}</td>
+                                        <td>{{a.acoountName}}</td>
+                                        <td>{{a.customerName}}</td>
                                         <td>{{a.pid}}</td>
                                         <td>{{a.quote}}</td>
                                         <td>{{a.contract}}</td>
                                         <td>{{a.projectStartDate}}</td>
                                         <td>{{a.projectEndDate}}</td>
-                                        <td>{{a.daysleft}}</td>
+                                        <td></td>
                                         <td>{{a.po}}</td>
-                                        <td>{{a.poAmount}}</td> -->
+                                        <td>{{a.pid}}</td>
                                         <td></td>
                                         <td></td>
                                         
@@ -341,11 +332,18 @@
                                   </tbody>
                                   
                                 </table>
+                                <div class="col-md-12" *ngIf="error">
+                                    <div class="alert alert-danger alert-dismissible">
+                                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                      {{error}}
+                                    </div>
+                                  </div>
                               </div>
                         </div>
                             </div>
                           </div>
-                        <div class="panel panel-default">
+                         
+                        <div class="panel panel-default" *ngIf="associateslist!=undefined">
 					
                           <div class="panel-body">
                         <div class="form-group">
@@ -412,7 +410,7 @@
                       </div>
                       <div class="modal-footer">
                         <!-- <button type="button" [disabled]="detailexpand.invalid" class="btn btn-primary" data-create="modal">Update</button> -->
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="close()">Close</button>
+                        <button type="button" class="btn btn-danger" style=float:center data-dismiss="modal" >Close</button>
                       </div>
                     </div>
                   </form>
