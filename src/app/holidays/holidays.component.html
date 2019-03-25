@@ -118,8 +118,8 @@
           <div class="row">
             <div class="col-md-6"><div class="form-group">
               <label for="proj">Account Category*</label>
-              <select class="form-control" [(ngModel)]="myModel"  [formControl]="holidaylistform.controls['add_account_category']" (change)="search_account_category($event.target.value)">
-                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Category</option>
+              <select class="form-control" [(ngModel)]="accountcategoryModel" name="accountcategoryModel" [formControl]="holidaylistform.controls['add_account_category']" (change)="search_account_category($event.target.value)">
+                  <option [value]=null disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
                 <option *ngFor="let categorie of categories" [value]=categorie >
                   {{categorie}}
                 </option>
@@ -129,7 +129,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="year">Account Name*</label>             
-              <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_account_name']" (change)="search_account_name(myModel,$event.target.value)">
+              <select class="form-control" id="year"  [formControl]="holidaylistform.controls['add_account_name']" (change)="search_account_name(accountcategoryModel,$event.target.value)">
                 <option value="" disabled selected hidden style="color:#a4b2ba;">Select Account Name</option>
                 <option *ngFor="let acname of acnames" [value]=acname >
                   {{acname}}
@@ -153,7 +153,7 @@
           </div>
           <div class="col-md-6">
             <label for="proj">Year*</label>
-            <select class="form-control" id="year_val"  [formControl]="holidaylistform.controls['add_holiday_year']" >
+            <select class="form-control" id="year_val"  [formControl]="holidaylistform.controls['add_holiday_year']" (change)="getallmonths($event.target.value)">
               <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year</option>
               <option *ngFor="let year of project_years">
                 {{year}}
@@ -167,7 +167,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>January</label></div>
               <div class="col-md-6">
-                <input type="text"  min=0 max=31 name="jan" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control"  [formControl]="holidaylistform.controls['holiday_jan']"> 
+                <input type="number" disabled id="holiday_jan" min=0 max=31 name="jan" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control"  [formControl]="holidaylistform.controls['holiday_jan']"> 
                 
                 
               </div>              
@@ -181,7 +181,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>February</label></div>
               <div class="col-md-6">
-                <input type="text" name="feb" placeholder="" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  [formControl]="holidaylistform.controls['holiday_feb']" (keyup)="leap_year_validation=leap_year($event.target.value)">
+                <input type="text" disabled id="holiday_feb" name="feb" placeholder="" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  [formControl]="holidaylistform.controls['holiday_feb']" (keyup)="leap_year_validation=leap_year($event.target.value)">
               </div>
             </div>
             <div>
@@ -196,7 +196,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>March</label></div>
               <div class="col-md-6">
-                <input type="text"  name="mar" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control" [formControl]="holidaylistform.controls['holiday_mar']">
+                <input type="number" disabled id="holiday_mar" name="mar" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control" [formControl]="holidaylistform.controls['holiday_mar']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_mar.errors && (holidaylistform.controls.holiday_mar.dirty || holidaylistform.controls.holiday_mar.touched) && !holidaylistform.controls.holiday_mar.valid">
                   <span *ngIf="holidaylistform.controls.holiday_mar.errors.maxlength">  Month should be 2 digits only </span>
                   <span *ngIf="holidaylistform.controls.holiday_mar.errors.max">Max number 31 only</span>
@@ -210,7 +210,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>April</label></div>
               <div class="col-md-6">
-                <input type="text"    name="apr" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control" [formControl]="holidaylistform.controls['holiday_apr']">
+                <input type="number" id="holiday_apr" disabled  name="apr" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control" [formControl]="holidaylistform.controls['holiday_apr']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_apr.errors && (holidaylistform.controls.holiday_apr.dirty || holidaylistform.controls.holiday_apr.touched) && !holidaylistform.controls.holiday_apr.valid">
                   <span *ngIf="holidaylistform.controls.holiday_apr.errors.maxlength">  Month should be 2 digits only </span>
                   <span *ngIf="holidaylistform.controls.holiday_apr.errors.max">Max number 30 only</span>
@@ -223,7 +223,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>May</label></div>
               <div class="col-md-6">
-                <input type="text"  name="may" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control" [formControl]="holidaylistform.controls['holiday_may']">
+                <input type="number" id="holiday_may" disabled name="may" placeholder="" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  class="form-control" [formControl]="holidaylistform.controls['holiday_may']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_may.errors && (holidaylistform.controls.holiday_may.dirty || holidaylistform.controls.holiday_may.touched) && !holidaylistform.controls.holiday_may.valid">
                   <span *ngIf="holidaylistform.controls.holiday_may.errors.maxlength">  Month should be 2 digits only </span>
                   <span *ngIf="holidaylistform.controls.holiday_may.errors.max"> max no 31 </span>
@@ -236,7 +236,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>June</label></div>
               <div class="col-md-6">
-                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"   name="june" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_jun']">
+                <input type="number" id="holiday_jun" disabled onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"   name="june" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_jun']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_jun.errors && (holidaylistform.controls.holiday_jun.dirty || holidaylistform.controls.holiday_jun.touched) && !holidaylistform.controls.holiday_jun.valid">
                   <span *ngIf="holidaylistform.controls.holiday_jun.errors.maxlength">  Month should be 2 digits only </span>
                   <span *ngIf="holidaylistform.controls.holiday_jun.errors.max"> Max number 30 only </span>
@@ -251,7 +251,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>July</label></div>
               <div class="col-md-6">
-                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"   name="july" placeholder="" class="form-control"  [formControl]="holidaylistform.controls['holiday_jul']">
+                <input type="number" id="holiday_jul" disabled onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"   name="july" placeholder="" class="form-control"  [formControl]="holidaylistform.controls['holiday_jul']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_jul.errors && (holidaylistform.controls.holiday_jul.dirty || holidaylistform.controls.holiday_jul.touched) && !holidaylistform.controls.holiday_jul.valid">
                   <span *ngIf="holidaylistform.controls.holiday_jul.errors.maxlength">  Month should be 2 digits only </span>
                   <span *ngIf="holidaylistform.controls.holiday_jul.errors.max"> Max number 31 only </span>
@@ -263,7 +263,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>August</label></div>
               <div class="col-md-6">
-                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  name="aug" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_aug']">
+                <input type="number" id="holiday_aug" disabled onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  name="aug" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_aug']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_aug.errors && (holidaylistform.controls.holiday_aug.dirty || holidaylistform.controls.holiday_aug.touched) && !holidaylistform.controls.holiday_aug.valid">
                   <span *ngIf="holidaylistform.controls.holiday_aug.errors.maxlength">  Month should be 2 digits only </span>
                   <span *ngIf="holidaylistform.controls.holiday_aug.errors.max">Max number 31 only</span>
@@ -275,7 +275,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>September</label></div>
               <div class="col-md-6">
-                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  name="sep" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_sep']">
+                <input type="number" id="holiday_sep" disabled onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  name="sep" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_sep']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_sep.errors && (holidaylistform.controls.holiday_sep.dirty || holidaylistform.controls.holiday_sep.touched) && !holidaylistform.controls.holiday_sep.valid">
                   <span *ngIf="holidaylistform.controls.holiday_sep.errors.maxlength"> must be 2 characters </span>
                   <span *ngIf="holidaylistform.controls.holiday_sep.errors.max">Max number 30 only</span>
@@ -289,7 +289,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>October</label></div>
               <div class="col-md-6">
-                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"   name="oct" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_oct']">
+                <input type="number" id="holiday_oct" disabled onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"   name="oct" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_oct']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_oct.errors && (holidaylistform.controls.holiday_oct.dirty || holidaylistform.controls.holiday_oct.touched) && !holidaylistform.controls.holiday_oct.valid">
                   <span *ngIf="holidaylistform.controls.holiday_oct.errors.maxlength"> must be 2 characters </span>
                   <span *ngIf="holidaylistform.controls.holiday_oct.errors.max">Max number 31 only</span>
@@ -301,7 +301,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>November</label></div>
               <div class="col-md-6">
-                <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  name="nov" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_nov']">
+                <input type="number" id="holiday_nov" disabled onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  name="nov" placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_nov']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_nov.errors && (holidaylistform.controls.holiday_nov.dirty || holidaylistform.controls.holiday_nov.touched) && !holidaylistform.controls.holiday_nov.valid">
                   <span *ngIf="holidaylistform.controls.holiday_nov.errors.maxlength"> must be 2 characters </span>
                   <span *ngIf="holidaylistform.controls.holiday_nov.errors.max">Max number 30 only</span>
@@ -313,7 +313,7 @@
             <div class="form-group">
               <div class="col-md-6"><label>December</label></div>
               <div class="col-md-6">
-                <input type="text"  name="dec"  onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_dec']">
+                <input type="number" id="holiday_dec" name="dec" disabled onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"  placeholder="" class="form-control" [formControl]="holidaylistform.controls['holiday_dec']">
                 <small class="text-danger" *ngIf="holidaylistform.controls.holiday_dec.errors && (holidaylistform.controls.holiday_dec.dirty || holidaylistform.controls.holiday_dec.touched) && !holidaylistform.controls.holiday_dec.valid">
                   <span *ngIf="holidaylistform.controls.holiday_dec.errors.maxlength"> must be 2 characters </span>
                   <span *ngIf="holidaylistform.controls.holiday_dec.errors.max">Max number 31 only</span>
