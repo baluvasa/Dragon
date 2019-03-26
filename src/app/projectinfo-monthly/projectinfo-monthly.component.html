@@ -42,13 +42,7 @@
             </div>  -->
             <div class="col-md-3">
                 <label>Project Year & Month</label>
-               
-                <select class="form-control" [formControl]="poapprovalform.controls['modalpo_year_month']">
-                <option value="" disabled selected hidden style="color:#a4b2ba;">Select Year & Month</option>
-                <option>Feb-2019</option>
-                <option>Mar-2019</option>
-                <option>Aprz-2019</option>
-              </select>
+                <input [(ngModel)]="modelDate" autocomplete="off" class="form-control" name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MM/YYYY'}" (onShown)="onOpenCalendar($event)">
             
             </div> 
           </div>
@@ -58,7 +52,7 @@
             
             <div class="panel-body">
             
-          <form class="form" >
+          <form class="form">
               <table class="table table-responsive">
       
        

@@ -9,6 +9,7 @@ import { AppLink } from '../app-link';
 export class ProjectinfoMonthlyComponent implements OnInit {
   role:any;
 
+poyearmonth = AppLink.onOpenCalendar; 
   constructor(private eventEmitterService: EventEmitterService) { }
 
   ngOnInit() {
@@ -16,7 +17,10 @@ export class ProjectinfoMonthlyComponent implements OnInit {
     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
   }
-
-
   }
+     
+  onOpenCalendar(selecteddate){ 
+   
+    this.poyearmonth(selecteddate);
+}
 }

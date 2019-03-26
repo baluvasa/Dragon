@@ -107,13 +107,13 @@ associateslist:any;
      
       updquote:new FormControl('',{}),
       updpid:new FormControl('',{}),
-      updpo:new FormControl('',{}),
+      // updpo:new FormControl('',{}),
       updcontract:new FormControl('',{}),
       updprojectsdate:new FormControl('',{}),
       updprojectedate:new FormControl('',{}),
       // updpo:new FormControl('',{}),
       modalpo_year_month:new FormControl('',{}),
-  
+      
   
     })
     this.addpoform = new FormGroup({
@@ -151,7 +151,7 @@ associateslist:any;
   // this.searchassociates(value)
   }
   setupdatemodel(emplist){
-    //console.log("vals",emplist);
+    console.log("vals",emplist);
     // this.get_all_project_info();
     this.detailexpand.setValue({
         updaccountcat:emplist.accountCategory,
@@ -162,13 +162,13 @@ associateslist:any;
         // updaccount:emplistes.accountName,
         updquote:emplist.quote,
         // // updpid:empliste.quote,
-        // // updcontract:empliste.contract,
+         updcontract:emplist.contract,
         updprojectsdate:emplist.projectStartDate,
         updprojectedate:emplist.projectEndDate,
         // updbillingcurrency:emplist.billingCurrency,
-        updcontract:emplist.contract,
+        // updcontract:emplist.contract,
         updpid:emplist.pid,
-        updpo:emplist.po,
+        // updpo:emplist.po,
      
         modalpo_year_month:emplist.projectEndDate,
        
@@ -206,7 +206,7 @@ this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?customerName='+valu
  this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
     this.associateslist= this.results.projectInfoList;
-    
+    console.log("11111",this.crud_url);
     console.log("@@@@@", this.results);
     
 
@@ -216,7 +216,13 @@ this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?customerName='+valu
   });
 }
 close(){
-  this.associateslist==undefined;
+  if(this.associateslist!=undefined){
+
+    console.log("asslist",this.associateslist);
+    this.associateslist=undefined;
+     console.log("empty",this.associateslist);
+  }
+  
 }
 //Get all data after selecting a value in account category
 getcategories(){
@@ -247,18 +253,19 @@ search_account_category(accountcategory){
   });
 }
 search_all_project_info(value){
-  console.log(value.proname);
+  console.log(value.proname);``
   
-  if(value.accountcategory==null || value.accountname==null  || value.protype==null  || value.yyyyMM==null || value.proname==undefined) {
-  this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.modalpo_year_month;
-   //console.log("@@@@@", this.crud_url); 
-  }  
-  else {
+  if(value.proname!=undefined) {
     this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+value.proname+'&projectType='+value.protype+'&yyyyMM='+value.modalpo_year_month;
+   console.log("11111", this.crud_url); 
+  }  
+  else if(value.accountcategory==null || value.accountname==null  || value.protype==null  || value.yyyyMM==null || value.proname==undefined)  {
+    this.crud_url=this.ip+'/po/po_approval/fetch/projectDetails?accountCategory='+value.accountcategory+'&accountName='+value.accountname+'&projectName='+'&projectType='+value.protype+'&yyyyMM='+value.modalpo_year_month;
+    console.log("222222", this.crud_url);
   }
  this.httpClient.get(this.crud_url).subscribe(result => {
     this.results=result;
-    console.log("@@@@@", this.crud_url);
+    
     console.log("@@@@@", this.results);
     
     if(this.results.status==200){
