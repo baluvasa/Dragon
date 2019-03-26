@@ -10,7 +10,7 @@ export class AppLink {
         return IMyDpOptions;
     }
  
-    public static get baseURL(): string { return "http://10.56.67.9:8082"; }
+    public static get baseURL(): string { return "http://10.56.66.247:8082"; }
     public static get DTOptions() { 
         let dtOptions = {
             dom: 'Bfrtip<t>ip',
@@ -111,4 +111,12 @@ export class AppLink {
                   }  
                   return dates;
                 }
+                public static onOpenCalendar(selecteddate) {
+                  selecteddate.monthSelectHandler = (event: any): void => {
+                    selecteddate._store.dispatch(selecteddate._actions.select(event.date));
+                    }; 
+                    selecteddate.setViewMode('month');
+                  } 
+
+
 }
