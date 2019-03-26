@@ -9,6 +9,7 @@
             &nbsp;&nbsp;Add</button>
             
           </div> 
+
           <div class="panel-body">
             <div>
               <div id="leavedetails" class="modal fade" role="dialog" tabindex="-1">
@@ -26,6 +27,7 @@
                       <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)='closemsg()'>&times;</a>
                       {{adderrormsg}}
                     </div>
+
                     <form [formGroup]="addleaveform" >
                       <div class="modal-body">
                         <div class="form-row">
@@ -34,15 +36,17 @@
                           
                           <label>Associate ID*</label>
                           <span *ngIf="errormsg_search" class="text-danger">{{errormsg_search}}</span>
-                          <input type="text" placeholder="Enter Associate ID" class="form-control" [formControl]="addleaveform.controls['addassociateid']" (blur)="checkid($event.target.value)"/>
+                          <!-- <input type="text" placeholder="Enter Associate ID" class="form-control" [formControl]="addleaveform.controls['addassociateid']" (blur)="checkid($event.target.value)"/>
                           <div class="text-danger" *ngIf="addleaveform.controls.addassociateid.errors && (addleaveform.controls.addassociateid.dirty || addleaveform.controls.addassociateid.touched) && !addleaveform.controls.addassociateid.valid">
                             <span *ngIf="addleaveform.controls.addassociateid.errors.required">Associate Id is required</span>
                             <span *ngIf="addleaveform.controls.addassociateid.errors.maxlength">Associate Id length should be 10 characters</span>
                             <span *ngIf="addleaveform.controls.addassociateid.errors.minlength">Associate Id length should BE 10 characters</span>
                             <span *ngIf="addleaveform.controls.addassociateid.errors.pattern">Associated ID should be in format/pattern does not match (Ex:SA00587670)</span> 
-                          </div>
-                          
-                          
+                          </div> -->
+                        
+                          <ng-select [items]="associateids"  placeholder="Enter GID to search..." [formControl]="addleaveform.controls['addassociateid']">
+                            </ng-select>  
+                              
                           <div class="form-row">
                             <label>Associate Name*</label>
                             <input type="text" placeholder="Enter Associate Name" class="form-control" [formControl]="addleaveform.controls['addassociatename']" disabled/>

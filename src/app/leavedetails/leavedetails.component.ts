@@ -36,6 +36,8 @@ export class LeavedetailsComponent implements OnInit {
   dtOptions = AppLink.DTOptions;   
   myDatePickerOptions=AppLink.myDatePickerOptions;
   role:any;
+  resources:any;
+  associateids=[];
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) { }
 
   ngOnInit() {
@@ -102,6 +104,20 @@ export class LeavedetailsComponent implements OnInit {
         Validators.required,
       }) ,
     })  
+
+
+let rurl=this.ip+'/po/resource/fetch?associateId=&associateName=&band=';
+    this.httpClient.get(rurl).subscribe(result => {    
+      this.results=result;
+      this.resources=this.results.resourcedetails;
+      this.resources.forEach(i=> {
+this.associateids.push(i.associateId);   
+});      
+console.log(this.associateids)     
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
   }
   searchreset(){
     this.leaveform.reset({ associateid: '', associatename: '',yearmonth:'' });
