@@ -114,11 +114,11 @@
                     <div class="col-md-3">
                       <label>Year & Month</label>
                       <!-- <input type="text" class="form-control" [formControl]="leaveform.controls['yearmonth']" placeholder="MMM-YYYY"> -->
-                      <input  placeholder="Select Year & Month" autocomplete="off" class="form-control" [formControl]="leaveform.controls['yearmonth']" name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MMM-YYYY'}" (onShown)="onOpenCalendar($event)"> 
+                      <input  placeholder="Select Year & Month" autocomplete="off" class="form-control" [formControl]="leaveform.controls['yearmonth']" name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MMM-YYYY'}" (onShown)="onOpenCalendar($event)" readonly> 
                    
-                      <div class="text-danger" *ngIf="leaveform.controls.yearmonth.errors && (leaveform.controls.yearmonth.dirty || leaveform.controls.yearmonth.touched) && !leaveform.controls.yearmonth.valid">
+                      <!-- <div class="text-danger" *ngIf="leaveform.controls.yearmonth.errors && (leaveform.controls.yearmonth.dirty || leaveform.controls.yearmonth.touched) && !leaveform.controls.yearmonth.valid">
                         <span *ngIf="leaveform.controls.yearmonth.errors.pattern">Year Month should be in (MMM-YYY) format</span> 
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   

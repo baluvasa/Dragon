@@ -1,30 +1,3 @@
-<script>
-  $(document).ready(function() {
-    var row = 0,
-      col = 0,
-      ncol = 0;
-    var sum;
-   
-    // sum by col
-    for (col = 1; col < ncol + 1; col++) {
-      console.log("column: " + col);
-      sum = 0;
-      $("tr").each(function(rowindex) {
-        $(this).find("td:nth-child(" + col + ")").each(function(rowindex) {
-          newval = $(this).find("input").val();
-          console.log(newval);
-          if (isNaN(newval)) {
-            $(this).html(sum);
-          } else {
-            sum += parseInt(newval);
-          }
-        });
-      });
-    }
-  });
-  </script>
-  
-
 
 <div class="row">
    
@@ -164,7 +137,7 @@
                         <td>{{emplist.projectStartDate}}</td>
                         <td>{{emplist.projectEndDate}}</td>
                         <td> <button *ngIf="role" type="button" class="btn btn-info btn-sm fa fa-expand" data-toggle="modal" data-target="#addpoformexpand" (click)='[setupdatemodel(emplist),search_account_category(emplist.accountCategory)]'></button>&nbsp;
-                          <button type="button" class="btn btn-success" routerLink="/projectinfo-monthly" data-dismiss="modal">Monthly Info</button>
+                          <button type="button" class="btn btn-success" routerLink="/projectinfo-monthly" data-dismiss="modal" (click)="start_end_dates(emplist.projectStartDate,emplist.projectEndDate)">Monthly Info</button>
                        
                           
                     </tr>

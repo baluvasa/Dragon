@@ -65,9 +65,7 @@ export class LeavedetailsComponent implements OnInit {
     this.leaveform = new FormGroup({
       associateid:new FormControl('',{}),
       associatename:new FormControl('',{}),    
-      yearmonth:  new FormControl('',{     validators: [
-        Validators.pattern('^[A-Z]{3}-[0-9]{4}$'),
-      ]})  
+      yearmonth:  new FormControl('',{})  
     })
     
     this.updateleavedetails = new FormGroup({
@@ -137,8 +135,14 @@ export class LeavedetailsComponent implements OnInit {
     
     searchleaves(value){
       console.log(value)
-      let url='';
-      if(value.associateid==null && value.associatename==null && value.yearmonth==null || value.yearmonth==undefined ){
+
+      let url='',
+      year_month='';
+      if(value.yearmonth!=""){
+        year_month=formatDate(value.yearmonth, 'MMM-yyyy', 'en');
+      }
+      
+      if(value.associateid==null && value.associatename==null && year_month==null || year_month==undefined ){
         url=this.ip+'/po/leaves/fetch?id=&name=&mmyy=';
         
         // url=this.ip+'/po/access/fetch?id='+value.associateid+'&name=+value.associateid&mmyy=';
@@ -146,7 +150,7 @@ export class LeavedetailsComponent implements OnInit {
       }
       
       else{
-        url=this.ip+'/po/leaves/fetch?id='+value.associateid+'&name='+value.associatename+'&mmyy='+value.yearmonth;
+        url=this.ip+'/po/leaves/fetch?id='+value.associateid+'&name='+value.associatename+'&mmyy='+year_month;
         console.log("valueatyear",url)
       }
       
@@ -155,7 +159,6 @@ export class LeavedetailsComponent implements OnInit {
         this.results=result;
         this.searchallleaves=this.results.leavesDetails;
         console.log("@@@@@@@@@@@",this.searchallleaves);
-        
       },
       error => {
         this.error = 'Connection Interrupted..'; 
