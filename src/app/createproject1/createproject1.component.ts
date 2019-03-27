@@ -32,6 +32,7 @@ export class Createproject1Component implements OnInit {
   addresourcemsg:any;
   deletemsg:any;
   updatemsg:any;
+  updateerror:any;
   piderror:any;
   contract_start_date:any;
   contract_end_date:any;
@@ -269,9 +270,9 @@ export class Createproject1Component implements OnInit {
       update_end_date:new FormControl('',{
         validators: []
       }),
-      update_unit_of_measurement:new FormControl('',{
-        validators: []
-      }),
+      // update_unit_of_measurement:new FormControl('',{
+      //   validators: []
+      // }),
       update_status:new FormControl('',{
         validators: []
       }),
@@ -283,16 +284,17 @@ export class Createproject1Component implements OnInit {
       }),
       update_pid:new FormControl('',{
         validators: []
-      }),
-      update_quote_id:new FormControl('',{
-        validators: []
-      }),
-      update_contract_id:new FormControl('',{
-        validators: []
-      }),
-      update_po_id:new FormControl('',{
-        validators: []
       })
+      // ,
+      // update_quote_id:new FormControl('',{
+      //   validators: []
+      // }),
+      // update_contract_id:new FormControl('',{
+      //   validators: []
+      // }),
+      // update_po_id:new FormControl('',{
+      //   validators: []
+      // })
     });
     
     
@@ -319,7 +321,47 @@ export class Createproject1Component implements OnInit {
     
     
   }
-  
+  update_project_data(projectupdateform)
+  {
+    let update_start_date:any;
+    let update_end_date:any;
+    update_start_date=formatDate(projectupdateform.update_start_date, 'dd-MMM-yyyy', 'en');   
+    update_end_date=formatDate(projectupdateform.update_end_date, 'dd-MMM-yyyy', 'en');   
+    let update_project_data={
+      id:projectupdateform.update_id,
+      accountCategory:projectupdateform.update_acc_category,
+      accountName:projectupdateform.update_acc_name,
+      projectName:projectupdateform.update_project_name,
+      customerName:projectupdateform.update_customer_name,
+      customerSpoc:projectupdateform.update_customer_spoc,
+      approvalMethod:projectupdateform.update_approval_method,
+      submissionMode:projectupdateform.update_submission_mode,
+      projectType:projectupdateform.update_project_type,
+      billingCurrency:projectupdateform.update_billing_currency,
+      poAmount:projectupdateform.update_po_amount,
+      status:projectupdateform.update_status,
+      projectStartDate:update_start_date,
+      projectEndDate:update_end_date,
+      deliverySpoc:projectupdateform.update_delivery_spoc,
+      effortSpoc:projectupdateform.update_effort_spoc,
+      pid:projectupdateform.update_pid,    
+      modifiedBy:"ADMIN"
+    }
+    console.log(update_project_data)
+
+    let url=this.ip+'/po/project/update';
+    this.httpClient.put(url,update_project_data).subscribe(result => {
+      this.addresult=result;
+      console.log(this.addresult)
+      if(this.addresult.status == 200){
+        this.updatemsg=this.addresult.message; 
+        // this.projectupdateform.reset();
+      }
+    },
+    error => {
+      this.updateerror = 'Connection Interrupted..'; 
+    });
+  }
   convertdate(associateStartDate){
     let newdate= new Date(associateStartDate);
     return newdate;
@@ -353,6 +395,7 @@ export class Createproject1Component implements OnInit {
     this.httpClient.get(searchprojecturl).subscribe(result => {    
       this.results=result;
       this.projectlists=this.results.projectDetailsList;
+      console.log(this.projectlists)
     },
     error => {
       this.error = 'Connection Interrupted..'; 
@@ -540,15 +583,8 @@ export class Createproject1Component implements OnInit {
       projectEndDate:project_end_date,
       deliverySpoc:project_data.delivery_spoc,
       effortSpoc:project_data.effort_spoc,
-      pid:project_data.pid,
-      po:project_data.po_id,
-      unitOfMeasurement:project_data.unit_of_measurement,
-      quote:project_data.quote_id,
-      contract:project_data.contract_id,
-      createdBy:"ADMIN",
-      resources:all_resources,
-      resourceCount:all_resources.length,
-      contractToPid:contract_resources
+      pid:project_data.pid,    
+      createdBy:"ADMIN"
     }
     console.log(all_project_data);
     
@@ -598,7 +634,8 @@ export class Createproject1Component implements OnInit {
     }
     
   }
-  update_data_model(projectlist){       
+  update_data_model(projectlist){     
+    console.log(projectlist)  
     this.projectupdateform.setValue({
       update_id:projectlist.id,
       update_acc_category:projectlist.accountCategory,
