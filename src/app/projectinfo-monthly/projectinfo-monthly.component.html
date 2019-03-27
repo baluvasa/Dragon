@@ -10,7 +10,7 @@
           
       <a>
 			<!-- <button routerLink="/poapp" class="btn btn-sm btn-primary fa fa-angle-double-left pull" style="float:left">Project-Information</button> -->
-		<h4 href="Organization.html" type="button" class="btn btn-outline-primary btn-lg" class="col-lg-4">OCTOBER&nbsp;</h4>
+		<h4 href="proOrganization.html" type="button" class="btn btn-outline-primary btn-lg" class="col-lg-4">OCTOBER&nbsp;</h4>
 	  </a>
 	</div>
       <div class="col-md-12"  style="float:left" >
@@ -42,9 +42,10 @@
             </div>  -->
             <div class="col-md-3">
                 <label>Project Year & Month</label>
-                <input [(ngModel)]="modelDate" autocomplete="off" class="form-control" name="date" bsDatepicker  [minDate]="maxdate"  [maxDate]="mindate"
-                [bsConfig]="{dateInputFormat: 'MMM-YYYY'}" (onShown)="onOpenCalendar($event)">
-            
+                <input [(ngModel)]="modelDate" id="month_year_value" autocomplete="off" class="form-control" name="date" bsDatepicker  [minDate]="maxdate"  [maxDate]="mindate"
+                [bsConfig]="{dateInputFormat: 'YYYY-MMMx'}" (onShown)="onOpenCalendar($event)" >
+            <button ></button>
+            <button class="btn btn-sm btn-primary" (click)="searchassociatesdata()">Search</button>
             </div> 
           </div>
         </div>
@@ -53,7 +54,7 @@
             
             <div class="panel-body">
             
-          <form class="form">
+          <form class="monthlyform">
               <table class="table table-responsive">
       
        
@@ -62,7 +63,7 @@
                      <tr>
                     <th>Projected Total Efforts:	
                 </th>
-                    <td>1464
+                    <td>{{projectstotallist.projectedTotalEfforts}}
                 </td>
                     <th>T&M recognised:</th>
                     <td> $12,939.83 

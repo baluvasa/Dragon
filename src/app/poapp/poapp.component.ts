@@ -280,8 +280,13 @@ export class PoappComponent implements OnInit {
   }
   
   
-  start_end_dates(startdate,enddate){
-    this.appservice.setdates(startdate,enddate);    
+  start_end_dates(startdate,enddate,contarct,pid,customername,quote){
+    this.appservice.setdates(startdate,enddate,contarct,pid,customername,quote); 
+   
+  }
+
+  total_cal_project(){
+    this.appservice.setinfo();
   }
   //fetch all project data based on selected account category and account name
   get_all_project_info(target){

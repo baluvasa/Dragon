@@ -6,11 +6,15 @@ import { Router } from '@angular/router';
 export class AppServicesService {
   loged:any;
   dates={};
+  billinginformation={};
   constructor(private route: Router) { }
   setLogedinfo(value){        
     this.loged=localStorage.setItem('logeduser',value);
   }
 
+  setinfo(){
+    this.billinginformation
+  }
   getToken() {
     return localStorage.getItem("logeduser")
   }
@@ -21,11 +25,17 @@ export class AppServicesService {
     localStorage.removeItem("logeduser");
     this.route.navigate(["login"]);
   }
-  setdates(startdate,enddate){
+  setdates(startdate,enddate,contract,pid,customername,quote){
 this.dates["startdate"]=startdate;
 this.dates["enddate"]=enddate;
+this.dates["contract"]=contract;
+this.dates["pid"]=pid;
+this.dates["customername"]=customername;
+this.dates["quote"]=quote;
+
   }
   getdates(){
 return this.dates;
   }
+  
 }
