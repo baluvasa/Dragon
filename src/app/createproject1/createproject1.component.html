@@ -261,7 +261,7 @@
                     <div class="col-md-5">
                       <div class="form-group">
                         <label for="proj">Contract ID</label>
-                        <select class="form-control" id="year" [(ngModel)]="selectedcontract" [formControl]="projectresourceform.controls['contract_id']" >
+                        <select class="form-control" id="year" [(ngModel)]="selectedcontract" (change)="selectedcontractres($event.target.value)" [formControl]="projectresourceform.controls['contract_id']" >
                           <option value="" disabled selected hidden style="color:#a4b2ba;">Select Contract ID</option>
                           <option *ngFor="let contract of contracts" [value]=contract.contractNumber >
                             {{contract.contractNumber}}
@@ -281,7 +281,7 @@
                   
                   <div class="row">
                     <div class="col-md-12" *ngIf="addresourcemsg">
-                      <div class="alert alert-danger alert-dismissible">
+                      <div class="alert alert-success alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         {{addresourcemsg}}
                       </div>
@@ -309,7 +309,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor='let resource of resources;index as i'>
+                            <tr *ngFor='let resource of resources|unique;index as i'>
                               <td>{{resource.associateId}}</td>
                               <td>{{resource.associateName}}</td>
                               <td>{{resource.band}}</td>
@@ -346,7 +346,7 @@
                                 <input type="text" id="{{i}}text"  class="form-control" [value]=resource.ratePerHour>
                               </td>
                               <td>
-                                <input type="checkbox"  id="{{i}}linked" class="form-control"  [checked]="resource.linked == 'Y' && selectedcontract== resource.contractId">
+                                <input type="checkbox"  id="{{i}}linked" class="form-control"  [checked]="resource.linked == 'Y' && selectedcontract== resource.contractId" (change)="changemode($event,resource)">
                               </td>
                             </tr>
                             
@@ -382,7 +382,7 @@
                               </td>
                               <td>
                                 <input type="text"
-                                id="{{i}}startdate" 
+                                id="{{i}}startdate1" 
                                 placeholder="Resource Start Date" 
                                 class="form-control" 
                                 bsDatepicker  [minDate]="c_maxdate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"  
@@ -394,7 +394,7 @@
                                 
                                 
                                 <input type="text" 
-                                id="{{i}}enddate" 
+                                id="{{i}}enddate1" 
                                 placeholder="Resource End Date" 
                                 class="form-control" 
                                 bsDatepicker [maxDate]="c_mindate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" 

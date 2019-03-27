@@ -35,6 +35,7 @@ import { ProdecComponent } from './prodec/prodec.component';
 import { PoappComponent } from './poapp/poapp.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { UniquePipe } from './unique.pipe';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ProjectinfoMonthlyComponent,
     PronovComponent,
     ProdecComponent,
-    PoappComponent
+    PoappComponent,
+    UniquePipe
    
   ],
   imports: [

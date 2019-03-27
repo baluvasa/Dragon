@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms'
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from  "@angular/common/http";
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 
 @Component({
@@ -72,6 +73,8 @@ export class Createproject1Component implements OnInit {
   categories_names:any;
   resourceerror:any;
   uresourceerror:any;
+  resources_d:any;
+  resources_n:any;
   // submisson_modes:any;
   constructor(private formBuilder: FormBuilder,private eventEmitterService: EventEmitterService,private  httpClient:HttpClient) {}
   ngOnInit() {
@@ -211,7 +214,7 @@ export class Createproject1Component implements OnInit {
           Validators.required
         ]
       })
-
+      
     });
     this.projectresourceform = new FormGroup({
       pid:new FormControl('',{
@@ -226,7 +229,7 @@ export class Createproject1Component implements OnInit {
       })
     });
     this.projectupdateform = new FormGroup({
-
+      
       update_id:new FormControl('',{
         validators: []
       }),
@@ -291,7 +294,7 @@ export class Createproject1Component implements OnInit {
         validators: []
       })
     });
-
+    
     
     // On Load Methods
     this.all_project_pids();
@@ -300,7 +303,7 @@ export class Createproject1Component implements OnInit {
   }  
   
   all_project_pids(){
-
+    
     
     let allpids=this.ip+'/po/project/fetch/pidlist';
     
@@ -308,28 +311,26 @@ export class Createproject1Component implements OnInit {
       this.results=result;
       this.projectpidlist=this.results.pidList;
       
-     
+      
     },
     error => {
       this.error = 'Connection Interrupted..'; 
     });
-
-
+    
+    
   }
-
+  
   convertdate(associateStartDate){
-    console.log(associateStartDate)
     let newdate= new Date(associateStartDate);
-return newdate;
+    return newdate;
   }
-
+  
   getcresourcedetails(){
     let cresourcesurl=this.ip+'/po/project/fetch/cresources';
     
     this.httpClient.get(cresourcesurl).subscribe(result => {    
       this.results=result;
       this.cresources=this.results.cresourceDetails;
-      console.log(this.cresources)
     },
     error => {
       this.error = 'Connection Interrupted..'; 
@@ -361,23 +362,23 @@ return newdate;
   }
   delete_project_data(deletevalue){
     if (confirm("Do you want to delete the Account Details?")) { 
-    let delurl=this.ip+'/po/project/delete?pId='+deletevalue.id;
-    this.httpClient.delete(delurl).subscribe(result => {
-    this.addresult=result;
-    console.log(this.addresult)
-    if(this.addresult.Status==200){
-    this.deletemsg=this.addresult.message;
-    console.log(this.deletemsg)
-    // alert(this.deletemsg);
-    // let data={associateid:'',associatename:'',accesstype:'',status:''};
-    // this.searchleaves(data);
+      let delurl=this.ip+'/po/project/delete?pId='+deletevalue.id;
+      this.httpClient.delete(delurl).subscribe(result => {
+        this.addresult=result;
+        console.log(this.addresult)
+        if(this.addresult.Status==200){
+          this.deletemsg=this.addresult.message;
+          console.log(this.deletemsg)
+          // alert(this.deletemsg);
+          // let data={associateid:'',associatename:'',accesstype:'',status:''};
+          // this.searchleaves(data);
+        } 
+      },
+      error => {
+        this.error = 'Connection Interrupted..'; 
+      }) 
     } 
-    },
-    error => {
-    this.error = 'Connection Interrupted..'; 
-    }) 
-    } 
-    }  
+  }  
   setmaxdate(data){
     this.maxdate=data;
   }
@@ -385,12 +386,12 @@ return newdate;
     this.mindate=data;
   }
   projectmaxdate(max){
-
-      this.c_maxdate=new Date(max);
+    
+    this.c_maxdate=new Date(max);
   }
   projectmindate(min){
     this.c_mindate=new Date(min);
-
+    
   }
   
   search_account_category(acc_cat){
@@ -410,7 +411,8 @@ return newdate;
         this.results=result;
         if(this.results.status==200){
           this.resources=this.results.resourceLinkedDetails;
-          console.log(this.resources);
+          this.resources_d=this.results.resourceLinkedDetails;
+          // console.log(this.resources);
           this.resourceerror="";
           this.currentStyles= { 'border-color': '' };
           
@@ -430,21 +432,21 @@ return newdate;
       error => {
         this.error = 'Connection Interrupted..'; 
       });
-
+      
       let contracts_data=this.ip+'/po/contract/fetch/contractsinfo?pid='+pid;
       this.httpClient.get(contracts_data).subscribe(result => { 
-      this.results=result;
-      if(this.results.status==200){
-      this.contracts=this.results.contractdetails;
-      }
-      else{
-      this.resourceerror =this.results.message;
-      this.contracts=[]; 
-
-      }
+        this.results=result;
+        if(this.results.status==200){
+          this.contracts=this.results.contractdetails;
+        }
+        else{
+          this.resourceerror =this.results.message;
+          this.contracts=[]; 
+          
+        }
       },
       error => {
-      this.error = 'Connection Interrupted..'; 
+        this.error = 'Connection Interrupted..'; 
       }); 
     }
     else{
@@ -566,35 +568,35 @@ return newdate;
     });
   }
   get_project_dates(date_val){
-
+    
     if(date_val!=""){
       let date_url=this.ip+'/po/project/fetch/piddates?pid='+date_val; 
-   
+      
       this.httpClient.get(date_url).subscribe(result => { 
         this.results=result;
         if(this.results.status==200){
-        this.projectmaxdate(this.results.startdate);
-        this.projectmindate(this.results.enddate);
-        this.currency_mode=this.results.currency;
-        this.currentStyles= { 'border-color': '' };
-        this.piderror="";
-
+          this.projectmaxdate(this.results.startdate);
+          this.projectmindate(this.results.enddate);
+          this.currency_mode=this.results.currency;
+          this.currentStyles= { 'border-color': '' };
+          this.piderror="";
+          
         }
         else if(this.results.status==204){
           this.piderror=this.results.message;
           this.currentStyles= { 'border-color': 'red' };
         }
-
-        },
-        error => {
+        
+      },
+      error => {
         this.error = 'Connection Interrupted..'; 
-        });
+      });
     }
-  else{
-    this.currentStyles= { 'border-color': '' };
-        this.piderror="Enter PID to search";
-  }
-
+    else{
+      this.currentStyles= { 'border-color': '' };
+      this.piderror="Enter PID to search";
+    }
+    
   }
   update_data_model(projectlist){       
     this.projectupdateform.setValue({
@@ -611,135 +613,193 @@ return newdate;
       update_po_amount:projectlist.poAmount,
       update_start_date:projectlist.projectStartDate,
       update_end_date:projectlist.projectEndDate,
-      update_unit_of_measurement:projectlist.unitOfMeasurement,
       update_status:projectlist.status,
       update_delivery_spoc:projectlist.deliverySpoc,
       update_effort_spoc:projectlist.effortSpoc,
-      update_pid:projectlist.pid,
-      update_quote_id:projectlist.quote,
-      update_contract_id:projectlist.contract,
-      update_po_id:projectlist.po
+      update_pid:projectlist.pid
     });
     this.getonupdateResourceData(projectlist.pid);
     console.log(this.projectupdateform);
   }
-add_contract_details(projectcontractform){
-console.log(projectcontractform)
-
-  let start_date:any,
+  add_contract_details(projectcontractform){
+    console.log(projectcontractform)
+    
+    let start_date:any,
     end_date:any;
     
     start_date=formatDate(projectcontractform.start_date, 'dd-MMM-yyyy', 'en');   
     end_date=formatDate(projectcontractform.end_date, 'dd-MMM-yyyy', 'en'); 
-
-let project_contract_data={ 
-    contractNumber:projectcontractform.contract_id,
-    pid:projectcontractform.pid,
-    contractStartDate:start_date,
-    contractEndDate:end_date,
-    quote:projectcontractform.quote_id,
-    po:projectcontractform.po_id,
-    uom:projectcontractform.unit_of_measurement,
-    createdBy:"ADMIN"
-}
-
-console.log(project_contract_data)
-
-let url=this.ip+'/po/contract/add';
-this.httpClient.post(url,project_contract_data).subscribe(result => {
-  this.addresult=result;
-  console.log(this.addresult)
-  if(this.addresult.status == 201){
-    this.addcontmsg=this.addresult.message; 
-    this.projectcontractform.reset();
-  }
-  else{
-    this.addconterror=this.addresult.message;     
-  }
-},
-error => {
-  this.error = 'Connection Interrupted..'; 
-});
+    
+    let project_contract_data={ 
+      contractNumber:projectcontractform.contract_id,
+      pid:projectcontractform.pid,
+      contractStartDate:start_date,
+      contractEndDate:end_date,
+      quote:projectcontractform.quote_id,
+      po:projectcontractform.po_id,
+      uom:projectcontractform.unit_of_measurement,
+      createdBy:"ADMIN"
+    }
+    
+    console.log(project_contract_data)
+    
+    let url=this.ip+'/po/contract/add';
+    this.httpClient.post(url,project_contract_data).subscribe(result => {
+      this.addresult=result;
+      console.log(this.addresult)
+      if(this.addresult.status == 201){
+        this.addcontmsg=this.addresult.message; 
+        this.projectcontractform.reset();
+      }
+      else{
+        this.addconterror=this.addresult.message;     
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
   }
   
-add_resource_details(projectresourceform){
-  let resources_data=$("#resources_data"); 
-  let contract_data_resources_data=$("#contract_resources_data"); 
-  let all_resources=[];
-  let contract_resources=[];
-  for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
-    let resource={};
-    if($('#'+k+'linked').prop("checked") == true){
-      resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
-      resource["location"]=$('#'+k+'location option:selected').text();
-      resource["associateStartDate"]=$('#'+k+'startdate').val();
-      resource["associateEndDate"]=$('#'+k+'enddate').val();
-      resource["ratePerHour"]=$('#'+k+'text').val();
-      resource["linked"]='Y';        
-      resource["pId"]=projectresourceform.pid;        
-      resource["contractId"]=projectresourceform.contract_id;        
-      all_resources.push(resource);      
+  add_resource_details(projectresourceform){
+    let resources_data=$("#resources_data"); 
+    let contract_data_resources_data=$("#contract_resources_data"); 
+    let all_resources=[];
+    let contract_resources=[];
+    let to_contract_resources=[];
+    for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
+      let resource={};
+      if($('#'+k+'linked').prop("checked") == true){
+        resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
+        resource["location"]=$('#'+k+'location option:selected').text();
+        resource["associateStartDate"]=$('#'+k+'startdate').val();
+        resource["associateEndDate"]=$('#'+k+'enddate').val();
+        resource["ratePerHour"]=$('#'+k+'text').val();
+        resource["linked"]='Y';        
+        resource["pId"]=projectresourceform.pid;        
+        resource["contractId"]=projectresourceform.contract_id;        
+        all_resources.push(resource);      
+      }
+      if($('#'+k+'linked').prop("checked") ==false){
+        resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
+        resource["location"]=$('#'+k+'location option:selected').text();
+        resource["associateStartDate"]=$('#'+k+'startdate').val();
+        resource["associateEndDate"]=$('#'+k+'enddate').val();
+        resource["ratePerHour"]=$('#'+k+'text').val();
+        resource["linked"]='N';        
+        resource["pId"]=projectresourceform.pid;        
+        resource["contractId"]='';        
+        // all_resources.push(resource);      
+        to_contract_resources.push(resource);      
+      }
     }
-  }
-  for(let i=1,k=0;i<=contract_data_resources_data[0].lastChild.childNodes.length;i++,k++){
-    let resource={};      
-    if($('#'+k+'linked1').prop("checked") == true){
-      resource["associateId"]=contract_data_resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
-      resource["location"]=$('#'+k+'location1 option:selected').text();
-      resource["associateStartDate"]=$('#'+k+'startdate1').val();
-      resource["associateEndDate"]=$('#'+k+'enddate1').val();
-      resource["ratePerHour"]=$('#'+k+'text1').val();
-      resource["linked"]='Y';        
-      resource["pId"]=projectresourceform.pid;     
-      resource["contractId"]=projectresourceform.contract_id;
-      all_resources.push(resource);      
-      contract_resources.push(resource);
+    for(let i=1,k=0;i<=contract_data_resources_data[0].lastChild.childNodes.length;i++,k++){
+      let resource={};      
+      if($('#'+k+'linked1').prop("checked") == true){
+        resource["associateId"]=contract_data_resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
+        resource["location"]=$('#'+k+'location1 option:selected').text();
+        resource["associateStartDate"]=$('#'+k+'startdate1').val();
+        resource["associateEndDate"]=$('#'+k+'enddate1').val();
+        resource["ratePerHour"]=$('#'+k+'text1').val();
+        resource["linked"]='Y';        
+        resource["pId"]=projectresourceform.pid;     
+        resource["contractId"]=projectresourceform.contract_id;
+        all_resources.push(resource);      
+        contract_resources.push(resource);
+      }
     }
-  }
-
-  let resource_link={
-    resources:all_resources,
-    contractToPid:contract_resources
-  }
-  console.log(resource_link)
-  let url=this.ip+'/po/resourcemap/add';
-  this.httpClient.post(url,resource_link).subscribe(result => {
-    this.addresult=result;
-    console.log(this.addresult)
-    if(this.addresult.status == 201){
-      this.addresourcemsg=this.addresult.message; 
-      console.log(this.addresourcemsg);
-      this.projectresourceform.reset();
-
+    
+    let resource_link={
+      resources:all_resources,
+      contractToPid:contract_resources,
+      toContractPid:this.list
     }
-  },
-  error => {
-    this.error = 'Connection Interrupted..'; 
-  });
-
-}
-
-check_pid(value){
-  let curl=this.ip+'/po/project/fetch/checkpid?pid='+value;
-  this.httpClient.get(curl).subscribe(result => { 
-  this.results=result;
-  if(this.results.status==200){
-  this.resources=this.results.resourceDetails;
-  this.resourceerror =this.results.message;
-  this.currentStyles= { 'border-color': 'red' };
-  $("#pidbox").focus(); 
+    console.log(resource_link)
+    let url=this.ip+'/po/resourcemap/add';
+    this.httpClient.post(url,resource_link).subscribe(result => {
+      this.addresult=result;
+      console.log(this.addresult)
+      if(this.addresult.status == 201){
+        this.addresourcemsg=this.addresult.message; 
+        console.log(this.addresourcemsg);
+        this.projectresourceform.reset();
+        
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+    
   }
-  else if(this.results.status==204){
-  this.resourceerror ='';
-  this.currentStyles= { 'border-color': '' }; 
+  selectedcontractres(value){
+    this.resources = this.resources_d.filter( element => element.contractId ==value)
+    this.resources_n = this.resources_d.filter( element => element.contractId !=value)
+    let k=this.remove_duplicates(this.resources, this.resources_n);
+    
+    for(let m=0;m<k.length;m++){
+      let n={};
+      n["associateId"]=k[m].associateId;
+      n["associateName"]=k[m].associateName;
+      n["band"]=k[m].band;
+      n["location"]=null;
+      n["associateStartDate"]=null;
+      n["associateEndDate"]=null;
+      n["ratePerHour"]=0;
+      n["linked"]="N";
+      n["pId"]=k[m].pId;
+      n["status"]=k[m].status;
+      n["contractId"]='';  
+      this.resources.push(n)
+    }
+    // console.log(this.resources)
   }
-  else{
+  
+  remove_duplicates(a, b) {
+    for (var i = 0, len = a.length; i < len; i++) { 
+      for (var j = 0, len2 = b.length; j < len2; j++) { 
+        if (a[i].associateId == b[j].associateId) {
+          b.splice(j, 1);
+          len2=b.length;
+        }
+      }
+    }
+    return b;
+    
   }
-  },
-  error => {
-  this.error = 'Connection Interrupted..'; 
-  });
+  
+  
+  list=[];
+  changemode(a,b){
+    let da={};
+    if(!a.srcElement.checked){    
+      this.list.push(b.resourceMapId);
+    } 
+    else{
+      var index = this.list.indexOf( b.resourceMapId);
+      if (index !== -1) this.list.splice(index, 1);
+    }
+    // console.log(this.list)
+  }
+  check_pid(value){
+    let curl=this.ip+'/po/project/fetch/checkpid?pid='+value;
+    this.httpClient.get(curl).subscribe(result => { 
+      this.results=result;
+      if(this.results.status==200){
+        this.resources=this.results.resourceDetails;
+        this.resourceerror =this.results.message;
+        this.currentStyles= { 'border-color': 'red' };
+        $("#pidbox").focus(); 
+      }
+      else if(this.results.status==204){
+        this.resourceerror ='';
+        this.currentStyles= { 'border-color': '' }; 
+      }
+      else{
+      }
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
   } 
-
-
+  
+  
 }
