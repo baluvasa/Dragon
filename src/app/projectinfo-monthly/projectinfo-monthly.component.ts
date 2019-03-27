@@ -19,6 +19,7 @@ export class ProjectinfoMonthlyComponent implements OnInit {
   projectstotallist:any;
   projectresourcelist:any;
   error:any;
+  resourcebill:any;
   ip=AppLink.baseURL;
   monthlyform:FormGroup;
   poyearmonth = AppLink.onOpenCalendar; 
@@ -96,8 +97,13 @@ export class ProjectinfoMonthlyComponent implements OnInit {
     this.httpClient.get(this.crud_url).subscribe(result => {
       this.results=result;
       this.projectstotallist= this.results.projectedTotalsObj;
+       console.log(this.projectstotallist);
       this.projectresourcelist=this.results.superResourceBOList;
-   
+      console.log(this.projectresourcelist);
+      this.resourcebill=this.results.superResourceBOList[0].monthlyDetails[0];
+      console.log(this.resourcebill);
+      // this.billdetails=this.results.monthlyDetails
+      
     },
     error =>{
       this.error='No data available';

@@ -43,8 +43,7 @@
             <div class="col-md-3">
                 <label>Project Year & Month</label>
                 <input [(ngModel)]="modelDate" id="month_year_value" autocomplete="off" class="form-control" name="date" bsDatepicker  [minDate]="maxdate"  [maxDate]="mindate"
-                [bsConfig]="{dateInputFormat: 'YYYY-MMMx'}" (onShown)="onOpenCalendar($event)" >
-            <button ></button>
+                [bsConfig]="{dateInputFormat: 'YYYY-MMM'}" (onShown)="onOpenCalendar($event)" >
             <button class="btn btn-sm btn-primary" (click)="searchassociatesdata()">Search</button>
             </div> 
           </div>
@@ -59,79 +58,52 @@
       
        
       
-                  <tbody>
+                  <tbody *ngIf="projectstotallist">
                      <tr>
-                    <th>Projected Total Efforts:	
-                </th>
-                    <td>{{projectstotallist.projectedTotalEfforts}}
-                </td>
+                    <th>Projected Total Efforts:</th>
+                    <td>{{projectstotallist.projectedTotalEfforts}}</td>
                     <th>T&M recognised:</th>
-                    <td> $12,939.83 
-                </td>
+                    <td> {{projectstotallist.tmRecognised}}</td>
                     <th>Final Amt:(USD)</th>
-                    <td> $12,677.43 
-                </td>
+                    <td>$ &nbsp;{{projectstotallist.finalAmtUSD}}</td>
                     </tr>
                      <tr>
-                    <th>Projected Entry Amt:	
-                </th>
-                    <td></td>
-                    <th>FP recognised:	
-                </th>
-                    <td> $-   
-                </td>
-                    <th>Final Amt. (Entry)	
-                </th>
-                    <td></td>
+                    <th>Projected Entry Amount:</th>
+                    <td>{{projectstotallist.projectedEntryAmt}}</td>
+                    <th>FP recognised:</th>
+                    <td>{{projectstotallist.fpRecognised}}</td>
+                    <th>Final Amount. (Entry)</th>
+                    <td>{{projectstotallist.finalAmtEntry}}</td>
                     </tr>
                      <tr>
-                    <th>Projected USD Amt:	
-                </th>
-                    <td> $13,464.63 
-                </td>
-                    <th>Total Recognised Amt:	
-                </th>
-                    <td> $12,939.83 
-                </td>
-                    <th>Left to Invoice ($):
-                </th>
-                    <td> $(262.40)
-                </td>
+                    <th>Projected USD Amount:</th>
+                    <td> {{projectstotallist.projectedUSDAmt}}</td>
+                    <th>Total Recognised Amt:</th>
+                    <td>{{projectstotallist.totalRecognisedAmt}}</td>
+                    <th>Left to Invoice ($):</th>
+                    <td> {{projectstotallist.leftToInvoice}}</td>
                     </tr>
-                     <tr >
+                  <tr>
                     
-                    <th colspan="2">Total Projected Amt	
-                :</th>
-                    <td> $14,000.00 
-                </td>
+                    <th colspan="2">Total Projected Amt:</th>
+                    <td> {{projectstotallist.projectedAmt}}</td>
                     <th>Final Amt:(USD)</th>
-                    <td></td>
+                    <td>{{projectstotallist.finalAmtUSD}}</td>
                     </tr>
                      <tr>
                      
-                     <th colspan="2"> GAP:	
-                  
-                </th>
-                    <td> $(1,060.17)
-                </td>
-                    <th>RUS Gap (Days)	
-                </th>
-                    <td>10
-                </td>
+                     <th colspan="2"> GAP:</th>
+                    <td> {{projectstotallist.gap}}</td>
+                    <th>RUS Gap (Days)</th>
+                    <td>{{projectstotallist.rusGapDays}}</td>
                     </tr>
                     <tr>
-                 
-                    
-                    <th colspan="2">Percentage =:	
-                
-                </th>
-                    <td>92.43%
-                </td>
-                    <th>RUS Gap (Hours.)	
-                </th>
-                    <td>80
-                </td>
-                    </tr>
+                   
+                    <th colspan="2">Percentage =:	</th>
+                    <td>{{projectstotallist.percentage}}</td>
+                    <th>RUS Gap (Hours.)</th>
+                    <td>{{projectstotallist.rusGapHours}}</td>
+                  </tr>
                   </tbody>
                   </table>
           </form>
@@ -147,7 +119,7 @@
                       <table class="table  table-bordered">
                           <thead>
                           <tr>
-                              <th >GID		
+                              <th>GID		
                                 </th>
                                 <th >Associate Name		
                                   </th>
@@ -179,12 +151,7 @@
                                 </td>
                                 <td >Associate Name	
                                   </td>
-                              <!-- <th >GID
-      
-                                </th>
-                                <th >Associate Name -->
-      
-                                  <!-- </th> -->
+                            
                               <th >Qty.
       
                                 </th>
@@ -227,102 +194,65 @@
                         
                             
                           </tr>
-                          <tr>
-                              <td > MK00601667
+                          <tr *ngFor="let prolist of projectresourcelist">
+                              <td > {{prolist.associateId}}	
                                 </td>
-                                <td > Sharath Kumar
+                                <td > {{prolist.associateName}}
                                   </td>
-                              <td > 169
+                              <td > 
+                                <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                  {{monthlyDetail.projections.qty}}
+                                </span>
                                 </td>
-                              <td>₹84,000.00 
+                              <td>  <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                  {{monthlyDetail.projections.entry}}
+                                </span>
                                 </td>
-                              <td> $1,217.39 
+                              <td> <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                  {{monthlyDetail.projections.usd}}
+                                </span> 
                                 </td>
-                                <td > 169
+                                <td >  <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                    {{monthlyDetail.accruals.qty}}
+                                  </span>
                                   </td>
-                                <td>₹84,000.00 
+                                <td>  <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                    {{monthlyDetail.accruals.entry}}
+                                  </span>
                                   </td>
-                                <td> $1,217.39 
+                                <td>   <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                    {{monthlyDetail.accruals.usd}}
+                                  </span>
                                   </td>
-                                  <td > 169
+                                  <td > <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                      {{monthlyDetail.billed.qty}}
+                                    </span>
                                     </td>
-                                  <td>₹84,000.00 
+                                  <td><span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                      {{monthlyDetail.billed.entry}}
+                                    </span> 
                                     </td>
-                                  <td> $1,217.39 
+                                  <td> <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                      {{monthlyDetail.billed.usd}}
+                                    </span> 
                                     </td>
                               <td> </td>
                               <td> </td>
-                              <td> -1</td>
-                              <td> -8</td>
-                              <td> </td>
+                              <td> <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                  {{monthlyDetail.rusGapDays}}
+                                </span></td>
+                              <td><span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                  {{monthlyDetail.rusGapHours}}
+                                </span></td>
+                              <td> <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                  {{monthlyDetail.remarks}}
+                                </span></td>
                               <!-- <td>$2,217.39 </td>
                               <td>$2,217.39 </td>
                               <td>Hi All </td> -->
                           </tr>
-                          <tr>
-                              <td > MK00601667
-                                </td>
-                                <td > Sharath Kumar
-                                  </td>
-                              <td > 169
-                                </td>
-                              <td>₹84,000.00 
-                                </td>
-                              <td> $1,217.39 
-                                </td>
-                                <td > 169
-                                  </td>
-                                <td>₹84,000.00 
-                                  </td>
-                                <td> $1,217.39 
-                                  </td>
-                                  <td > 169
-                                    </td>
-                                  <td>₹84,000.00 
-                                    </td>
-                                  <td> $1,217.39 
-                                    </td>
-                              <td> </td>
-                              <td> </td>
-                              <td> 0</td>
-                              <td> 0</td>
-                              <td> </td>
-                              <!-- <td>$2,217.39 </td>
-                              <td>$2,217.39 </td>
-                              <td>Hi All </td> -->
-                          </tr>
-                          <tr>
-                              <td > MK00601667
-                                </td>
-                                <td > Sharath Kumar
-                                  </td>
-                              <td > 169
-                                </td>
-                              <td>₹84,000.00 
-                                </td>
-                              <td> $1,217.39 
-                                </td>
-                                <td > 169
-                                  </td>
-                                <td>₹84,000.00 
-                                  </td>
-                                <td> $1,217.39 
-                                  </td>
-                                  <td > 169
-                                    </td>
-                                  <td>₹84,000.00 
-                                    </td>
-                                  <td> $1,217.39 
-                                    </td>
-                              <td> </td>
-                              <td> </td>
-                              <td> -20</td>
-                              <td> -160</td>
-                              <td> </td>
-                              <!-- <td>$2,217.39 </td>
-                              <td>$2,217.39 </td>
-                              <td>Hi All </td> -->
-                          </tr>
+                         
+                        
                           </tbody>
                             <tfoot>
                                             <tr>
