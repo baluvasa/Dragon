@@ -26,10 +26,10 @@
       
       <div class="form-group row">
           <div class="form-group col-md-12 col-lg-12 col-xl-12">
-            <button routerLink="/projectinfo-monthly" routerLinkActive="active" class="btn btn-sm btn-primary">OCT-2019</button>&nbsp;
+            <!-- <button routerLink="/projectinfo-monthly" routerLinkActive="active" class="btn btn-sm btn-primary">OCT-2019</button>&nbsp;
 					
             <button routerLink="/pronov" routerLinkActive="active"  class="btn btn-sm btn-primary">NOV-2019</button>&nbsp;
-            <button  routerLink="/prodec" routerLinkActive="active" class="btn btn-sm btn-primary">DEC-2019</button>
+            <button  routerLink="/prodec" routerLinkActive="active" class="btn btn-sm btn-primary">DEC-2019</button> -->
             <!-- <div class="col-md-3">
                 <label>Project Year & Month</label>
                
@@ -112,10 +112,10 @@
       
           <form class="form" >
                 
-              <div class="panel panel-default">
+              <div class="panel panel-default" *ngIf="projectresourcelist">
             
                   <div class="panel-body">  
-                      <button routerLink="/projectinfo-monthly" routerLinkActive="active"  class="btn btn-sm btn-primary">OCT-2019</button>&nbsp;
+                      <button routerLink="/projectinfo-monthly" routerLinkActive="active"  class="btn btn-sm btn-primary">2019-FEB</button>&nbsp;
                       <table class="table  table-bordered">
                           <thead>
                           <tr>
@@ -200,7 +200,7 @@
                                 <td > {{prolist.associateName}}
                                   </td>
                               <td > 
-                                <span *ngFor="let monthlyDetail of prolist.monthlyDetails">
+                                <span *ngFor="let monthlyDetail of prolist.monthlyDetails;index as i">
                                   {{monthlyDetail.projections.qty}}
                                 </span>
                                 </td>
@@ -255,16 +255,16 @@
                         
                           </tbody>
                             <tfoot>
-                                            <tr>
+                                            <tr >
                                               <td><b>Total</b></td>
                                               <td></td>
-                                              <td>508</td>
+                                              <td></td>
                                               <td>₹252,000.00</td>
                                               <td>$3,652.17</td>
-                                              <td>508</td>
+                                              <td>896</td>
                                               <td>₹252,000.00</td>
                                               <td>$3,652.17</td>
-                          <td>508</td>
+                          <td>896</td>
                                               <td>₹252,000.00</td>
                                               <td>$3,652.17</td>
                                               <td > ₹ -      

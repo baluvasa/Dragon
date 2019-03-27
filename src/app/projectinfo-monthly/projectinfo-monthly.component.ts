@@ -78,7 +78,13 @@ export class ProjectinfoMonthlyComponent implements OnInit {
     // this.get_all_project_info(emplist);
     
   }
-  
+  // getSum(index: number) : number {
+  //   let sum = 0;
+  //   for(let i = 0; i < this.items.length; i++) {
+  //     sum += this.items[i][index];
+  //   }
+  //   return sum;
+  // }
   onOpenCalendar(selecteddate){ 
     this.poyearmonth(selecteddate);
   }
@@ -101,7 +107,13 @@ export class ProjectinfoMonthlyComponent implements OnInit {
       this.projectresourcelist=this.results.superResourceBOList;
       console.log(this.projectresourcelist);
       this.resourcebill=this.results.superResourceBOList[0].monthlyDetails[0];
-      console.log(this.resourcebill);
+      // this.
+      // let sum = 0;
+      // for(let i = 0; i < this.projectresourcelist.monthlyDetails[i].length; i++) {
+      //   sum += this.projectresourcelist.monthlyDetails[i].qty;
+      // }
+      // return sum;
+      // console.log(sum);
       // this.billdetails=this.results.monthlyDetails
       
     },
