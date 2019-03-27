@@ -126,7 +126,7 @@ export class AccessdetailsComponent implements OnInit {
       });
     }
     add_accessdetails(value){
-      let category={gid:value.addassociateid,associateName:value.addassociatename,accessType:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
+      let category={gid:value.addassociateid,associateName:value.addassociatename,role:value.addaccesstype,status:value.addstatus,createdBy:'admin'};
       console.log(category)
       let url=this.ip+'/po/access/add';
       this.httpClient.post(url,category).subscribe(result => {
