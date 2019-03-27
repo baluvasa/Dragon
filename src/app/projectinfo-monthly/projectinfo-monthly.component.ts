@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
+import { AppServicesService } from '../app-services.service';
 @Component({
   selector: 'app-projectinfo-monthly',
   templateUrl: './projectinfo-monthly.component.html',
@@ -10,17 +11,17 @@ export class ProjectinfoMonthlyComponent implements OnInit {
   role:any;
   maxdate:any;
   mindate:any;
-  project_years = AppLink.projectstartenddates;
+  project_years:any;
   
   poyearmonth = AppLink.onOpenCalendar; 
-  constructor(private eventEmitterService: EventEmitterService) { }
+  constructor(private eventEmitterService: EventEmitterService,private appservice:AppServicesService) { }
   
   ngOnInit() {
     this.eventEmitterService.menuinvokefunction(); 
     if(localStorage.getItem('logeduser')=='ADMIN'){
       this.role=true;
     }
-    //this.postartenddates();
+    this.postartenddates();
   }
   
   
@@ -34,13 +35,9 @@ export class ProjectinfoMonthlyComponent implements OnInit {
   }
   
   postartenddates(){
-    console.log(this.project_years);
-
-    // let startdate="05-Mar-2019";
-    // let enddate="05-May-2019";
-    
+    this.project_years=this.appservice.getdates();
     this.projectmaxdate(this.project_years.startdate);
-    this.projectmindate(this.project_years.enddate);
+   this.projectmindate(this.project_years.enddate);
   }
   
   

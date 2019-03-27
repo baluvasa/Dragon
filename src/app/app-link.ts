@@ -1,5 +1,6 @@
 import {IMyDpOptions} from 'mydatepicker';
 export class AppLink {
+
     public static get myDatePickerOptions() {
         let IMyDpOptions = {
             dateFormat: 'dd-mmm-yyyy',
@@ -110,16 +111,7 @@ export class AppLink {
                     }
                   }  
                   return dates;
-                }
-                public static get projectstartenddates(startdate, enddate) {
-
-                  let dates={"startdate":"05-Mar-2019","enddate":"05-May-2019"};
-                  console.log(dates);
-                  return dates;
-                }
-                
-
-
+                } 
                 public static onOpenCalendar(selecteddate) {
                   selecteddate.monthSelectHandler = (event: any): void => {
                     selecteddate._store.dispatch(selecteddate._actions.select(event.date));

@@ -3,16 +3,13 @@ import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms'
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from '@angular/common/http'
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { debug } from 'util';
-
+import { AppServicesService } from '../app-services.service';
 @Component({
   selector: 'app-poapproval',
   templateUrl: './poapp.component.html',
   styleUrls: ['./poapp.component.scss']
 })
 export class PoappComponent implements OnInit {
-  // public static get categorysearch(){ };
   a:any;
   poapprovalform: FormGroup;
   addpoform: FormGroup;
@@ -35,7 +32,6 @@ export class PoappComponent implements OnInit {
   dtOptions = AppLink.DTOptions;
   month_year = AppLink.dateRange;
   month_years = AppLink.dateRanges;
-  project_start_end_dates = AppLink.projectstartenddates;
   role:any;
   crud_url:any;
   month_default=0;
@@ -59,7 +55,7 @@ export class PoappComponent implements OnInit {
   project_name_datas:any;
   project_types=AppLink.projectTypes;
   
-  constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService,private httpClient:HttpClient ) { }
+  constructor(private formBuilder: FormBuilder,private eventEmitterService:EventEmitterService,private httpClient:HttpClient,private appservice:AppServicesService ) { }
   
   ngOnInit() {
     
@@ -285,15 +281,8 @@ export class PoappComponent implements OnInit {
   
   
   start_end_dates(startdate,enddate){
-    this.project_start_end_dates(startdate,enddate);
-
-
+    this.appservice.setdates(startdate,enddate);    
   }
-  
-  
-  
-  
-  
   //fetch all project data based on selected account category and account name
   get_all_project_info(target){
     console.log("log",target);

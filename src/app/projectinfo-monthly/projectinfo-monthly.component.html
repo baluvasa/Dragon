@@ -43,7 +43,7 @@
             <div class="col-md-3">
                 <label>Project Year & Month</label>
                 <input [(ngModel)]="modelDate" autocomplete="off" class="form-control" name="date" bsDatepicker  [minDate]="maxdate"  [maxDate]="mindate"
-                [bsConfig]="{dateInputFormat: 'MMM-YYYY'}" (onShown)="postartenddates()">
+                [bsConfig]="{dateInputFormat: 'MMM-YYYY'}" (onShown)="onOpenCalendar($event)">
             
             </div> 
           </div>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 })
 export class AppServicesService {
   loged:any;
+  dates={};
   constructor(private route: Router) { }
   setLogedinfo(value){        
     this.loged=localStorage.setItem('logeduser',value);
@@ -19,5 +20,12 @@ export class AppServicesService {
   logout() {
     localStorage.removeItem("logeduser");
     this.route.navigate(["login"]);
+  }
+  setdates(startdate,enddate){
+this.dates["startdate"]=startdate;
+this.dates["enddate"]=enddate;
+  }
+  getdates(){
+return this.dates;
   }
 }
