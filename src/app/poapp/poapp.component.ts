@@ -202,9 +202,9 @@ export class PoappComponent implements OnInit {
     
     this.httpClient.get(this.crud_url).subscribe(result => {
       this.results=result;
-      this.associateslist= this.results.projectInfoList;
+      this.associateslist= this.results.superResourceBOList;
       console.log("11111",this.crud_url);
-      console.log("@@@@@", this.results);
+      console.log("@@@@@", this.associateslist);
       
       
     },

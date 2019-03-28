@@ -32,7 +32,8 @@ bil_sum_usd=0;
 pro_sum_entry=0;
 pro_sum_qty=0;
 pro_sum_usd=0; 
-
+pro_sum_rus_hours=0;
+pro_sum_rus_days=0;
   constructor(private eventEmitterService: EventEmitterService,private appservice:AppServicesService,private httpClient:HttpClient) { }
   
   ngOnInit() {
@@ -131,6 +132,9 @@ pro_sum_usd=0;
       this.pro_sum_entry=this.projectresourcelist[z].monthlyDetails[0].accruals.entry+this.pro_sum_entry;
       this.pro_sum_qty=this.projectresourcelist[z].monthlyDetails[0].accruals.qty+this.pro_sum_qty;
       this.pro_sum_usd=this.projectresourcelist[z].monthlyDetails[0].accruals.usd+this.pro_sum_usd;
+      // this.pro_sum_rus_days=this.projectresourcelist[z].monthlyDetails[0].rusGapDays+this.pro_sum_rus_days;
+      // this.pro_sum_rus_hours=this.projectresourcelist[z].monthlyDetails[0].rusGapHours+ this.pro_sum_rus_hours;
+      console.log("")
       }
       console.log(this.acc_sum_entry)
       console.log(this.acc_sum_qty)
