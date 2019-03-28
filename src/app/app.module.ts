@@ -25,7 +25,7 @@ import { AccountcategoryComponent } from './accountcategory/accountcategory.comp
 import { QuoteComponent } from './quote/quote.component';
 import { AccessdetailsComponent } from './accessdetails/accessdetails.component';
 // import { Createproject1Component } from './createproject1/createproject1.component';
-import { Accountcategory1Component } from './accountcategory1/accountcategory1.component'; 
+// import { Accountcategory1Component } from './accountcategory1/accountcategory1.component'; 
 import { HttpClientModule } from  "@angular/common/http";
 import { CanActivateGuard } from './can-activate.guard';
 import {MyDatePickerModule} from 'mydatepicker';
@@ -46,7 +46,6 @@ import { UniquePipe } from './unique.pipe';
     ChartsComponent,
     LogoutComponent,
     LoginComponent,
-    // ChangepasswordComponent,
     CreateprojectComponent,
     ProjectinfoComponent,
     LeavedetailsComponent,
@@ -57,8 +56,6 @@ import { UniquePipe } from './unique.pipe';
     AccountcategoryComponent,
     QuoteComponent,
     AccessdetailsComponent,
-    // Createproject1Component,
-    Accountcategory1Component,
     ProjectinfoMonthlyComponent,
     PronovComponent,
     ProdecComponent,
