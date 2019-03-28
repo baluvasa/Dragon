@@ -454,6 +454,18 @@ export class Createproject1Component implements OnInit {
         this.results=result;
         if(this.results.status==200){
           this.resources=this.results.resourceLinkedDetails;
+          let resources_p=this.results.resourceLinkedDetails;
+          let z=[];
+for(let h=0;h<resources_p.length;h++)
+{
+  let n={}
+  n["associateId"]=resources_p[h].associateId;
+  n["associateName"]=resources_p[h].associateName;
+  n["band"]=resources_p[h].band;
+  n["ratePerHour"]=0;
+z.push(n);
+}
+this.resources=z;
           this.resources_d=this.results.resourceLinkedDetails;
           // console.log(this.resources);
           this.resourceerror="";
