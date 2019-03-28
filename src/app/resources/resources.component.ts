@@ -16,6 +16,7 @@ export class ResourcesComponent implements OnInit {
   dtOptions = AppLink.DTOptions; 
   band= AppLink.band; 
   list:any;
+  projectpidlist:any;
   editerror:any;
   edit=0;
   results:any;
@@ -122,7 +123,7 @@ export class ResourcesComponent implements OnInit {
         validators: [Validators.required]
       })
     });
-
+    this.all_project_pids();
     
   }
   searchreset(){
@@ -151,6 +152,24 @@ export class ResourcesComponent implements OnInit {
     
   }
  
+  all_project_pids(){
+    
+    
+    let allpids=this.ip+'/po/project/fetch/pidlist';
+    
+    this.httpClient.get(allpids).subscribe(result => {    
+      this.results=result;
+      this.projectpidlist=this.results.pidList;
+      
+      
+    },
+    error => {
+      this.error = 'Connection Interrupted..'; 
+    });
+    
+    
+  }
+
   add_resource_data(addresourcedata)
   {
     let resources={

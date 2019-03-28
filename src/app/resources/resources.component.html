@@ -159,7 +159,11 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="id">Project ID (PID)*</label>
-                <input type="text" placeholder="Project ID (PID)" class="form-control" name="name" [formControl]="addresourceform.controls['addpid']">
+                <!-- <input type="text" placeholder="Project ID (PID)" class="form-control" name="name" [formControl]="addresourceform.controls['addpid']"> -->
+
+                <ng-select [items]="projectpidlist"  placeholder="Project ID (PID)"  name="name" [formControl]="addresourceform.controls['addpid']">
+                  </ng-select> 
+
                 <div class="text-danger" *ngIf="addresourceform.controls.addpid.errors && (addresourceform.controls.addpid.dirty || addresourceform.controls.addpid.touched) && !addresourceform.controls.addpid.valid">
                   <span *ngIf="addresourceform.controls.addpid.errors.required">Project Id is required</span>
                 </div>
