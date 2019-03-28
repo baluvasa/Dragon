@@ -40,13 +40,13 @@ const routes: Routes = [
   { path: 'fxrates', component: FxratesComponent,canActivate:[CanActivateGuard] } ,   
   { path: 'resources', component: ResourcesComponent,canActivate:[CanActivateGuard] },
   { path: 'accountcategory', component: AccountcategoryComponent,canActivate:[CanActivateGuard] },
-  { path: 'poapproval', component: PoapprovalComponent,canActivate:[CanActivateGuard] },
+  // { path: 'poapproval', component: PoapprovalComponent,canActivate:[CanActivateGuard] },
   { path: 'quote', component:  QuoteComponent,canActivate:[CanActivateGuard]},
   { path: 'accessdetails', component:  AccessdetailsComponent,canActivate:[CanActivateGuard]},
   { path: 'projectinfo-monthly', component:  ProjectinfoMonthlyComponent,canActivate:[CanActivateGuard]},
   { path: 'pronov', component:  PronovComponent,canActivate:[CanActivateGuard]},
   { path: 'prodec', component:  ProdecComponent,canActivate:[CanActivateGuard]},
-   { path: 'poapp', component:  PoappComponent,canActivate:[CanActivateGuard]},
+   { path: 'poapproval', component:  PoappComponent,canActivate:[CanActivateGuard]},
   // { path: 'accountcategory1', component:  Accountcategory1Component}
       
 ];
