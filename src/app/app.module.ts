@@ -24,7 +24,7 @@ import { PoapprovalComponent } from './poapproval/poapproval.component';
 import { AccountcategoryComponent } from './accountcategory/accountcategory.component';
 import { QuoteComponent } from './quote/quote.component';
 import { AccessdetailsComponent } from './accessdetails/accessdetails.component';
-import { Createproject1Component } from './createproject1/createproject1.component';
+// import { Createproject1Component } from './createproject1/createproject1.component';
 import { Accountcategory1Component } from './accountcategory1/accountcategory1.component'; 
 import { HttpClientModule } from  "@angular/common/http";
 import { CanActivateGuard } from './can-activate.guard';
@@ -57,7 +57,7 @@ import { UniquePipe } from './unique.pipe';
     AccountcategoryComponent,
     QuoteComponent,
     AccessdetailsComponent,
-    Createproject1Component,
+    // Createproject1Component,
     Accountcategory1Component,
     ProjectinfoMonthlyComponent,
     PronovComponent,
