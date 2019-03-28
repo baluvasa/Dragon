@@ -23,6 +23,16 @@ export class ProjectinfoMonthlyComponent implements OnInit {
   ip=AppLink.baseURL;
   monthlyform:FormGroup;
   poyearmonth = AppLink.onOpenCalendar; 
+  acc_sum_entry=0;
+acc_sum_qty=0;
+acc_sum_usd=0;
+bil_sum_entry=0;
+bil_sum_qty=0;
+bil_sum_usd=0;
+pro_sum_entry=0;
+pro_sum_qty=0;
+pro_sum_usd=0; 
+
   constructor(private eventEmitterService: EventEmitterService,private appservice:AppServicesService,private httpClient:HttpClient) { }
   
   ngOnInit() {
@@ -100,25 +110,40 @@ export class ProjectinfoMonthlyComponent implements OnInit {
     
     
     
-    this.httpClient.get(this.crud_url).subscribe(result => {
+    this.httpClient.get(this.crud_url).subscribe(result => {
       this.results=result;
-      this.projectstotallist= this.results.projectedTotalsObj;
-       console.log(this.projectstotallist);
+      this.projectstotallist= this.results.projectedTotalsObj;
+      console.log(this.projectstotallist);
       this.projectresourcelist=this.results.superResourceBOList;
       console.log(this.projectresourcelist);
-      this.resourcebill=this.results.superResourceBOList[0].monthlyDetails[0];
-      // this.
-      // let sum = 0;
-      // for(let i = 0; i < this.projectresourcelist.monthlyDetails[i].length; i++) {
-      //   sum += this.projectresourcelist.monthlyDetails[i].qty;
-      // }
-      // return sum;
-      // console.log(sum);
-      // this.billdetails=this.results.monthlyDetails
+      this.projectresourcelist = this.projectresourcelist.filter( element => element.contractNumber ==this.project_years.contract)
       
-    },
-    error =>{
+      console.log(this.projectresourcelist);
+      this.resourcebill=this.results.superResourceBOList[0].monthlyDetails[0];
+      // this.billdetails=this.results.monthlyDetails
+      for(let z=0;z<this.projectresourcelist.length;z++){
+      this.acc_sum_entry=this.projectresourcelist[z].monthlyDetails[0].accruals.entry+this.acc_sum_entry;
+      this.acc_sum_qty=this.projectresourcelist[z].monthlyDetails[0].accruals.qty+this.acc_sum_qty;
+      this.acc_sum_usd=this.projectresourcelist[z].monthlyDetails[0].accruals.usd+this.acc_sum_usd;
+      this.bil_sum_entry=this.projectresourcelist[z].monthlyDetails[0].accruals.entry+this.bil_sum_entry;
+      this.bil_sum_qty=this.projectresourcelist[z].monthlyDetails[0].accruals.qty+this.bil_sum_qty;
+      this.bil_sum_usd=this.projectresourcelist[z].monthlyDetails[0].accruals.usd+this.bil_sum_usd;
+      this.pro_sum_entry=this.projectresourcelist[z].monthlyDetails[0].accruals.entry+this.pro_sum_entry;
+      this.pro_sum_qty=this.projectresourcelist[z].monthlyDetails[0].accruals.qty+this.pro_sum_qty;
+      this.pro_sum_usd=this.projectresourcelist[z].monthlyDetails[0].accruals.usd+this.pro_sum_usd;
+      }
+      console.log(this.acc_sum_entry)
+      console.log(this.acc_sum_qty)
+      console.log(this.acc_sum_usd)
+      console.log(this.bil_sum_entry)
+      console.log(this.bil_sum_qty)
+      console.log(this.bil_sum_usd)
+      console.log(this.pro_sum_entry)
+      console.log(this.pro_sum_qty)
+      console.log(this.pro_sum_usd)
+      },
+      error =>{
       this.error='No data available';
-    });
+      }); 
   }
 }
