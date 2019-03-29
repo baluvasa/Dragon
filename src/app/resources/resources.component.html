@@ -59,10 +59,10 @@
   </ng-container>
 </div>
 
-<div class="panel panel-default"*ngIf="resourcelists">
+<div class="panel panel-default" >
   <div class="panel-body">
     <div class="table-responsive">          
-      <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions">
+      <table class="display row-border hover" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" >
         <thead>
           <tr>
             <th>S.No</th>

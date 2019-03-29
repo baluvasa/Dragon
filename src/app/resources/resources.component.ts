@@ -1,14 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit,OnDestroy,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { EventEmitterService } from '../event-emitter.service';
 import { AppLink } from '../app-link';
 import { HttpClient } from  "@angular/common/http";
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+
 @Component({
   selector: 'app-resources',
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.scss']
 })
-export class ResourcesComponent implements OnInit {
+export class ResourcesComponent implements AfterViewInit, OnDestroy,OnInit {
+  
+  
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtInstance:DataTables.Api;
+  dtTrigger = new Subject();
+  
+  
   searchresourceform:FormGroup;
   updateresourcedetails:FormGroup;
   role:any;
@@ -40,7 +51,7 @@ export class ResourcesComponent implements OnInit {
       this.role=true;
     }
     
-  
+    
     this.searchresourceform = new FormGroup({
       search_associatename:new FormControl('',{
         validators: []
@@ -126,6 +137,18 @@ export class ResourcesComponent implements OnInit {
     this.all_project_pids();
     
   }
+  
+  
+  
+  //Datatable Render
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+  
+  ngOnDestroy(): void {    
+    this.dtTrigger.unsubscribe();
+  }
+  
   searchreset(){
     this.searchresourceform.reset({ search_associatename: '', search_associateid: '',search_band:'' });
   }
@@ -138,20 +161,24 @@ export class ResourcesComponent implements OnInit {
     this.updateerrormsg='';
     this.searcherrormsg='';
   }
-  search_resource_details(value){   
-    console.log(value)
+  search_resource_details(value){  
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    }); 
+    
     let url=this.ip+'/po/resource/fetch?associateId='+value.search_associateid+'&associateName='+value.search_associatename+'&band='+value.search_band;
     this.httpClient.get(url).subscribe(result => {  
       this.results=result;
       this.resourcelists=this.results.resourcedetails;
-      console.log(this.resourcelists);
+      
     },
     error => {
       this.searcherrormsg = 'Connection Interrupted..'; 
     });
     
   }
- 
+  
   all_project_pids(){
     
     
@@ -169,7 +196,7 @@ export class ResourcesComponent implements OnInit {
     
     
   }
-
+  
   add_resource_data(addresourcedata)
   {
     let resources={
@@ -182,20 +209,26 @@ export class ResourcesComponent implements OnInit {
       createdBy:"admin"
     };
     let url=this.ip+'/po/resource/create';
-   this.httpClient.post(url,resources).subscribe(result => { 
-
-    this.addresult=result;
+    this.httpClient.post(url,resources).subscribe(result => { 
+      
+      this.addresult=result;
       if(this.addresult.status==201){
         this.addmsg=this.addresult.message;
+        let data={
+          search_associateid:'',
+          search_associatename:'',
+          search_band:''
+        };
+        this.search_resource_details(data);
         this.addresourceform.reset();
       }
       else if(this.addresult.status==409){
         this.adderrormsg=this.addresult.message;
       }
-     
+      
     },
     error => {
-        this.adderrormsg = 'Connection Interrupted..'; 
+      this.adderrormsg = 'Connection Interrupted..'; 
     })
   }
   
@@ -232,7 +265,7 @@ export class ResourcesComponent implements OnInit {
           this.addresult=result;
           if(this.addresult.status=200){
             this.updatemsg=this.addresult.message;
-          let data={
+            let data={
               search_associateid:'',
               search_associatename:'',
               search_band:''
@@ -254,7 +287,7 @@ export class ResourcesComponent implements OnInit {
         this.addresult=result;
         if(this.addresult.status=200){
           this.updatemsg=this.addresult.message;
-        let data={
+          let data={
             search_associateid:'',
             search_associatename:'',
             search_band:''
