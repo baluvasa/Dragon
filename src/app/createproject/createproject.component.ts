@@ -143,11 +143,11 @@ export class CreateprojectComponent implements OnInit {
           Validators.required
         ]
       }),
-      po_amount:new FormControl('',{
-        validators: [
-          Validators.required
-        ]
-      }),
+      // po_amount:new FormControl('',{
+      //   validators: [
+      //     Validators.required
+      //   ]
+      // }),
       start_date:new FormControl('',{
         validators: [
           Validators.required
@@ -191,6 +191,11 @@ export class CreateprojectComponent implements OnInit {
         ]
       }),
       contract_id:new FormControl('',{
+        validators: [
+          Validators.required
+        ]
+      }),
+      contract_amount:new FormControl('',{
         validators: [
           Validators.required
         ]
@@ -589,7 +594,7 @@ this.resources=z;
       submissionMode:project_data.submission_mode,
       projectType:project_data.project_type,
       billingCurrency:project_data.billing_currency,
-      poAmount:project_data.po_amount,
+      // poAmount:project_data.po_amount,
       status:project_data.status,
       projectStartDate:project_start_date,
       projectEndDate:project_end_date,
@@ -681,6 +686,7 @@ this.resources=z;
     
     let project_contract_data={ 
       contractNumber:projectcontractform.contract_id,
+      contractAmount:projectcontractform.contract_amount,
       pid:projectcontractform.pid,
       contractStartDate:start_date,
       contractEndDate:end_date,

@@ -148,29 +148,24 @@
                         </ng-select> 
                       </div>
                     </div>
-                    
                     <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="proj">Quote ID</label>
-                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['quote_id']">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="proj">PO #</label>
-                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['po_id']">
-                      </div> 
-                    </div> 
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3">
                       <div class="form-group">
                         <label for="proj">Contract ID</label>
                         <input type="text" class="form-control" [formControl]="projectcontractform.controls['contract_id']">
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="proj">Contract Amount</label>
+                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['contract_amount']">
+                      </div>
+                    </div>
                     
-                    <div class="col-md-3">
+                  </div>
+                  
+                  <div class="row">
+                    
+                    <div class="col-md-4">
                       <label for="proj">Contract Start Date</label>
                       <input 
                       type="text" 
@@ -182,7 +177,7 @@
                       readonly>
                       
                     </div> 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <label for="proj">Contact End Date</label>
                       <input 
                       type="text" 
@@ -194,12 +189,26 @@
                       readonly>
                     </div> 
                     
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <label for="proj">Unit Of Measurement(UOM- in Hours)</label>
                       <input type="number" min=0 class="form-control" [formControl]="projectcontractform.controls['unit_of_measurement']">
                     </div>
                     
                   </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="proj">Quote ID</label>
+                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['quote_id']">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="proj">PO #</label>
+                        <input type="text" class="form-control" [formControl]="projectcontractform.controls['po_id']">
+                      </div> 
+                    </div> 
+                  </div> 
                 </div>
               </div>
               <div class="modal-footer">
@@ -537,12 +546,12 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-4">
+                      <!-- <div class="col-md-4">
                         <div class="form-group">
                           <label for="proj">PO Amount</label>
                           <input type='number' class="form-control" [formControl]="projectcreateform.controls['po_amount']">
                         </div>
-                      </div>
+                      </div> -->
                       <div class="col-md-4">
                         <label for="proj">Project Start Date</label>
                         <input 
@@ -567,8 +576,6 @@
                         [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
                         readonly>                    
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="proj">Status</label>
@@ -580,6 +587,8 @@
                           </select> 
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-4">
                         <label for="proj">Delivery SPOC</label>
                         <input type="text" class="form-control" [formControl]="projectcreateform.controls['delivery_spoc']">
@@ -589,8 +598,6 @@
                         <input type="text" class="form-control" [formControl]="projectcreateform.controls['effort_spoc']">
                       </div>
                       
-                    </div>
-                    <div class="row">
                       
                       <div class="col-md-4">
                         <div class="form-group">
@@ -600,8 +607,8 @@
                           
                         </div>
                       </div>
-                      
                     </div>
+                    
                     
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-primary" [disabled]="projectcreateform.invalid" data-create="modal">Add</button>
