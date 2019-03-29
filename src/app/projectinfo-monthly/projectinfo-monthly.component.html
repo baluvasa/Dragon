@@ -123,6 +123,8 @@
                                 </th>
                                 <th >Associate Name		
                                   </th>
+                                <th >Rate		
+                                  </th>
                             <th colspan="3" >Projections		
                             </th>
                             <th colspan="3" >Accruals		
@@ -150,6 +152,8 @@
                               <td >GID		
                                 </td>
                                 <td >Associate Name	
+                                  </td>
+                                <td >Rate
                                   </td>
                             
                               <th >Qty.
@@ -198,6 +202,8 @@
                               <td > {{prolist.associateId}}	
                                 </td>
                                 <td > {{prolist.associateName}}
+                                  </td>
+                                <td > {{prolist.ratePerHour}}
                                   </td>
                               <td > 
                                 <span *ngFor="let monthlyDetail of prolist.monthlyDetails;index as i">
@@ -257,6 +263,7 @@
                             <tfoot>
                                             <tr >
                                               <td><b>total</b></td>
+                                              <td></td>
                                               <td></td>
                                            
                                               <td>{{pro_sum_qty}}</td>

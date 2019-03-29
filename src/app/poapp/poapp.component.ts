@@ -197,12 +197,13 @@ export class PoappComponent implements OnInit {
     
     
     this.crud_url=this.ip+'/po/po_approval/fetch/projectInfoList?customerName='+value.updcustname+'&pId='+value.updpid+'&contract='+value.updcontract+'&quote='+value.updquote+'&yyyyMM='+value.modalpo_year_month;
-    
+    console.log(this.crud_url)
     
     
     this.httpClient.get(this.crud_url).subscribe(result => {
       this.results=result;
       this.associateslist= this.results.superResourceBOList;
+      this.associateslist= this.associateslist.filter( element => element.contractNumber ==value.updcontract)
       console.log("11111",this.crud_url);
       console.log("@@@@@", this.associateslist);
       
