@@ -547,37 +547,39 @@ this.resources=z;
   // Create A New Project 
   
   add_project_details(project_data){
-    let resources_data=$("#resources_data"); 
-    let contract_data_resources_data=$("#contract_resources_data"); 
-    let all_resources=[];
-    let contract_resources=[];
-    for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
-      let resource={};
-      if($('#'+k+'linked').prop("checked") == true){
-        resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
-        resource["location"]=$('#'+k+'location option:selected').text();
-        resource["associateStartDate"]=$('#'+k+'startdate').val();
-        resource["associateEndDate"]=$('#'+k+'enddate').val();
-        resource["ratePerHour"]=$('#'+k+'text').val();
-        resource["linked"]='Y';        
-        resource["pId"]=project_data.pid;        
-        all_resources.push(resource);      
-      }
-    }
-    for(let i=1,k=0;i<=contract_data_resources_data[0].lastChild.childNodes.length;i++,k++){
-      let resource={};      
-      if($('#'+k+'linked1').prop("checked") == true){
-        resource["associateId"]=contract_data_resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
-        resource["location"]=$('#'+k+'location1 option:selected').text();
-        resource["associateStartDate"]=$('#'+k+'startdate1').val();
-        resource["associateEndDate"]=$('#'+k+'enddate1').val();
-        resource["ratePerHour"]=$('#'+k+'text1').val();
-        resource["linked"]='Y';        
-        resource["pId"]=project_data.pid;        
-        all_resources.push(resource);      
-        contract_resources.push(resource);
-      }
-    }
+    // let resources_data=$("#resources_data"); 
+    // let contract_data_resources_data=$("#contract_resources_data"); 
+    // let all_resources=[];
+    // let contract_resources=[];
+    // for(let i=1,k=0;i<=resources_data[0].lastChild.childNodes.length;i++,k++){
+    //   let resource={};
+    //   if($('#'+k+'linked').prop("checked") == true){
+    //     resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
+    //     resource["location"]=$('#'+k+'location option:selected').text();
+    //     resource["rateMethod"]=$('#'+k+'ratemethod option:selected').text();
+    //     resource["associateStartDate"]=$('#'+k+'startdate').val();
+    //     resource["associateEndDate"]=$('#'+k+'enddate').val();
+    //     resource["ratePerHour"]=$('#'+k+'text').val();
+    //     resource["linked"]='Y';        
+    //     resource["pId"]=project_data.pid;        
+    //     all_resources.push(resource);      
+    //   }
+    // }
+    // for(let i=1,k=0;i<=contract_data_resources_data[0].lastChild.childNodes.length;i++,k++){
+    //   let resource={};      
+    //   if($('#'+k+'linked1').prop("checked") == true){
+    //     resource["associateId"]=contract_data_resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
+    //     resource["location"]=$('#'+k+'location1 option:selected').text();
+    //     resource["rateMethod"]=$('#'+k+'ratemethod1 option:selected').text();
+    //     resource["associateStartDate"]=$('#'+k+'startdate1').val();
+    //     resource["associateEndDate"]=$('#'+k+'enddate1').val();
+    //     resource["ratePerHour"]=$('#'+k+'text1').val();
+    //     resource["linked"]='Y';        
+    //     resource["pId"]=project_data.pid;        
+    //     all_resources.push(resource);      
+    //     contract_resources.push(resource);
+    //   }
+    // }
     let project_start_date:any,
     project_end_date:any;
     
@@ -726,6 +728,7 @@ this.resources=z;
       if($('#'+k+'linked').prop("checked") == true){
         resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
         resource["location"]=$('#'+k+'location option:selected').text();
+        resource["rateMethod"]=$('#'+k+'ratemethod option:selected').text();
         resource["associateStartDate"]=$('#'+k+'startdate').val();
         resource["associateEndDate"]=$('#'+k+'enddate').val();
         resource["ratePerHour"]=$('#'+k+'text').val();
@@ -737,6 +740,7 @@ this.resources=z;
       if($('#'+k+'linked').prop("checked") ==false){
         resource["associateId"]=resources_data[0].lastChild.childNodes[i].childNodes[0].textContent;
         resource["location"]=$('#'+k+'location option:selected').text();
+        resource["rateMethod"]=$('#'+k+'ratemethod1 option:selected').text();
         resource["associateStartDate"]=$('#'+k+'startdate').val();
         resource["associateEndDate"]=$('#'+k+'enddate').val();
         resource["ratePerHour"]=$('#'+k+'text').val();
