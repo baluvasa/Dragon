@@ -11,7 +11,7 @@ export class AppLink {
         return IMyDpOptions;
     }
  
-    public static get baseURL(): string { return "http://10.56.65.45:8082"; }
+    public static get baseURL(): string { return "http://10.56.66.247:8082"; }
     public static get DTOptions() { 
         let dtOptions = {
             dom: 'Bfrtip<t>ip',
@@ -26,7 +26,7 @@ export class AppLink {
             pagingType: 'full_numbers',
             buttons: [ 
                 { extend: 'pageLength',class:'page_length'},
-                // { extend: 'colvis', text: 'Show/Hide Column'},
+                { extend: 'colvis', text: 'Show/Hide Column'},
                 { extend: 'excel', text: 'Export To Excel' }
             ]
         };
